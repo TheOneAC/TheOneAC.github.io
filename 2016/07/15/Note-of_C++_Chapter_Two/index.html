@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="-Notes -C++," />
+  <meta name="keywords" content="Notes,C++," />
 
 
 
@@ -88,13 +88,13 @@
 
 <meta name="description" content="Top-Level constA pointer who is const is top-level const,and the object it point to is const ,it is low-levelpointer must point to an object，not a value.pointer pointe to an const object may not be in">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Note of C++ chapter two">
+<meta property="og:title" content="C Primier Plus --*chapter two*">
 <meta property="og:url" content="http://yoursite.com/2016/07/15/Note-of_C++_Chapter_Two/index.html">
 <meta property="og:site_name" content="TheOneAC">
 <meta property="og:description" content="Top-Level constA pointer who is const is top-level const,and the object it point to is const ,it is low-levelpointer must point to an object，not a value.pointer pointe to an const object may not be in">
-<meta property="og:updated_time" content="2016-07-15T15:59:39.629Z">
+<meta property="og:updated_time" content="2016-07-15T16:47:19.506Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Note of C++ chapter two">
+<meta name="twitter:title" content="C Primier Plus --*chapter two*">
 <meta name="twitter:description" content="Top-Level constA pointer who is const is top-level const,and the object it point to is const ,it is low-levelpointer must point to an object，not a value.pointer pointe to an const object may not be in">
 
 
@@ -118,7 +118,7 @@
 
   <link rel="canonical" href="http://yoursite.com/2016/07/15/Note-of_C++_Chapter_Two/"/>
 
-  <title> Note of C++ chapter two | TheOneAC </title>
+  <title> C Primier Plus --*chapter two* | TheOneAC </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -248,7 +248,7 @@
             
             
               
-                Note of C++ chapter two
+                C Primier Plus --*chapter two*
               
             
           </h1>
@@ -313,9 +313,10 @@
 <li><strong>Low-level const only appear in the base type of compiund type such as pointer and reference</strong></li>
 <li><strong>when copy an object top-level const will be ipnored</strong></li>
 <li><strong>when copy an object low-level const must be the same ,because it cann’t be ignored</strong><a id="more"></a>
-<h3 id="Constexpr"><a href="#Constexpr" class="headerlink" title="Constexpr"></a>Constexpr</h3></li>
+</li>
 </ul>
-<ol>
+<hr>
+<h3 id="Constexpr"><a href="#Constexpr" class="headerlink" title="Constexpr"></a>Constexpr</h3><ol>
 <li>constexpr : a expression whose value can nor chage and can be evaluated at compile time</li>
 <li>a constant expression is one that can be evaluated at compile time</li>
 <li>define a pointer in a constexprdeclaration, the constexpr specifier applies to the pointer, not the type to which the pointer points</li>
@@ -327,17 +328,16 @@
 <p><strong><em>auto</em></strong> </p>
 <ol>
 <li>auto let the compiler to deduce the type from the initializer</li>
-<li><p>auto adjusts the type to conform to normal initialization rules.</p>
-<figure class="highlight plain"><figcaption><span>sz = 0, pi = 3.14; </span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">the compiler cann`t deduce the type of the two variable.</div></pre></td></tr></table></figure>
-</li>
-<li><p>1.when we use a reference or pointer as a initializer,<br>we are using the object to which it refers or pointe.<br><code>int i = 0, &amp;r = i;</code><br>3.auto orfinarily ignores top-level consts.<br>auto a = r; // a is an int<br>if want to deduce type have a top-level <em>const</em>,you must say explicitlly.   <code>const auto</code></p>
-</li>
+<li>auto adjusts the type to conform to normal initialization rules.<br><code>auto sz = 0, pi = 3.14; 
+the compiler cann`t deduce the type of the two variable.</code></li>
+<li>when we use a reference or pointer as a initializer,<br>we are using the object to which it refers or pointe.<br>  <code>int i = 0, &amp;r = i;</code><br>3.auto orfinarily ignores top-level consts.<br>auto a = r; // a is an int<br><code>if want to deduce type have a top-level *const*,you must say explicitlly.</code>   <code>const auto</code></li>
 </ol>
-<p><strong><em>decltype</em></strong>:return the type of its operand.<br><em>The compiler analyzes the expression to determine its type but does not evaluate the expression</em><br><code>decltype(f()) sum = x; // sum has whatever type f returns</code></p>
+<hr>
+<p><strong><em>decltype</em></strong> :return the type of its operand.<br><em>The compiler analyzes the expression to determine its type but does not evaluate the expression</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">decltype(f()) sum = x; // sum has whatever type f returns</div></pre></td></tr></table></figure></p>
 <ul>
-<li><em>If we wrap the variable’s name in one<br>or more sets of parentheses, the compiler will evaluate the operand as an expression</em><br><strong>Assignment is an example of an expression that yields a reference type.</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int a = 3, b = 4;</div><div class="line">decltype(a = b) d = a;</div><div class="line">d is a reference of int. the value:  d=3</div></pre></td></tr></table></figure>
-</li>
+<li><em>If we wrap the variable’s name in one<br>or more sets of parentheses, the compiler will evaluate the operand as an expression</em><br><strong>Assignment is an example of an expression that yields a reference type.</strong></li>
 </ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int a = 3, b = 4;</div><div class="line">decltype(a = b) d = a;</div><div class="line">d is a reference of int. the value:  d=3</div></pre></td></tr></table></figure>
 <hr>
 <ol>
 <li><strong>decltype returns the type of that variable, including top-level const and references,which <em>auto</em> ignors.</strong></li>
@@ -365,7 +365,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Notes-C/" rel="tag">#-Notes -C++</a>
+            <a href="/tags/Notes/" rel="tag">#Notes</a>
+          
+            <a href="/tags/C/" rel="tag">#C++</a>
           
         </div>
       
@@ -374,8 +376,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/15/git-command/" rel="next" title="git_command">
-                <i class="fa fa-chevron-left"></i> git_command
+              <a href="/2016/07/15/git-command/" rel="next" title="Git Command">
+                <i class="fa fa-chevron-left"></i> Git Command
               </a>
             
           </div>
