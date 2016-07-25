@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/07/21/Class/index.html">
 <meta property="og:site_name" content="TheOneAC">
 <meta property="og:description" content="Functions defined in the class are implicitly inline.every member function must be declared inside its class.Member functions access the object on which they were called through an extra, implicit par">
-<meta property="og:updated_time" content="2016-07-24T16:37:16.044Z">
+<meta property="og:updated_time" content="2016-07-24T17:17:31.176Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Class">
 <meta name="twitter:description" content="Functions defined in the class are implicitly inline.every member function must be declared inside its class.Member functions access the object on which they were called through an extra, implicit par">
@@ -316,7 +316,14 @@
 <li>it is a good idea write member initializers to use the constructor’s<br>parameters rather than another data member from the same object.</li>
 </ol>
 <p>Only One Class-Type Conversion Is Allowed<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$ Now, neither constructor can be used to implicitly create a Sales_data object.</div><div class="line">$ The explicit keyword is meaningful only on constructors that can be called with a single argument.</div><div class="line">$ The explicit keyword is used only on the constructor declaration inside</div><div class="line">the class.</div><div class="line">class Sales_data &#123;</div><div class="line">public:</div><div class="line">Sales_data() = default;</div><div class="line">Sales_data(const std::string &amp;s, unsigned n, double p):</div><div class="line">bookNo(s), units_sold(n), revenue(p*n) &#123; &#125;</div><div class="line">explicit Sales_data(const std::string &amp;s): bookNo(s) &#123; &#125;</div><div class="line">explicit Sales_data(std::istream&amp;);</div><div class="line">// remaining members as before</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<p>An aggregate class (§ 7.5.5, p. 298) whose data members are all of literal type is a literal class</p>
+<p><em>*</em> An aggregate class (§ 7.5.5, p. 298) whose data members are all of literal type is a literal class??</p>
+<h3 id="static-Class-Members"><a href="#static-Class-Members" class="headerlink" title="static Class Members"></a>static Class Members</h3><p>a member is associated with the class by adding the keyword static to its<br>declaration.<br>Even though static members are not part of the objects of its class, we can use an object, reference, or pointer of the class type to access a static member:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">class Account &#123;</div><div class="line">public:</div><div class="line">void calculate() &#123; amount += amount * interestRate; &#125;</div><div class="line">static double rate() &#123; return interestRate; &#125;</div><div class="line">static void rate(double);</div><div class="line">private:</div><div class="line">std::string owner;</div><div class="line">double amount;</div><div class="line">static double interestRate;</div><div class="line">static double initRate();</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Account ac1;</div><div class="line">Account *ac2 = &amp;ac1;</div><div class="line">// equivalent ways to call the static member rate function</div><div class="line">r = ac1.rate(); // through an Account object or reference</div><div class="line">r = ac2-&gt;rate(); // through a pointer to an Account object</div></pre></td></tr></table></figure></p>
+<p>As with any class member, when we refer to a class static member outside<br>the class body, we must specify the class in which the member is defined.<br>The static keyword, however, is used only on the declaration inside the<br>class body.<br>we must define and initialize each static<br>data member outside the class body. and a static data member may be defined only once.</p>
+<ol>
+<li>a static data member can have incomplete type</li>
+<li>a static data member can have the same type as the class type of which<br>it is a member.</li>
+<li>we can use a static member as a default argument</li>
+</ol>
 
       
     </div>
@@ -357,6 +364,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/25/C-Primier-Plus-IO-Library/" rel="prev" title="C Primier Plus IO Library">
+                C Primier Plus IO Library <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -430,7 +441,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">7</span>
+              <span class="site-state-item-count">8</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -514,7 +525,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Constructer"><span class="nav-number">1.</span> <span class="nav-text">Constructer</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Constructer"><span class="nav-number">1.</span> <span class="nav-text">Constructer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static-Class-Members"><span class="nav-number">2.</span> <span class="nav-text">static Class Members</span></a></li></ol></div>
             
           </div>
         </section>

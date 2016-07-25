@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Algorithm Git C++" />
+  <meta name="keywords" content="Notes,C++," />
 
 
 
@@ -86,16 +86,16 @@
 
 
 
-<meta name="description" content="生如逆旅  一苇可航">
-<meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="http://yoursite.com/categories/index.html">
+<meta name="description" content="No Copy or Assign for IO ObjectsFunctions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.The">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C Primier Plus IO Library">
+<meta property="og:url" content="http://yoursite.com/2016/07/25/C-Primier-Plus-IO-Library/index.html">
 <meta property="og:site_name" content="TheOneAC">
-<meta property="og:description" content="生如逆旅  一苇可航">
-<meta property="og:updated_time" content="2016-07-14T10:48:03.148Z">
+<meta property="og:description" content="No Copy or Assign for IO ObjectsFunctions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.The">
+<meta property="og:updated_time" content="2016-07-25T06:05:39.535Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="categories">
-<meta name="twitter:description" content="生如逆旅  一苇可航">
+<meta name="twitter:title" content="C Primier Plus IO Library">
+<meta name="twitter:description" content="No Copy or Assign for IO ObjectsFunctions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.The">
 
 
 
@@ -116,15 +116,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/07/25/C-Primier-Plus-IO-Library/"/>
 
-  <title>
-  
-
-  
-    Category | TheOneAC
-  
-</title>
+  <title> C Primier Plus IO Library | TheOneAC </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -145,7 +139,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -235,16 +229,147 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
     
-      <div class="category-all-page">
-        <div class="category-all-title">
-            2 categories in total
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                C Primier Plus IO Library
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-25T01:22:33+08:00" content="2016-07-25">
+              2016-07-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
         </div>
-        <div class="category-all">
-          <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/C/">C++</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tools/">Tools</a><span class="category-list-count">1</span></li></ul>
-        </div>
-      </div>
+      </header>
     
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="No-Copy-or-Assign-for-IO-Objects"><a href="#No-Copy-or-Assign-for-IO-Objects" class="headerlink" title="No Copy or Assign for IO Objects"></a>No Copy or Assign for IO Objects</h3><p>Functions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.<br>The library lets us ignore the differences among these different kinds of streams by using <strong>inheritance</strong><br>There are two other similar manipulators: flush and ends.<br>flush flushes the stream but adds no characters to the output; ends inserts a null character into the buffer and then flushes it<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; endl; // writes hi and a newline, then flushes the buffer</div><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; flush; // writes hi, then flushes the buffer; adds no data</div><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; ends; // writes hi and a null, then flushes the buffer</div><div class="line"></div><div class="line">cout &lt;&lt; unitbuf; // all writes will be flushed immediately</div><div class="line">// any output is flushed immediately, no buffering</div><div class="line">cout &lt;&lt; nounitbuf; // returns to normal buffering</div></pre></td></tr></table></figure></p>
+<p><strong>Output buffers are not flushed if the program terminates abnormally.</strong><br>Tying Input and Output Streams Together:<br>When an input stream is tied to an output stream, any attempt to read the input stream will first flush the buffer associated with the output stream.</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Notes/" rel="tag">#Notes</a>
+          
+            <a href="/tags/C/" rel="tag">#C++</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/21/Class/" rel="next" title="Class">
+                <i class="fa fa-chevron-left"></i> Class
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
   </div>
 
 
@@ -276,8 +401,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -365,6 +499,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#No-Copy-or-Assign-for-IO-Objects"><span class="nav-number">1.</span> <span class="nav-text">No Copy or Assign for IO Objects</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -461,6 +606,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
