@@ -88,13 +88,13 @@
 
 <meta name="description" content="vector deque list forward-list array stringstring and vector hold their elements in contiguous memory.it is best to use vector unless there is a good reason to prefer another container.the predominant">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Sequential Container">
+<meta property="og:title" content="C Primier Plus Sequential Container">
 <meta property="og:url" content="http://yoursite.com/2016/07/25/Sequential-Container/index.html">
 <meta property="og:site_name" content="TheOneAC">
 <meta property="og:description" content="vector deque list forward-list array stringstring and vector hold their elements in contiguous memory.it is best to use vector unless there is a good reason to prefer another container.the predominant">
-<meta property="og:updated_time" content="2016-07-25T15:58:10.888Z">
+<meta property="og:updated_time" content="2016-07-26T11:07:27.916Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sequential Container">
+<meta name="twitter:title" content="C Primier Plus Sequential Container">
 <meta name="twitter:description" content="vector deque list forward-list array stringstring and vector hold their elements in contiguous memory.it is best to use vector unless there is a good reason to prefer another container.the predominant">
 
 
@@ -118,7 +118,7 @@
 
   <link rel="canonical" href="http://yoursite.com/2016/07/25/Sequential-Container/"/>
 
-  <title> Sequential Container | TheOneAC </title>
+  <title> C Primier Plus Sequential Container | TheOneAC </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -248,7 +248,7 @@
             
             
               
-                Sequential Container
+                C Primier Plus Sequential Container
               
             
           </h1>
@@ -316,7 +316,22 @@
 <li>The constructor that takes two iterators as arguments does not require the container types to be identical. Moreover, the element types in the new and original containers can differ as long as it is possible to convert the elements we’re copying to the element type of the container we are initializing.</li>
 </ol>
 <p>Unlike built-in arrays, the library array type does allow assignment,the array type does not support assign and it does not allow assignment from a braced list of values.<br><strong>Using assign (Sequential Containers Only)</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">list&lt;string&gt; names;</div><div class="line">vector&lt;const char*&gt; oldstyle;</div><div class="line">names = oldstyle; // error: container types don&apos;t match</div><div class="line">// ok: can convert from const char*to string</div><div class="line">names.assign(oldstyle.cbegin(), oldstyle.cend());</div></pre></td></tr></table></figure></p>
-<p>after swap,with the exception of string,iterators, references, and pointers into the containers are not invalidated.but a call to swap on a string may invalidate iterators, references and pointers.</p>
+<p>after swap,with the exception of string,iterators, references, and pointers into the containers are not invalidated.but a call to swap on a string may invalidate iterators, references and pointers.<br><a id="more"></a></p>
+<h3 id="Relational-Operators"><a href="#Relational-Operators" class="headerlink" title="Relational Operators"></a>Relational Operators</h3><p><strong>Every container type supports the equality operators (== and !=); all the containers except the unordered associative containers also support the relational operators (&gt;,&gt;=, &lt;, &lt;=). The right- and left-hand operands must be the same kind of container and must hold elements of the same type.</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">$ Compare elements in a list&lt;int&gt; to a vector&lt;int&gt;</div><div class="line">#include &lt;iostream&gt;</div><div class="line">#include &lt;vector&gt;</div><div class="line">#include &lt;list&gt;</div><div class="line"></div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">    std::list&lt;int&gt; list&#123;1, 2, 3, 4, 5&#125;;</div><div class="line">    std::vector&lt;int&gt; vec1&#123;1, 2, 3, 4, 5&#125;;</div><div class="line">    std::vector&lt;int&gt; vec2&#123;1, 2, 3, 4&#125;;</div><div class="line"></div><div class="line">    std::cout &lt;&lt; std::boolalpha</div><div class="line">              &lt;&lt; (std::vector&lt;int&gt;(list.begin(), list.end()) == vec1)</div><div class="line">              &lt;&lt; std::endl;</div><div class="line">    std::cout &lt;&lt; std::boolalpha</div><div class="line">              &lt;&lt; (std::vector&lt;int&gt;(list.begin(), list.end()) == vec2)</div><div class="line">              &lt;&lt; std::endl;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="Sequential-Container-Operations"><a href="#Sequential-Container-Operations" class="headerlink" title="Sequential Container Operations"></a>Sequential Container Operations</h3><p>When we use an object to initialize a container, or insert an object into a<br>container, a copy of that object’s value is placed in the container, not the<br>object itself.<br><strong>The insert members are supported for vector, deque, list, and string.</strong><br>When we pass a pair of iterators, those iterators may not refer to the same container as the one to which we are adding elements.</p>
+<ol>
+<li>push or insert member, we pass objects of the element type and<br>those objects are copied into the container.</li>
+<li>an emplace member, we<br>pass arguments to a constructor for the element type. The emplace members use those arguments to construct an element directly in space managed by the container.</li>
+</ol>
+<p><strong>Accessing Elements in a sequential container</strong><br>before calling front or back (or dereferencing the iterators from begin or end), check that container isn’t empty. If the container were empty, the operations inside the if would be undefined.<br>The members that access elements in a container (i.e., front, back, subscript, and at) return references.<br><strong>subscript operator does not check whether the index is in range.</strong><br><strong>If the container holds elements of a class type and resize adds elements the element type must have a default constructor.</strong><br>Loops that add or remove elements of a vector, string, or deque must cater to the fact that iterators, references, or pointers might be invalidated. The program must ensure that the iterator, reference, or pointer is refreshed on each trip through the loop.<br>The size of a container is the number of elements it already holds; its capacity is how many elements it can hold before more space must be allocated.</p>
+<ol>
+<li>Searching (and other string operations) are case sensitive.</li>
+<li>Similarly, the find_last functions behave like the find_first functions, except that they return the last match rather than the first.</li>
+<li>find_last_of searches for the last character that matches any element of the search string.</li>
+<li>find_last_not_of searches for the last character that does not match any<br>element of the search string.</li>
+</ol>
+<p>All the containers (except array) provide efficient dynamic memory management.</p>
 
       
     </div>
@@ -514,7 +529,7 @@
               
             
             
-              <p class="post-toc-empty">This post does not have a Table of Contents</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Relational-Operators"><span class="nav-number">1.</span> <span class="nav-text">Relational Operators</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sequential-Container-Operations"><span class="nav-number">2.</span> <span class="nav-text">Sequential Container Operations</span></a></li></ol></div>
             
           </div>
         </section>
