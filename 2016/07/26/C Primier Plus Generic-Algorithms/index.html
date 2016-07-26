@@ -86,16 +86,16 @@
 
 
 
-<meta name="description" content="No Copy or Assign for IO ObjectsFunctions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.The">
+<meta name="description" content="find algorithm: auto result = find(vec.cbegin(), vec.cend(), val);It returns an iterator to the first element that is equal to that value.use the library begin and end functions to pass a pointer to t">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C Primier Plus IO Library">
-<meta property="og:url" content="http://yoursite.com/2016/07/25/C-Primier-Plus-IO-Library/index.html">
+<meta property="og:title" content="Generic Algorithms">
+<meta property="og:url" content="http://yoursite.com/2016/07/26/C Primier Plus Generic-Algorithms/index.html">
 <meta property="og:site_name" content="TheOneAC">
-<meta property="og:description" content="No Copy or Assign for IO ObjectsFunctions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.The">
-<meta property="og:updated_time" content="2016-07-25T13:33:50.771Z">
+<meta property="og:description" content="find algorithm: auto result = find(vec.cbegin(), vec.cend(), val);It returns an iterator to the first element that is equal to that value.use the library begin and end functions to pass a pointer to t">
+<meta property="og:updated_time" content="2016-07-26T15:30:26.260Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C Primier Plus IO Library">
-<meta name="twitter:description" content="No Copy or Assign for IO ObjectsFunctions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.The">
+<meta name="twitter:title" content="Generic Algorithms">
+<meta name="twitter:description" content="find algorithm: auto result = find(vec.cbegin(), vec.cend(), val);It returns an iterator to the first element that is equal to that value.use the library begin and end functions to pass a pointer to t">
 
 
 
@@ -116,9 +116,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/25/C-Primier-Plus-IO-Library/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/07/26/C Primier Plus Generic-Algorithms/"/>
 
-  <title> C Primier Plus IO Library | TheOneAC </title>
+  <title> Generic Algorithms | TheOneAC </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -248,7 +248,7 @@
             
             
               
-                C Primier Plus IO Library
+                Generic Algorithms
               
             
           </h1>
@@ -260,8 +260,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-25T01:22:33+08:00" content="2016-07-25">
-              2016-07-25
+            <time itemprop="dateCreated" datetime="2016-07-26T19:10:40+08:00" content="2016-07-26">
+              2016-07-26
             </time>
           </span>
 
@@ -307,9 +307,13 @@
       
 
       
-        <h3 id="No-Copy-or-Assign-for-IO-Objects"><a href="#No-Copy-or-Assign-for-IO-Objects" class="headerlink" title="No Copy or Assign for IO Objects"></a>No Copy or Assign for IO Objects</h3><p>Functions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.<br>The library lets us ignore the differences among these different kinds of streams by using <strong>inheritance</strong><br>There are two other similar manipulators: flush and ends.<br>flush flushes the stream but adds no characters to the output; ends inserts a null character into the buffer and then flushes it<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; endl; // writes hi and a newline, then flushes the buffer</div><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; flush; // writes hi, then flushes the buffer; adds no data</div><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; ends; // writes hi and a null, then flushes the buffer</div><div class="line"></div><div class="line">cout &lt;&lt; unitbuf; // all writes will be flushed immediately</div><div class="line">// any output is flushed immediately, no buffering</div><div class="line">cout &lt;&lt; nounitbuf; // returns to normal buffering</div></pre></td></tr></table></figure></p>
-<p><strong>Output buffers are not flushed if the program terminates abnormally.</strong><br>Tying Input and Output Streams Together:<br>When an input stream is tied to an output stream, any attempt to read the input stream will first flush the buffer associated with the output stream.<br>To tie a given stream to a new output stream, we pass tie a pointer to the new stream. To untie the stream completely, we pass a null pointer. Each stream can be tied to at most one stream at a time. However, multiple streams can tie themselves to the same ostream<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cin.tie(&amp;cout); // illustration only: the library ties cin and cout for us</div><div class="line">// old_tie points to the stream (if any) currently tied to cin</div><div class="line">ostream *old_tie = cin.tie(nullptr); // cin is no longer tied</div><div class="line">// ties cin and cerr; not a good idea because cin should be tied to cout</div><div class="line">cin.tie(&amp;cerr); // reading cin flushes cerr, not cout</div><div class="line">cin.tie(old_tie); // reestablish normal tie between cin and cout</div></pre></td></tr></table></figure></p>
-<p>The only way to preserve the existing data in a file opened by an ofstream<br>is to specify app or in mode explicitly.<br>File Mode Is Determined Each Time open Is Called.</p>
+        <p>find algorithm: auto result = find(vec.cbegin(), vec.cend(), val);<br>It returns an iterator to the first element that is equal to that value.<br><strong>use the library begin and end functions to pass a pointer to the first and one past the last elements in ia.</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">int ia[] = &#123;27, 210, 12, 47, 109, 83&#125;;</div><div class="line">int val = 83;</div><div class="line">//int* result = find(begin(ia), end(ia), val);</div><div class="line">//              count(v.cbegin(), v.cend(), value)</div><div class="line">//    int sum = accumulate(vec.cbegin(), vec.cend(), 0);</div><div class="line">The accumulate function takes three arguments. The first two specify a</div><div class="line">range of elements to sum. The third is an initial value for the sum.</div></pre></td></tr></table></figure></p>
+<p>equal(roster1.cbegin(), roster1.cend(), roster2.cbegin());<br>fill(vec.begin(), vec.end(), value);<br>fill(vec.begin(), vec.begin() + vec.size()/2, value);<br>fill_n(dest, n, val)<br><strong>Algorithms that write to a destination iterator assume the destination is large enough to hold the number of elements being written.</strong><br>back_inserter takes a reference to a container and returns an insert iterator bound to that container. When we assign through that iterator, the assignment calls push_back to add an element with the given value to the container.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vector&lt;int&gt; vec; // empty vector</div><div class="line">auto it = back_inserter(vec); // assigning through it adds elements to vec</div><div class="line">*it = 42; // vec now has one element with value 42</div></pre></td></tr></table></figure></p>
+<p><strong>auto ret = copy(begin(a1), end(a1), a2);</strong><br>The value returned by copy is the (incremented) value of its destination iterator. That is, ret will point just past the last element copied into a2.<br><strong>replace(ilst.begin(), ilst.end(), 0, 42);</strong><br>This call replaces all instances of 0 by 42. If we want to leave the original sequence unchanged, we can call replace_copy.<br><strong>back_inserter is a insert iterator, what iterator adaptor that generates an iterator that uses a container operation to add elements to a given container.<br>the algorithms don’t change the size, but the iterator can change it by using the container operation.</strong><br>Eliminating Duplicates<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">void elimDups(vector&lt;string&gt; &amp;words)</div><div class="line">&#123;</div><div class="line">// sort words alphabetically so we can find the duplicates</div><div class="line">sort(words.begin(), words.end());</div><div class="line">// unique reorders the input range so that each word appears once in the</div><div class="line">// front portion of the range and returns an iterator one past the unique range</div><div class="line">auto end_unique = unique(words.begin(), words.end());</div><div class="line">// erase uses a vector operation to remove the nonunique elements</div><div class="line">words.erase(end_unique, words.end());</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ol>
+<li>The library algorithms operate on iterators, not containers. Therefore, an<br>algorithm cannot (directly) add or remove elements.</li>
+<li>To actually remove the unused elements, we must use a container operation</li>
+</ol>
 
       
     </div>
@@ -343,17 +347,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/21/Class/" rel="next" title="C Primier Plus Class">
-                <i class="fa fa-chevron-left"></i> C Primier Plus Class
+              <a href="/2016/07/25/C Primier Plus Sequential Container/" rel="next" title="C Primier Plus Sequential Container">
+                <i class="fa fa-chevron-left"></i> C Primier Plus Sequential Container
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/25/Sequential-Container/" rel="prev" title="C Primier Plus Sequential Container">
-                C Primier Plus Sequential Container <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -427,7 +427,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -511,7 +511,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#No-Copy-or-Assign-for-IO-Objects"><span class="nav-number">1.</span> <span class="nav-text">No Copy or Assign for IO Objects</span></a></li></ol></div>
+              <p class="post-toc-empty">This post does not have a Table of Contents</p>
             
           </div>
         </section>
