@@ -88,13 +88,13 @@
 
 <meta name="description" content="find algorithm: auto result = find(vec.cbegin(), vec.cend(), val);It returns an iterator to the first element that is equal to that value.use the library begin and end functions to pass a pointer to t">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Generic Algorithms">
+<meta property="og:title" content="C++ Primier Plus Generic Algorithms">
 <meta property="og:url" content="http://yoursite.com/2016/07/26/C Primier Plus Generic-Algorithms/index.html">
 <meta property="og:site_name" content="TheOneAC">
 <meta property="og:description" content="find algorithm: auto result = find(vec.cbegin(), vec.cend(), val);It returns an iterator to the first element that is equal to that value.use the library begin and end functions to pass a pointer to t">
-<meta property="og:updated_time" content="2016-07-27T14:30:56.772Z">
+<meta property="og:updated_time" content="2016-07-28T03:31:32.101Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Generic Algorithms">
+<meta name="twitter:title" content="C++ Primier Plus Generic Algorithms">
 <meta name="twitter:description" content="find algorithm: auto result = find(vec.cbegin(), vec.cend(), val);It returns an iterator to the first element that is equal to that value.use the library begin and end functions to pass a pointer to t">
 
 
@@ -118,7 +118,7 @@
 
   <link rel="canonical" href="http://yoursite.com/2016/07/26/C Primier Plus Generic-Algorithms/"/>
 
-  <title> Generic Algorithms | TheOneAC </title>
+  <title> C++ Primier Plus Generic Algorithms | TheOneAC </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -248,7 +248,7 @@
             
             
               
-                Generic Algorithms
+                C++ Primier Plus Generic Algorithms
               
             
           </h1>
@@ -316,7 +316,14 @@
 </ol>
 <p>A lambda expression represents a callable unit of code. It can be thought of as an unnamed, inline function.</p>
 <h3 id="lambda"><a href="#lambda" class="headerlink" title="lambda"></a>lambda</h3><p><a href="http://www.cnblogs.com/knowledgesea/p/3163725.html" target="_blank" rel="external">http://www.cnblogs.com/knowledgesea/p/3163725.html</a><br><code>[capture list] (parameter list) -&gt; return type { function body }</code><br>The capture list directs the lambda to include information needed to access those variables within the lambda itself.<br>The capture list is used for local nonstatic variables only; lambdas can use local statics and variables declared outside the function directly.<br>When we capture a variable by reference, we must ensure that the variable exists at the time that the lambda executes.<br>By default, a lambda may not change the value of a variable that it copies by value.<br>be able to change the value of a captured variable, we must follow the parameter list with the keyword mutable.</p>
-<h5 id="Insert-Iterators"><a href="#Insert-Iterators" class="headerlink" title="Insert Iterators"></a>Insert Iterators</h5><p>• back_inserter (§ 10.2.2, p. 382) creates an iterator that uses push_back.<br>• front_inserter creates an iterator that uses push_front.<br>• inserter creates an iterator that uses insert. This function takes a second argument, which must be an iterator into the given container. Elements are inserted ahead of the element denoted by the given iterator.</p>
+<blockquote>
+<p>Insert Iterators<br>• back_inserter (§ 10.2.2, p. 382) creates an iterator that uses push_back.<br>• front_inserter creates an iterator that uses push_front.<br>• inserter creates an iterator that uses insert. This function takes a second argument, which must be an iterator into the given container. Elements are inserted ahead of the element denoted by the given iterator.</p>
+</blockquote>
+<p><strong>it is not possible to create a reverse iterator from a forward_list or a stream iterator.</strong></p>
+<blockquote>
+<p>List the five iterator categories and the operations that each supports.<br>• Input iterators : ==, !=, ++, <em>, -&gt;<br>• Output iterators : ++, </em><br>• Forward iterators : ==, !=, ++, <em>, -&gt;<br>• Bidirectional iterators : ==, !=, ++, –, </em>, -&gt;<br>• Random-access iterators : ==, !=, &lt;, &lt;=, &gt;, &gt;=, ++, –, +, +=, -, -=, -(two iterators), <em>, -&gt;, iter[n] == </em> (iter + n)</p>
+</blockquote>
+<p>The list member versions should be used in preference to the generic algorithms for lists and forward_lists.<br>a crucially important difference between the list-specific and the generic versions is that the list versions change the underlying container.</p>
 
       
     </div>
@@ -514,7 +521,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#lambda"><span class="nav-number">1.</span> <span class="nav-text">lambda</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Insert-Iterators"><span class="nav-number">1.0.1.</span> <span class="nav-text">Insert Iterators</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#lambda"><span class="nav-number">1.</span> <span class="nav-text">lambda</span></a></li></ol></div>
             
           </div>
         </section>

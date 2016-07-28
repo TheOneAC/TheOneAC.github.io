@@ -251,7 +251,7 @@
               
                 
                 <a class="post-title-link" href="/2016/07/26/C Primier Plus Generic-Algorithms/" itemprop="url">
-                  Generic Algorithms
+                  C++ Primier Plus Generic Algorithms
                 </a>
               
             
@@ -322,7 +322,14 @@
 </ol>
 <p>A lambda expression represents a callable unit of code. It can be thought of as an unnamed, inline function.</p>
 <h3 id="lambda"><a href="#lambda" class="headerlink" title="lambda"></a>lambda</h3><p><a href="http://www.cnblogs.com/knowledgesea/p/3163725.html" target="_blank" rel="external">http://www.cnblogs.com/knowledgesea/p/3163725.html</a><br><code>[capture list] (parameter list) -&gt; return type { function body }</code><br>The capture list directs the lambda to include information needed to access those variables within the lambda itself.<br>The capture list is used for local nonstatic variables only; lambdas can use local statics and variables declared outside the function directly.<br>When we capture a variable by reference, we must ensure that the variable exists at the time that the lambda executes.<br>By default, a lambda may not change the value of a variable that it copies by value.<br>be able to change the value of a captured variable, we must follow the parameter list with the keyword mutable.</p>
-<h5 id="Insert-Iterators"><a href="#Insert-Iterators" class="headerlink" title="Insert Iterators"></a>Insert Iterators</h5><p>• back_inserter (§ 10.2.2, p. 382) creates an iterator that uses push_back.<br>• front_inserter creates an iterator that uses push_front.<br>• inserter creates an iterator that uses insert. This function takes a second argument, which must be an iterator into the given container. Elements are inserted ahead of the element denoted by the given iterator.</p>
+<blockquote>
+<p>Insert Iterators<br>• back_inserter (§ 10.2.2, p. 382) creates an iterator that uses push_back.<br>• front_inserter creates an iterator that uses push_front.<br>• inserter creates an iterator that uses insert. This function takes a second argument, which must be an iterator into the given container. Elements are inserted ahead of the element denoted by the given iterator.</p>
+</blockquote>
+<p><strong>it is not possible to create a reverse iterator from a forward_list or a stream iterator.</strong></p>
+<blockquote>
+<p>List the five iterator categories and the operations that each supports.<br>• Input iterators : ==, !=, ++, <em>, -&gt;<br>• Output iterators : ++, </em><br>• Forward iterators : ==, !=, ++, <em>, -&gt;<br>• Bidirectional iterators : ==, !=, ++, –, </em>, -&gt;<br>• Random-access iterators : ==, !=, &lt;, &lt;=, &gt;, &gt;=, ++, –, +, +=, -, -=, -(two iterators), <em>, -&gt;, iter[n] == </em> (iter + n)</p>
+</blockquote>
+<p>The list member versions should be used in preference to the generic algorithms for lists and forward_lists.<br>a crucially important difference between the list-specific and the generic versions is that the list versions change the underlying container.</p>
 
           
         
@@ -804,7 +811,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" rel="gallery_cir52jjwf0002g8lvgo5jgotz"
+                 href="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" rel="gallery_cir5rkdqb00061wlv9b6ze5my"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" itemprop="contentUrl"/>
               </a>
@@ -1306,7 +1313,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" rel="gallery_cir52jk9m000zg8lvbjqrwokt"
+                 href="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" rel="gallery_cir5rkdr6000d1wlv2frevcx7"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" itemprop="contentUrl"/>
               </a>
