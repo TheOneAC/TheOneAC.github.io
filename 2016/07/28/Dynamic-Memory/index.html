@@ -92,7 +92,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/07/28/Dynamic-Memory/index.html">
 <meta property="og:site_name" content="TheOneAC">
 <meta property="og:description" content="Dynamic Memory and Smart Pointersshared_ptr:init: make_shared&amp;lt; Type &amp;gt;(args);   shared_ptr&amp;lt; Type &amp;gt;(q); p=q;function :p.unique() if count return 1 truw,else false.p.use_count() return the nu">
-<meta property="og:updated_time" content="2016-07-30T15:53:17.882Z">
+<meta property="og:updated_time" content="2016-08-03T12:02:53.554Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dynamic Memory">
 <meta name="twitter:description" content="Dynamic Memory and Smart Pointersshared_ptr:init: make_shared&amp;lt; Type &amp;gt;(args);   shared_ptr&amp;lt; Type &amp;gt;(q); p=q;function :p.unique() if count return 1 truw,else false.p.use_count() return the nu">
@@ -318,6 +318,18 @@
 <li>Deleting the same memory twice.</li>
 </ol>
 <p><strong>dangling pointer</strong>:When we delete a pointer, that pointer becomes invalid.but the pointer continues to hold the address of the (freed) dynamic memory.<br>we cannot implicitly convert a built-in pointer to a smart pointer; we must use<br>the direct form of initialization to initialize a smart pointer<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">shared_ptr&lt;int&gt; p1 = new int(1024); // error: must use direct initialization</div><div class="line">shared_ptr&lt;int&gt; p2(new int(1024)); // ok: uses direct initialization</div></pre></td></tr></table></figure></p>
+<p>use <strong>reset</strong> to assign a new pointer to a shared_ptr.</p>
+<h2 id="In-particular-classes-that-are-designed-to-be-used-by-both-C-and-C-generally-require-the-user-to-specifically-free-any-resources-that-are-used"><a href="#In-particular-classes-that-are-designed-to-be-used-by-both-C-and-C-generally-require-the-user-to-specifically-free-any-resources-that-are-used" class="headerlink" title="In particular, classes that are designed to be used by both C and C++ generally require the user to specifically free any resources that are used."></a>In particular, classes that are designed to be used by both C and C++ generally require the user to specifically free any resources that are used.</h2><p>unique_ptr:”owns” the object which it points.<br>so it doesn`t support ordinary copy and assignment.<br>but can transfer ownership fron one (nonconst)unique_ptr to another by calling release or set.<br><code>// transfers ownership from p3 to p2
+p2.reset(p3.release()); 
+// reset deletes the memory to which p2 had pointed</code><br>only one unique_ptr at a time can point to  a given object.<br>unique_ptr destroyed so the object it point to.<br>u.release() :return the pointer u had held and makes u null;<br>u.reset() :deletes the object to which i pointes;<br>u.reset(q) :if the built-in pointer q is supplied ,makes u pointe to that object.<br>u=nullptr; deletes the object to which u points,makes u null;<br>unique_ptr : bind to a pointer<br><strong><a href="http://stackoverflow.com/questions/6876751/differences-between-unique-ptr-and-shared-ptr" target="_blank" rel="external">http://stackoverflow.com/questions/6876751/differences-between-unique-ptr-and-shared-ptr</a></strong></p>
+<h3 id="weak-ptr"><a href="#weak-ptr" class="headerlink" title="weak_ptr"></a>weak_ptr</h3><p>not control the lifetime of the object it point to.<br>bind a weak_ptr to a shared_ptr not change the reference count of that shared_ptr.<br><strong>weak</strong>:Once the last shared_ptr pointing to the object goes away, the object itself will be deleted. That object will be deleted even if there are weak_ptrs pointing to it.<br>The <strong>lock</strong> function checks whether the object to which the weak_ptr points still exists. If so, lock returns a shared_ptr to the shared object.</p>
+<h3 id="Dynamic-Arrays"><a href="#Dynamic-Arrays" class="headerlink" title="Dynamic Arrays"></a>Dynamic Arrays</h3><p>Classes that allocate dynamic arrays must define their own versions of these operations to manage the associated memory when objects are copied, assigned, and destroyed.<br><code>int *pia = new int[get_size()]; 
+// pia points to the first of these ints</code><br>The size inside the brackets must have integral type but need not be a constant.</p>
+<blockquote>
+<p><strong>Allocating an Array Yields a Pointer to the Element Type</strong></p>
+</blockquote>
+<p>shared_ptrs provide no direct support for managing a dynamic array. If we want to use a shared_ptr to manage a dynamic array, we must provide our own deleter:<br><code>shared_ptr&lt;int&gt; sp(new int[10], [](int *p) { delete[] p; });
+sp.reset(); // uses the lambda we supplied that uses delete[] to free the array</code><br>classes that do not have default constructors cannot be dynamically allocated as an array.<br><strong>allocator</strong>: provides type-aware allocation of raw, unconstructed, memory.<br>We must construct objects in order to use memory returned by<br>allocate. Using unconstructed memory in other ways is undefined.</p>
 
       
     </div>
@@ -358,6 +370,10 @@
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/03/Copy-Control/" rel="prev" title="Copy Control">
+                Copy Control <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -431,7 +447,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-count">12</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -515,7 +531,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-Memory-and-Smart-Pointers"><span class="nav-number">1.</span> <span class="nav-text">Dynamic Memory and Smart Pointers</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dynamic-memory-managed-through-built-in-pointers-rather-than-smart-pointers-exists-until-it-is-explicitly-freed"><span class="nav-number"></span> <span class="nav-text">Dynamic memory managed through built-in pointers (rather than smart pointers) exists until it is explicitly freed.</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-Memory-and-Smart-Pointers"><span class="nav-number">1.</span> <span class="nav-text">Dynamic Memory and Smart Pointers</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dynamic-memory-managed-through-built-in-pointers-rather-than-smart-pointers-exists-until-it-is-explicitly-freed"><span class="nav-number"></span> <span class="nav-text">Dynamic memory managed through built-in pointers (rather than smart pointers) exists until it is explicitly freed.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#In-particular-classes-that-are-designed-to-be-used-by-both-C-and-C-generally-require-the-user-to-specifically-free-any-resources-that-are-used"><span class="nav-number"></span> <span class="nav-text">In particular, classes that are designed to be used by both C and C++ generally require the user to specifically free any resources that are used.</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#weak-ptr"><span class="nav-number">1.</span> <span class="nav-text">weak_ptr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-Arrays"><span class="nav-number">2.</span> <span class="nav-text">Dynamic Arrays</span></a></li></ol></div>
             
           </div>
         </section>

@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Notes,git," />
+  <meta name="keywords" content="Algorithm Git C++" />
 
 
 
@@ -86,21 +86,22 @@
 
 
 
-<meta name="description" content="git config –global user.name [username]git config –global user.email [email]git config –global color.ui truegit config –global core.editor [editorname]
-cd ~/directory   move to the working diretorymv">
+<meta name="description" content="The Copy Constructerthe first parameter is a reference to the class type.usually not be eaplicit.
+
+the difference between direct initialization and copy initialization.direct initialization :the compi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git Command">
-<meta property="og:url" content="http://yoursite.com/2016/07/15/git-command/index.html">
+<meta property="og:title" content="Copy Control">
+<meta property="og:url" content="http://yoursite.com/2016/08/03/Copy-Control/index.html">
 <meta property="og:site_name" content="TheOneAC">
-<meta property="og:description" content="git config –global user.name [username]git config –global user.email [email]git config –global color.ui truegit config –global core.editor [editorname]
-cd ~/directory   move to the working diretorymv">
-<meta property="og:image" content="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg">
-<meta property="og:updated_time" content="2016-07-15T16:42:32.940Z">
+<meta property="og:description" content="The Copy Constructerthe first parameter is a reference to the class type.usually not be eaplicit.
+
+the difference between direct initialization and copy initialization.direct initialization :the compi">
+<meta property="og:updated_time" content="2016-08-03T14:05:29.199Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git Command">
-<meta name="twitter:description" content="git config –global user.name [username]git config –global user.email [email]git config –global color.ui truegit config –global core.editor [editorname]
-cd ~/directory   move to the working diretorymv">
-<meta name="twitter:image" content="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg">
+<meta name="twitter:title" content="Copy Control">
+<meta name="twitter:description" content="The Copy Constructerthe first parameter is a reference to the class type.usually not be eaplicit.
+
+the difference between direct initialization and copy initialization.direct initialization :the compi">
 
 
 
@@ -121,9 +122,9 @@ cd ~/directory   move to the working diretorymv">
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/15/git-command/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/08/03/Copy-Control/"/>
 
-  <title> Git Command | TheOneAC </title>
+  <title> Copy Control | TheOneAC </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -253,7 +254,7 @@ cd ~/directory   move to the working diretorymv">
             
             
               
-                Git Command
+                Copy Control
               
             
           </h1>
@@ -265,30 +266,11 @@ cd ~/directory   move to the working diretorymv">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-15T00:12:09+08:00" content="2016-07-15">
-              2016-07-15
+            <time itemprop="dateCreated" datetime="2016-08-03T20:02:40+08:00" content="2016-08-03">
+              2016-08-03
             </time>
           </span>
 
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Tools/" itemprop="url" rel="index">
-                    <span itemprop="name">Tools</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
           
 
           
@@ -310,44 +292,20 @@ cd ~/directory   move to the working diretorymv">
 
       
       
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox"
-                 href="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" rel="gallery_cirf25r16000wr8lvipjieyb3"
-                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" itemprop="contentUrl"/>
-              </a>
-            
-          
-
-          
-          </div>
-        </div>
-      
 
       
-        <p>git config –global user.name [username]<br>git config –global user.email [email]<br>git config –global color.ui true<br>git config –global core.editor [editorname]</p>
-<p>cd ~/directory   move to the working diretory<br>mv   directory1/filename directory2/filename</p>
-<p>git init: add .git to the directory to log<br>git add : add file from working directory to staging area<br>git status :show the status  of the files<br>git log :show the recorder of your improvements  q to quit    the last commit show the first</p>
-<p>git diff:  compare the diff from working directory to stagging area<br>git diff –staged :compare the diff from stagging area to the last commit<br>git diff id1 id2 :compare the diff in two  commits</p>
-<p>git branch branchname: build a new branch not switch to it<br>git branch -d branck name  :delete a branch;<br>git branch :show the all the branchs<br>git banch -v: show all the branchs and each of the last commit<br>git checkout branchname :move HEAD  to the current working branch to the the branchname<br>git branch :show the current working branch</p>
-<p>git merge branch1: merge branch1 with the current working branch<br>two way to merge :<br>1.one branch is the ancester of another -&gt; fast-forward<br>2.two  branch has commom ancester -&gt; recursive strategy </p>
-<a id="more"></a>
-<p>git show commit_id :show the differ between the commit and its parent<br>git log –oneline –decorate :show the working directory</p>
-<p>git config –global core.autocrlf true :slove the differ of line feed between osx and windows </p>
-<p>git remote :view the remote directory status<br>git remote add name url: clone a restory to remote<br>git rm filename:untracked file<br>git rm –cached filename: unstaged file<br>git rm fliename_from filename_to :rename the file</p>
-<p>$ git commit -m ‘initial commit’<br>$ git add forgotten_file<br>$ git commit –amend :overwrite the previous commit</p>
-<p>git reset HEAD filename :   unstage  a staged file –filename<br>git cehckout –filename :   discard changes in working directory</p>
-<p>git fetch remote-name :get data download to a remote project from the url the last fetch address<br>git pull :fetch and merge the remote into current branch</p>
-<p>git clone command automatically sets up your local masterbranch to track the remote master branch (or whatever the default branch iscalled) on the server you cloned from. Running git pull generally fetches data from the server you originally cloned from and automatically tries to merge it into the code you’re currently working on.</p>
-<p>git remote show :show more infoemation about a remote branch<br>git remote rename  oldname newname: rename  a remote<br>git remote rm :remove a remote<br>git tag :show the available tags<br>git tag :show tags avaliable<br>git tag -a versionname:creat an anotated tag<br>git tag -a -m versionname “version specification”  :<br>git tag -a versionname commit_id : tagged the special commit<br>git push origin versionname :share tag to the remote<br>git push origin –tags :share all the tags<br>git config –global alias.br branch : use abbrevation to replace the command</p>
-<p>git push origin –delete branchname :delete remote branch<br>git rebase –onto master branch1 branch2 : move  branch2 (based on branch1) rebased on master</p>
-<p>$ git checkout branch1<br>$ git rebase master    #git  merge master branch1<br>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
-<p>git stash :cached changes without commit<br>git stash list :show your stash list<br>git stash apply stash@{2} : apply the special stash stash@{2}</p>
-<p>git stash apply :apply the last stash<br>git clean  :remove file from working directory</p>
-<p>git pull –rebase : rebase all your changes based on the master(*)<br>git request-pull origin/master myfork : pull pyfork to the public</p>
+        <h4 id="The-Copy-Constructer"><a href="#The-Copy-Constructer" class="headerlink" title="The Copy Constructer"></a>The Copy Constructer</h4><p>the first parameter is a reference to the class type.<br>usually not be eaplicit.</p>
+<blockquote>
+<p>the difference between direct initialization and copy initialization.<br>direct initialization :the compiler use ordinary function matching to select the cnstructer that best matchs the arguments we provide;<br>copy initialization : the compiler copy the right oprand into the object being created,converting that operand if necessary.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">string s(dots); // direct initialization</div><div class="line">string s2 = dots; // copy initialization</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p><strong><br>Copy initialization happens<br>• Define variables using an =<br>• Pass an object as an argument to a parameter of nonreference type<br>• Return an object from a function that has a nonreference return type<br>• Brace initialize the elements in an array or the members of an aggregate class<br>• Some class types also use copy initialization for the objects they allocate.<br><em>insert or push:copy initialize             empalce :   direct initialized</em>
+</strong></p>
+<h4 id="The-Copy-Assignment-Operater"><a href="#The-Copy-Assignment-Operater" class="headerlink" title="The Copy-Assignment Operater"></a>The Copy-Assignment Operater</h4><p>Assignment operators ordinarily should return a reference to their left-hand operand.<br><code>copy-assignment</code> operator is function named <code>operator=</code>.<br>and is used when assignment occurred.</p>
+<h4 id="The-Destructor"><a href="#The-Destructor" class="headerlink" title="The Destructor"></a>The Destructor</h4><p>prefixed by a tilde (~).             no return value and takes no parameters:</p>
+<blockquote>
+<p>When a Destructor Is Called<br>• Variables are destroyed when they go out of scope.<br>• Members of an object are destroyed when the object of which they are a part is<br>destroyed.<br>• Elements in a container—whether a library container or an array—are destroyed<br>when the container is destroyed.<br>• Dynamically allocated objects are destroyed when the delete operator is<br>applied to a pointer to the object<br>• Temporary objects are destroyed at the end of the full expression in which the<br>temporary was created.</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;initializer_list&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cout</span>;</div><div class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line"><span class="keyword">struct</span> X</div><div class="line">&#123;</div><div class="line">    X()&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"X()"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;;</div><div class="line">    X(<span class="keyword">const</span> X&amp;)&#123; <span class="built_in">cout</span>&lt;&lt;<span class="string">"X(const X&amp;)"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;;</div><div class="line">    X&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> X&amp;)</div><div class="line">    &#123;</div><div class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"X&amp; operater=(const X&amp;)"</span>&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">        <span class="keyword">return</span> *<span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line">    ~X()&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"~X()"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;;</div><div class="line">&#125;;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">const</span> X&amp;rx,X x)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;X&gt;vec;</div><div class="line">    vec.reserve(<span class="number">2</span>);</div><div class="line">    vec.push_back(rx);</div><div class="line">    vec.push_back(x);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    X* px=<span class="keyword">new</span> X;</div><div class="line">    f(*px,*px);</div><div class="line">    <span class="keyword">delete</span> px;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -368,26 +326,18 @@ cd ~/directory   move to the working diretorymv">
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Notes/" rel="tag">#Notes</a>
-          
-            <a href="/tags/git/" rel="tag">#git</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/07/28/Dynamic-Memory/" rel="next" title="Dynamic Memory">
+                <i class="fa fa-chevron-left"></i> Dynamic Memory
+              </a>
+            
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/15/C Primier Plus Chapter_Two/" rel="prev" title="C Primier Plus --chapter two">
-                C Primier Plus --chapter two <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -545,7 +495,7 @@ cd ~/directory   move to the working diretorymv">
               
             
             
-              <p class="post-toc-empty">This post does not have a Table of Contents</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Copy-Constructer"><span class="nav-number">1.</span> <span class="nav-text">The Copy Constructer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Copy-Assignment-Operater"><span class="nav-number">2.</span> <span class="nav-text">The Copy-Assignment Operater</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Destructor"><span class="nav-number">3.</span> <span class="nav-text">The Destructor</span></a></li></ol></div>
             
           </div>
         </section>
