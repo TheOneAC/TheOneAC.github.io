@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Notes,C++," />
+  <meta name="keywords" content="Algorithm Git C++" />
 
 
 
@@ -86,16 +86,16 @@
 
 
 
-<meta name="description" content="No Copy or Assign for IO ObjectsFunctions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.The">
+<meta name="description" content="1234567891011121314151617#include &amp;lt;iostream&amp;gt;#include&amp;lt;ctime&amp;gt;#include&amp;lt;cstdlib&amp;gt;using namespace std;#define maxn 100int main()&amp;#123;   int i,j;   srand((unsigned)time(NULL));   for(i=0;i">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C Primier Plus IO Library">
-<meta property="og:url" content="http://yoursite.com/2016/07/25/C Primier Plus IO Library/index.html">
+<meta property="og:title" content="Note">
+<meta property="og:url" content="http://yoursite.com/2016/08/05/Note/index.html">
 <meta property="og:site_name" content="TheOneAC">
-<meta property="og:description" content="No Copy or Assign for IO ObjectsFunctions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.The">
-<meta property="og:updated_time" content="2016-07-25T13:33:50.771Z">
+<meta property="og:description" content="1234567891011121314151617#include &amp;lt;iostream&amp;gt;#include&amp;lt;ctime&amp;gt;#include&amp;lt;cstdlib&amp;gt;using namespace std;#define maxn 100int main()&amp;#123;   int i,j;   srand((unsigned)time(NULL));   for(i=0;i">
+<meta property="og:updated_time" content="2016-08-05T14:10:00.758Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C Primier Plus IO Library">
-<meta name="twitter:description" content="No Copy or Assign for IO ObjectsFunctions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.The">
+<meta name="twitter:title" content="Note">
+<meta name="twitter:description" content="1234567891011121314151617#include &amp;lt;iostream&amp;gt;#include&amp;lt;ctime&amp;gt;#include&amp;lt;cstdlib&amp;gt;using namespace std;#define maxn 100int main()&amp;#123;   int i,j;   srand((unsigned)time(NULL));   for(i=0;i">
 
 
 
@@ -116,9 +116,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/25/C Primier Plus IO Library/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/08/05/Note/"/>
 
-  <title> C Primier Plus IO Library | TheOneAC </title>
+  <title> Note | TheOneAC </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -248,7 +248,7 @@
             
             
               
-                C Primier Plus IO Library
+                Note
               
             
           </h1>
@@ -260,30 +260,11 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-25T01:22:33+08:00" content="2016-07-25">
-              2016-07-25
+            <time itemprop="dateCreated" datetime="2016-08-05T20:10:03+08:00" content="2016-08-05">
+              2016-08-05
             </time>
           </span>
 
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
           
 
           
@@ -307,9 +288,39 @@
       
 
       
-        <h3 id="No-Copy-or-Assign-for-IO-Objects"><a href="#No-Copy-or-Assign-for-IO-Objects" class="headerlink" title="No Copy or Assign for IO Objects"></a>No Copy or Assign for IO Objects</h3><p>Functions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.<br>The library lets us ignore the differences among these different kinds of streams by using <strong>inheritance</strong><br>There are two other similar manipulators: flush and ends.<br>flush flushes the stream but adds no characters to the output; ends inserts a null character into the buffer and then flushes it<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; endl; // writes hi and a newline, then flushes the buffer</div><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; flush; // writes hi, then flushes the buffer; adds no data</div><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; ends; // writes hi and a null, then flushes the buffer</div><div class="line"></div><div class="line">cout &lt;&lt; unitbuf; // all writes will be flushed immediately</div><div class="line">// any output is flushed immediately, no buffering</div><div class="line">cout &lt;&lt; nounitbuf; // returns to normal buffering</div></pre></td></tr></table></figure></p>
-<p><strong>Output buffers are not flushed if the program terminates abnormally.</strong><br>Tying Input and Output Streams Together:<br>When an input stream is tied to an output stream, any attempt to read the input stream will first flush the buffer associated with the output stream.<br>To tie a given stream to a new output stream, we pass tie a pointer to the new stream. To untie the stream completely, we pass a null pointer. Each stream can be tied to at most one stream at a time. However, multiple streams can tie themselves to the same ostream<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cin.tie(&amp;cout); // illustration only: the library ties cin and cout for us</div><div class="line">// old_tie points to the stream (if any) currently tied to cin</div><div class="line">ostream *old_tie = cin.tie(nullptr); // cin is no longer tied</div><div class="line">// ties cin and cerr; not a good idea because cin should be tied to cout</div><div class="line">cin.tie(&amp;cerr); // reading cin flushes cerr, not cout</div><div class="line">cin.tie(old_tie); // reestablish normal tie between cin and cout</div></pre></td></tr></table></figure></p>
-<p>The only way to preserve the existing data in a file opened by an ofstream<br>is to specify app or in mode explicitly.<br>File Mode Is Determined Each Time open Is Called.</p>
+        <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;ctime&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdlib&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> maxn 100</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">   <span class="keyword">int</span> i,j;</div><div class="line">   srand((<span class="keyword">unsigned</span>)time(<span class="literal">NULL</span>));</div><div class="line">   <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)</div><div class="line">   &#123;</div><div class="line">       j=rand();</div><div class="line">       <span class="built_in">cout</span>&lt;&lt;<span class="string">"随机数：  "</span>&lt;&lt; j%maxn &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">   &#125;</div><div class="line">   <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>保护成员在派生类（即子类）中是可访问的<br>friend funtion is not belong to any class,and may access any nember of the class which it make firends.<br>inline function: all the funtion defined in the class is default inline function .<br><em>the compiler cooperate the inline function like #define</em><br><strong>this</strong> pointer is the  implicitly arguement of all the menber function.<br>in  any menber funtion ,you can use the <strong>this</strong> pointer to call the object itself.<br>pointer to class is like the pointer to struct ,which can access the member object.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Box *ptrBox;                // Declare pointer to a class.</div><div class="line">   ptrBox = &amp; Box1;// use menber access oprator to call the</div><div class="line">   cout &lt;&lt; &quot;Volume of Box1: &quot; &lt;&lt; ptrBox-&gt;Volume() &lt;&lt; endl;</div></pre></td></tr></table></figure></p>
+<p><strong>static</strong> menber and <strong>static</strong> mener function has the only copy int the class,<br>any object of this class not have a copy.but it`s  accessible  to any object of this class.</p>
+<blockquote>
+<p><strong>inheritance</strong>:<br>class    classname:     access-specifier             base-class<br>         derived-class  (public,private,protected)   defined class</p>
+</blockquote>
+<p>Access               public     protected      private<br>identical-class       yes           yes          yes<br>inherient-class       yes           yes          no<br>outer-class           yes           no           no</p>
+<p><strong>A derived class inherits all base class methods with the following exceptions:</strong></p>
+<ol>
+<li>Constructors, destructors and copy constructors of the base class.</li>
+<li>Overloaded operators of the base class.</li>
+<li>The friend functions of the base class.</li>
+</ol>
+<p>``<br>Type of Inheritance:<br>When deriving a class from a base class, the base class may be inherited through public, protected or private inheritance. The type of inheritance is specified by the access-specifier as explained above.</p>
+<p>We hardly use protected or private inheritance, but public inheritance is commonly used. While using different type of inheritance, following rules are applied:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* Public Inheritance: When deriving a class from a public base class, public members of the base class become public members of the derived class and protected members of the base class become protected members of the derived class. A base class&apos;s private members are never accessible directly from a derived class, but can be accessed through calls to the public and protected members of the base class.</div><div class="line">* Protected Inheritance: When deriving from a protected base class, public and protected members of the base class become protected members of the derived class.</div><div class="line">* Private Inheritance: When deriving from a private base class, public and protected members of the base class become private members of the derived class.</div></pre></td></tr></table></figure></p>
+<p>``<br><strong>Multiple Inheritances:</strong></p>
+<blockquote>
+<p>class derived-class: access baseA, access baseB….</p>
+</blockquote>
+<p><strong>Overloading function and Overloading operator</strong><br>int the same scope,you can declare some function with the same name,but the parameter list must be different. when the function called ,the compiler will select the most approriate overloaded funtion or operator, which is called overloaded resolution.<br>overloaded funtion character: </p>
+<blockquote>
+<p>The definition of the function must differ from each other by the types and/or the number of arguments in the argument list.<br><code>the list of operators, which can not be overloaded:    ::    .*   .   ?;</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">friend ostream &amp;operator&lt;&lt;( ostream &amp;output, const Distance &amp;D )</div><div class="line">&#123; </div><div class="line">    output &lt;&lt; &quot;F : &quot; &lt;&lt; D.feet &lt;&lt; &quot; I : &quot; &lt;&lt; D.inches;</div><div class="line">    return output;            </div><div class="line">&#125;</div><div class="line"></div><div class="line">friend istream &amp;operator&gt;&gt;( istream  &amp;input, Distance &amp;D )</div><div class="line">&#123; </div><div class="line">    input &gt;&gt; D.feet &gt;&gt; D.inches;</div><div class="line">    return input;            </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p><strong>Polymorphism</strong></p>
+<blockquote>
+<p>polymorphism occurs when there is hierarchy of class and they are related by inheritance.<br>polymorphism in c++ means that a call to a member function will cause a different function to be executed depending on the type of object that invokes the function.</p>
+</blockquote>
+<p>the call of the member function  is being set once by the compiler as the version defined in the base class,which is called <strong>static resolution</strong> of the function call, or <strong>static linkage</strong> and also sometimes called <strong>early binding</strong><br><strong>Virtual funtion </strong> precede the declaration of menber funtion() in the base class with the keyword <strong>virtual</strong>.<br>virtualed in the base class and each of the child classes has a separate implementation for the function(). This is how polymorphism is generally used.<br><code>A virtual function is a function in a base class that is declared using the keyword virtual. Defining in a base class a virtual function, with another version in a derived class, signals to the compiler that we don&#39;t want static linkage for this function.
+What we do want is the selection of the function to be called at any given point in the program to be based on the kind of object for which it is called. This sort of operation is referred to as **dynamic linkage**, or **late binding**.</code></p>
+<p><strong>Pure Virtual Functions:</strong></p>
+<blockquote>
+<p>there is no meaningful definition you could give for the function in the base class.<br><code>virtual type  functionname() = 0;</code><br>The = 0 tells the compiler that the function has no body and above virtual function will be called pure virtual function.</p>
+</blockquote>
 
       
     </div>
@@ -330,30 +341,18 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Notes/" rel="tag">#Notes</a>
-          
-            <a href="/tags/C/" rel="tag">#C++</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/21/C Primier Plus Class/" rel="next" title="C Primier Plus Class">
-                <i class="fa fa-chevron-left"></i> C Primier Plus Class
+              <a href="/2016/08/04/Overloaded-operation-and-conversion/" rel="next" title="Overloaded operation and conversion">
+                <i class="fa fa-chevron-left"></i> Overloaded operation and conversion
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/25/C Primier Plus Sequential Container/" rel="prev" title="C Primier Plus Sequential Container">
-                C Primier Plus Sequential Container <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -511,7 +510,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#No-Copy-or-Assign-for-IO-Objects"><span class="nav-number">1.</span> <span class="nav-text">No Copy or Assign for IO Objects</span></a></li></ol></div>
+              <p class="post-toc-empty">This post does not have a Table of Contents</p>
             
           </div>
         </section>

@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Notes,C++," />
+  <meta name="keywords" content="Algorithm Git C++" />
 
 
 
@@ -86,16 +86,16 @@
 
 
 
-<meta name="description" content="No Copy or Assign for IO ObjectsFunctions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.The">
+<meta name="description" content="When an overloaded operator is a member function, this is bound to the left-hand operand. Member operator functions have one less (explicit)parameter than the number of operands.When an overloaded ope">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C Primier Plus IO Library">
-<meta property="og:url" content="http://yoursite.com/2016/07/25/C Primier Plus IO Library/index.html">
+<meta property="og:title" content="Overloaded operation and conversion">
+<meta property="og:url" content="http://yoursite.com/2016/08/04/Overloaded-operation-and-conversion/index.html">
 <meta property="og:site_name" content="TheOneAC">
-<meta property="og:description" content="No Copy or Assign for IO ObjectsFunctions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.The">
-<meta property="og:updated_time" content="2016-07-25T13:33:50.771Z">
+<meta property="og:description" content="When an overloaded operator is a member function, this is bound to the left-hand operand. Member operator functions have one less (explicit)parameter than the number of operands.When an overloaded ope">
+<meta property="og:updated_time" content="2016-08-04T09:51:37.264Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C Primier Plus IO Library">
-<meta name="twitter:description" content="No Copy or Assign for IO ObjectsFunctions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.The">
+<meta name="twitter:title" content="Overloaded operation and conversion">
+<meta name="twitter:description" content="When an overloaded operator is a member function, this is bound to the left-hand operand. Member operator functions have one less (explicit)parameter than the number of operands.When an overloaded ope">
 
 
 
@@ -116,9 +116,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/25/C Primier Plus IO Library/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/08/04/Overloaded-operation-and-conversion/"/>
 
-  <title> C Primier Plus IO Library | TheOneAC </title>
+  <title> Overloaded operation and conversion | TheOneAC </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -248,7 +248,7 @@
             
             
               
-                C Primier Plus IO Library
+                Overloaded operation and conversion
               
             
           </h1>
@@ -260,30 +260,11 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-25T01:22:33+08:00" content="2016-07-25">
-              2016-07-25
+            <time itemprop="dateCreated" datetime="2016-08-04T12:14:29+08:00" content="2016-08-04">
+              2016-08-04
             </time>
           </span>
 
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
           
 
           
@@ -307,9 +288,12 @@
       
 
       
-        <h3 id="No-Copy-or-Assign-for-IO-Objects"><a href="#No-Copy-or-Assign-for-IO-Objects" class="headerlink" title="No Copy or Assign for IO Objects"></a>No Copy or Assign for IO Objects</h3><p>Functions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.<br>The library lets us ignore the differences among these different kinds of streams by using <strong>inheritance</strong><br>There are two other similar manipulators: flush and ends.<br>flush flushes the stream but adds no characters to the output; ends inserts a null character into the buffer and then flushes it<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; endl; // writes hi and a newline, then flushes the buffer</div><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; flush; // writes hi, then flushes the buffer; adds no data</div><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; ends; // writes hi and a null, then flushes the buffer</div><div class="line"></div><div class="line">cout &lt;&lt; unitbuf; // all writes will be flushed immediately</div><div class="line">// any output is flushed immediately, no buffering</div><div class="line">cout &lt;&lt; nounitbuf; // returns to normal buffering</div></pre></td></tr></table></figure></p>
-<p><strong>Output buffers are not flushed if the program terminates abnormally.</strong><br>Tying Input and Output Streams Together:<br>When an input stream is tied to an output stream, any attempt to read the input stream will first flush the buffer associated with the output stream.<br>To tie a given stream to a new output stream, we pass tie a pointer to the new stream. To untie the stream completely, we pass a null pointer. Each stream can be tied to at most one stream at a time. However, multiple streams can tie themselves to the same ostream<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cin.tie(&amp;cout); // illustration only: the library ties cin and cout for us</div><div class="line">// old_tie points to the stream (if any) currently tied to cin</div><div class="line">ostream *old_tie = cin.tie(nullptr); // cin is no longer tied</div><div class="line">// ties cin and cerr; not a good idea because cin should be tied to cout</div><div class="line">cin.tie(&amp;cerr); // reading cin flushes cerr, not cout</div><div class="line">cin.tie(old_tie); // reestablish normal tie between cin and cout</div></pre></td></tr></table></figure></p>
-<p>The only way to preserve the existing data in a file opened by an ofstream<br>is to specify app or in mode explicitly.<br>File Mode Is Determined Each Time open Is Called.</p>
+        <p>When an overloaded operator is a member function, this is bound to the left-hand operand. Member operator functions have one less (explicit)parameter than the number of operands.When an overloaded operator is a member function, this is bound to the left-hand operand. Member operator functions have one less (explicit) parameter than the number of operands.</p>
+<blockquote>
+<p>deciding whether to make an operator a member or an ordinary nonmember function:<br>• The assignment (=), subscript ([]), call (()), and member access arrow (-&gt;)<br>operators must be defined as members.<br>• The compound-assignment operators ordinarily ought to be members. However,<br>unlike assignment, they are not required to be members.<br>• Operators that change the state of their object or that are closely tied to their<br>given type—such as increment, decrement, and dereference—usually should be<br>members.<br>• Symmetric operators—those that might convert either operand, such as the<br>arithmetic, equality, relational, and bitwise operators—usually should be defined<br>as ordinary nonmember functions.</p>
+</blockquote>
+<p><code>IO Operators Must Be Nonmember Functions
+IO operators usually must be declared as friends</code></p>
 
       
     </div>
@@ -330,29 +314,21 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Notes/" rel="tag">#Notes</a>
-          
-            <a href="/tags/C/" rel="tag">#C++</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/21/C Primier Plus Class/" rel="next" title="C Primier Plus Class">
-                <i class="fa fa-chevron-left"></i> C Primier Plus Class
+              <a href="/2016/08/03/Copy-Control/" rel="next" title="Copy Control">
+                <i class="fa fa-chevron-left"></i> Copy Control
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/07/25/C Primier Plus Sequential Container/" rel="prev" title="C Primier Plus Sequential Container">
-                C Primier Plus Sequential Container <i class="fa fa-chevron-right"></i>
+              <a href="/2016/08/05/Note/" rel="prev" title="Note">
+                Note <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -511,7 +487,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#No-Copy-or-Assign-for-IO-Objects"><span class="nav-number">1.</span> <span class="nav-text">No Copy or Assign for IO Objects</span></a></li></ol></div>
+              <p class="post-toc-empty">This post does not have a Table of Contents</p>
             
           </div>
         </section>
