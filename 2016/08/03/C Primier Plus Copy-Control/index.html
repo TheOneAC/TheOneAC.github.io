@@ -86,16 +86,22 @@
 
 
 
-<meta name="description" content="Associative containers support efficient lookup and retrieval by a key.12        word.erase(std::remove_if(word.begin(), word.end(), ispunct),word.end());$   remove_if move container to the end and re">
+<meta name="description" content="The Copy Constructerthe first parameter is a reference to the class type.usually not be eaplicit.
+
+the difference between direct initialization and copy initialization.direct initialization :the compi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Associative Containers">
-<meta property="og:url" content="http://yoursite.com/2016/07/28/C Primier Plus Dynamic-Memory/index.html">
+<meta property="og:title" content="Copy Control">
+<meta property="og:url" content="http://yoursite.com/2016/08/03/C Primier Plus Copy-Control/index.html">
 <meta property="og:site_name" content="TheOneAC">
-<meta property="og:description" content="Associative containers support efficient lookup and retrieval by a key.12        word.erase(std::remove_if(word.begin(), word.end(), ispunct),word.end());$   remove_if move container to the end and re">
-<meta property="og:updated_time" content="2016-07-28T10:28:42.618Z">
+<meta property="og:description" content="The Copy Constructerthe first parameter is a reference to the class type.usually not be eaplicit.
+
+the difference between direct initialization and copy initialization.direct initialization :the compi">
+<meta property="og:updated_time" content="2016-08-05T16:01:44.084Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Associative Containers">
-<meta name="twitter:description" content="Associative containers support efficient lookup and retrieval by a key.12        word.erase(std::remove_if(word.begin(), word.end(), ispunct),word.end());$   remove_if move container to the end and re">
+<meta name="twitter:title" content="Copy Control">
+<meta name="twitter:description" content="The Copy Constructerthe first parameter is a reference to the class type.usually not be eaplicit.
+
+the difference between direct initialization and copy initialization.direct initialization :the compi">
 
 
 
@@ -116,9 +122,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/28/C Primier Plus Dynamic-Memory/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/08/03/C Primier Plus Copy-Control/"/>
 
-  <title> Associative Containers | TheOneAC </title>
+  <title> Copy Control | TheOneAC </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -248,7 +254,7 @@
             
             
               
-                Associative Containers
+                Copy Control
               
             
           </h1>
@@ -260,8 +266,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-28T11:35:15+08:00" content="2016-07-28">
-              2016-07-28
+            <time itemprop="dateCreated" datetime="2016-08-03T20:02:40+08:00" content="2016-08-03">
+              2016-08-03
             </time>
           </span>
 
@@ -307,17 +313,24 @@
       
 
       
-        <p>Associative containers support efficient lookup and retrieval by a key.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">        word.erase(std::remove_if(word.begin(), word.end(), ispunct),word.end());</div><div class="line">$   remove_if move container to the end and return a partition iterater, erase the container from partition to the end.</div></pre></td></tr></table></figure></p>
-<p>the ordered containers—map, multimap, set, and multiset—the key type must define a way to compare the elements.<br>Callable objects passed to a sort algorithm (§ 10.3.1, p. 386) must meet the same requirements as do the keys in an associative container.<br>To use our own operation, we must define the multiset with two types: the key type,  and the comparison type, which is a function pointer type  that can point to compare function.<br>the data members of pair are public ,These members are named first and second,respectively. We access these members using the normal member access notation.<br>It is essential to remember that the value_type of a map is a pair and that we can change the value but not the key member of that pair.<br>Iterators for sets Are const,the keys in a set are also const.<br><strong>The output of this program is in alphabetical order. When we use an iterator to traverse a map, multimap, set, or multiset, the iterators yield  elements in ascending key order.</strong><br>The insert members (Table 11.4 (overleaf)) add one element or a range of elements.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// four ways to add word to map word_count</div><div class="line">word_count.insert(&#123;word, 1&#125;);</div><div class="line">word_count.insert(make_pair(word, 1));</div><div class="line">word_count.insert(pair&lt;string, size_t&gt;(word, 1));</div><div class="line">word_count.insert(map&lt;string, size_t&gt;::value_type(word, 1));</div></pre></td></tr></table></figure></p>
+        <h4 id="The-Copy-Constructer"><a href="#The-Copy-Constructer" class="headerlink" title="The Copy Constructer"></a>The Copy Constructer</h4><p>the first parameter is a reference to the class type.<br>usually not be eaplicit.</p>
 <blockquote>
-<p>Erasing Elements<br>c.erase(k)     remove every element with the key k from c.<br>c.erase(p)     remove the element denoted by the iterater p from c.<br>c.erase(b,e)   remove the element in  the range demoted by b and e and return e.</p>
+<p>the difference between direct initialization and copy initialization.<br>direct initialization :the compiler use ordinary function matching to select the cnstructer that best matchs the arguments we provide;<br>copy initialization : the compiler copy the right oprand into the object being created,converting that operand if necessary.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">string s(dots); // direct initialization</div><div class="line">string s2 = dots; // copy initialization</div></pre></td></tr></table></figure></p>
 </blockquote>
-<p>The map and unordered_map containers provide the subscript operator and a<br>corresponding at function,We cannot subscript a multimap or an unordered_multimap because there may be more than one value associated with a given key.<br><strong>Subscripting a map behaves quite differently from subscripting an array or vector: Using a key that is not already present adds an element with that key to the map.</strong></p>
+<p><strong><br>Copy initialization happens<br>• Define variables using an =<br>• Pass an object as an argument to a parameter of nonreference type<br>• Return an object from a function that has a nonreference return type<br>• Brace initialize the elements in an array or the members of an aggregate class<br>• Some class types also use copy initialization for the objects they allocate.<br><em>insert or push:copy initialize             empalce :   direct initialized</em>
+</strong></p>
+<h4 id="The-Copy-Assignment-Operater"><a href="#The-Copy-Assignment-Operater" class="headerlink" title="The Copy-Assignment Operater"></a>The Copy-Assignment Operater</h4><p>Assignment operators ordinarily should return a reference to their left-hand operand.<br><code>copy-assignment</code> operator is function named <code>operator=</code>.<br>and is used when assignment occurred.</p>
+<h4 id="The-Destructor"><a href="#The-Destructor" class="headerlink" title="The Destructor"></a>The Destructor</h4><p>prefixed by a tilde (~).             no return value and takes no parameters:</p>
 <blockquote>
-<p>Operations to Find Elements in an Associative Container<br>c.find(k)   return iterator to the first element with the key k or the off-the-end iterator.<br>c.count(k) return the number of elements with key k.<br>c.lower_bound(k) return an iterator to the first element with key not less than k.<br>c.upper_bound(k) return an iterator to the first element with key greater than k.<br>c.equal_range(k) return a pair of iterator denoting the elements with key k,if k is not present, both menbers are c.end().<br>If the key is present, then the first iterator refers to the first instance of the key and the second iterator refers one past the last instance of the key. If no matching element is found, then both the first and second iterators refer to the position where this key can be inserted.</p>
+<p>When a Destructor Is Called<br>• Variables are destroyed when they go out of scope.<br>• Members of an object are destroyed when the object of which they are a part is<br>destroyed.<br>• Elements in a container—whether a library container or an array—are destroyed<br>when the container is destroyed.<br>• Dynamically allocated objects are destroyed when the delete operator is<br>applied to a pointer to the object<br>• Temporary objects are destroyed at the end of the full expression in which the<br>temporary was created.</p>
 </blockquote>
-<p>For the map and unordered_map types,using a subscript has an important side effect: If that key is not already in the map, then subscript inserts an element with that key.<br>When a multimap or multiset has multiple elements of a given key, those elements will be adjacent within the container.</p>
-<p><strong>Hash and Unordermap???</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;initializer_list&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cout</span>;</div><div class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line"><span class="keyword">struct</span> X</div><div class="line">&#123;</div><div class="line">    X()&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"X()"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;;</div><div class="line">    X(<span class="keyword">const</span> X&amp;)&#123; <span class="built_in">cout</span>&lt;&lt;<span class="string">"X(const X&amp;)"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;; <span class="comment">//copy</span></div><div class="line">    X&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> X&amp;) <span class="comment">//copy assignment</span></div><div class="line">    &#123;</div><div class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"X&amp; operater=(const X&amp;)"</span>&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">        <span class="keyword">return</span> *<span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line">    ~X()&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"~X()"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;;  <span class="comment">//destucter</span></div><div class="line">&#125;;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">const</span> X&amp;rx,X x)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;X&gt;vec;</div><div class="line">    vec.reserve(<span class="number">2</span>);</div><div class="line">    vec.push_back(rx);</div><div class="line">    vec.push_back(x);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    X* px=<span class="keyword">new</span> X;</div><div class="line">    f(*px,*px);</div><div class="line">    <span class="keyword">delete</span> px;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>Classes That Need Destructors Need Copy and Assignment</strong><br><strong>If a class needs a copy constructor, it almost surely needs a copy-assignment operator.</strong><br><strong>= default</strong>:use the defaluter constructer;(only on the default constructor or a copy-control member)<br><strong>= delete</strong>: unable the constructer;</p>
+<blockquote>
+<p>The Destructor Should Not be a Deleted Member<br>if a class has a data member that cannot be default<br>constructed, copied, assigned, or destroyed, then the corresponding member will be a<br>deleted function.</p>
+</blockquote>
+<h3 id="Copy-Control-and-Resource-Management"><a href="#Copy-Control-and-Resource-Management" class="headerlink" title="Copy Control and Resource Management"></a>Copy Control and Resource Management</h3><p>two points in assignment operator:<br>• Assignment operators must work correctly if an object is assigned to itself.<br>• Most assignment operators share work with the destructor and copy<br>constructor.</p>
+<h4 id="SteVec"><a href="#SteVec" class="headerlink" title="SteVec"></a>SteVec</h4><p>Each StrVec will have three pointers into the space it uses for its elements:<br>• elements, which points to the first element in the allocated memory<br>• first_free, which points just after the last actual element<br>• cap, which points just past the end of the allocated memory</p>
 
       
     </div>
@@ -351,16 +364,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/26/C Primier Plus Generic-Algorithms/" rel="next" title="C++ Primier Plus Generic Algorithms">
-                <i class="fa fa-chevron-left"></i> C++ Primier Plus Generic Algorithms
+              <a href="/2016/07/28/C Primier Plus Dynamic-Memory /" rel="next" title="Dynamic Memory">
+                <i class="fa fa-chevron-left"></i> Dynamic Memory
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/07/28/Dynamic-Memory/" rel="prev" title="Dynamic Memory">
-                Dynamic Memory <i class="fa fa-chevron-right"></i>
+              <a href="/2016/08/04/C Primier Plus Overloaded-operation-and-conversion/" rel="prev" title="Overloaded operation and conversion">
+                Overloaded operation and conversion <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -435,7 +448,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-count">15</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -452,7 +465,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -519,7 +532,7 @@
               
             
             
-              <p class="post-toc-empty">This post does not have a Table of Contents</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Copy-Constructer"><span class="nav-number">1.</span> <span class="nav-text">The Copy Constructer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Copy-Assignment-Operater"><span class="nav-number">2.</span> <span class="nav-text">The Copy-Assignment Operater</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Destructor"><span class="nav-number">3.</span> <span class="nav-text">The Destructor</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Copy-Control-and-Resource-Management"><span class="nav-number"></span> <span class="nav-text">Copy Control and Resource Management</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SteVec"><span class="nav-number">1.</span> <span class="nav-text">SteVec</span></a></li></ol></div>
             
           </div>
         </section>

@@ -86,16 +86,16 @@
 
 
 
-<meta name="description" content="Dynamic Memory and Smart Pointersshared_ptr:init: make_shared&amp;lt; Type &amp;gt;(args);   shared_ptr&amp;lt; Type &amp;gt;(q); p=q;function :p.unique() if count return 1 truw,else false.p.use_count() return the nu">
+<meta name="description" content="Associative containers support efficient lookup and retrieval by a key.12        word.erase(std::remove_if(word.begin(), word.end(), ispunct),word.end());$   remove_if move container to the end and re">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Dynamic Memory">
-<meta property="og:url" content="http://yoursite.com/2016/07/28/Dynamic-Memory/index.html">
+<meta property="og:title" content="Associative Containers">
+<meta property="og:url" content="http://yoursite.com/2016/07/28/C Primier Plus Associative containers/index.html">
 <meta property="og:site_name" content="TheOneAC">
-<meta property="og:description" content="Dynamic Memory and Smart Pointersshared_ptr:init: make_shared&amp;lt; Type &amp;gt;(args);   shared_ptr&amp;lt; Type &amp;gt;(q); p=q;function :p.unique() if count return 1 truw,else false.p.use_count() return the nu">
-<meta property="og:updated_time" content="2016-08-03T12:02:53.554Z">
+<meta property="og:description" content="Associative containers support efficient lookup and retrieval by a key.12        word.erase(std::remove_if(word.begin(), word.end(), ispunct),word.end());$   remove_if move container to the end and re">
+<meta property="og:updated_time" content="2016-07-28T10:28:42.618Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Dynamic Memory">
-<meta name="twitter:description" content="Dynamic Memory and Smart Pointersshared_ptr:init: make_shared&amp;lt; Type &amp;gt;(args);   shared_ptr&amp;lt; Type &amp;gt;(q); p=q;function :p.unique() if count return 1 truw,else false.p.use_count() return the nu">
+<meta name="twitter:title" content="Associative Containers">
+<meta name="twitter:description" content="Associative containers support efficient lookup and retrieval by a key.12        word.erase(std::remove_if(word.begin(), word.end(), ispunct),word.end());$   remove_if move container to the end and re">
 
 
 
@@ -116,9 +116,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/28/Dynamic-Memory/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/07/28/C Primier Plus Associative containers/"/>
 
-  <title> Dynamic Memory | TheOneAC </title>
+  <title> Associative Containers | TheOneAC </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -248,7 +248,7 @@
             
             
               
-                Dynamic Memory
+                Associative Containers
               
             
           </h1>
@@ -260,7 +260,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-28T18:30:47+08:00" content="2016-07-28">
+            <time itemprop="dateCreated" datetime="2016-07-28T11:35:15+08:00" content="2016-07-28">
               2016-07-28
             </time>
           </span>
@@ -307,29 +307,17 @@
       
 
       
-        <h3 id="Dynamic-Memory-and-Smart-Pointers"><a href="#Dynamic-Memory-and-Smart-Pointers" class="headerlink" title="Dynamic Memory and Smart Pointers"></a>Dynamic Memory and Smart Pointers</h3><p>shared_ptr:<br>init: make_shared&lt; Type &gt;(args);   shared_ptr&lt; Type &gt;(q); p=q;<br>function :<br>p.unique() if count return 1 truw,else false.<br>p.use_count() return the number of object sharing with p.<br>make_shared. allocates and initializes an object in dynamic memory and returns a shared_ptr that points to that object.<code>shared_ptr&lt;string&gt; p4 = make_shared&lt;string&gt;(10, &#39;9&#39;);</code><br><strong>new</strong> returns a pointer to the object it allocates:<code>int *pi = new int;</code><br>By default, dynamically allocated objects are default initialized, which means that objects of built-in or compound type have undefined value<br>Like any other const, a dynamically allocated const object must be initialized.<br><code>const string *pcs = new const string;</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int *p1 = new int; // if allocation fails, new throws std::bad_alloc</div><div class="line">int *p2 = new (nothrow) int; // if allocation fails, new returns a null pointer</div></pre></td></tr></table></figure></p>
+        <p>Associative containers support efficient lookup and retrieval by a key.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">        word.erase(std::remove_if(word.begin(), word.end(), ispunct),word.end());</div><div class="line">$   remove_if move container to the end and return a partition iterater, erase the container from partition to the end.</div></pre></td></tr></table></figure></p>
+<p>the ordered containers—map, multimap, set, and multiset—the key type must define a way to compare the elements.<br>Callable objects passed to a sort algorithm (§ 10.3.1, p. 386) must meet the same requirements as do the keys in an associative container.<br>To use our own operation, we must define the multiset with two types: the key type,  and the comparison type, which is a function pointer type  that can point to compare function.<br>the data members of pair are public ,These members are named first and second,respectively. We access these members using the normal member access notation.<br>It is essential to remember that the value_type of a map is a pair and that we can change the value but not the key member of that pair.<br>Iterators for sets Are const,the keys in a set are also const.<br><strong>The output of this program is in alphabetical order. When we use an iterator to traverse a map, multimap, set, or multiset, the iterators yield  elements in ascending key order.</strong><br>The insert members (Table 11.4 (overleaf)) add one element or a range of elements.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// four ways to add word to map word_count</div><div class="line">word_count.insert(&#123;word, 1&#125;);</div><div class="line">word_count.insert(make_pair(word, 1));</div><div class="line">word_count.insert(pair&lt;string, size_t&gt;(word, 1));</div><div class="line">word_count.insert(map&lt;string, size_t&gt;::value_type(word, 1));</div></pre></td></tr></table></figure></p>
 <blockquote>
-<p><strong>Functions that return pointers (rather than smart pointers) to dynamic memory put a<br>burden on their callers—the caller must remember to delete the memory</strong></p>
+<p>Erasing Elements<br>c.erase(k)     remove every element with the key k from c.<br>c.erase(p)     remove the element denoted by the iterater p from c.<br>c.erase(b,e)   remove the element in  the range demoted by b and e and return e.</p>
 </blockquote>
-<h2 id="Dynamic-memory-managed-through-built-in-pointers-rather-than-smart-pointers-exists-until-it-is-explicitly-freed"><a href="#Dynamic-memory-managed-through-built-in-pointers-rather-than-smart-pointers-exists-until-it-is-explicitly-freed" class="headerlink" title="Dynamic memory managed through built-in pointers (rather than smart pointers) exists until it is explicitly freed."></a><strong>Dynamic memory managed through built-in pointers (rather than smart pointers) exists until it is explicitly freed.</strong></h2><p><strong>three common problems with using new and delete</strong></p>
-<ol>
-<li>Forgetting to delete memory. Neglecting to delete dynamic memory is known as a “memory leak,”</li>
-<li>Using an object after it has been deleted.</li>
-<li>Deleting the same memory twice.</li>
-</ol>
-<p><strong>dangling pointer</strong>:When we delete a pointer, that pointer becomes invalid.but the pointer continues to hold the address of the (freed) dynamic memory.<br>we cannot implicitly convert a built-in pointer to a smart pointer; we must use<br>the direct form of initialization to initialize a smart pointer<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">shared_ptr&lt;int&gt; p1 = new int(1024); // error: must use direct initialization</div><div class="line">shared_ptr&lt;int&gt; p2(new int(1024)); // ok: uses direct initialization</div></pre></td></tr></table></figure></p>
-<p>use <strong>reset</strong> to assign a new pointer to a shared_ptr.</p>
-<h2 id="In-particular-classes-that-are-designed-to-be-used-by-both-C-and-C-generally-require-the-user-to-specifically-free-any-resources-that-are-used"><a href="#In-particular-classes-that-are-designed-to-be-used-by-both-C-and-C-generally-require-the-user-to-specifically-free-any-resources-that-are-used" class="headerlink" title="In particular, classes that are designed to be used by both C and C++ generally require the user to specifically free any resources that are used."></a>In particular, classes that are designed to be used by both C and C++ generally require the user to specifically free any resources that are used.</h2><p>unique_ptr:”owns” the object which it points.<br>so it doesn`t support ordinary copy and assignment.<br>but can transfer ownership fron one (nonconst)unique_ptr to another by calling release or set.<br><code>// transfers ownership from p3 to p2
-p2.reset(p3.release()); 
-// reset deletes the memory to which p2 had pointed</code><br>only one unique_ptr at a time can point to  a given object.<br>unique_ptr destroyed so the object it point to.<br>u.release() :return the pointer u had held and makes u null;<br>u.reset() :deletes the object to which i pointes;<br>u.reset(q) :if the built-in pointer q is supplied ,makes u pointe to that object.<br>u=nullptr; deletes the object to which u points,makes u null;<br>unique_ptr : bind to a pointer<br><strong><a href="http://stackoverflow.com/questions/6876751/differences-between-unique-ptr-and-shared-ptr" target="_blank" rel="external">http://stackoverflow.com/questions/6876751/differences-between-unique-ptr-and-shared-ptr</a></strong></p>
-<h3 id="weak-ptr"><a href="#weak-ptr" class="headerlink" title="weak_ptr"></a>weak_ptr</h3><p>not control the lifetime of the object it point to.<br>bind a weak_ptr to a shared_ptr not change the reference count of that shared_ptr.<br><strong>weak</strong>:Once the last shared_ptr pointing to the object goes away, the object itself will be deleted. That object will be deleted even if there are weak_ptrs pointing to it.<br>The <strong>lock</strong> function checks whether the object to which the weak_ptr points still exists. If so, lock returns a shared_ptr to the shared object.</p>
-<h3 id="Dynamic-Arrays"><a href="#Dynamic-Arrays" class="headerlink" title="Dynamic Arrays"></a>Dynamic Arrays</h3><p>Classes that allocate dynamic arrays must define their own versions of these operations to manage the associated memory when objects are copied, assigned, and destroyed.<br><code>int *pia = new int[get_size()]; 
-// pia points to the first of these ints</code><br>The size inside the brackets must have integral type but need not be a constant.</p>
+<p>The map and unordered_map containers provide the subscript operator and a<br>corresponding at function,We cannot subscript a multimap or an unordered_multimap because there may be more than one value associated with a given key.<br><strong>Subscripting a map behaves quite differently from subscripting an array or vector: Using a key that is not already present adds an element with that key to the map.</strong></p>
 <blockquote>
-<p><strong>Allocating an Array Yields a Pointer to the Element Type</strong></p>
+<p>Operations to Find Elements in an Associative Container<br>c.find(k)   return iterator to the first element with the key k or the off-the-end iterator.<br>c.count(k) return the number of elements with key k.<br>c.lower_bound(k) return an iterator to the first element with key not less than k.<br>c.upper_bound(k) return an iterator to the first element with key greater than k.<br>c.equal_range(k) return a pair of iterator denoting the elements with key k,if k is not present, both menbers are c.end().<br>If the key is present, then the first iterator refers to the first instance of the key and the second iterator refers one past the last instance of the key. If no matching element is found, then both the first and second iterators refer to the position where this key can be inserted.</p>
 </blockquote>
-<p>shared_ptrs provide no direct support for managing a dynamic array. If we want to use a shared_ptr to manage a dynamic array, we must provide our own deleter:<br><code>shared_ptr&lt;int&gt; sp(new int[10], [](int *p) { delete[] p; });
-sp.reset(); // uses the lambda we supplied that uses delete[] to free the array</code><br>classes that do not have default constructors cannot be dynamically allocated as an array.<br><strong>allocator</strong>: provides type-aware allocation of raw, unconstructed, memory.<br>We must construct objects in order to use memory returned by<br>allocate. Using unconstructed memory in other ways is undefined.</p>
+<p>For the map and unordered_map types,using a subscript has an important side effect: If that key is not already in the map, then subscript inserts an element with that key.<br>When a multimap or multiset has multiple elements of a given key, those elements will be adjacent within the container.</p>
+<p><strong>Hash and Unordermap???</strong></p>
 
       
     </div>
@@ -363,16 +351,16 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/28/C Primier Plus Dynamic-Memory/" rel="next" title="Associative Containers">
-                <i class="fa fa-chevron-left"></i> Associative Containers
+              <a href="/2016/07/26/C Primier Plus Generic-Algorithms/" rel="next" title="C++ Primier Plus Generic Algorithms">
+                <i class="fa fa-chevron-left"></i> C++ Primier Plus Generic Algorithms
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/08/03/Copy-Control/" rel="prev" title="Copy Control">
-                Copy Control <i class="fa fa-chevron-right"></i>
+              <a href="/2016/07/28/C Primier Plus Dynamic-Memory /" rel="prev" title="Dynamic Memory">
+                Dynamic Memory <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -447,7 +435,7 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-count">15</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -464,7 +452,7 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -531,7 +519,7 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-Memory-and-Smart-Pointers"><span class="nav-number">1.</span> <span class="nav-text">Dynamic Memory and Smart Pointers</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dynamic-memory-managed-through-built-in-pointers-rather-than-smart-pointers-exists-until-it-is-explicitly-freed"><span class="nav-number"></span> <span class="nav-text">Dynamic memory managed through built-in pointers (rather than smart pointers) exists until it is explicitly freed.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#In-particular-classes-that-are-designed-to-be-used-by-both-C-and-C-generally-require-the-user-to-specifically-free-any-resources-that-are-used"><span class="nav-number"></span> <span class="nav-text">In particular, classes that are designed to be used by both C and C++ generally require the user to specifically free any resources that are used.</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#weak-ptr"><span class="nav-number">1.</span> <span class="nav-text">weak_ptr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-Arrays"><span class="nav-number">2.</span> <span class="nav-text">Dynamic Arrays</span></a></li></ol></div>
+              <p class="post-toc-empty">This post does not have a Table of Contents</p>
             
           </div>
         </section>
