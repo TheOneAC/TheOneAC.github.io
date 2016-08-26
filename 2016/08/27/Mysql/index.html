@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Notes,C++," />
+  <meta name="keywords" content="Notes,Mysql," />
 
 
 
@@ -86,16 +86,42 @@
 
 
 
-<meta name="description" content="No Copy or Assign for IO ObjectsFunctions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.The">
+<meta name="description" content="管理用户：USE mysql；SELECT user FROM user；
+创建账户：CTEATE USER name IDENTIFIED BY ‘PASSWAORD’；
+删除用户 DROP USER name；
+设置权限：SHOW GRANTS FOR name；
+修改权限：GRANT SELECT ON …. TO username；
+
+
+
+sql语句创建库:SOURCE 绝对路径+文件名">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C Primier Plus IO Library">
-<meta property="og:url" content="http://yoursite.com/2016/07/25/C Primier Plus IO Library/index.html">
+<meta property="og:title" content="Mysql">
+<meta property="og:url" content="http://yoursite.com/2016/08/27/Mysql/index.html">
 <meta property="og:site_name" content="TheOneAC">
-<meta property="og:description" content="No Copy or Assign for IO ObjectsFunctions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.The">
-<meta property="og:updated_time" content="2016-07-25T13:33:50.771Z">
+<meta property="og:description" content="管理用户：USE mysql；SELECT user FROM user；
+创建账户：CTEATE USER name IDENTIFIED BY ‘PASSWAORD’；
+删除用户 DROP USER name；
+设置权限：SHOW GRANTS FOR name；
+修改权限：GRANT SELECT ON …. TO username；
+
+
+
+sql语句创建库:SOURCE 绝对路径+文件名">
+<meta property="og:image" content="http://www.mysqltutorial.org/wp-content/uploads/2011/05/mysql-inner-join-Venn-Diagram.png">
+<meta property="og:updated_time" content="2016-08-26T19:27:10.229Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C Primier Plus IO Library">
-<meta name="twitter:description" content="No Copy or Assign for IO ObjectsFunctions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.The">
+<meta name="twitter:title" content="Mysql">
+<meta name="twitter:description" content="管理用户：USE mysql；SELECT user FROM user；
+创建账户：CTEATE USER name IDENTIFIED BY ‘PASSWAORD’；
+删除用户 DROP USER name；
+设置权限：SHOW GRANTS FOR name；
+修改权限：GRANT SELECT ON …. TO username；
+
+
+
+sql语句创建库:SOURCE 绝对路径+文件名">
+<meta name="twitter:image" content="http://www.mysqltutorial.org/wp-content/uploads/2011/05/mysql-inner-join-Venn-Diagram.png">
 
 
 
@@ -116,9 +142,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/25/C Primier Plus IO Library/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/08/27/Mysql/"/>
 
-  <title> C Primier Plus IO Library | TheOneAC </title>
+  <title> Mysql | TheOneAC </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -248,7 +274,7 @@
             
             
               
-                C Primier Plus IO Library
+                Mysql
               
             
           </h1>
@@ -260,8 +286,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-25T01:22:33+08:00" content="2016-07-25">
-              2016-07-25
+            <time itemprop="dateCreated" datetime="2016-08-27T03:24:10+08:00" content="2016-08-27">
+              2016-08-27
             </time>
           </span>
 
@@ -274,8 +300,8 @@
               <span class="post-meta-item-text">In</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
+                  <a href="/categories/SQL/" itemprop="url" rel="index">
+                    <span itemprop="name">SQL</span>
                   </a>
                 </span>
 
@@ -307,9 +333,67 @@
       
 
       
-        <h3 id="No-Copy-or-Assign-for-IO-Objects"><a href="#No-Copy-or-Assign-for-IO-Objects" class="headerlink" title="No Copy or Assign for IO Objects"></a>No Copy or Assign for IO Objects</h3><p>Functions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.<br>The library lets us ignore the differences among these different kinds of streams by using <strong>inheritance</strong><br>There are two other similar manipulators: flush and ends.<br>flush flushes the stream but adds no characters to the output; ends inserts a null character into the buffer and then flushes it<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; endl; // writes hi and a newline, then flushes the buffer</div><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; flush; // writes hi, then flushes the buffer; adds no data</div><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; ends; // writes hi and a null, then flushes the buffer</div><div class="line"></div><div class="line">cout &lt;&lt; unitbuf; // all writes will be flushed immediately</div><div class="line">// any output is flushed immediately, no buffering</div><div class="line">cout &lt;&lt; nounitbuf; // returns to normal buffering</div></pre></td></tr></table></figure></p>
-<p><strong>Output buffers are not flushed if the program terminates abnormally.</strong><br>Tying Input and Output Streams Together:<br>When an input stream is tied to an output stream, any attempt to read the input stream will first flush the buffer associated with the output stream.<br>To tie a given stream to a new output stream, we pass tie a pointer to the new stream. To untie the stream completely, we pass a null pointer. Each stream can be tied to at most one stream at a time. However, multiple streams can tie themselves to the same ostream<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cin.tie(&amp;cout); // illustration only: the library ties cin and cout for us</div><div class="line">// old_tie points to the stream (if any) currently tied to cin</div><div class="line">ostream *old_tie = cin.tie(nullptr); // cin is no longer tied</div><div class="line">// ties cin and cerr; not a good idea because cin should be tied to cout</div><div class="line">cin.tie(&amp;cerr); // reading cin flushes cerr, not cout</div><div class="line">cin.tie(old_tie); // reestablish normal tie between cin and cout</div></pre></td></tr></table></figure></p>
-<p>The only way to preserve the existing data in a file opened by an ofstream<br>is to specify app or in mode explicitly.<br>File Mode Is Determined Each Time open Is Called.</p>
+        <ul>
+<li>管理用户：<br>USE mysql；<br>SELECT user FROM user；</li>
+<li>创建账户：<br>CTEATE USER name IDENTIFIED BY ‘PASSWAORD’；</li>
+<li>删除用户 DROP USER name；</li>
+<li>设置权限：<br>SHOW GRANTS FOR name；</li>
+<li>修改权限：<br>GRANT SELECT ON …. TO username；</li>
+</ul>
+<hr>
+<ul>
+<li>sql语句创建库:<br>SOURCE 绝对路径+文件名；<br>SHOW columns FROM tablename；<br>SHOW STATUS;<br>SHOW GRANTS;<br>SHOW CREATE TABLES;<br>SHOW ERRORS;</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">SELECT </div><div class="line">    column_1, column_2, ...</div><div class="line">FROM</div><div class="line">    table_1</div><div class="line">[INNER | LEFT |RIGHT] JOIN table_2 ON conditions</div><div class="line">WHERE</div><div class="line">    conditions</div><div class="line">GROUP BY column_1</div><div class="line">HAVING group_conditions</div><div class="line">ORDER BY column_1</div><div class="line">LIMIT offset, length;</div></pre></td></tr></table></figure>
+<p><strong>INNER JOIN</strong><br><img src="http://www.mysqltutorial.org/wp-content/uploads/2011/05/mysql-inner-join-Venn-Diagram.png" alt="inner join"></p>
+<ul>
+<li>SELECT column FROM tablename LIMIT num1，num2；<br>输出从num1行开始的num2行</li>
+</ul>
+<blockquote>
+<p><strong>BETWEEN AND 两值之间<br>[NOT] IN(范围) 制定范围之间<br>LIKE 字符匹配</strong></p>
+</blockquote>
+<ul>
+<li><p>MYSQL REGEXP</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">|       或</div><div class="line">[ a-z ]     范围所有小写字母</div><div class="line">.       任意字符</div><div class="line">\\      转义</div><div class="line">[: :]       匹配字符类</div></pre></td></tr></table></figure>
+</li>
+<li><p>重复前字符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">\*      0或多个匹配</div><div class="line">\+      1或多个匹配</div><div class="line">？       0或1个匹配</div><div class="line">&#123;n&#125;     指定数目匹配</div><div class="line">&#123;n，&#125;     不少于制定数目匹配</div><div class="line">&#123;n,m&#125;    匹配数目不超过m</div></pre></td></tr></table></figure>
+</li>
+<li><p>定位符</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">^        文本开始</div><div class="line">$       文本结尾</div><div class="line">[[:&lt;:]]     词开始</div><div class="line">[[:&gt;:]]     词结束</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>LIKE 匹配整串 REGEXP 匹配子串</strong><br>mysq以concat()实现拼接，一般sql可以用+或者||实现</p>
+<ul>
+<li>文本函数<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">rtrim()     去掉数值右侧空格</div><div class="line">Left()         返回串左边字符</div><div class="line">Length()       返回串长度</div><div class="line">Locate()       找出串中一个子串</div><div class="line">Lower()     转换为小写</div><div class="line">Ltrim()     去除左边空字符</div><div class="line">Rtrim()     去除右边空字符</div><div class="line">Right()     返回串右边字符</div><div class="line">Soundex()     发音相似</div><div class="line">Substring() 返回子串</div><div class="line">Upper()     转换为大写</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">0. DISTINCT  只能用于COUNT(),不能用于COUNT(*)</div><div class="line">1. GROUP BY 子句嵌套分组时，数据将在最后规定的分组进行汇总</div><div class="line">2. HAVING 过滤分组子句</div><div class="line">3. WHERE 在数据分组前进行过滤，HAVING 在数据分组后过滤</div></pre></td></tr></table></figure>
+<p>等值连接即内连接INNER JOIN  ON 子句筛选<br>自链接，使用表别名防止链接错误</p>
+<ul>
+<li><p>全文匹配</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">FULLTEXT（tablename）:为该列建立索引</div><div class="line">MATCH（指定搜索列）AGAINST（搜索文本）[WITH QUERY EXPANSION]/查询扩展</div><div class="line">FULLTEX与MATCH参数必须一致</div><div class="line">全文匹配自动排序，相似度高的先输出</div><div class="line">扩展查询：两次索引查询，第一次查询相似词，第二次用相似词查询并返回结果</div></pre></td></tr></table></figure>
+</li>
+<li><p>IN BINARY MODE</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">\+  包含，词必须存在</div><div class="line">—   排除，词不出现</div><div class="line">\&gt;  包含，增加等级</div><div class="line">&lt;   包含，减少等级</div><div class="line">()      词组排列组合</div><div class="line">~   取消一个词的排序值</div><div class="line">\*  词尾通配符</div><div class="line">&quot;&quot;  定义为一个短语</div></pre></td></tr></table></figure>
+</li>
+<li><p>引擎类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ENGINE=[]</div><div class="line">InnoDB  事务处理，不支持全文搜索</div><div class="line">MEMORY  快速MyISAM，内存存储，速度快</div><div class="line">MyISAM  支持全文搜索不支持事务处理</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<ol>
+<li><strong>外键不能跨引擎</strong></li>
+<li><strong>在视图定义中有如下操作不能更新:分组、链接、子查询、并、、聚集函数，distinct</strong></li>
+</ol>
+<ul>
+<li><p>创建存储过程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">CREATE PROCEDURE procedurename(参数)</div><div class="line">BEGIN</div><div class="line">.........;</div><div class="line">END;</div></pre></td></tr></table></figure>
+</li>
+<li><p>调用存储过程：CALL preocedurename（@p1，@p2，@p3）；<br><em>参数变量以@开头</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">\* 备份前FLUSH TABLES;             刷新</div><div class="line">\* 备份：mysqldump                  转储所有内文件到外部文件</div><div class="line">\* mysqlhotcopy                      复制数据库</div><div class="line">\* BACKUP TABLE /SELECT INTOOUTFILE  转储到外部文件</div></pre></td></tr></table></figure>
+</li>
+<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">SHOW CHARACTER SET；         显示字符集</div><div class="line">SHOW COLLATION；             显示校对</div><div class="line">ANALYZE TABLE tablename；       分析表状态</div><div class="line">CHECK TABLE tabkename；       检查表状态</div></pre></td></tr></table></figure></li>
+</ul>
 
       
     </div>
@@ -334,7 +418,7 @@
           
             <a href="/tags/Notes/" rel="tag">#Notes</a>
           
-            <a href="/tags/C/" rel="tag">#C++</a>
+            <a href="/tags/Mysql/" rel="tag">#Mysql</a>
           
         </div>
       
@@ -343,17 +427,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/21/C Primier Plus Class/" rel="next" title="C Primier Plus Class">
-                <i class="fa fa-chevron-left"></i> C Primier Plus Class
+              <a href="/2016/08/27/sqlite/" rel="next" title="sqlite">
+                <i class="fa fa-chevron-left"></i> sqlite
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/25/C Primier Plus Sequential Container/" rel="prev" title="C Primier Plus Sequential Container">
-                C Primier Plus Sequential Container <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -511,7 +591,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#No-Copy-or-Assign-for-IO-Objects"><span class="nav-number">1.</span> <span class="nav-text">No Copy or Assign for IO Objects</span></a></li></ol></div>
+              <p class="post-toc-empty">This post does not have a Table of Contents</p>
             
           </div>
         </section>

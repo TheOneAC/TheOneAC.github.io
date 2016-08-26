@@ -250,6 +250,374 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/25/C Primier Plus Sequential Container/" itemprop="url">
+                  C Primier Plus Sequential Container
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-25T21:33:22+08:00" content="2016-07-25">
+              2016-07-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>vector deque list forward-list array string<br>string and vector hold their elements in contiguous memory.<br>it is best to use vector unless there is a good reason to prefer another container.<br>the predominant operation of the application (whether it does more access or more insertion or deletion) will determine the choice of container type.<br>The exception is that the forward_list iterators do not support the decrement (–) operator.<br><strong>a reverse iterator is an iterator that goes backward through a<br>container and inverts the meaning of the iterator operations. For example, saying ++ on a reverse iterator yields the previous element.</strong><br>When write access is not needed, use cbegin and cend.<br><strong>When we initialize a container as a copy of another container, the container type and element type of both containers must be identical.</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">list&lt;string&gt; authors = &#123;&quot;Milton&quot;, &quot;Shakespeare&quot;, &quot;Austen&quot;&#125;;</div><div class="line">vector&lt;const char*&gt; articles = &#123;&quot;a&quot;, &quot;an&quot;, &quot;the&quot;&#125;;</div><div class="line">list&lt;string&gt; list2(authors); // ok: types match</div><div class="line">deque&lt;string&gt; authList(authors); // error: container types don&apos;t match</div><div class="line">vector&lt;string&gt; words(articles); // error: element types must match</div><div class="line">// ok: converts const char* elements to string</div><div class="line">forward_list&lt;string&gt; words(articles.begin(), articles.end());</div></pre></td></tr></table></figure></p>
+<p><strong>Sequential Container Size-Related Constructors</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vector&lt;int&gt; ivec(10, -1); // ten int elements, each initialized to -1</div><div class="line">list&lt;string&gt; svec(10, &quot;hi!&quot;); // ten strings; each element is &quot;hi!&quot;</div><div class="line">forward_list&lt;int&gt; ivec(10); // ten elements, each initialized to 0</div><div class="line">deque&lt;string&gt; svec(10); // ten elements, each an empty string</div></pre></td></tr></table></figure></p>
+<p><strong>The constructors that take a size are valid only for sequential containers; they are not supported for the associative containers.</strong><br>To use an array type we must specify both the element type and the size:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">array&lt;int, 10&gt;::size_type i; // array type includes element type and size.</div><div class="line">array&lt;int&gt;::size_type j; // error: array&lt;int&gt; is not a type.</div></pre></td></tr></table></figure></p>
+<p><strong>Six Way to Create and Initialize a vector</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">vector&lt;int&gt; vec;    // 0</div><div class="line">vector&lt;int&gt; vec(10);    // 0</div><div class="line">vector&lt;int&gt; vec(10,1);  // 1</div><div class="line">vector&lt;int&gt; vec&#123;1,2,3,4,5&#125;; // 1,2,3,4,5</div><div class="line">vector&lt;int&gt; vec(other_vec); // same as other_vec</div><div class="line">vector&lt;int&gt; vec(other_vec.begin(), other_vec.end()); // same as other_vec</div></pre></td></tr></table></figure></p>
+<ol>
+<li>The constructor that takes another container as an argument (excepting array) assumes the container type and element type of both containers are identical.</li>
+<li>The constructor that takes two iterators as arguments does not require the container types to be identical. Moreover, the element types in the new and original containers can differ as long as it is possible to convert the elements we’re copying to the element type of the container we are initializing.</li>
+</ol>
+<p>Unlike built-in arrays, the library array type does allow assignment,the array type does not support assign and it does not allow assignment from a braced list of values.<br><strong>Using assign (Sequential Containers Only)</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">list&lt;string&gt; names;</div><div class="line">vector&lt;const char*&gt; oldstyle;</div><div class="line">names = oldstyle; // error: container types don&apos;t match</div><div class="line">// ok: can convert from const char*to string</div><div class="line">names.assign(oldstyle.cbegin(), oldstyle.cend());</div></pre></td></tr></table></figure></p>
+<p>after swap,with the exception of string,iterators, references, and pointers into the containers are not invalidated.but a call to swap on a string may invalidate iterators, references and pointers.<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/25/C Primier Plus Sequential Container/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/25/C Primier Plus IO Library/" itemprop="url">
+                  C Primier Plus IO Library
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-25T01:22:33+08:00" content="2016-07-25">
+              2016-07-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="No-Copy-or-Assign-for-IO-Objects"><a href="#No-Copy-or-Assign-for-IO-Objects" class="headerlink" title="No Copy or Assign for IO Objects"></a>No Copy or Assign for IO Objects</h3><p>Functions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.<br>The library lets us ignore the differences among these different kinds of streams by using <strong>inheritance</strong><br>There are two other similar manipulators: flush and ends.<br>flush flushes the stream but adds no characters to the output; ends inserts a null character into the buffer and then flushes it<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; endl; // writes hi and a newline, then flushes the buffer</div><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; flush; // writes hi, then flushes the buffer; adds no data</div><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; ends; // writes hi and a null, then flushes the buffer</div><div class="line"></div><div class="line">cout &lt;&lt; unitbuf; // all writes will be flushed immediately</div><div class="line">// any output is flushed immediately, no buffering</div><div class="line">cout &lt;&lt; nounitbuf; // returns to normal buffering</div></pre></td></tr></table></figure></p>
+<p><strong>Output buffers are not flushed if the program terminates abnormally.</strong><br>Tying Input and Output Streams Together:<br>When an input stream is tied to an output stream, any attempt to read the input stream will first flush the buffer associated with the output stream.<br>To tie a given stream to a new output stream, we pass tie a pointer to the new stream. To untie the stream completely, we pass a null pointer. Each stream can be tied to at most one stream at a time. However, multiple streams can tie themselves to the same ostream<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cin.tie(&amp;cout); // illustration only: the library ties cin and cout for us</div><div class="line">// old_tie points to the stream (if any) currently tied to cin</div><div class="line">ostream *old_tie = cin.tie(nullptr); // cin is no longer tied</div><div class="line">// ties cin and cerr; not a good idea because cin should be tied to cout</div><div class="line">cin.tie(&amp;cerr); // reading cin flushes cerr, not cout</div><div class="line">cin.tie(old_tie); // reestablish normal tie between cin and cout</div></pre></td></tr></table></figure></p>
+<p>The only way to preserve the existing data in a file opened by an ofstream<br>is to specify app or in mode explicitly.<br>File Mode Is Determined Each Time open Is Called.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/21/C Primier Plus Class/" itemprop="url">
+                  C Primier Plus Class
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-21T00:47:27+08:00" content="2016-07-21">
+              2016-07-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Functions defined in the class are implicitly inline.<br>every member function must be declared inside its class.<br>Member functions access the object on which they were called through an extra, implicit parameter named this.<br>this is intended to always refer to “this” object(current function), this is a const pointer<br>const after the parameter list of a member function. A const following the parameter list indicates that this is a pointer to const<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">std::string isbn() const &#123; return this-&gt;bookNo; &#125;</div></pre></td></tr></table></figure></p>
+<p>The name of a member defined outside the class must include the name of the class of which it is a member<br><strong>Dedining a function to Return “this” Object</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Sales_data&amp; Sales_data::combine(const Sales_data &amp;rhs)</div><div class="line">&#123;</div><div class="line">units_sold += rhs.units_sold; // add the members of rhs into</div><div class="line">revenue += rhs.revenue; // the members of &apos;&apos;this&apos;&apos; object</div><div class="line">return *this; // return the object on which the function was called</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>nonmember functions that are part of the interface of a class should be declared in the same header as the class itself.</p>
+<h3 id="Constructer"><a href="#Constructer" class="headerlink" title="Constructer"></a>Constructer</h3><p>constructors may not be declared as const .When we create a const object of a class type, the object does not assume its “constness” until after the constructor completes the object’s initialization.<br>The compiler generates a default constructor automatically only if a class<br>declares no constructors<br><strong>Class</strong>:use class to define the class are similar to struct ,the only difference is the <strong>default level</strong>.<br>A class may define members before the first access specifier.<br>To members before the first access specifier, for struct they are <strong>public</strong>,for class they are <strong>private</strong>.<br>private:accessible to the menber function not accessible to code that use the class.<br>A class allow another class or function to access its nonpublic menbers by making that class or function a friend.<br><strong>Each class controls which classes or functions are its friends.friendship is not transitive.</strong><br>a friend declaration affects access but is not a declaration in an ordinary sense,if we define the function inside the class, we must still provide a declaration outside of the class itself to make that function visible<br><strong>We must use the constructor initializer list to provide values for members that are const, reference, or of a class type that does not have a default constructor.</strong><br>Members are initialized in the order in which they appear in the class definition.</p>
+<ol>
+<li>It is a good idea to write constructor initializers in the same order as the<br>members are declared. Moreover, when possible, avoid using members to initialize other members.</li>
+<li>it is a good idea write member initializers to use the constructor’s<br>parameters rather than another data member from the same object.</li>
+</ol>
+<p>Only One Class-Type Conversion Is Allowed<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$ Now, neither constructor can be used to implicitly create a Sales_data object.</div><div class="line">$ The explicit keyword is meaningful only on constructors that can be called with a single argument.</div><div class="line">$ The explicit keyword is used only on the constructor declaration inside</div><div class="line">the class.</div><div class="line">class Sales_data &#123;</div><div class="line">public:</div><div class="line">Sales_data() = default;</div><div class="line">Sales_data(const std::string &amp;s, unsigned n, double p):</div><div class="line">bookNo(s), units_sold(n), revenue(p*n) &#123; &#125;</div><div class="line">explicit Sales_data(const std::string &amp;s): bookNo(s) &#123; &#125;</div><div class="line">explicit Sales_data(std::istream&amp;);</div><div class="line">// remaining members as before</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p><em>*</em> An aggregate class (§ 7.5.5, p. 298) whose data members are all of literal type is a literal class??</p>
+<h3 id="static-Class-Members"><a href="#static-Class-Members" class="headerlink" title="static Class Members"></a>static Class Members</h3><p>a member is associated with the class by adding the keyword static to its<br>declaration.<br>Even though static members are not part of the objects of its class, we can use an object, reference, or pointer of the class type to access a static member:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">class Account &#123;</div><div class="line">public:</div><div class="line">void calculate() &#123; amount += amount * interestRate; &#125;</div><div class="line">static double rate() &#123; return interestRate; &#125;</div><div class="line">static void rate(double);</div><div class="line">private:</div><div class="line">std::string owner;</div><div class="line">double amount;</div><div class="line">static double interestRate;</div><div class="line">static double initRate();</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Account ac1;</div><div class="line">Account *ac2 = &amp;ac1;</div><div class="line">// equivalent ways to call the static member rate function</div><div class="line">r = ac1.rate(); // through an Account object or reference</div><div class="line">r = ac2-&gt;rate(); // through a pointer to an Account object</div></pre></td></tr></table></figure></p>
+<p>As with any class member, when we refer to a class static member outside<br>the class body, we must specify the class in which the member is defined.<br>The static keyword, however, is used only on the declaration inside the<br>class body.<br>we must define and initialize each static<br>data member outside the class body. and a static data member may be defined only once.</p>
+<ol>
+<li>a static data member can have incomplete type</li>
+<li>a static data member can have the same type as the class type of which<br>it is a member.</li>
+<li>we can use a static member as a default argument</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/19/C Primier Plus Function/" itemprop="url">
                   C++ Primier Plus chapter six:function
                 </a>
@@ -314,7 +682,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" rel="gallery_cis2547ty000daklvhnt1flp0"
+                 href="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" rel="gallery_cisc5ix8y000bgclv0vn8ckcn"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" itemprop="contentUrl"/>
               </a>
@@ -816,7 +1184,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" rel="gallery_cis25485n001waklvjccvvzbc"
+                 href="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" rel="gallery_cisc5ixku002bgclvt1nt45zd"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" itemprop="contentUrl"/>
               </a>
@@ -909,7 +1277,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-count">18</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -917,7 +1285,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -926,7 +1294,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
