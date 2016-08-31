@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Notes,C++," />
+  <meta name="keywords" content="Thinking," />
 
 
 
@@ -86,16 +86,58 @@
 
 
 
-<meta name="description" content="No Copy or Assign for IO ObjectsFunctions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.The">
+<meta name="description" content="写在补课之后：**
+
+补课强度高，消化不良，但是有一点明确，让你知道要学什么
+有一堆志同道合的人一块自习撸码还是很享受的，科大的实验课真心不错
+碰撞，或者老司机带路跟自己干还是不一样的
+将来找团队，找妹子也一定要志同道合啊……:cry::cry:
+
+
+
+数据结构：树变种，复杂堆，红黑树，图剪枝回溯
+
+leetcode      随算法导论进行
+
+
+网络：socket 编程，网络协议，TCP/IP三">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C Primier Plus IO Library">
-<meta property="og:url" content="http://yoursite.com/2016/07/25/C Primier Plus IO Library/index.html">
+<meta property="og:title" content="after">
+<meta property="og:url" content="http://yoursite.com/2016/08/31/补课之后/index.html">
 <meta property="og:site_name" content="TheOneAC">
-<meta property="og:description" content="No Copy or Assign for IO ObjectsFunctions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.The">
-<meta property="og:updated_time" content="2016-07-25T13:33:50.771Z">
+<meta property="og:description" content="写在补课之后：**
+
+补课强度高，消化不良，但是有一点明确，让你知道要学什么
+有一堆志同道合的人一块自习撸码还是很享受的，科大的实验课真心不错
+碰撞，或者老司机带路跟自己干还是不一样的
+将来找团队，找妹子也一定要志同道合啊……:cry::cry:
+
+
+
+数据结构：树变种，复杂堆，红黑树，图剪枝回溯
+
+leetcode      随算法导论进行
+
+
+网络：socket 编程，网络协议，TCP/IP三">
+<meta property="og:updated_time" content="2016-08-31T12:53:42.977Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C Primier Plus IO Library">
-<meta name="twitter:description" content="No Copy or Assign for IO ObjectsFunctions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.The">
+<meta name="twitter:title" content="after">
+<meta name="twitter:description" content="写在补课之后：**
+
+补课强度高，消化不良，但是有一点明确，让你知道要学什么
+有一堆志同道合的人一块自习撸码还是很享受的，科大的实验课真心不错
+碰撞，或者老司机带路跟自己干还是不一样的
+将来找团队，找妹子也一定要志同道合啊……:cry::cry:
+
+
+
+数据结构：树变种，复杂堆，红黑树，图剪枝回溯
+
+leetcode      随算法导论进行
+
+
+网络：socket 编程，网络协议，TCP/IP三">
 
 
 
@@ -116,9 +158,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/25/C Primier Plus IO Library/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/08/31/补课之后/"/>
 
-  <title> C Primier Plus IO Library | TheOneAC </title>
+  <title> after | TheOneAC </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -248,7 +290,7 @@
             
             
               
-                C Primier Plus IO Library
+                after
               
             
           </h1>
@@ -260,8 +302,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-25T01:22:33+08:00" content="2016-07-25">
-              2016-07-25
+            <time itemprop="dateCreated" datetime="2016-08-31T20:49:49+08:00" content="2016-08-31">
+              2016-08-31
             </time>
           </span>
 
@@ -274,8 +316,8 @@
               <span class="post-meta-item-text">In</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
+                  <a href="/categories/Dairy/" itemprop="url" rel="index">
+                    <span itemprop="name">Dairy</span>
                   </a>
                 </span>
 
@@ -307,9 +349,65 @@
       
 
       
-        <h3 id="No-Copy-or-Assign-for-IO-Objects"><a href="#No-Copy-or-Assign-for-IO-Objects" class="headerlink" title="No Copy or Assign for IO Objects"></a>No Copy or Assign for IO Objects</h3><p>Functions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.<br>The library lets us ignore the differences among these different kinds of streams by using <strong>inheritance</strong><br>There are two other similar manipulators: flush and ends.<br>flush flushes the stream but adds no characters to the output; ends inserts a null character into the buffer and then flushes it<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; endl; // writes hi and a newline, then flushes the buffer</div><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; flush; // writes hi, then flushes the buffer; adds no data</div><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; ends; // writes hi and a null, then flushes the buffer</div><div class="line"></div><div class="line">cout &lt;&lt; unitbuf; // all writes will be flushed immediately</div><div class="line">// any output is flushed immediately, no buffering</div><div class="line">cout &lt;&lt; nounitbuf; // returns to normal buffering</div></pre></td></tr></table></figure></p>
-<p><strong>Output buffers are not flushed if the program terminates abnormally.</strong><br>Tying Input and Output Streams Together:<br>When an input stream is tied to an output stream, any attempt to read the input stream will first flush the buffer associated with the output stream.<br>To tie a given stream to a new output stream, we pass tie a pointer to the new stream. To untie the stream completely, we pass a null pointer. Each stream can be tied to at most one stream at a time. However, multiple streams can tie themselves to the same ostream<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cin.tie(&amp;cout); // illustration only: the library ties cin and cout for us</div><div class="line">// old_tie points to the stream (if any) currently tied to cin</div><div class="line">ostream *old_tie = cin.tie(nullptr); // cin is no longer tied</div><div class="line">// ties cin and cerr; not a good idea because cin should be tied to cout</div><div class="line">cin.tie(&amp;cerr); // reading cin flushes cerr, not cout</div><div class="line">cin.tie(old_tie); // reestablish normal tie between cin and cout</div></pre></td></tr></table></figure></p>
-<p>The only way to preserve the existing data in a file opened by an ofstream<br>is to specify app or in mode explicitly.<br>File Mode Is Determined Each Time open Is Called.</p>
+        <h3 id="写在补课之后："><a href="#写在补课之后：" class="headerlink" title="写在补课之后："></a>写在补课之后：</h3><p>**</p>
+<ul>
+<li>补课强度高，消化不良，但是有一点明确，让你知道要学什么</li>
+<li>有一堆志同道合的人一块自习撸码还是很享受的，科大的实验课真心不错</li>
+<li>碰撞，或者老司机带路跟自己干还是不一样的</li>
+<li>将来找团队，找妹子也一定要志同道合啊……:cry::cry:</li>
+</ul>
+<hr>
+<ul>
+<li><p>数据结构：树变种，复杂堆，红黑树，图剪枝回溯</p>
+<blockquote>
+<p>leetcode      随算法导论进行</p>
+</blockquote>
+</li>
+<li><p>网络：socket 编程，网络协议，TCP/IP三卷，</p>
+<blockquote>
+<p>UNP           随高网进行</p>
+</blockquote>
+</li>
+<li><p>操作系统：linux私房菜未看完，在正式开学前搞完</p>
+<blockquote>
+<p>APUE          随CSAPP进行</p>
+</blockquote>
+</li>
+<li><p>数据库：范式理解需要加深</p>
+<blockquote>
+<p>高性能mysql   随高级数据库进行</p>
+</blockquote>
+</li>
+<li><p>c++：</p>
+<blockquote>
+<p>c++ primier ：后四章理解不够，<br>effective c++ ：中关于泛型编程 理解不足，缺少使用经验<br>stl 标准库 ：明显理解不够需要重新理解思考                          随c++ 面向对象复习</p>
+</blockquote>
+</li>
+<li>当前未涉及领域<blockquote>
+<p>机器学习/推荐算法，python<br>python 参考手册<br>提前理解孟宁老师网络程序课程涉及的机器学习框架和内容<br>刷网易云课堂：保健老师编译原理计划待定</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<blockquote>
+<p><strong>尝试图形化笔记，增加会议性笔记，以代码注释代替文字笔记<br>辅助技能：git不能满足于基本操作，markdown语法加入html，vim进阶，linux深入</strong></p>
+</blockquote>
+<h4 id="思考："><a href="#思考：" class="headerlink" title="思考："></a>思考：</h4><p><code>1、看书的正确方式：从c++书籍的经验看，直接上效果低，先用遇到问题查询，缺哪块补哪块</code><br><code>2、笔记的正确方式：禁止抄书，以思考写笔记，注意总和测试</code></p>
+<ul>
+<li>问题：<blockquote>
+<p>书籍pdf 还是纸质版？<br>中文书籍书籍速度快，效果差，解析未必透侧<br>文外书籍，阅读慢，讲解透侧，官网教程代码简洁</p>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>是否涉入JAVA：<blockquote>
+<p>优点：JAVA应用广，框架多，封装良好，岗位多<br>困境：目前位涉猎java领域，c++（算法）/python（机器学习） 将在第一学期计划中占据很大代码量</p>
+</blockquote>
+</li>
+</ul>
+<p><code>技能树存在java 和 编译原理  缺口</code><br><code>分布式缺口在下学期的分布式与云计算课同步补齐</code></p>
+<hr>
+<p>###总结：<br><strong>增加代码量，代码为主，看书为辅<br>新知识关注官网tutorial<br>图形化笔记，回忆性笔记<br>重理解，英文化</strong></p>
 
       
     </div>
@@ -332,9 +430,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Notes/" rel="tag">#Notes</a>
-          
-            <a href="/tags/C/" rel="tag">#C++</a>
+            <a href="/tags/Thinking/" rel="tag">#Thinking</a>
           
         </div>
       
@@ -343,17 +439,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/21/C Primier Plus Class/" rel="next" title="C Primier Plus Class">
-                <i class="fa fa-chevron-left"></i> C Primier Plus Class
+              <a href="/2016/08/27/程序员的自我修养/" rel="next" title="程序员的自我修养">
+                <i class="fa fa-chevron-left"></i> 程序员的自我修养
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/25/C Primier Plus Sequential Container/" rel="prev" title="C Primier Plus Sequential Container">
-                C Primier Plus Sequential Container <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -511,7 +603,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#No-Copy-or-Assign-for-IO-Objects"><span class="nav-number">1.</span> <span class="nav-text">No Copy or Assign for IO Objects</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#写在补课之后："><span class="nav-number">1.</span> <span class="nav-text">写在补课之后：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#思考："><span class="nav-number">1.1.</span> <span class="nav-text">思考：</span></a></li></ol></li></ol></div>
             
           </div>
         </section>

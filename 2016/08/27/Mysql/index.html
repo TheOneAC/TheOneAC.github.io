@@ -109,7 +109,8 @@ sql语句创建库:SOURCE 绝对路径+文件名">
 
 sql语句创建库:SOURCE 绝对路径+文件名">
 <meta property="og:image" content="http://www.mysqltutorial.org/wp-content/uploads/2011/05/mysql-inner-join-Venn-Diagram.png">
-<meta property="og:updated_time" content="2016-08-26T19:27:10.229Z">
+<meta property="og:image" content="http://www.mysqltutorial.org/wp-content/uploads/2016/05/MySQL-Intersect.png">
+<meta property="og:updated_time" content="2016-08-29T13:07:51.338Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mysql">
 <meta name="twitter:description" content="管理用户：USE mysql；SELECT user FROM user；
@@ -343,57 +344,51 @@ sql语句创建库:SOURCE 绝对路径+文件名">
 <hr>
 <ul>
 <li>sql语句创建库:<br>SOURCE 绝对路径+文件名；<br>SHOW columns FROM tablename；<br>SHOW STATUS;<br>SHOW GRANTS;<br>SHOW CREATE TABLES;<br>SHOW ERRORS;</li>
+<li><p>create database and use<br>create database [if not exists]database_name;<br>show databases;<br>show tables;<br>drop database [if exists]database_name;<br>create table [if not exists] table_name(<br>  column_name data_type[size] [not null|null] [default value] [auto+increment]<br>)engine=engine_name;<br>alter table table_name<br>change/add/drop/rename column column_name ….</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">A temporary table is only available and accessible by the client who creates the table.</div><div class="line">SELECT </div><div class="line">    column_1, column_2, ...</div><div class="line">FROM</div><div class="line">    table_1</div><div class="line">[INNER | LEFT |RIGHT] JOIN table_2 ON conditions</div><div class="line">WHERE</div><div class="line">    conditions</div><div class="line">GROUP BY column_1</div><div class="line">HAVING group_conditions</div><div class="line">ORDER BY column_1</div><div class="line">LIMIT offset, length;</div></pre></td></tr></table></figure>
+</li>
+<li><p>A temporary table is only available and accessible by the client who creates the table.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">CREATE [UNIQUE|FULLTEXT|SPATIAL] INDEX index_name</div><div class="line">USING [BTREE | HASH | RTREE] </div><div class="line">ON table_name (column_name [(length)] [ASC | DESC],...)</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>INNER JOIN</strong><br><img src="http://www.mysqltutorial.org/wp-content/uploads/2011/05/mysql-inner-join-Venn-Diagram.png" alt="inner join"></p>
+</li>
+<li><strong>INTERSET</strong>    <code>NO DUPLICATE</code><br>The left query produces a result set of (1,2,3)<br>The right query returns a result set of (2,3,4)<br>The INTERSECT operator returns the distinct rows of both result sets which are (2,3).<br><img src="http://www.mysqltutorial.org/wp-content/uploads/2016/05/MySQL-Intersect.png" alt="intersect"></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">SELECT </div><div class="line">    column_1, column_2, ...</div><div class="line">FROM</div><div class="line">    table_1</div><div class="line">[INNER | LEFT |RIGHT] JOIN table_2 ON conditions</div><div class="line">WHERE</div><div class="line">    conditions</div><div class="line">GROUP BY column_1</div><div class="line">HAVING group_conditions</div><div class="line">ORDER BY column_1</div><div class="line">LIMIT offset, length;</div></pre></td></tr></table></figure>
-<p><strong>INNER JOIN</strong><br><img src="http://www.mysqltutorial.org/wp-content/uploads/2011/05/mysql-inner-join-Venn-Diagram.png" alt="inner join"></p>
+<hr>
 <ul>
-<li>SELECT column FROM tablename LIMIT num1，num2；<br>输出从num1行开始的num2行</li>
-</ul>
-<blockquote>
-<p><strong>BETWEEN AND 两值之间<br>[NOT] IN(范围) 制定范围之间<br>LIKE 字符匹配</strong></p>
+<li><p><strong>Index</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">NUMERIC TYPES	DESCRIPTION</div><div class="line">TINYINT		A very small integer</div><div class="line">SMALLINT	   A small integer</div><div class="line">MEDIUMINT	  A medium-sized integer</div><div class="line">INT			A standard integer</div><div class="line">BIGINT		 A large integer</div><div class="line">DECIMAL		A fixed-point number</div><div class="line">FLOAT		  A single-precision floating point number</div><div class="line">DOUBLE	 	A double-precision floating point number</div><div class="line">BIT			A bit field</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>DATE functions</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">NOW();</div><div class="line">DATE(NOW());//format</div><div class="line">DATE_FORMAT(CURDATE(), &apos;%m/%d/%Y&apos;);//foramt_function</div><div class="line">CURRENT_TIME()//HHMMSS</div><div class="line">ADDTIME(CURRENT_TIME(), 023000), </div><div class="line">SUBTIME(CURRENT_TIME(), 023000);</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>TRANSICTION</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">START TRANSACTION</div><div class="line">....</div><div class="line">COMIT</div></pre></td></tr></table></figure>
+<p><code>if all the action in the tansaction sucessed it will commit,if not it will rollback to start</code></p>
+</li>
+<li><strong>TABLE LOCK</strong><br><code>LOCK TABLE tablename [READ|WRITE];</code><blockquote>
+<p><strong>read</strong>:<br>other session can read without lock but this session cao only read but not write;<br><strong>write</strong>:<br>only this session can read and write<br>other session cannot read and write untill the lock is released.</p>
 </blockquote>
-<ul>
-<li><p>MYSQL REGEXP</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">|       或</div><div class="line">[ a-z ]     范围所有小写字母</div><div class="line">.       任意字符</div><div class="line">\\      转义</div><div class="line">[: :]       匹配字符类</div></pre></td></tr></table></figure>
-</li>
-<li><p>重复前字符</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">\*      0或多个匹配</div><div class="line">\+      1或多个匹配</div><div class="line">？       0或1个匹配</div><div class="line">&#123;n&#125;     指定数目匹配</div><div class="line">&#123;n，&#125;     不少于制定数目匹配</div><div class="line">&#123;n,m&#125;    匹配数目不超过m</div></pre></td></tr></table></figure>
-</li>
-<li><p>定位符</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">^        文本开始</div><div class="line">$       文本结尾</div><div class="line">[[:&lt;:]]     词开始</div><div class="line">[[:&gt;:]]     词结束</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<p><strong>LIKE 匹配整串 REGEXP 匹配子串</strong><br>mysq以concat()实现拼接，一般sql可以用+或者||实现</p>
-<ul>
-<li>文本函数<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">rtrim()     去掉数值右侧空格</div><div class="line">Left()         返回串左边字符</div><div class="line">Length()       返回串长度</div><div class="line">Locate()       找出串中一个子串</div><div class="line">Lower()     转换为小写</div><div class="line">Ltrim()     去除左边空字符</div><div class="line">Rtrim()     去除右边空字符</div><div class="line">Right()     返回串右边字符</div><div class="line">Soundex()     发音相似</div><div class="line">Substring() 返回子串</div><div class="line">Upper()     转换为大写</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">0. DISTINCT  只能用于COUNT(),不能用于COUNT(*)</div><div class="line">1. GROUP BY 子句嵌套分组时，数据将在最后规定的分组进行汇总</div><div class="line">2. HAVING 过滤分组子句</div><div class="line">3. WHERE 在数据分组前进行过滤，HAVING 在数据分组后过滤</div></pre></td></tr></table></figure>
-<p>等值连接即内连接INNER JOIN  ON 子句筛选<br>自链接，使用表别名防止链接错误</p>
-<ul>
-<li><p>全文匹配</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">FULLTEXT（tablename）:为该列建立索引</div><div class="line">MATCH（指定搜索列）AGAINST（搜索文本）[WITH QUERY EXPANSION]/查询扩展</div><div class="line">FULLTEX与MATCH参数必须一致</div><div class="line">全文匹配自动排序，相似度高的先输出</div><div class="line">扩展查询：两次索引查询，第一次查询相似词，第二次用相似词查询并返回结果</div></pre></td></tr></table></figure>
-</li>
-<li><p>IN BINARY MODE</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">\+  包含，词必须存在</div><div class="line">—   排除，词不出现</div><div class="line">\&gt;  包含，增加等级</div><div class="line">&lt;   包含，减少等级</div><div class="line">()      词组排列组合</div><div class="line">~   取消一个词的排序值</div><div class="line">\*  词尾通配符</div><div class="line">&quot;&quot;  定义为一个短语</div></pre></td></tr></table></figure>
-</li>
-<li><p>引擎类型</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ENGINE=[]</div><div class="line">InnoDB  事务处理，不支持全文搜索</div><div class="line">MEMORY  快速MyISAM，内存存储，速度快</div><div class="line">MyISAM  支持全文搜索不支持事务处理</div></pre></td></tr></table></figure>
-</li>
-</ul>
+<p>UNLOCK TABLES;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">``when a table locks other  session cann`t use it untill it unlocked``</div><div class="line">* * A REFERENCRS B  ON []</div><div class="line">  when B [] act which will act to A the same</div><div class="line">* SELECT column FROM tablename LIMIT num1，num2；</div><div class="line">输出从num1行开始的num2行</div><div class="line"></div><div class="line">&gt; **BETWEEN AND 两值之间</div><div class="line">[NOT] IN(范围) 制定范围之间</div><div class="line">LIKE 字符匹配**</div><div class="line"></div><div class="line">* MYSQL REGEXP</div></pre></td></tr></table></figure></p>
+<p>|       或<br>[ a-z ]     范围所有小写字母<br>.       任意字符<br>\      转义<br>[: :]       匹配字符类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* 重复前字符</div></pre></td></tr></table></figure></p>
+<p>*      0或多个匹配<br>+      1或多个匹配<br>？       0或1个匹配<br>{n}     指定数目匹配<br>{n，}     不少于制定数目匹配<br>{n,m}    匹配数目不超过m<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* 定位符</div></pre></td></tr></table></figure></p>
+<p>^        文本开始<br>$       文本结尾<br>[[:&lt;:]]     词开始<br>[[:&gt;:]]     词结束<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">**LIKE 匹配整串 REGEXP 匹配子串**</div><div class="line">mysq以concat()实现拼接，一般sql可以用+或者||实现</div><div class="line">* 文本函数</div></pre></td></tr></table></figure></p>
+<p>rtrim()     去掉数值右侧空格<br>Left()         返回串左边字符<br>Length()       返回串长度<br>Locate()       找出串中一个子串<br>Lower()     转换为小写<br>Ltrim()     去除左边空字符<br>Rtrim()     去除右边空字符<br>Right()     返回串右边字符<br>Soundex()     发音相似<br>Substring() 返回子串<br>Upper()     转换为大写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
 <ol>
-<li><strong>外键不能跨引擎</strong></li>
-<li><strong>在视图定义中有如下操作不能更新:分组、链接、子查询、并、、聚集函数，distinct</strong></li>
+<li>DISTINCT  只能用于COUNT(),不能用于COUNT(*)</li>
+<li>GROUP BY 子句嵌套分组时，数据将在最后规定的分组进行汇总</li>
+<li>HAVING 过滤分组子句</li>
+<li>WHERE 在数据分组前进行过滤，HAVING 在数据分组后过滤<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">等值连接即内连接INNER JOIN  ON 子句筛选</div><div class="line">自链接，使用表别名防止链接错误</div><div class="line"></div><div class="line">* 全文匹配</div></pre></td></tr></table></figure>
+</li>
 </ol>
-<ul>
-<li><p>创建存储过程：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">CREATE PROCEDURE procedurename(参数)</div><div class="line">BEGIN</div><div class="line">.........;</div><div class="line">END;</div></pre></td></tr></table></figure>
-</li>
-<li><p>调用存储过程：CALL preocedurename（@p1，@p2，@p3）；<br><em>参数变量以@开头</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">\* 备份前FLUSH TABLES;             刷新</div><div class="line">\* 备份：mysqldump                  转储所有内文件到外部文件</div><div class="line">\* mysqlhotcopy                      复制数据库</div><div class="line">\* BACKUP TABLE /SELECT INTOOUTFILE  转储到外部文件</div></pre></td></tr></table></figure>
-</li>
-<li><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">SHOW CHARACTER SET；         显示字符集</div><div class="line">SHOW COLLATION；             显示校对</div><div class="line">ANALYZE TABLE tablename；       分析表状态</div><div class="line">CHECK TABLE tabkename；       检查表状态</div></pre></td></tr></table></figure></li>
-</ul>
+<p>FULLTEXT（tablename）:为该列建立索引<br>MATCH（指定搜索列）AGAINST（搜索文本）[WITH QUERY EXPANSION]/查询扩展<br>FULLTEX与MATCH参数必须一致<br>全文匹配自动排序，相似度高的先输出<br>扩展查询：两次索引查询，第一次查询相似词，第二次用相似词查询并返回结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* IN BINARY MODE</div></pre></td></tr></table></figure></p>
+<p>+  包含，词必须存在<br>—   排除，词不出现<br>>  包含，增加等级<br>&lt;   包含，减少等级<br>()      词组排列组合<br>~   取消一个词的排序值<br>*  词尾通配符<br>“”  定义为一个短语<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* 引擎类型</div></pre></td></tr></table></figure></p>
+<p>ENGINE=[]<br>InnoDB  事务处理，不支持全文搜索<br>MEMORY  快速MyISAM，内存存储，速度快<br>MyISAM  支持全文搜索不支持事务处理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">0. **外键不能跨引擎**</div><div class="line">1. **在视图定义中有如下操作不能更新:分组、链接、子查询、并、、聚集函数，distinct**</div><div class="line"></div><div class="line">* 创建存储过程：</div></pre></td></tr></table></figure></p>
+<p>CREATE PROCEDURE procedurename(参数)<br>BEGIN<br>………;<br>END;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">* 调用存储过程：CALL preocedurename（@p1，@p2，@p3）；</div><div class="line">*参数变量以@开头*</div></pre></td></tr></table></figure></p>
+<p>* 备份前FLUSH TABLES;             刷新<br>* 备份：mysqldump                  转储所有内文件到外部文件<br>* mysqlhotcopy                      复制数据库<br>* BACKUP TABLE /SELECT INTOOUTFILE  转储到外部文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">*</div></pre></td></tr></table></figure></p>
+<p>SHOW CHARACTER SET；         显示字符集<br>SHOW COLLATION；             显示校对<br>ANALYZE TABLE tablename；       分析表状态<br>CHECK TABLE tabkename；       检查表状态<br>```</p>
 
       
     </div>
@@ -434,6 +429,10 @@ sql语句创建库:SOURCE 绝对路径+文件名">
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/27/程序员的自我修养/" rel="prev" title="程序员的自我修养">
+                程序员的自我修养 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -507,7 +506,7 @@ sql语句创建库:SOURCE 绝对路径+文件名">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">18</span>
+              <span class="site-state-item-count">19</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -515,7 +514,7 @@ sql语句创建库:SOURCE 绝对路径+文件名">
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -524,7 +523,7 @@ sql语句创建库:SOURCE 绝对路径+文件名">
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
