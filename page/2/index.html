@@ -250,6 +250,271 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/03/C Primier Plus Copy-Control/" itemprop="url">
+                  Copy Control
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-08-03T20:02:40+08:00" content="2016-08-03">
+              2016-08-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="The-Copy-Constructer"><a href="#The-Copy-Constructer" class="headerlink" title="The Copy Constructer"></a>The Copy Constructer</h4><p>the first parameter is a reference to the class type.<br>usually not be eaplicit.</p>
+<blockquote>
+<p>the difference between direct initialization and copy initialization.<br>direct initialization :the compiler use ordinary function matching to select the cnstructer that best matchs the arguments we provide;<br>copy initialization : the compiler copy the right oprand into the object being created,converting that operand if necessary.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">string s(dots); // direct initialization</div><div class="line">string s2 = dots; // copy initialization</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p><strong><br>Copy initialization happens<br>• Define variables using an =<br>• Pass an object as an argument to a parameter of nonreference type<br>• Return an object from a function that has a nonreference return type<br>• Brace initialize the elements in an array or the members of an aggregate class<br>• Some class types also use copy initialization for the objects they allocate.<br><em>insert or push:copy initialize             empalce :   direct initialized</em>
+</strong></p>
+<h4 id="The-Copy-Assignment-Operater"><a href="#The-Copy-Assignment-Operater" class="headerlink" title="The Copy-Assignment Operater"></a>The Copy-Assignment Operater</h4><p>Assignment operators ordinarily should return a reference to their left-hand operand.<br><code>copy-assignment</code> operator is function named <code>operator=</code>.<br>and is used when assignment occurred.</p>
+<h4 id="The-Destructor"><a href="#The-Destructor" class="headerlink" title="The Destructor"></a>The Destructor</h4><p>prefixed by a tilde (~).             no return value and takes no parameters:</p>
+<blockquote>
+<p>When a Destructor Is Called<br>• Variables are destroyed when they go out of scope.<br>• Members of an object are destroyed when the object of which they are a part is<br>destroyed.<br>• Elements in a container—whether a library container or an array—are destroyed<br>when the container is destroyed.<br>• Dynamically allocated objects are destroyed when the delete operator is<br>applied to a pointer to the object<br>• Temporary objects are destroyed at the end of the full expression in which the<br>temporary was created.</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;initializer_list&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cout</span>;</div><div class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line"><span class="keyword">struct</span> X</div><div class="line">&#123;</div><div class="line">    X()&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"X()"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;;</div><div class="line">    X(<span class="keyword">const</span> X&amp;)&#123; <span class="built_in">cout</span>&lt;&lt;<span class="string">"X(const X&amp;)"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;; <span class="comment">//copy</span></div><div class="line">    X&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> X&amp;) <span class="comment">//copy assignment</span></div><div class="line">    &#123;</div><div class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"X&amp; operater=(const X&amp;)"</span>&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">        <span class="keyword">return</span> *<span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line">    ~X()&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"~X()"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;;  <span class="comment">//destucter</span></div><div class="line">&#125;;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">const</span> X&amp;rx,X x)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;X&gt;vec;</div><div class="line">    vec.reserve(<span class="number">2</span>);</div><div class="line">    vec.push_back(rx);</div><div class="line">    vec.push_back(x);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    X* px=<span class="keyword">new</span> X;</div><div class="line">    f(*px,*px);</div><div class="line">    <span class="keyword">delete</span> px;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>Classes That Need Destructors Need Copy and Assignment</strong><br><strong>If a class needs a copy constructor, it almost surely needs a copy-assignment operator.</strong><br><strong>= default</strong>:use the defaluter constructer;(only on the default constructor or a copy-control member)<br><strong>= delete</strong>: unable the constructer;</p>
+<blockquote>
+<p>The Destructor Should Not be a Deleted Member<br>if a class has a data member that cannot be default<br>constructed, copied, assigned, or destroyed, then the corresponding member will be a<br>deleted function.</p>
+</blockquote>
+<h3 id="Copy-Control-and-Resource-Management"><a href="#Copy-Control-and-Resource-Management" class="headerlink" title="Copy Control and Resource Management"></a>Copy Control and Resource Management</h3><p>two points in assignment operator:<br>• Assignment operators must work correctly if an object is assigned to itself.<br>• Most assignment operators share work with the destructor and copy<br>constructor.</p>
+<h4 id="SteVec"><a href="#SteVec" class="headerlink" title="SteVec"></a>SteVec</h4><p>Each StrVec will have three pointers into the space it uses for its elements:<br>• elements, which points to the first element in the allocated memory<br>• first_free, which points just after the last actual element<br>• cap, which points just past the end of the allocated memory</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/28/C Primier Plus Dynamic-Memory /" itemprop="url">
+                  Dynamic Memory
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-28T18:30:47+08:00" content="2016-07-28">
+              2016-07-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Dynamic-Memory-and-Smart-Pointers"><a href="#Dynamic-Memory-and-Smart-Pointers" class="headerlink" title="Dynamic Memory and Smart Pointers"></a>Dynamic Memory and Smart Pointers</h3><p>shared_ptr:<br>init: make_shared&lt; Type &gt;(args);   shared_ptr&lt; Type &gt;(q); p=q;<br>function :<br>p.unique() if count return 1 truw,else false.<br>p.use_count() return the number of object sharing with p.<br>make_shared. allocates and initializes an object in dynamic memory and returns a shared_ptr that points to that object.<code>shared_ptr&lt;string&gt; p4 = make_shared&lt;string&gt;(10, &#39;9&#39;);</code><br><strong>new</strong> returns a pointer to the object it allocates:<code>int *pi = new int;</code><br>By default, dynamically allocated objects are default initialized, which means that objects of built-in or compound type have undefined value<br>Like any other const, a dynamically allocated const object must be initialized.<br><code>const string *pcs = new const string;</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int *p1 = new int; // if allocation fails, new throws std::bad_alloc</div><div class="line">int *p2 = new (nothrow) int; // if allocation fails, new returns a null pointer</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>Functions that return pointers (rather than smart pointers) to dynamic memory put a<br>burden on their callers—the caller must remember to delete the memory</strong></p>
+</blockquote>
+<h2 id="Dynamic-memory-managed-through-built-in-pointers-rather-than-smart-pointers-exists-until-it-is-explicitly-freed"><a href="#Dynamic-memory-managed-through-built-in-pointers-rather-than-smart-pointers-exists-until-it-is-explicitly-freed" class="headerlink" title="Dynamic memory managed through built-in pointers (rather than smart pointers) exists until it is explicitly freed."></a><strong>Dynamic memory managed through built-in pointers (rather than smart pointers) exists until it is explicitly freed.</strong></h2><p><strong>three common problems with using new and delete</strong></p>
+<ol>
+<li>Forgetting to delete memory. Neglecting to delete dynamic memory is known as a “memory leak,”</li>
+<li>Using an object after it has been deleted.</li>
+<li>Deleting the same memory twice.</li>
+</ol>
+<p><strong>dangling pointer</strong>:When we delete a pointer, that pointer becomes invalid.but the pointer continues to hold the address of the (freed) dynamic memory.<br>we cannot implicitly convert a built-in pointer to a smart pointer; we must use<br>the direct form of initialization to initialize a smart pointer<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">shared_ptr&lt;int&gt; p1 = new int(1024); // error: must use direct initialization</div><div class="line">shared_ptr&lt;int&gt; p2(new int(1024)); // ok: uses direct initialization</div></pre></td></tr></table></figure></p>
+<p>use <strong>reset</strong> to assign a new pointer to a shared_ptr.</p>
+<h2 id="In-particular-classes-that-are-designed-to-be-used-by-both-C-and-C-generally-require-the-user-to-specifically-free-any-resources-that-are-used"><a href="#In-particular-classes-that-are-designed-to-be-used-by-both-C-and-C-generally-require-the-user-to-specifically-free-any-resources-that-are-used" class="headerlink" title="In particular, classes that are designed to be used by both C and C++ generally require the user to specifically free any resources that are used."></a>In particular, classes that are designed to be used by both C and C++ generally require the user to specifically free any resources that are used.</h2><p>unique_ptr:”owns” the object which it points.<br>so it doesn`t support ordinary copy and assignment.<br>but can transfer ownership fron one (nonconst)unique_ptr to another by calling release or set.<br><code>// transfers ownership from p3 to p2
+p2.reset(p3.release()); 
+// reset deletes the memory to which p2 had pointed</code><br>only one unique_ptr at a time can point to  a given object.<br>unique_ptr destroyed so the object it point to.<br>u.release() :return the pointer u had held and makes u null;<br>u.reset() :deletes the object to which i pointes;<br>u.reset(q) :if the built-in pointer q is supplied ,makes u pointe to that object.<br>u=nullptr; deletes the object to which u points,makes u null;<br>unique_ptr : bind to a pointer<br><strong><a href="http://stackoverflow.com/questions/6876751/differences-between-unique-ptr-and-shared-ptr" target="_blank" rel="external">http://stackoverflow.com/questions/6876751/differences-between-unique-ptr-and-shared-ptr</a></strong></p>
+<h3 id="weak-ptr"><a href="#weak-ptr" class="headerlink" title="weak_ptr"></a>weak_ptr</h3><p>not control the lifetime of the object it point to.<br>bind a weak_ptr to a shared_ptr not change the reference count of that shared_ptr.<br><strong>weak</strong>:Once the last shared_ptr pointing to the object goes away, the object itself will be deleted. That object will be deleted even if there are weak_ptrs pointing to it.<br>The <strong>lock</strong> function checks whether the object to which the weak_ptr points still exists. If so, lock returns a shared_ptr to the shared object.</p>
+<h3 id="Dynamic-Arrays"><a href="#Dynamic-Arrays" class="headerlink" title="Dynamic Arrays"></a>Dynamic Arrays</h3><p>Classes that allocate dynamic arrays must define their own versions of these operations to manage the associated memory when objects are copied, assigned, and destroyed.<br><code>int *pia = new int[get_size()]; 
+// pia points to the first of these ints</code><br>The size inside the brackets must have integral type but need not be a constant.</p>
+<blockquote>
+<p><strong>Allocating an Array Yields a Pointer to the Element Type</strong></p>
+</blockquote>
+<p>shared_ptrs provide no direct support for managing a dynamic array. If we want to use a shared_ptr to manage a dynamic array, we must provide our own deleter:<br><code>shared_ptr&lt;int&gt; sp(new int[10], [](int *p) { delete[] p; });
+sp.reset(); // uses the lambda we supplied that uses delete[] to free the array</code><br>classes that do not have default constructors cannot be dynamically allocated as an array.<br><strong>allocator</strong>: provides type-aware allocation of raw, unconstructed, memory.<br>We must construct objects in order to use memory returned by<br>allocate. Using unconstructed memory in other ways is undefined.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/28/C Primier Plus Associative containers/" itemprop="url">
                   Associative Containers
                 </a>
@@ -934,7 +1199,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" rel="gallery_cit7333km000pw1ouwp37n5cn"
+                 href="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" rel="gallery_cita32ngs000iq4ouxnspmsu3"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" itemprop="contentUrl"/>
               </a>
@@ -1231,264 +1496,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/15/C Primier Plus Chapter_Two/" itemprop="url">
-                  C Primier Plus --chapter two
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-15T18:29:17+08:00" content="2016-07-15">
-              2016-07-15
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="Top-Level-const"><a href="#Top-Level-const" class="headerlink" title="Top-Level const"></a>Top-Level const</h3><p>A pointer who is const is top-level const,<br>and the object it point to is const ,it is low-level<br>pointer must point to an object，not a value.<br>pointer pointe to an const object may not be initialize,but const pointer must be intialized when defined.</p>
-<ul>
-<li><strong>Top-level indicates that an object itself is const, and appear in any object type.</strong></li>
-<li><strong>Low-level const only appear in the base type of compiund type such as pointer and reference</strong></li>
-<li><strong>when copy an object top-level const will be ipnored</strong></li>
-<li><strong>when copy an object low-level const must be the same ,because it cann’t be ignored</strong>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/15/C Primier Plus Chapter_Two/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/05/Git-command/" itemprop="url">
-                  C Primier Plus Sequential Container
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-05T21:33:22+08:00" content="2016-07-05">
-              2016-07-05
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Notes/" itemprop="url" rel="index">
-                    <span itemprop="name">Notes</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox"
-                 href="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" rel="gallery_cit7333ls0014w1ouhwnynjrh"
-                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" itemprop="contentUrl"/>
-              </a>
-            
-          
-
-          
-          </div>
-        </div>
-      
-
-      
-        
-          <p><img src="http://www.runoob.com/manual/github-git-cheat-sheet.pdf" alt="Git Command Sheet"><br>$ git add forgotten_file<br>$ git checkout branch1<br>$ git commit –amend :overwrite the previous commit<br>$ git commit -m ‘initial commit’</p>
-<h2 id="git-rebase-master-git-merge-master-branch1"><a href="#git-rebase-master-git-merge-master-branch1" class="headerlink" title="$ git rebase master    #git  merge master branch1"></a>$ git rebase master    #git  merge master branch1</h2><hr>
-<p>1.one branch is the ancester of another -&gt; fast-forward<br>2.two  branch has commom ancester -&gt; recursive strategy<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/05/Git-command/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1529,7 +1541,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1537,7 +1549,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1546,7 +1558,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

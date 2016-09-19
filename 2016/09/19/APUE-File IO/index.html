@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Notes,C++," />
+  <meta name="keywords" content="unix," />
 
 
 
@@ -86,16 +86,49 @@
 
 
 
-<meta name="description" content="Functions defined in the class are implicitly inline.every member function must be declared inside its class.Member functions access the object on which they were called through an extra, implicit par">
+<meta name="description" content="文件描述符
+
+0 : STDIN_FILENO
+1 : STDOUT_FILENO
+2 : STDERR_FILENO
+范围: 0 ~ OPEN_MAX -1
+
+
+
+open and openat
+1234#include &amp;lt;fcntl.h&amp;gt;int open(const char *path, int oflag, ... /* mode_t mode */ );int openat(">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C Primier Plus Class">
-<meta property="og:url" content="http://yoursite.com/2016/07/21/C Primier Plus Class/index.html">
+<meta property="og:title" content="APUE chapter three">
+<meta property="og:url" content="http://yoursite.com/2016/09/19/APUE-File IO/index.html">
 <meta property="og:site_name" content="TheOneAC">
-<meta property="og:description" content="Functions defined in the class are implicitly inline.every member function must be declared inside its class.Member functions access the object on which they were called through an extra, implicit par">
-<meta property="og:updated_time" content="2016-07-26T11:07:45.245Z">
+<meta property="og:description" content="文件描述符
+
+0 : STDIN_FILENO
+1 : STDOUT_FILENO
+2 : STDERR_FILENO
+范围: 0 ~ OPEN_MAX -1
+
+
+
+open and openat
+1234#include &amp;lt;fcntl.h&amp;gt;int open(const char *path, int oflag, ... /* mode_t mode */ );int openat(">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/%E8%BF%9B%E7%A8%8B%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8fromAPUE.png">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/%E7%8B%AC%E7%AB%8B%E8%BF%9B%E7%A8%8B%E6%89%93%E5%BC%80%E5%90%8C%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6.png">
+<meta property="og:updated_time" content="2016-09-19T13:28:36.193Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C Primier Plus Class">
-<meta name="twitter:description" content="Functions defined in the class are implicitly inline.every member function must be declared inside its class.Member functions access the object on which they were called through an extra, implicit par">
+<meta name="twitter:title" content="APUE chapter three">
+<meta name="twitter:description" content="文件描述符
+
+0 : STDIN_FILENO
+1 : STDOUT_FILENO
+2 : STDERR_FILENO
+范围: 0 ~ OPEN_MAX -1
+
+
+
+open and openat
+1234#include &amp;lt;fcntl.h&amp;gt;int open(const char *path, int oflag, ... /* mode_t mode */ );int openat(">
+<meta name="twitter:image" content="http://odfcr7qs4.bkt.clouddn.com/%E8%BF%9B%E7%A8%8B%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8fromAPUE.png">
 
 
 
@@ -116,9 +149,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/21/C Primier Plus Class/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/09/19/APUE-File IO/"/>
 
-  <title> C Primier Plus Class | TheOneAC </title>
+  <title> APUE chapter three | TheOneAC </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -248,7 +281,7 @@
             
             
               
-                C Primier Plus Class
+                APUE chapter three
               
             
           </h1>
@@ -260,8 +293,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-21T00:47:27+08:00" content="2016-07-21">
-              2016-07-21
+            <time itemprop="dateCreated" datetime="2016-09-19T18:54:21+08:00" content="2016-09-19">
+              2016-09-19
             </time>
           </span>
 
@@ -274,8 +307,8 @@
               <span class="post-meta-item-text">In</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
+                  <a href="/categories/linux-unix/" itemprop="url" rel="index">
+                    <span itemprop="name">linux/unix</span>
                   </a>
                 </span>
 
@@ -307,23 +340,83 @@
       
 
       
-        <p>Functions defined in the class are implicitly inline.<br>every member function must be declared inside its class.<br>Member functions access the object on which they were called through an extra, implicit parameter named this.<br>this is intended to always refer to “this” object(current function), this is a const pointer<br>const after the parameter list of a member function. A const following the parameter list indicates that this is a pointer to const<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">std::string isbn() const &#123; return this-&gt;bookNo; &#125;</div></pre></td></tr></table></figure></p>
-<p>The name of a member defined outside the class must include the name of the class of which it is a member<br><strong>Dedining a function to Return “this” Object</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Sales_data&amp; Sales_data::combine(const Sales_data &amp;rhs)</div><div class="line">&#123;</div><div class="line">units_sold += rhs.units_sold; // add the members of rhs into</div><div class="line">revenue += rhs.revenue; // the members of &apos;&apos;this&apos;&apos; object</div><div class="line">return *this; // return the object on which the function was called</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>nonmember functions that are part of the interface of a class should be declared in the same header as the class itself.</p>
-<h3 id="Constructer"><a href="#Constructer" class="headerlink" title="Constructer"></a>Constructer</h3><p>constructors may not be declared as const .When we create a const object of a class type, the object does not assume its “constness” until after the constructor completes the object’s initialization.<br>The compiler generates a default constructor automatically only if a class<br>declares no constructors<br><strong>Class</strong>:use class to define the class are similar to struct ,the only difference is the <strong>default level</strong>.<br>A class may define members before the first access specifier.<br>To members before the first access specifier, for struct they are <strong>public</strong>,for class they are <strong>private</strong>.<br>private:accessible to the menber function not accessible to code that use the class.<br>A class allow another class or function to access its nonpublic menbers by making that class or function a friend.<br><strong>Each class controls which classes or functions are its friends.friendship is not transitive.</strong><br>a friend declaration affects access but is not a declaration in an ordinary sense,if we define the function inside the class, we must still provide a declaration outside of the class itself to make that function visible<br><strong>We must use the constructor initializer list to provide values for members that are const, reference, or of a class type that does not have a default constructor.</strong><br>Members are initialized in the order in which they appear in the class definition.</p>
+        <h4 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h4><blockquote>
+<ul>
+<li>0 : STDIN_FILENO</li>
+<li>1 : STDOUT_FILENO</li>
+<li>2 : STDERR_FILENO</li>
+<li>范围: 0 ~ OPEN_MAX -1</li>
+</ul>
+</blockquote>
+<ul>
+<li><p><strong>open and openat</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#include &lt;fcntl.h&gt;</div><div class="line">int open(const char *path, int oflag, ... /* mode_t mode */ );</div><div class="line">int openat(int fd, const char *path, int oflag, ... /* mode_t mode */ );</div><div class="line">Both return: file descriptor if OK, −1 on error</div></pre></td></tr></table></figure>
+<ul>
+<li>open 和 openat 函数返回当前未用最小文件描述符数值</li>
+<li>path specifies an absolute path, then <code>open</code> equals to <code>openat</code></li>
+<li>path specifier an relative path, The <code>fd</code> parameter is obtained by opening the directory by the relative pathname</li>
+</ul>
+</li>
+<li><p><strong>creat</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#include&lt;fcntl.h&gt;</div><div class="line">int creat (const char *path, mode_t mode);</div><div class="line">Returns: file descriptor opened for write-only if OK, −1 on error</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>open(path, O_RDWR | O_CREAT | O_TRUNC, mode);</strong></p>
+<ul>
+<li><p><strong>close</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#include &lt;unistd.h&gt;</div><div class="line">int close(int fd);</div><div class="line">Returns: 0 if OK, −1 on error</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>lseek</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#include &lt;fcntl.h&gt;</div><div class="line">off_t lseek(int fd, off_t offset, int whence);</div><div class="line">returns: offset if ok, -1 on error</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>• If whence is SEEK_SET, the file’s offset is set to offset bytes from the beginning of<br>the file.<br>• If whence is SEEK_CUR, the file’s offset is set to its current value plus the offset.<br>The offset can be positive or negative.<br>• If whence is SEEK_END, the file’s offset is set to the size of the file plus the offset.<br>The offset can be positive or negative.</p>
+<ul>
+<li><strong>read/write</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;unistd.h&gt;</div><div class="line">ssize_t read(int fd, void *buf, size_t nbytes);</div><div class="line">$ Returns: number of bytes read, 0 if end of file, −1 on error</div><div class="line">ssize_t write(int fd, const void *buf, size_t nbytes);</div><div class="line">$ Returns: number of bytes written if OK, −1 on error</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="文件共享"><a href="#文件共享" class="headerlink" title="文件共享"></a>文件共享</h4><p> <code>文件打开后</code><br><img src="http://odfcr7qs4.bkt.clouddn.com/%E8%BF%9B%E7%A8%8B%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8fromAPUE.png" alt=""><br><img src="http://odfcr7qs4.bkt.clouddn.com/%E7%8B%AC%E7%AB%8B%E8%BF%9B%E7%A8%8B%E6%89%93%E5%BC%80%E5%90%8C%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6.png" alt=""></p>
+<blockquote>
 <ol>
-<li>It is a good idea to write constructor initializers in the same order as the<br>members are declared. Moreover, when possible, avoid using members to initialize other members.</li>
-<li>it is a good idea write member initializers to use the constructor’s<br>parameters rather than another data member from the same object.</li>
+<li>每个进程在进程变种有一个记录项,记录项包含一张文件描述符表(当前进程打开的所有文件)每个文件描述符包含:一个文件描述符标志,一个指向文件表项的指针</li>
+<li>内核为所有打开文件维持一张文件表,每个表项包含:文件状态,当前文件偏移,该文件的v节点表项指针</li>
+<li>每个打开文件都有一个v节点.包含:文件类型,文件操作指针,索引节点等</li>
+<li><strong>每个进程都有自己的文件表项为了维持不同的当前文件偏移量</strong></li>
 </ol>
-<p>Only One Class-Type Conversion Is Allowed<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$ Now, neither constructor can be used to implicitly create a Sales_data object.</div><div class="line">$ The explicit keyword is meaningful only on constructors that can be called with a single argument.</div><div class="line">$ The explicit keyword is used only on the constructor declaration inside</div><div class="line">the class.</div><div class="line">class Sales_data &#123;</div><div class="line">public:</div><div class="line">Sales_data() = default;</div><div class="line">Sales_data(const std::string &amp;s, unsigned n, double p):</div><div class="line">bookNo(s), units_sold(n), revenue(p*n) &#123; &#125;</div><div class="line">explicit Sales_data(const std::string &amp;s): bookNo(s) &#123; &#125;</div><div class="line">explicit Sales_data(std::istream&amp;);</div><div class="line">// remaining members as before</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<p><em>*</em> An aggregate class (§ 7.5.5, p. 298) whose data members are all of literal type is a literal class??</p>
-<h3 id="static-Class-Members"><a href="#static-Class-Members" class="headerlink" title="static Class Members"></a>static Class Members</h3><p>a member is associated with the class by adding the keyword static to its<br>declaration.<br>Even though static members are not part of the objects of its class, we can use an object, reference, or pointer of the class type to access a static member:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">class Account &#123;</div><div class="line">public:</div><div class="line">void calculate() &#123; amount += amount * interestRate; &#125;</div><div class="line">static double rate() &#123; return interestRate; &#125;</div><div class="line">static void rate(double);</div><div class="line">private:</div><div class="line">std::string owner;</div><div class="line">double amount;</div><div class="line">static double interestRate;</div><div class="line">static double initRate();</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Account ac1;</div><div class="line">Account *ac2 = &amp;ac1;</div><div class="line">// equivalent ways to call the static member rate function</div><div class="line">r = ac1.rate(); // through an Account object or reference</div><div class="line">r = ac2-&gt;rate(); // through a pointer to an Account object</div></pre></td></tr></table></figure></p>
-<p>As with any class member, when we refer to a class static member outside<br>the class body, we must specify the class in which the member is defined.<br>The static keyword, however, is used only on the declaration inside the<br>class body.<br>we must define and initialize each static<br>data member outside the class body. and a static data member may be defined only once.</p>
-<ol>
-<li>a static data member can have incomplete type</li>
-<li>a static data member can have the same type as the class type of which<br>it is a member.</li>
-<li>we can use a static member as a default argument</li>
-</ol>
+</blockquote>
+<h4 id="原子操作"><a href="#原子操作" class="headerlink" title="原子操作"></a>原子操作</h4><ul>
+<li>追加:每次都定位到结尾并写入:<code>定位结尾</code>与<code>写入</code>整合为一个原子操作</li>
+<li><p><code>pread/pwrite</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">  #include &lt;unistd.h&gt;</div><div class="line">ssize_t pread(int fd, void *buf, size_t nbytes, off_t offset);</div><div class="line">Returns: number of bytes read, 0 if end of file, −1 on error</div><div class="line">ssize_t pwrite(int fd, const void *buf, size_t nbytes, off_t offset);</div><div class="line">Returns: number of bytes written if OK, −1 on error</div></pre></td></tr></table></figure>
+<ul>
+<li><code>定位</code>与<code>读写</code>操作为一个整体<code>不可中断</code></li>
+<li>不更新当前文件偏移量</li>
+</ul>
+</li>
+<li>创建文件: <code>检测当前文件是否存在</code>与<code>创建文件</code>整合为一个操作</li>
+</ul>
+<hr>
+<ul>
+<li><p><strong>dup/dup2</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#include &lt;unistd.h&gt;</div><div class="line">int dup(int fd);</div><div class="line">int dup2(int fd, int fd2);</div><div class="line">Both return: new file descriptor if OK, −1 on error</div></pre></td></tr></table></figure>
+<ul>
+<li><code>dup</code>返回<code>当前最小可用文件描述符</code></li>
+<li><code>dup2</code>关闭<code>fd2</code>,若<code>fd == fd2</code> 不关闭直接返回<code>fd2</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="函数sync-fsync和fdatasync"><a href="#函数sync-fsync和fdatasync" class="headerlink" title="函数sync,fsync和fdatasync"></a>函数<code>sync</code>,<code>fsync</code>和<code>fdatasync</code></h4><blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;unistd.h&gt;</div><div class="line">int fsync(int fd);</div><div class="line">int fdatasync(int fd);</div><div class="line">Returns: 0 if OK, −1 on error</div><div class="line">void sync(void);</div></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+<li><code>sync</code>修改过区块排入写队列.<code>update</code>守护进程周期性调用<code>flush</code>缓冲区</li>
+<li><code>fsync</code>只对<code>fd</code>文件作用,并<code>等待文件写完</code></li>
+<li><code>fdatasync</code>只影响数据部分,<code>同步更新文件属性</code></li>
+</ul>
+<h4 id="函数ioctl"><a href="#函数ioctl" class="headerlink" title="函数ioctl"></a>函数<code>ioctl</code></h4><blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt; #include &lt;unistd.h&gt;</div><div class="line">#include &lt;sys/ioctl.h&gt;</div><div class="line">/* System V */</div><div class="line">/* BSD and Linux */</div><div class="line">int ioctl(int fd, int request, ...);</div><div class="line">Returns: −1 on error, something else if OK</div></pre></td></tr></table></figure>
+</blockquote>
+<p>习题/思维导图</p>
 
       
     </div>
@@ -346,9 +439,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Notes/" rel="tag">#Notes</a>
-          
-            <a href="/tags/C/" rel="tag">#C++</a>
+            <a href="/tags/unix/" rel="tag">#unix</a>
           
         </div>
       
@@ -357,17 +448,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/19/C Primier Plus Function/" rel="next" title="C++ Primier Plus chapter six:function">
-                <i class="fa fa-chevron-left"></i> C++ Primier Plus chapter six:function
+              <a href="/2016/09/18/linux-basic-command/" rel="next" title="linux basic command">
+                <i class="fa fa-chevron-left"></i> linux basic command
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/25/C Primier Plus IO Library/" rel="prev" title="C Primier Plus IO Library">
-                C Primier Plus IO Library <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -525,7 +612,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Constructer"><span class="nav-number">1.</span> <span class="nav-text">Constructer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#static-Class-Members"><span class="nav-number">2.</span> <span class="nav-text">static Class Members</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#文件描述符"><span class="nav-number">1.</span> <span class="nav-text">文件描述符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件共享"><span class="nav-number">2.</span> <span class="nav-text">文件共享</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原子操作"><span class="nav-number">3.</span> <span class="nav-text">原子操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数sync-fsync和fdatasync"><span class="nav-number">4.</span> <span class="nav-text">函数sync,fsync和fdatasync</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数ioctl"><span class="nav-number">5.</span> <span class="nav-text">函数ioctl</span></a></li></ol></div>
             
           </div>
         </section>
