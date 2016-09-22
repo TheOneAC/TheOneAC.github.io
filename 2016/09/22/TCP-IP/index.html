@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Notes,C++," />
+  <meta name="keywords" content="TCP/IP," />
 
 
 
@@ -86,22 +86,17 @@
 
 
 
-<meta name="description" content="The Copy Constructerthe first parameter is a reference to the class type.usually not be eaplicit.
-
-the difference between direct initialization and copy initialization.direct initialization :the compi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Copy Control">
-<meta property="og:url" content="http://yoursite.com/2016/08/03/C Primier Plus Copy-Control/index.html">
+<meta property="og:title" content="TCP/IP">
+<meta property="og:url" content="http://yoursite.com/2016/09/22/TCP-IP/index.html">
 <meta property="og:site_name" content="TheOneAC">
-<meta property="og:description" content="The Copy Constructerthe first parameter is a reference to the class type.usually not be eaplicit.
-
-the difference between direct initialization and copy initialization.direct initialization :the compi">
-<meta property="og:updated_time" content="2016-08-05T16:01:44.084Z">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/UDP.png">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/tcps%E9%A6%96%E9%83%A8.png">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/TCP.png">
+<meta property="og:updated_time" content="2016-09-22T14:05:11.286Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Copy Control">
-<meta name="twitter:description" content="The Copy Constructerthe first parameter is a reference to the class type.usually not be eaplicit.
-
-the difference between direct initialization and copy initialization.direct initialization :the compi">
+<meta name="twitter:title" content="TCP/IP">
+<meta name="twitter:image" content="http://odfcr7qs4.bkt.clouddn.com/UDP.png">
 
 
 
@@ -122,9 +117,9 @@ the difference between direct initialization and copy initialization.direct init
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/08/03/C Primier Plus Copy-Control/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/09/22/TCP-IP/"/>
 
-  <title> Copy Control | TheOneAC </title>
+  <title> TCP/IP | TheOneAC </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -254,7 +249,7 @@ the difference between direct initialization and copy initialization.direct init
             
             
               
-                Copy Control
+                TCP/IP
               
             
           </h1>
@@ -266,8 +261,8 @@ the difference between direct initialization and copy initialization.direct init
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-08-03T20:02:40+08:00" content="2016-08-03">
-              2016-08-03
+            <time itemprop="dateCreated" datetime="2016-09-22T21:58:31+08:00" content="2016-09-22">
+              2016-09-22
             </time>
           </span>
 
@@ -280,8 +275,8 @@ the difference between direct initialization and copy initialization.direct init
               <span class="post-meta-item-text">In</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
+                  <a href="/categories/TCP-IP/" itemprop="url" rel="index">
+                    <span itemprop="name">TCP/IP</span>
                   </a>
                 </span>
 
@@ -313,24 +308,7 @@ the difference between direct initialization and copy initialization.direct init
       
 
       
-        <h4 id="The-Copy-Constructer"><a href="#The-Copy-Constructer" class="headerlink" title="The Copy Constructer"></a>The Copy Constructer</h4><p>the first parameter is a reference to the class type.<br>usually not be eaplicit.</p>
-<blockquote>
-<p>the difference between direct initialization and copy initialization.<br>direct initialization :the compiler use ordinary function matching to select the cnstructer that best matchs the arguments we provide;<br>copy initialization : the compiler copy the right oprand into the object being created,converting that operand if necessary.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">string s(dots); // direct initialization</div><div class="line">string s2 = dots; // copy initialization</div></pre></td></tr></table></figure></p>
-</blockquote>
-<p><strong><br>Copy initialization happens<br>• Define variables using an =<br>• Pass an object as an argument to a parameter of nonreference type<br>• Return an object from a function that has a nonreference return type<br>• Brace initialize the elements in an array or the members of an aggregate class<br>• Some class types also use copy initialization for the objects they allocate.<br><em>insert or push:copy initialize             empalce :   direct initialized</em>
-</strong></p>
-<h4 id="The-Copy-Assignment-Operater"><a href="#The-Copy-Assignment-Operater" class="headerlink" title="The Copy-Assignment Operater"></a>The Copy-Assignment Operater</h4><p>Assignment operators ordinarily should return a reference to their left-hand operand.<br><code>copy-assignment</code> operator is function named <code>operator=</code>.<br>and is used when assignment occurred.</p>
-<h4 id="The-Destructor"><a href="#The-Destructor" class="headerlink" title="The Destructor"></a>The Destructor</h4><p>prefixed by a tilde (~).             no return value and takes no parameters:</p>
-<blockquote>
-<p>When a Destructor Is Called<br>• Variables are destroyed when they go out of scope.<br>• Members of an object are destroyed when the object of which they are a part is<br>destroyed.<br>• Elements in a container—whether a library container or an array—are destroyed<br>when the container is destroyed.<br>• Dynamically allocated objects are destroyed when the delete operator is<br>applied to a pointer to the object<br>• Temporary objects are destroyed at the end of the full expression in which the<br>temporary was created.</p>
-</blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;initializer_list&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cout</span>;</div><div class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line"><span class="keyword">struct</span> X</div><div class="line">&#123;</div><div class="line">    X()&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"X()"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;;</div><div class="line">    X(<span class="keyword">const</span> X&amp;)&#123; <span class="built_in">cout</span>&lt;&lt;<span class="string">"X(const X&amp;)"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;; <span class="comment">//copy</span></div><div class="line">    X&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> X&amp;) <span class="comment">//copy assignment</span></div><div class="line">    &#123;</div><div class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"X&amp; operater=(const X&amp;)"</span>&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">        <span class="keyword">return</span> *<span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line">    ~X()&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"~X()"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;;  <span class="comment">//destucter</span></div><div class="line">&#125;;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">const</span> X&amp;rx,X x)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;X&gt;vec;</div><div class="line">    vec.reserve(<span class="number">2</span>);</div><div class="line">    vec.push_back(rx);</div><div class="line">    vec.push_back(x);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    X* px=<span class="keyword">new</span> X;</div><div class="line">    f(*px,*px);</div><div class="line">    <span class="keyword">delete</span> px;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>Classes That Need Destructors Need Copy and Assignment</strong><br><strong>If a class needs a copy constructor, it almost surely needs a copy-assignment operator.</strong><br><strong>= default</strong>:use the defaluter constructer;(only on the default constructor or a copy-control member)<br><strong>= delete</strong>: unable the constructer;</p>
-<blockquote>
-<p>The Destructor Should Not be a Deleted Member<br>if a class has a data member that cannot be default<br>constructed, copied, assigned, or destroyed, then the corresponding member will be a<br>deleted function.</p>
-</blockquote>
-<h3 id="Copy-Control-and-Resource-Management"><a href="#Copy-Control-and-Resource-Management" class="headerlink" title="Copy Control and Resource Management"></a>Copy Control and Resource Management</h3><p>two points in assignment operator:<br>• Assignment operators must work correctly if an object is assigned to itself.<br>• Most assignment operators share work with the destructor and copy<br>constructor.</p>
-<h4 id="SteVec"><a href="#SteVec" class="headerlink" title="SteVec"></a>SteVec</h4><p>Each StrVec will have three pointers into the space it uses for its elements:<br>• elements, which points to the first element in the allocated memory<br>• first_free, which points just after the last actual element<br>• cap, which points just past the end of the allocated memory</p>
+        <p><img src="http://odfcr7qs4.bkt.clouddn.com/UDP.png" alt="UDP"><br><img src="http://odfcr7qs4.bkt.clouddn.com/tcps%E9%A6%96%E9%83%A8.png" alt="TCP head"><br><img src="http://odfcr7qs4.bkt.clouddn.com/TCP.png" alt="TCP"></p>
 
       
     </div>
@@ -353,9 +331,7 @@ the difference between direct initialization and copy initialization.direct init
       
         <div class="post-tags">
           
-            <a href="/tags/Notes/" rel="tag">#Notes</a>
-          
-            <a href="/tags/C/" rel="tag">#C++</a>
+            <a href="/tags/TCP-IP/" rel="tag">#TCP/IP</a>
           
         </div>
       
@@ -364,17 +340,13 @@ the difference between direct initialization and copy initialization.direct init
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/28/C Primier Plus Dynamic-Memory /" rel="next" title="Dynamic Memory">
-                <i class="fa fa-chevron-left"></i> Dynamic Memory
+              <a href="/2016/09/19/APUE-File IO/" rel="next" title="APUE chapter three">
+                <i class="fa fa-chevron-left"></i> APUE chapter three
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/04/C Primier Plus Overloaded-operation-and-conversion/" rel="prev" title="Overloaded operation and conversion">
-                Overloaded operation and conversion <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -532,7 +504,7 @@ the difference between direct initialization and copy initialization.direct init
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Copy-Constructer"><span class="nav-number">1.</span> <span class="nav-text">The Copy Constructer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Copy-Assignment-Operater"><span class="nav-number">2.</span> <span class="nav-text">The Copy-Assignment Operater</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Destructor"><span class="nav-number">3.</span> <span class="nav-text">The Destructor</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Copy-Control-and-Resource-Management"><span class="nav-number"></span> <span class="nav-text">Copy Control and Resource Management</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SteVec"><span class="nav-number">1.</span> <span class="nav-text">SteVec</span></a></li></ol></div>
+              <p class="post-toc-empty">This post does not have a Table of Contents</p>
             
           </div>
         </section>

@@ -250,6 +250,125 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/04/C Primier Plus Overloaded-operation-and-conversion/" itemprop="url">
+                  Overloaded operation and conversion
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-08-04T12:14:29+08:00" content="2016-08-04">
+              2016-08-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>规范<br>思考 thinkong<br>改进 improvement<br>说明 specification</p>
+<p>When an overloaded operator is a member function, this is bound to the left-hand operand. Member operator functions have one less (explicit)parameter than the number of operands.When an overloaded operator is a member function, this is bound to the left-hand operand. Member operator functions have one less (explicit) parameter than the number of operands.</p>
+<blockquote>
+<p>deciding whether to make an operator a member or an ordinary nonmember function:<br>• The assignment (=), subscript ([]), call (()), and member access arrow (-&gt;)<br>operators must be defined as members.<br>• The compound-assignment operators ordinarily ought to be members. However,<br>unlike assignment, they are not required to be members.<br>• Operators that change the state of their object or that are closely tied to their<br>given type—such as increment, decrement, and dereference—usually should be<br>members.<br>• Symmetric operators—those that might convert either operand, such as the<br>arithmetic, equality, relational, and bitwise operators—usually should be defined<br>as ordinary nonmember functions.</p>
+</blockquote>
+<p><code>IO Operators Must Be Nonmember Functions
+IO operators usually must be declared as friends</code></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/03/C Primier Plus Copy-Control/" itemprop="url">
                   Copy Control
                 </a>
@@ -1199,7 +1318,7 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" rel="gallery_cita32ngs000iq4ouxnspmsu3"
+                 href="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" rel="gallery_citeev5ch0009toouff37cgua"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" itemprop="contentUrl"/>
               </a>
@@ -1374,128 +1493,6 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/16/C Primier Plus chapter-three/" itemprop="url">
-                  C Primier Plus --chapter three
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-16T12:10:38+08:00" content="2016-07-16">
-              2016-07-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="Namespace"><a href="#Namespace" class="headerlink" title="Namespace"></a>Namespace</h3><p>std::cin use the name from the namespace std.<br><code>using namespacename::name;</code><br>after the using declaration  we can use the name directly.<br><strong>A Separate using Declaration Is Required for Each Name</strong></p>
-<p><strong>Each <em>using</em> declaration introduces a single namespace member</strong></p>
-<hr>
-<p><strong>initialization of <em>string</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">string s1; // default initialization; s1 is the empty string</div><div class="line">string s2 = s1; // s2 is a copy of s1</div><div class="line">string s3 = &quot;hiya&quot;; // s3 is a copy of the string literal</div><div class="line">string s4(10, &apos;c&apos;); // s4 is cccccccccc</div></pre></td></tr></table></figure></p>
-<p><code>os&lt;&lt; s  Write s onto output stream os.return os.</code><br><code>is&gt;&gt; s  Reads whitespace-seperated string from is  into s.return is.</code><br><code>getline(is,s) Reads a line of input from is to s.return is.</code><br><code>s.empty() Returns true if s is empty; otherwise returns false.</code><br><code>s.size() Returns the number of characters in s.</code><br><code>s[n]  Returns a reference to the char at position n in s;position start at 0.</code><br><code>s1+s2 Returns a string that is concatenation of s1 and s2.</code><br><code>!= ,&lt;,&lt;=,&gt;,&gt;= Comparisons are case-sensitive and use dictionary.</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">The string input operator reads and discards any leading whitespace</div><div class="line">(e.g., spaces, newlines, tabs). It then readscharacters until the next </div><div class="line">whitespace character is encountered</div><div class="line">Reading an Unknown Number of strings</div></pre></td></tr></table></figure></p>
-<p>getline() reads to (including)the first newline,but not store in the string.<br>empty:<code>member function of string``return bool</code></p>
-<p>size()<br><code>return string::size_type</code></p>
-<h2 id="always-use-auto-or-decltype-to-let-the-compiler-to-provide-the-approriate"><a href="#always-use-auto-or-decltype-to-let-the-compiler-to-provide-the-approriate" class="headerlink" title="always use auto or decltype to let the compiler to provide the approriate"></a><code>always use auto or decltype to let the compiler to provide the approriate</code></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">DEV-C++支持C++11标准：</div><div class="line">Tools&gt;-Compiler Option &gt;-Code Generation &gt;- Language standart</div></pre></td></tr></table></figure>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/16/C Primier Plus chapter-three/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1541,7 +1538,7 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-count">23</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1549,7 +1546,7 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1558,7 +1555,7 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
