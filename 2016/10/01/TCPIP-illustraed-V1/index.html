@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="OJ,Leetcode," />
+  <meta name="keywords" content="TCP/IP," />
 
 
 
@@ -86,22 +86,32 @@
 
 
 
-<meta name="description" content="leetcode 022. Generate Parentheses
-Concise recursive C++ solution
-1234567891011121314151617class Solution &amp;#123;public:    vector&amp;lt;string&amp;gt; generateParenthesis(int n) &amp;#123;        vector&amp;lt;strin">
+<meta name="description" content="IP : unreliable, connectionless datagram delivery service
+
+
+unreliable : when something wrong ,throw away the datagram and try to send ICMP to the source
+connectionless : each datagram transfered ind">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode 022. Generate Parentheses">
-<meta property="og:url" content="http://yoursite.com/2016/09/17/leetcode-022-Generate-Parentheses/index.html">
+<meta property="og:title" content="TCP/IP illustraed V1">
+<meta property="og:url" content="http://yoursite.com/2016/10/01/TCPIP-illustraed-V1/index.html">
 <meta property="og:site_name" content="TheOneAC">
-<meta property="og:description" content="leetcode 022. Generate Parentheses
-Concise recursive C++ solution
-1234567891011121314151617class Solution &amp;#123;public:    vector&amp;lt;string&amp;gt; generateParenthesis(int n) &amp;#123;        vector&amp;lt;strin">
-<meta property="og:updated_time" content="2016-09-17T11:00:16.872Z">
+<meta property="og:description" content="IP : unreliable, connectionless datagram delivery service
+
+
+unreliable : when something wrong ,throw away the datagram and try to send ICMP to the source
+connectionless : each datagram transfered ind">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/RIP%20in%20UDP.png">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/D%20IP%20map%20into%20Ethernet%20address.png">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/SNMP.png">
+<meta property="og:updated_time" content="2016-10-01T03:38:14.490Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="leetcode 022. Generate Parentheses">
-<meta name="twitter:description" content="leetcode 022. Generate Parentheses
-Concise recursive C++ solution
-1234567891011121314151617class Solution &amp;#123;public:    vector&amp;lt;string&amp;gt; generateParenthesis(int n) &amp;#123;        vector&amp;lt;strin">
+<meta name="twitter:title" content="TCP/IP illustraed V1">
+<meta name="twitter:description" content="IP : unreliable, connectionless datagram delivery service
+
+
+unreliable : when something wrong ,throw away the datagram and try to send ICMP to the source
+connectionless : each datagram transfered ind">
+<meta name="twitter:image" content="http://odfcr7qs4.bkt.clouddn.com/RIP%20in%20UDP.png">
 
 
 
@@ -122,9 +132,9 @@ Concise recursive C++ solution
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/09/17/leetcode-022-Generate-Parentheses/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/10/01/TCPIP-illustraed-V1/"/>
 
-  <title> leetcode 022. Generate Parentheses | TheOneAC </title>
+  <title> TCP/IP illustraed V1 | TheOneAC </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -254,7 +264,7 @@ Concise recursive C++ solution
             
             
               
-                leetcode 022. Generate Parentheses
+                TCP/IP illustraed V1
               
             
           </h1>
@@ -266,30 +276,11 @@ Concise recursive C++ solution
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-09-17T18:58:05+08:00" content="2016-09-17">
-              2016-09-17
+            <time itemprop="dateCreated" datetime="2016-10-01T11:36:20+08:00" content="2016-10-01">
+              2016-10-01
             </time>
           </span>
 
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OJ/" itemprop="url" rel="index">
-                    <span itemprop="name">OJ</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
           
 
           
@@ -313,17 +304,131 @@ Concise recursive C++ solution
       
 
       
-        <h2 id="leetcode-022-Generate-Parentheses"><a href="#leetcode-022-Generate-Parentheses" class="headerlink" title="leetcode 022. Generate Parentheses"></a>leetcode 022. Generate Parentheses</h2><ul>
-<li><p><a href="https://discuss.leetcode.com/topic/4485/concise-recursive-c-solution" target="_blank" rel="external">Concise recursive C++ solution</a></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; generateParenthesis(<span class="keyword">int</span> n) &#123;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; res;</div><div class="line">        addingpar(res, <span class="string">""</span>, n, <span class="number">0</span>);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"><span class="keyword">private</span>:</div><div class="line"> 	<span class="function"><span class="keyword">void</span> <span class="title">addingpar</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;v, <span class="built_in">string</span> str, <span class="keyword">int</span> n, <span class="keyword">int</span> m)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(n==<span class="number">0</span> &amp;&amp; m==<span class="number">0</span>) &#123;</div><div class="line">            v.push_back(str);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(m &gt; <span class="number">0</span>)&#123; addingpar(v, str+<span class="string">")"</span>, n, m<span class="number">-1</span>); &#125;</div><div class="line">        <span class="keyword">if</span>(n &gt; <span class="number">0</span>)&#123; addingpar(v, str+<span class="string">"("</span>, n<span class="number">-1</span>, m+<span class="number">1</span>); &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+        <blockquote>
+<p><code>IP : unreliable, connectionless datagram delivery service</code></p>
+</blockquote>
+<ul>
+<li>unreliable : when something wrong ,throw away the datagram and try to send ICMP to the source</li>
+<li>connectionless : each datagram transfered indepently which may get delivered out of order, not maintain any state information about sucessive datagrams</li>
+<li><code>network traverse order</code>is<code>big endian</code> </li>
+<li><p>IP rout search : <code>IP address</code> <code>network ID</code> <code>default</code>routing table<br><code>A complete matching host address is searched for before a matching network ID.</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">32-bit IP  ----&gt;  48-bit MAC</div><div class="line">   |       ARP       |</div><div class="line">   |       RARP  	|</div><div class="line">   |&lt;----------------|</div></pre></td></tr></table></figure>
 </li>
-<li><p><a href="https://discuss.leetcode.com/topic/7250/the-most-concise-solution-i-know-ever" target="_blank" rel="external">The most concise solution I know ever</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">     vector&lt;string&gt; generateParenthesis(int n) &#123;</div><div class="line">        if(n==0) return vector&lt;string&gt;(1,&quot;&quot;) ;</div><div class="line">        if(n==1) return vector&lt;string&gt;(1,&quot;()&quot;) ;</div><div class="line">        vector&lt;string&gt; result;</div><div class="line">        for(int i=0;i!=n;i++)</div><div class="line">            for(auto inner: generateParenthesis(i))</div><div class="line">                for(auto outter:  generateParenthesis(n-i-1))</div><div class="line">                    result.push_back(&quot;(&quot;+inner+&quot;)&quot;+outter);</div><div class="line">        return result;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<li><p>ARP Cache :maintains the recent mapping from IP to hardware address(MAC)</p>
 </li>
-<li><p><a href="https://discuss.leetcode.com/topic/35617/my-4ms-c-solution-without-using-recursion" target="_blank" rel="external">My 4ms C++ solution without using recursion</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">M Mein-Fuhrer </div><div class="line">Reputation:  3</div><div class="line"> class Solution &#123;</div><div class="line"> public:</div><div class="line">vector&lt;string&gt; generateParenthesis(int n) &#123;</div><div class="line">    vector&lt;string&gt; result;</div><div class="line">    string str(&quot;(&quot;);</div><div class="line">    result.push_back(str);</div><div class="line">    vector&lt;int&gt; left(&#123;1&#125;);</div><div class="line">    for(int pos = 1;pos &lt; 2*n;++pos) &#123;</div><div class="line">        int tmp = left.size();</div><div class="line">        for(int i = 0;i &lt; tmp;++i) &#123;</div><div class="line">            if(left[i] &lt; n) &#123;</div><div class="line">                if(pos - left[i] &lt; left[i]) &#123;</div><div class="line">                    result.push_back(result[i] + &apos;)&apos;);</div><div class="line">                    left.push_back(left[i]);</div><div class="line">                &#125;</div><div class="line">                result[i] += &apos;(&apos;;</div><div class="line">                left[i]++;</div><div class="line">            &#125;</div><div class="line">            else &#123;</div><div class="line">                result[i] += &apos;)&apos;;</div><div class="line">                continue;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return result;</div><div class="line">&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<li>Proxy ARP :a router answer ARP requests on one of its networks for a host on another of its networks </li>
+<li>Gratuitous ARP:a host sends an ARP request looking for its own IP address</li>
+</ul>
+<p><strong>RARP : use the physical address to get the the IP address</strong></p>
+<blockquote>
+<ol>
+<li>RARP request(broadcast), RARP reply (unicast)</li>
+<li>RARP request are sen as hardware-level broadcast, not forward by routers.</li>
+<li>multiply RARP server are normally provided on a single nework<br>all the server replys, but the rquest systerm use the first RARP reply that ir receives.</li>
+</ol>
+</blockquote>
+<p><strong>ICMP</strong></p>
+<blockquote>
+<ul>
+<li>ICMP message are transmitted within IP datagrams.</li>
+<li>chesum cover the entire message</li>
+<li>ICMP donot response to:</li>
+</ul>
+<ol>
+<li>An ICMP error message</li>
+<li>A datagram destined to an IP broadcast address.</li>
+<li>Datagram sent as a  link-layer broadcast.</li>
+<li>A fragment other than the first</li>
+<li>A datagram whose source address dose not define a single host.</li>
+</ol>
+</blockquote>
+<p><strong>IP route</strong></p>
+<blockquote>
+<ul>
+<li>netstat -rn<br>U: the route is up;<br>G: the route is to differentiate between an indirect route(G) and a direct route<br>H : specifies the destination address is a complete host address.<ul>
+<li>indirect route: IP address specify the destination and the link layer address specifies the gateway.</li>
+<li>direct route : both the IP address and the  link-layer address specifies the destinations.</li>
+</ul>
 </li>
 </ul>
+</blockquote>
+<p><strong> match host -&gt; match subnet -&gt; default gateway</strong></p>
+<ul>
+<li>The ICMP “host unreachable” error message is sent by a router when it receives an IP datagram that it cannot deliver or forward</li>
+<li>The ICMP redirect error is sent by a router to the sender of an IP datagram when the datagram should have been sent to a different router</li>
+</ul>
+<p><strong>Dynamic route</strong></p>
+<ul>
+<li>RIP messages are carried in UDP datagrams,<code>port number for RIP is UDP port 520</code><br><img src="http://odfcr7qs4.bkt.clouddn.com/RIP%20in%20UDP.png" alt="RIP in UDP"></li>
+</ul>
+<blockquote>
+<ol>
+<li>A stub AS has only a single connection to one other AS. A stub AS carries only local traffic.</li>
+<li>A multihomed AS has connections to more than one other AS, but refuses to carry transit traffic.</li>
+<li>A transit AS has connections to more than one other AS and is designed, under certain policy restrictions, to carry both local and transit traffic.</li>
+</ol>
+<p><strong>BGP uses TCP as its transport protocol, distance vector protocol, but ennumberate the route to each destination</strong></p>
+</blockquote>
+<p><strong>UDP</strong></p>
+<ul>
+<li>The UDP/TCP c<code>hecksum</code>covers <code>the header and the data,</code>but not IP</li>
+<li>both UDP and TCP include a <code>12-byte pseudo-header</code> with the <code>UDP datagram</code> (or TCP segment) just <code>for the checksum computation</code></li>
+<li>fragmentation : if <code>one fragment</code> is <code>lost</code> the <code>entire datagram</code> must be <code>retransmitted.</code></li>
+<li>An <code>IP datagram</code>is the <code>unit of end to end transmission</code> at IP layer ,but a <code>packet</code> is the unit of data passed between  <code>the IP layer and the link layer</code>.</li>
+</ul>
+<blockquote>
+<p><code>Broadcasting and multicasting only apply to UDP</code></p>
+</blockquote>
+<p><img src="http://odfcr7qs4.bkt.clouddn.com/D%20IP%20map%20into%20Ethernet%20address.png" alt="Mapping of a class D IP address into Ethernet multicast address"></p>
+<p><strong>IGMP</strong></p>
+<blockquote>
+<ol>
+<li>A host sends an IGMP report when the first process joins a group. If multiple processes on a given host join the same group, only one report is sent, the first time a process joins that group. This report is sent out the same interface on which the process joined the group.</li>
+<li>A host does not send a report when processes leave a group, even when the last process leaves a group. The host knows that there are no members in a given group, so when it receives the next query (next step), it won’t report the group.</li>
+<li>A multicast router sends an IGMP query at regular intervals to see if any hosts still have processes belonging to any groups. The router must send one query out each interface. The group address in the query is 0 since the router expects one response from a host for every group that contains one or more members on that host.</li>
+<li>A host responds to an IGMP query by sending one IGMP report for each group that still contains at least one process.</li>
+</ol>
+<ul>
+<li>an application must convert a hostname to an IP address before it can ask TCP to open a connection or send a datagram using UDP. The TCP/IP protocols within the kernel know nothing about the DNS.</li>
+</ul>
+</blockquote>
+<ul>
+<li>TFTP use in UDP<blockquote>
+<ul>
+<li>each exchange start with the clinet asking the server read a file for the clinet or write a file for the client</li>
+<li>be used only during the bootstrap process of diskless systems. It uses only a few message formats and a stop-and-wait protocol.</li>
+<li>he TFTP server provides concurrency by creating a new UDP port for each client.</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>connection-oriented, reliable, byte stream service</p>
+</blockquote>
+<p><strong>TCP Interactive Data Flow</strong></p>
+<blockquote>
+<p>each interactive keystroke normally generates a datapacket in Rlogin</p>
+</blockquote>
+<p><code>four segments:</code></p>
+<blockquote>
+<p>(1) the interactive keystroke from the client,<br>(2) anacknowledgment of the keystroke from the server,<br>(3) the echo of the keystroke from the server,<br>(4)an acknowledgment of the echo from the client.</p>
+</blockquote>
+<p><code>Nagle algorithm</code></p>
+<blockquote>
+<ul>
+<li>a TCP connection can have only one outstanding small segment that has not yet been acknowledged. No additional small segments can be sent until the acknowledgment is received. Instead, small amounts of data are collected by TCP and sent in a single segment when the acknowledgment arrives.</li>
+<li>Delayed acknowledgments are used by the receiver of these small segments to see if the acknowledgment can be piggybacked along with data going back to the sender. This often reduces the number of segments, especially for an Rlogin session, where the server is echoing the characters typed at the client.</li>
+<li>On slower WANs the Nagle algorithm is often used to reduce the number of these small segments. This algorithm limits the sender to a single small packet of unacknowledged data at any time. But there are times when the Nagle algorithm needs to be disabled, and we showed an example of this.</li>
+</ul>
+</blockquote>
+<ul>
+<li>flow control is done by the Rlogin client.</li>
+</ul>
+<p><strong>SNMP</strong></p>
+<blockquote>
+<p><code>SNMP uses UDP</code>,a request from the manager may not arrive at the agent, The manager probably wants to implement <code>a timeout and retransmission.</code><br>The manager sends its three <code>requests</code> to <code>UDP port 161</code>. The agent sends <code>traps</code> to <code>UDP port 162</code>.</p>
+</blockquote>
+<p><img src="http://odfcr7qs4.bkt.clouddn.com/SNMP.png" alt="SNMP"></p>
 
       
     </div>
@@ -346,9 +451,7 @@ Concise recursive C++ solution
       
         <div class="post-tags">
           
-            <a href="/tags/OJ/" rel="tag">#OJ</a>
-          
-            <a href="/tags/Leetcode/" rel="tag">#Leetcode</a>
+            <a href="/tags/TCP-IP/" rel="tag">#TCP/IP</a>
           
         </div>
       
@@ -357,16 +460,16 @@ Concise recursive C++ solution
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/31/补课之后/" rel="next" title="after">
-                <i class="fa fa-chevron-left"></i> after
+              <a href="/2016/09/23/sctp/" rel="next" title="SCTP">
+                <i class="fa fa-chevron-left"></i> SCTP
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/09/18/linux-basic-command/" rel="prev" title="linux basic command">
-                linux basic command <i class="fa fa-chevron-right"></i>
+              <a href="/2016/10/01/Object Oriented in C++/" rel="prev" title="Object Oriented in C++">
+                Object Oriented in C++ <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -525,7 +628,7 @@ Concise recursive C++ solution
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#leetcode-022-Generate-Parentheses"><span class="nav-number">1.</span> <span class="nav-text">leetcode 022. Generate Parentheses</span></a></li></ol></div>
+              <p class="post-toc-empty">This post does not have a Table of Contents</p>
             
           </div>
         </section>

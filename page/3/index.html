@@ -250,6 +250,395 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/21/C Primier Plus Class/" itemprop="url">
+                  C Primier Plus Class
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-21T00:47:27+08:00" content="2016-07-21">
+              2016-07-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Functions defined in the class are implicitly inline.<br>every member function must be declared inside its class.<br>Member functions access the object on which they were called through an extra, implicit parameter named this.<br>this is intended to always refer to “this” object(current function), this is a const pointer<br>const after the parameter list of a member function. A const following the parameter list indicates that this is a pointer to const<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">std::string isbn() const &#123; return this-&gt;bookNo; &#125;</div></pre></td></tr></table></figure></p>
+<p>The name of a member defined outside the class must include the name of the class of which it is a member<br><strong>Dedining a function to Return “this” Object</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Sales_data&amp; Sales_data::combine(const Sales_data &amp;rhs)</div><div class="line">&#123;</div><div class="line">units_sold += rhs.units_sold; // add the members of rhs into</div><div class="line">revenue += rhs.revenue; // the members of &apos;&apos;this&apos;&apos; object</div><div class="line">return *this; // return the object on which the function was called</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>nonmember functions that are part of the interface of a class should be declared in the same header as the class itself.</p>
+<h3 id="Constructer"><a href="#Constructer" class="headerlink" title="Constructer"></a>Constructer</h3><p>constructors may not be declared as const .When we create a const object of a class type, the object does not assume its “constness” until after the constructor completes the object’s initialization.<br>The compiler generates a default constructor automatically only if a class<br>declares no constructors<br><strong>Class</strong>:use class to define the class are similar to struct ,the only difference is the <strong>default level</strong>.<br>A class may define members before the first access specifier.<br>To members before the first access specifier, for struct they are <strong>public</strong>,for class they are <strong>private</strong>.<br>private:accessible to the menber function not accessible to code that use the class.<br>A class allow another class or function to access its nonpublic menbers by making that class or function a friend.<br><strong>Each class controls which classes or functions are its friends.friendship is not transitive.</strong><br>a friend declaration affects access but is not a declaration in an ordinary sense,if we define the function inside the class, we must still provide a declaration outside of the class itself to make that function visible<br><strong>We must use the constructor initializer list to provide values for members that are const, reference, or of a class type that does not have a default constructor.</strong><br>Members are initialized in the order in which they appear in the class definition.</p>
+<ol>
+<li>It is a good idea to write constructor initializers in the same order as the<br>members are declared. Moreover, when possible, avoid using members to initialize other members.</li>
+<li>it is a good idea write member initializers to use the constructor’s<br>parameters rather than another data member from the same object.</li>
+</ol>
+<p>Only One Class-Type Conversion Is Allowed<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$ Now, neither constructor can be used to implicitly create a Sales_data object.</div><div class="line">$ The explicit keyword is meaningful only on constructors that can be called with a single argument.</div><div class="line">$ The explicit keyword is used only on the constructor declaration inside</div><div class="line">the class.</div><div class="line">class Sales_data &#123;</div><div class="line">public:</div><div class="line">Sales_data() = default;</div><div class="line">Sales_data(const std::string &amp;s, unsigned n, double p):</div><div class="line">bookNo(s), units_sold(n), revenue(p*n) &#123; &#125;</div><div class="line">explicit Sales_data(const std::string &amp;s): bookNo(s) &#123; &#125;</div><div class="line">explicit Sales_data(std::istream&amp;);</div><div class="line">// remaining members as before</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p><em>*</em> An aggregate class (§ 7.5.5, p. 298) whose data members are all of literal type is a literal class??</p>
+<h3 id="static-Class-Members"><a href="#static-Class-Members" class="headerlink" title="static Class Members"></a>static Class Members</h3><p>a member is associated with the class by adding the keyword static to its<br>declaration.<br>Even though static members are not part of the objects of its class, we can use an object, reference, or pointer of the class type to access a static member:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">class Account &#123;</div><div class="line">public:</div><div class="line">void calculate() &#123; amount += amount * interestRate; &#125;</div><div class="line">static double rate() &#123; return interestRate; &#125;</div><div class="line">static void rate(double);</div><div class="line">private:</div><div class="line">std::string owner;</div><div class="line">double amount;</div><div class="line">static double interestRate;</div><div class="line">static double initRate();</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Account ac1;</div><div class="line">Account *ac2 = &amp;ac1;</div><div class="line">// equivalent ways to call the static member rate function</div><div class="line">r = ac1.rate(); // through an Account object or reference</div><div class="line">r = ac2-&gt;rate(); // through a pointer to an Account object</div></pre></td></tr></table></figure></p>
+<p>As with any class member, when we refer to a class static member outside<br>the class body, we must specify the class in which the member is defined.<br>The static keyword, however, is used only on the declaration inside the<br>class body.<br>we must define and initialize each static<br>data member outside the class body. and a static data member may be defined only once.</p>
+<ol>
+<li>a static data member can have incomplete type</li>
+<li>a static data member can have the same type as the class type of which<br>it is a member.</li>
+<li>we can use a static member as a default argument</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/19/C Primier Plus Function/" itemprop="url">
+                  C++ Primier chapter six:function
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-19T14:44:04+08:00" content="2016-07-19">
+              2016-07-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
+          
+          
+            <div class="post-gallery-row">
+              <a class="post-gallery-img fancybox"
+                 href="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" rel="gallery_citqnm07f000bcsouqc6m7yeu"
+                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
+                <img src="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" itemprop="contentUrl"/>
+              </a>
+            
+          
+
+          
+          </div>
+        </div>
+      
+
+      
+        
+          <hr>
+<p>in C++ function can be overload, the same name  may be from different function.<br>function call: initialize the function`s parameter, transfer control to the function.<br>local static object is initialized before the first execution ,not destroyed untill the function ends.<br><strong>Passing argument by value</strong>:the value of the initiaizer is copied,changes made to the variable have no effect on the initialzizer.<br><strong>Pointer Parameter </strong>:copy the value of another pointer,but can change the value of the object by assignning through the pointer.<br><strong>Passing Argument byreference</strong>:changes made to the reference are made to the object to which referencr refers.<br><strong>Using Reference Parameters to Return Additional Information</strong>:<br>return multiple results effectively.<br><strong>const Parameter and Arguments</strong>:top-level const that applt to the object itself.<br>Two Way to array:</p>
+<ol>
+<li>print(const int <em>beg, const int </em>end)</li>
+<li>print(const int ia[], size_t size)</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int *matrix[10]; // array of ten pointers</div><div class="line">int (*matrix)[10]; // pointer to an array of ten ints</div></pre></td></tr></table></figure>
+<p><strong>initializer_list</strong>: all const value ,no way to change the value of an element.<br>begin():a pointer to the first element.</p>
+<h2 id="end-an-off-the-end-pointer-one-past-the-last-element"><a href="#end-an-off-the-end-pointer-one-past-the-last-element" class="headerlink" title="end():an off-the-end pointer one past the last element."></a>end():an off-the-end pointer one past the last element.</h2><p><em>**Swap In Reference</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">void swap(int &amp;v1, int &amp;v2)</div><div class="line">&#123;</div><div class="line">// if the values are already the same, no need to swap, just return</div><div class="line">if (v1 == v2)</div><div class="line">return;</div><div class="line">// if we&apos;re here, there&apos;s work to do</div><div class="line">int tmp = v2;</div><div class="line">v2 = v1;</div><div class="line">v1 = tmp;</div><div class="line">// no explicit return necessary</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>return reference  must not refer to an local object,as well as pointer.<br>Calls to functions that return references are lvalues; other return types<br>yield rvalues</p>
+<h3 id="Overlaod-function"><a href="#Overlaod-function" class="headerlink" title="Overlaod function"></a>Overlaod function</h3><p>Functions that have the same name but different parameter lists and that appear in the same scope are overloaded<br>Overload function must differ in hte number or the types of their aprameters.<br>Top-level const has no effect on the objects that can be passed to the function.<br>function taking const and nonconst reference or pointers have different parameters.<br><strong>In C++, name lookup happens before type checking.<br>the compiler first looks for a declaration of that name.<br>Once a name is found, the compiler<br>ignores uses of that name in any outer scope’</strong><br>Default Argument Declarations<br>any subsequent declaration can add a<br>default only for a parameter that has not previously had a default specified<br><strong>Inline Function</strong>:remove the run-time of calling a function.<br>put the key word <em>inline</em> before the return type.<br>A constexpr function is not required to return a constant expression.</p>
+<hr>
+<h2 id=""><a href="#" class="headerlink" title=""></a>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/19/C Primier Plus Function/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/17/C Primier Plus chapter-four/" itemprop="url">
+                  chapter four~five
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-17T19:26:19+08:00" content="2016-07-17">
+              2016-07-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>Parentheses Override Precedence and Associativity</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Managing Compound Expressions</div><div class="line"></div><div class="line">1. When in doubt, parenthesize expressions</div><div class="line"> to force the grouping that the</div><div class="line">logic of your program requires.</div><div class="line">2. If you change the value of an operand,</div><div class="line"> don’t use that operand elsewhere </div><div class="line"> in the same expresion</div></pre></td></tr></table></figure></p>
+<p>Assignment is right associative.<br>Shift Operators (aka IO Operators) Are Left Associative.<br>sizeof operator returns the size, in bytes, of an expression or a type name.<br><strong>right associative</strong><br>sizeof expr :not evaluate the value but return the type returned by the given expression<br>sizeof a reference type returns the size of an object of the referenced type<br>sizeof an array is the size of the entire array</p>
+<h2 id="A-block-is-not-terminated-by-a-semicolon"><a href="#A-block-is-not-terminated-by-a-semicolon" class="headerlink" title="A block is not terminated by a semicolon"></a>A block is not terminated by a semicolon</h2><h3 id="Exception-handling"><a href="#Exception-handling" class="headerlink" title="Exception handling"></a>Exception handling</h3><p>Throw :raise an exception and terminates the current function.<br>Try: deal with exception. one or more <em>catch</em> clauses<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">try &#123;  program-statements&#125; </div><div class="line">catch (exception-declaration) &#123; handler-statements&#125; </div><div class="line">catch (exception-declaration) &#123; handler-statements&#125;</div></pre></td></tr></table></figure></p>
+<p><strong><em>onece one catch executed,execution continues with the statement immediately following the last catch clause of the try block</em></strong><br>variable  declared inside a try block are inaccessible outside the block as well as to catch clauses.<br><strong>If a program has no try blocks and an exception occurs, then terminate is called and the program is exited.</strong></p>
+<p><code>Comments:exception  and leakage</code></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/16/C Primier Plus chapter-three/" itemprop="url">
                   C Primier Plus --chapter three
                 </a>
@@ -556,7 +945,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" rel="gallery_citeev5dz000utoouzdh3k3fb"
+                 href="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" rel="gallery_citqnm0ah001xcsou6ns9xhc5"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" itemprop="contentUrl"/>
               </a>
@@ -649,7 +1038,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">23</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>

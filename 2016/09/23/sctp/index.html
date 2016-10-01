@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Algorithm Git C++" />
+  <meta name="keywords" content="TCP/IP," />
 
 
 
@@ -86,15 +86,49 @@
 
 
 
-<meta name="description" content="生如逆旅  一苇可航">
-<meta property="og:type" content="website">
-<meta property="og:title" content="TheOneAC">
-<meta property="og:url" content="http://yoursite.com/categories/Effective-C/index.html">
+<meta name="description" content="SCTP : 流传输控制协议
+UDP面向报文,保留报文边界,不可靠传输,无流量控制和传输控制
+TCP面向字节,不好刘报文边界,可靠传输,拥塞控制和流量控制
+面向报文,可靠传输,拥塞控制流量控制
+位于网络层与应用之间,全双工
+
+
+SCTP 一个关联包含多重流,某一个流堵塞,其他流仍可以交付数据
+TCP只有一个源IP地址和一个目的IP地址
+
+
+STCP关联支持多重归属服务,正常情况下只有一个路径有效,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SCTP">
+<meta property="og:url" content="http://yoursite.com/2016/09/23/sctp/index.html">
 <meta property="og:site_name" content="TheOneAC">
-<meta property="og:description" content="生如逆旅  一苇可航">
+<meta property="og:description" content="SCTP : 流传输控制协议
+UDP面向报文,保留报文边界,不可靠传输,无流量控制和传输控制
+TCP面向字节,不好刘报文边界,可靠传输,拥塞控制和流量控制
+面向报文,可靠传输,拥塞控制流量控制
+位于网络层与应用之间,全双工
+
+
+SCTP 一个关联包含多重流,某一个流堵塞,其他流仍可以交付数据
+TCP只有一个源IP地址和一个目的IP地址
+
+
+STCP关联支持多重归属服务,正常情况下只有一个路径有效,">
+<meta property="og:updated_time" content="2016-10-01T03:43:03.712Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TheOneAC">
-<meta name="twitter:description" content="生如逆旅  一苇可航">
+<meta name="twitter:title" content="SCTP">
+<meta name="twitter:description" content="SCTP : 流传输控制协议
+UDP面向报文,保留报文边界,不可靠传输,无流量控制和传输控制
+TCP面向字节,不好刘报文边界,可靠传输,拥塞控制和流量控制
+面向报文,可靠传输,拥塞控制流量控制
+位于网络层与应用之间,全双工
+
+
+SCTP 一个关联包含多重流,某一个流堵塞,其他流仍可以交付数据
+TCP只有一个源IP地址和一个目的IP地址
+
+
+STCP关联支持多重归属服务,正常情况下只有一个路径有效,">
 
 
 
@@ -115,9 +149,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/categories/Effective-C/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/09/23/sctp/"/>
 
-  <title> Category: Effective C++ | TheOneAC </title>
+  <title> SCTP | TheOneAC </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -138,7 +172,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left  ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -226,47 +260,165 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        Effective C++
-        <small>Category</small>
-      </h2>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                SCTP
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-09-23T18:06:16+08:00" content="2016-09-23">
+              2016-09-23
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <h4 id="SCTP-流传输控制协议"><a href="#SCTP-流传输控制协议" class="headerlink" title="SCTP : 流传输控制协议"></a>SCTP : 流传输控制协议</h4><ol>
+<li>UDP面向报文,保留报文边界,不可靠传输,无流量控制和传输控制</li>
+<li>TCP面向字节,不好刘报文边界,可靠传输,拥塞控制和流量控制</li>
+<li>面向报文,可靠传输,拥塞控制流量控制</li>
+<li>位于网络层与应用之间,全双工</li>
+</ol>
+<ul>
+<li>SCTP 一个关联包含多重流,某一个流堵塞,其他流仍可以交付数据<ul>
+<li>TCP只有一个源IP地址和一个目的IP地址</li>
+</ul>
+</li>
+<li>STCP关联支持<code>多重归属服务</code>,正常情况下只有一个路径有效,其他候补;故障时,候补路径补上</li>
+<li>STCP 允许每一个端使用多个IP地址</li>
+</ul>
+<hr>
+<ul>
+<li>SCTP使用<code>传输序号TSN</code>对数据块编号,TSN累计编号</li>
+<li><code>流标识符SI</code>区分一个关联内的流</li>
+<li><code>流序号SSN</code>区分同一个流中不同数据块</li>
+</ul>
+<hr>
+<ul>
+<li>STCP报头定长１２字节，<code>序号.确认号.窗口大小</code>放在控制块中</li>
+<li>一个分组多个数据块，分属于不同流</li>
+<li>STCP确认号面向数据块，位于控制信息中，<code>只用来确认数据块</code></li>
+<li>控制块位于数据块之前</li>
+<li>通用首部：１６位源端口地址，１６位目的端口地址，３２位验证标志，３２位检验和</li>
+<li>DATA数据块内容只能属于一个数据块，一个报文可以分割为多个数据块</li>
+</ul>
+<hr>
+<p><strong>关联建立</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">INIT          Init tag:1200 rwnd:1000 Init TSN:1000   VT:0</div><div class="line">INITACK       Init tag:5000 rwnd:2000 Init TSN:1700   VT:1200</div><div class="line">COOKIE ECHO   cookie  VT:5000</div><div class="line">COOKIEACK     VT:1200</div><div class="line">＊　INIT. INITACK 不携带其他块，COOKIE ECHO. COOKIE ACK 可以携带数据块 `</div></pre></td></tr></table></figure></p>
+<ul>
+<li>只有DATA块消耗TSN, DATA 块是唯一可确认的块<br><strong>关联终止</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">SHUTDOWN          VT:x   cum :TSN</div><div class="line">SHUTDOWN ACK      VT:y</div><div class="line">SHUTDOWN COMPLETE VT:x</div></pre></td></tr></table></figure></li>
+</ul>
 
-      <h1 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2016/08/12/Effective-c++/" itemprop="url">
-              
-                <span itemprop="name">Effective c++.md</span>
-              
-            </a>
+
+      
+    </div>
+
+    <div>
+      
         
-      </h1>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-08-12T12:27:36+08:00"
-              content="2016-08-12" >
-          08-12
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/TCP-IP/" rel="tag">#TCP/IP</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/22/TCP-IP/" rel="next" title="TCP/IP">
+                <i class="fa fa-chevron-left"></i> TCP/IP
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/01/TCPIP-illustraed-V1/" rel="prev" title="TCP/IP illustraed V1">
+                TCP/IP illustraed V1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
 
+      
+    </div>
+  </div>
 
 
           </div>
@@ -274,6 +426,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -293,8 +449,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.jpg"
@@ -382,6 +547,17 @@
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#SCTP-流传输控制协议"><span class="nav-number">1.</span> <span class="nav-text">SCTP : 流传输控制协议</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -478,6 +654,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
