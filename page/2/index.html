@@ -250,6 +250,173 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/27/Mysql/" itemprop="url">
+                  Mysql
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-08-27T03:24:10+08:00" content="2016-08-27">
+              2016-08-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/SQL/" itemprop="url" rel="index">
+                    <span itemprop="name">SQL</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>管理用户：<br>USE mysql；<br>SELECT user FROM user；</li>
+<li>创建账户：<br>CTEATE USER name IDENTIFIED BY ‘PASSWAORD’；</li>
+<li>删除用户 DROP USER name；</li>
+<li>设置权限：<br>SHOW GRANTS FOR name；</li>
+<li>修改权限：<br>GRANT SELECT ON …. TO username；</li>
+</ul>
+<hr>
+<ul>
+<li>sql语句创建库:<br>SOURCE 绝对路径+文件名；<br>SHOW columns FROM tablename；<br>SHOW STATUS;<br>SHOW GRANTS;<br>SHOW CREATE TABLES;<br>SHOW ERRORS;</li>
+<li><p>create database and use<br>create database [if not exists]database_name;<br>show databases;<br>show tables;<br>drop database [if exists]database_name;<br>create table [if not exists] table_name(<br>  column_name data_type[size] [not null|null] [default value] [auto+increment]<br>)engine=engine_name;<br>alter table table_name<br>change/add/drop/rename column column_name ….</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">A temporary table is only available and accessible by the client who creates the table.</div><div class="line">SELECT </div><div class="line">    column_1, column_2, ...</div><div class="line">FROM</div><div class="line">    table_1</div><div class="line">[INNER | LEFT |RIGHT] JOIN table_2 ON conditions</div><div class="line">WHERE</div><div class="line">    conditions</div><div class="line">GROUP BY column_1</div><div class="line">HAVING group_conditions</div><div class="line">ORDER BY column_1</div><div class="line">LIMIT offset, length;</div></pre></td></tr></table></figure>
+</li>
+<li><p>A temporary table is only available and accessible by the client who creates the table.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">CREATE [UNIQUE|FULLTEXT|SPATIAL] INDEX index_name</div><div class="line">USING [BTREE | HASH | RTREE] </div><div class="line">ON table_name (column_name [(length)] [ASC | DESC],...)</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>INNER JOIN</strong><br><img src="http://www.mysqltutorial.org/wp-content/uploads/2011/05/mysql-inner-join-Venn-Diagram.png" alt="inner join"></p>
+</li>
+<li><strong>INTERSET</strong>    <code>NO DUPLICATE</code><br>The left query produces a result set of (1,2,3)<br>The right query returns a result set of (2,3,4)<br>The INTERSECT operator returns the distinct rows of both result sets which are (2,3).<br><img src="http://www.mysqltutorial.org/wp-content/uploads/2016/05/MySQL-Intersect.png" alt="intersect"></li>
+</ul>
+<hr>
+<ul>
+<li><p><strong>Index</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">NUMERIC TYPES	DESCRIPTION</div><div class="line">TINYINT		A very small integer</div><div class="line">SMALLINT	   A small integer</div><div class="line">MEDIUMINT	  A medium-sized integer</div><div class="line">INT			A standard integer</div><div class="line">BIGINT		 A large integer</div><div class="line">DECIMAL		A fixed-point number</div><div class="line">FLOAT		  A single-precision floating point number</div><div class="line">DOUBLE	 	A double-precision floating point number</div><div class="line">BIT			A bit field</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>DATE functions</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">NOW();</div><div class="line">DATE(NOW());//format</div><div class="line">DATE_FORMAT(CURDATE(), &apos;%m/%d/%Y&apos;);//foramt_function</div><div class="line">CURRENT_TIME()//HHMMSS</div><div class="line">ADDTIME(CURRENT_TIME(), 023000), </div><div class="line">SUBTIME(CURRENT_TIME(), 023000);</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>TRANSICTION</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">START TRANSACTION</div><div class="line">....</div><div class="line">COMIT</div></pre></td></tr></table></figure>
+<p><code>if all the action in the tansaction sucessed it will commit,if not it will rollback to start</code></p>
+</li>
+<li><strong>TABLE LOCK</strong><br><code>LOCK TABLE tablename [READ|WRITE];</code><blockquote>
+<p><strong>read</strong>:<br>other session can read without lock but this session cao only read but not write;<br><strong>write</strong>:<br>only this session can read and write<br>other session cannot read and write untill the lock is released.</p>
+</blockquote>
+</li>
+</ul>
+<p>UNLOCK TABLES;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">``when a table locks other  session cann`t use it untill it unlocked``</div><div class="line">* * A REFERENCRS B  ON []</div><div class="line">  when B [] act which will act to A the same</div><div class="line">* SELECT column FROM tablename LIMIT num1，num2；</div><div class="line">输出从num1行开始的num2行</div><div class="line"></div><div class="line">&gt; **BETWEEN AND 两值之间</div><div class="line">[NOT] IN(范围) 制定范围之间</div><div class="line">LIKE 字符匹配**</div><div class="line"></div><div class="line">* MYSQL REGEXP</div></pre></td></tr></table></figure></p>
+<p>|       或<br>[ a-z ]     范围所有小写字母<br>.       任意字符<br>\      转义<br>[: :]       匹配字符类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* 重复前字符</div></pre></td></tr></table></figure></p>
+<p>*      0或多个匹配<br>+      1或多个匹配<br>？       0或1个匹配<br>{n}     指定数目匹配<br>{n，}     不少于制定数目匹配<br>{n,m}    匹配数目不超过m<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* 定位符</div></pre></td></tr></table></figure></p>
+<p>^        文本开始<br>$       文本结尾<br>[[:&lt;:]]     词开始<br>[[:&gt;:]]     词结束<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">**LIKE 匹配整串 REGEXP 匹配子串**</div><div class="line">mysq以concat()实现拼接，一般sql可以用+或者||实现</div><div class="line">* 文本函数</div></pre></td></tr></table></figure></p>
+<p>rtrim()     去掉数值右侧空格<br>Left()         返回串左边字符<br>Length()       返回串长度<br>Locate()       找出串中一个子串<br>Lower()     转换为小写<br>Ltrim()     去除左边空字符<br>Rtrim()     去除右边空字符<br>Right()     返回串右边字符<br>Soundex()     发音相似<br>Substring() 返回子串<br>Upper()     转换为大写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
+<ol>
+<li>DISTINCT  只能用于COUNT(),不能用于COUNT(*)</li>
+<li>GROUP BY 子句嵌套分组时，数据将在最后规定的分组进行汇总</li>
+<li>HAVING 过滤分组子句</li>
+<li>WHERE 在数据分组前进行过滤，HAVING 在数据分组后过滤<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">等值连接即内连接INNER JOIN  ON 子句筛选</div><div class="line">自链接，使用表别名防止链接错误</div><div class="line"></div><div class="line">* 全文匹配</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>FULLTEXT（tablename）:为该列建立索引<br>MATCH（指定搜索列）AGAINST（搜索文本）[WITH QUERY EXPANSION]/查询扩展<br>FULLTEX与MATCH参数必须一致<br>全文匹配自动排序，相似度高的先输出<br>扩展查询：两次索引查询，第一次查询相似词，第二次用相似词查询并返回结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* IN BINARY MODE</div></pre></td></tr></table></figure></p>
+<p>+  包含，词必须存在<br>—   排除，词不出现<br>>  包含，增加等级<br>&lt;   包含，减少等级<br>()      词组排列组合<br>~   取消一个词的排序值<br>*  词尾通配符<br>“”  定义为一个短语<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* 引擎类型</div></pre></td></tr></table></figure></p>
+<p>ENGINE=[]<br>InnoDB  事务处理，不支持全文搜索<br>MEMORY  快速MyISAM，内存存储，速度快<br>MyISAM  支持全文搜索不支持事务处理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">0. **外键不能跨引擎**</div><div class="line">1. **在视图定义中有如下操作不能更新:分组、链接、子查询、并、、聚集函数，distinct**</div><div class="line"></div><div class="line">* 创建存储过程：</div></pre></td></tr></table></figure></p>
+<p>CREATE PROCEDURE procedurename(参数)<br>BEGIN<br>………;<br>END;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">* 调用存储过程：CALL preocedurename（@p1，@p2，@p3）；</div><div class="line">*参数变量以@开头*</div></pre></td></tr></table></figure></p>
+<p>* 备份前FLUSH TABLES;             刷新<br>* 备份：mysqldump                  转储所有内文件到外部文件<br>* mysqlhotcopy                      复制数据库<br>* BACKUP TABLE /SELECT INTOOUTFILE  转储到外部文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">*</div></pre></td></tr></table></figure></p>
+<p>SHOW CHARACTER SET；         显示字符集<br>SHOW COLLATION；             显示校对<br>ANALYZE TABLE tablename；       分析表状态<br>CHECK TABLE tabkename；       检查表状态<br>```</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/27/sqlite/" itemprop="url">
                   sqlite
                 </a>
@@ -751,7 +918,7 @@ $ when const and non-const member function have essentialy identical implementio
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://www.tutorialspoint.com/cplusplus/images/cpp-mini-logo.jpg" rel="gallery_citqnm08n000wcsou9uhehmey"
+                 href="http://www.tutorialspoint.com/cplusplus/images/cpp-mini-logo.jpg" rel="gallery_citu1pyab0012h7ouzqym1gkl"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://www.tutorialspoint.com/cplusplus/images/cpp-mini-logo.jpg" itemprop="contentUrl"/>
               </a>
@@ -1597,121 +1764,6 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/25/C Primier Plus IO Library/" itemprop="url">
-                  C Primier Plus IO Library
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-25T01:22:33+08:00" content="2016-07-25">
-              2016-07-25
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="No-Copy-or-Assign-for-IO-Objects"><a href="#No-Copy-or-Assign-for-IO-Objects" class="headerlink" title="No Copy or Assign for IO Objects"></a>No Copy or Assign for IO Objects</h3><p>Functions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.<br>The library lets us ignore the differences among these different kinds of streams by using <strong>inheritance</strong><br>There are two other similar manipulators: flush and ends.<br>flush flushes the stream but adds no characters to the output; ends inserts a null character into the buffer and then flushes it<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; endl; // writes hi and a newline, then flushes the buffer</div><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; flush; // writes hi, then flushes the buffer; adds no data</div><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; ends; // writes hi and a null, then flushes the buffer</div><div class="line"></div><div class="line">cout &lt;&lt; unitbuf; // all writes will be flushed immediately</div><div class="line">// any output is flushed immediately, no buffering</div><div class="line">cout &lt;&lt; nounitbuf; // returns to normal buffering</div></pre></td></tr></table></figure></p>
-<p><strong>Output buffers are not flushed if the program terminates abnormally.</strong><br>Tying Input and Output Streams Together:<br>When an input stream is tied to an output stream, any attempt to read the input stream will first flush the buffer associated with the output stream.<br>To tie a given stream to a new output stream, we pass tie a pointer to the new stream. To untie the stream completely, we pass a null pointer. Each stream can be tied to at most one stream at a time. However, multiple streams can tie themselves to the same ostream<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cin.tie(&amp;cout); // illustration only: the library ties cin and cout for us</div><div class="line">// old_tie points to the stream (if any) currently tied to cin</div><div class="line">ostream *old_tie = cin.tie(nullptr); // cin is no longer tied</div><div class="line">// ties cin and cerr; not a good idea because cin should be tied to cout</div><div class="line">cin.tie(&amp;cerr); // reading cin flushes cerr, not cout</div><div class="line">cin.tie(old_tie); // reestablish normal tie between cin and cout</div></pre></td></tr></table></figure></p>
-<p>The only way to preserve the existing data in a file opened by an ofstream<br>is to specify app or in mode explicitly.<br>File Mode Is Determined Each Time open Is Called.</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1757,7 +1809,7 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1774,7 +1826,7 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

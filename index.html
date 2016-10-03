@@ -250,6 +250,329 @@
             
               
                 
+                <a class="post-title-link" href="/2016/10/01/Programming-With-POSIX-Threads/" itemprop="url">
+                  Programming With POSIX Threads
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-10-01T13:06:18+08:00" content="2016-10-01">
+              2016-10-01
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4> Chapter One </h4>
+
+<blockquote>
+<ul>
+<li><code>Asynchronous</code>: two operation proceed independently of each other.</li>
+<li><code>thread</code>: just a more way to <code>make application asynchronous</code></li>
+<li><code>concurency</code> does <code>not imply</code> that the  <code>operations proceed simultaneously</code></li>
+<li><code>concurrency</code> allows application to <code>take adcantage of asynchronous capabilities</code> and “do work” while independent operations are proceeding.</li>
+<li>并发的实质是一个物理CPU(也可以多个物理CPU) 在若干道程序之间多路复用，并发性是对有限物理资源强制行使多用户共享以提高效率。</li>
+<li>并行性指两个或两个以上事件或活动在同一时刻发生。在多道程序环境下，并行性使多个程序同一时刻可在不同CPU上同时执行。</li>
+<li><code>Reentrant code</code> should <code>avoid relying on static data</code> and, ideally, should <code>avoid reliance on any form of synchronization</code> between threads.</li>
+<li>A system’s scheduling facility may allow each thread to run until it voluntarily yields the processor to another thread <code>(&quot;run until block&quot;)</code>.</li>
+<li>It may provide time-slicing, where each thread is forced to periodically yield so that other threads may run `(“round-robin”)</li>
+</ul>
+</blockquote>
+<ul>
+<li>A thread may have o processor status and coprocessor control registers. </li>
+<li>A thread does not include most of the rest of the state associated with a process; </li>
+<li>threads do not have their own file descriptors or address space.</li>
+</ul>
+<blockquote>
+<p><strong>gcc thread.c -o thread -lpthread</strong></p>
+</blockquote>
+<ul>
+<li><p>For very <code>simple applications</code> ,<code>an event-based implementation</code> may be <code>simpler</code> than the <code>multiprocess or multithread variations</code></p>
+</li>
+<li><p>Some advantages of the multithreaded programming model follow:</p>
+<blockquote>
+<ol>
+<li>Exploitation of program parallelism on multiprocessor hardware. Parallelism is the only benefit that requires special hardware. The others can help most programs without specialhardware.</li>
+<li>More efficient exploitation of a program’s natural concurrency, by allowing the programto perform computations while waiting for slow I/O operations to complete.</li>
+<li>A modular programming model that clearly expresses relationships between independent “events” within the program. These advantages are detailed in the following sections.</li>
+</ol>
+</blockquote>
+</li>
+<li><p>It is easy to lose performance by using too much synchronization;</p>
+</li>
+<li>The performance suffers when the <code>multithreaded implementation</code> adds <code>threadsynchronization</code> and <code>scheduling overhead</code> to the work you are to accomplish.</li>
+<li><h5 id="Your-most-powerful-and-portable-thread-debugging-tool-is-your-mind"><a href="#Your-most-powerful-and-portable-thread-debugging-tool-is-your-mind" class="headerlink" title="Your most powerful and portable thread debugging tool is your mind"></a><code>Your most powerful and portable thread debugging tool is your mind</code></h5></li>
+</ul>
+<h4> Chapter Two </h4>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">pthread_t thread;</div><div class="line">int pthread_equal (pthread_t t1, pthread_t t2); </div><div class="line">//compare two thread identifiers</div><div class="line">int pthread_create (pthread_t *thread, const pthread_attr_t *attr, void *(*start)(void *),void *arg);</div><div class="line">pthread_t pthread_self (void);</div><div class="line">//get its own identifier using the pthread\_self function</div><div class="line">//returns a nonzero value if refer to the same thread,  0 if not the same </div><div class="line">int sched_yield (void);</div><div class="line">int pthread_exit (void *value_ptr);</div><div class="line">int pthread_detach (pthread_t thread);</div><div class="line">int pthread_join (pthread_t thread, void **value_ptr);</div></pre></td></tr></table></figure>
+<ul>
+<li>The initial thread is special because the process terminates without allowing other threads to complete</li>
+<li>Detaching a thread tells the system that you no longer need that thread, and allows the system to reclaim the resources allocated to the thread.</li>
+<li>Returning from main will cause the process to terminate, along with all threads.</li>
+<li><p>code the main thread to terminate by calling pthread_exit, which would allow the process to continue until all threads have terminated.</p>
+<blockquote>
+<p>The most important thing to remember about thread creation is that there is no synchronization between the creating thread’s return from pthread_create and the scheduling of the new thread. That is, the thread may start before the creating thread returns. The thread may even run to completion and terminate before pthread_create returns</p>
+</blockquote>
+</li>
+<li><p>pthread_join is a convenience, not a rule.</p>
+<blockquote>
+<p>it is often at least as simple to create the thread detached and devise your own customized return mechanism as it is to use pthread_join. For example, broadcast a condition variable when done.</p>
+</blockquote>
+</li>
+</ul>
+<h4> Chapter Three </h4>
+
+<ul>
+<li><code>Critical sections</code>  “serial regions” :  areas of code that <code>affect a shared state</code>.</li>
+<li><p>The most common and general way to <code>synchronize between threads</code> is to ensure that <code>all memory accesses to the same (or related) data</code> are “<code>mutually exclusive</code>.”</p>
+</li>
+<li><p>Creating and destroying a mutex</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pthread_mutex_t mutex = PTHREAD_MUNEX_INITIALIZER;</div><div class="line">int pthread_mutex_init (pthread_mitex_t *mutex, pthread_mutexattr_t *attr);</div><div class="line">int pthread_mutex_destroy (pthread_mutex_t *mutex);</div></pre></td></tr></table></figure>
+</li>
+<li><p>never make a copy of a mutex, the result of using a copied mutex is undefined.</p>
+</li>
+<li>It is a good idea to <code>associate a mutex clearly with the data</code> it protects, if possible, by keeping the definition of the mutex and data together</li>
+<li>it is safe (and a good idea) to <code>unlock and destroy the mutex</code> before <code>freeing the storage that the mutex occupies</code>.</li>
+<li>the <code>mutex dynamically initialized</code> by calling <code>pthread_mutex_init</code> should <code>destroyed</code>  by calling <code>pthread_mutex_destroy</code>. but a mutex that was <code>statically initialized</code> using the <code>PTHREAD_MUTEX_INITIALIZER</code> macro <code>not</code>, wihch will be destroyed automatically.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int pthread_mutex_lock (pthread_mutex_t *mutex);</div><div class="line">int pthread_mutex_trylock (pthread_mutex_t *mutex);</div><div class="line">int pthread_mutex_unlock (pthread_mutex_t *mutex);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>pthread_mutex_trylock function will return an error status (EBUSY) instead of blocking if the mutex is already locked.</p>
+</blockquote>
+<ul>
+<li>A condition variable wait always returns with the mutex locked</li>
+<li>The mutex must always be locked when you wait on a condition variable</li>
+</ul>
+<p><strong>Creating and destroying a condition variable</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pthread_cond_t cond = PTHREAD_COND_INITIALIZER;</div><div class="line">int pthread_cond_init (pthread_cond_t *cond, pthread_condattr_t *condattr);</div><div class="line">int pthread_cond_destroy (pthread_cond_t *cond);</div></pre></td></tr></table></figure></p>
+<p><strong>Waiting on a condition variable</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int pthread_cond_wait (pthread_cond_t *cond, pthread_mutex_t *mutex);</div><div class="line">int pthread_cond_timedwait (pthread_cond_t *cond, pthread_mutex_t *mutex, struct timespec *expiration);</div></pre></td></tr></table></figure></p>
+<ul>
+<li>Each condition variable must be associated with a specific mutex, and with a predicate condition.</li>
+<li>That is, each condition variable must be associated, at any given time, with only one mutex–but a mutex may have any number of condition variables associated with it.</li>
+</ul>
+<p><strong>Waking condition variable waiters</strong></p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int pthread_cond_signal (pthread_cond_t *cond);</div><div class="line">int pthread_cond_broadcast (pthread_cond_t *cond);</div></pre></td></tr></table></figure>
+</blockquote>
+<h4> Chapter five </h4>
+
+<ul>
+<li><code>once initialize</code><blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pthread_once_t once_control = PTHREAD_ONCE_INIT;</div><div class="line">int pthread_once (pthread_once_t *once_control, void(*init_routine) (void));</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>First, you declare a <code>control variable</code> of type <code>pthread_once_t</code>. The control variable must be <code>statically initialized</code> using the <code>PTHREAD_ONCE_INIT</code> macro, </li>
+<li>You must also create a <code>function</code> containing the <code>code to perform all initialization</code> that is to be associated with the control variable.</li>
+<li>Now, at any time, a thread may call pthread_once, specifying a pointer to the control variable and a pointer to the associated initialization function.</li>
+<li>only the <code>first call</code> <code>pthread_once</code> will <code>successfully initialized</code>．</li>
+</ul>
+</blockquote>
+<ul>
+<li><code>Mutex attributes</code><blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">pthread_mutexattr_t attr;</div><div class="line">int pthread_mutexattr_init &#123; pthread_mutexattr_t *attr);</div><div class="line">int pthread_mutexattr_destroy (pthread_mutexattr_t *attr);</div><div class="line">\#ifdef _POSIX_THREAD PROCESS SHARED</div><div class="line">int pthread_mutexattr_getpshared (pthread_mutexattr_t  *attr, int *pshared);</div><div class="line">int pthread_mutexattr_setpshared (pthread_mutexattr_t *attr, int pshared);</div><div class="line">endif</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">#include &lt;pthread.h&gt;</div><div class="line">#include &quot;errors.h&quot;</div><div class="line">pthread_mutex_t mutex;</div><div class="line">int main (int argc, char *argv[])</div><div class="line">&#123;</div><div class="line">    pthread_mutexattr_t mutex_attr;</div><div class="line">    int status;</div><div class="line">    status = pthread_mutexattr_init (&amp; mutex\_attr);</div><div class="line">    if (status != 0)</div><div class="line">        err_abort (status, &quot;Create attr&quot;);</div><div class="line">#ifdef _POSIX_THREAD_PROCESS_SHARED</div><div class="line">    status = pthread_mutexattr_setpshared (</div><div class="line">        &amp; mutex\_attr, PTHREAD_PROCESS_PRIVATE);</div><div class="line">    if (status != 0)err_abort (status, &quot;Set pshared&quot;);</div><div class="line">#endif</div><div class="line">    status = pthread_mutex_init (&amp;mutex, &amp;mutex_attr);</div><div class="line">    if (status != 0)</div><div class="line">        err_abort (status, &quot;Init mutex&quot;);</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p><code>Condition variable attributes</code></p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">pthread_condattr_t attr;</div><div class="line">int pthread_condattr_init (pthread_condattr_t *attr);</div><div class="line">int pthread_condattr_destroy (pthread_condattr_t *attr);</div><div class="line">#ifdef _POSIX_THREAD_PROCESS_SHARED</div><div class="line">int pthread_condattr_getpshared(pthread_condattr_t *attr, int *pshared);</div><div class="line">int pthread_condattr_setpshared (pthread_condattr_t *attr, int pshared);</div><div class="line">#endif</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p><code>Thread attributes</code></p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">pthread_attr_t attr;</div><div class="line">int pthread_attr_init (pthread_attr_t *attr);</div><div class="line">int pthread_attr_destroy (pthread_attr_t *attr);</div><div class="line">int pthread_attr_getdetachstate (pthread_attr_t *attr, int *detachstate);</div><div class="line">int pthread_attr_setdetachstate (pthread_attr_t *attr, int detachstate);</div><div class="line">#ifdef _POSIX_THREAD_ATTR_STACKSISE</div><div class="line">int pthread_attr_getstacksize (pthread_attr_t *attr, size_t *stacksize);</div><div class="line">int pthreae_attr_setstacksize (pthread_attr_t *attr, size_t stacksize);</div><div class="line">#endif</div><div class="line">#ifdef _POSIX_THREAD_ATTR_STACKADDR</div><div class="line">int pthread_attr_getstarkaddr (pthread_attr_t *attr, void *stackaddr);</div><div class="line">int pthread_attr_set-tackaddr (pthread_attr_t *attr, void **stackaddr);</div><div class="line">#endif</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p><code>Cancellation</code></p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">int pthread_cancel (pthread_t thread);</div><div class="line">int pthread_setcancelstate (int state, int * oldstate);</div><div class="line">int pthread_setcanceltype (int type, int *oldstate);</div><div class="line">void pthread_testcancel (void);</div><div class="line">void pthread_cleanup_push (void (*routine)(void *), void *arg);</div><div class="line">void pthread_cleanup_pop (int execute);</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p><code>Creating thread-specific data</code></p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pthread_key_t key;</div><div class="line">int pthread_key_create (pthread_key_t *key, void (*destructor)(void *));</div><div class="line">int pthread_key_delete (pthread_key_t key);</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>you should never delete a thread-specific data key until you are sure that no existing threads have a value for that key,</li>
+<li><code>Using thread-specific data</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int pthread_setspecific (pthread_key_t key, const void *value);</div><div class="line">void *pthread_getspecific (pthread_key_t key);</div></pre></td></tr></table></figure>
+<ul>
+<li>Pthreads will not call the destructor for a thread-specific data key if the terminating thread has a value of NULL for that key.</li>
+</ul>
+</blockquote>
+<ul>
+<li><code>Using destructor functions</code><blockquote>
+<ul>
+<li>If your <code>key&#39;s value</code> is <code>a pointer to heap memory</code>, you will need to <code>free the memory</code> to <code>avoid a memory leak</code> each time a thread terminates.Pthreads allows you to <code>define a destructor function</code> when you create a thread-specific data key. When a <code>thread terminates</code> with a <code>non-NULL value</code> for a <code>thread-specific data key</code>, the <code>key&#39;s destructor</code> (if any) is called with the current value of the key.</li>
+<li>the <code>order</code> in which <code>destructors are called</code> is undefined. Try to <code>make each destructor</code> as <code>independent</code> as possible.</li>
+</ul>
+</blockquote>
+</li>
+<li><code>Scheduling policies and priorities</code><blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">int sched_get_priority_max (int policy);</div><div class="line">int sched_get_priority_min (int policy);</div><div class="line">int pthread_attr_getinheritsched( const pthread_attr_t *attr, int *inheritsched);</div><div class="line">int pthread_attr_setinheritsched( pthread_attr_t *attr, int inheritsched);</div><div class="line">int pthread_attr_getschedparam (const pthread_attr_t *attr, struct sched_param *param);</div><div class="line">int pthread_attr_setschedparam ( pthread_attr_t *attr, const struct sched_param *param);</div><div class="line">int pthread_attr_getschedpolicy (const pthread_attr_t *attr, int *policy);</div><div class="line">int pthread_attr_setschedpolicy (pthread_attr_t *attr, int policy);</div><div class="line">int pthread_getschedparam (pthread_t thread, int *policy, struct sched_param *param);</div><div class="line">int pthread_setschedparam (pthread_t thread; int policy; const struct sched_param *param);</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>When you set the scheduling policy or priority attributes in an attributes object, you must also set the inheritsched attribute!</li>
+<li>Pthreads does not specify a default value for inheritsched</li>
+</ul>
+</blockquote>
+<p><code>Priority inversion is when a low-priority thread can prevent a high-priority thread from running</code></p>
+<h4>POSIX adjusts to threads</h4>
+
+<ul>
+<li><p><code>fork</code></p>
+<blockquote>
+<ul>
+<li>When <code>a threaded process</code> calls <code>fork</code> to create <code>a child process</code>, Pthreads specifies that <code>only the thread calling fork exists in the child</code>.</li>
+<li>the thread has the same thread state as in the parent</li>
+<li>you use fork to clone a threaded program, beware that you may lose access to memory, especially heap memory stored only as thread-specific data values.</li>
+<li>a mutex was locked at the time of the call to fork, then it is still locked in the child. Because a locked mutex is owned by the thread that locked it, the mutex can be unlocked in the child only if the thread that locked the mutex was the one that called fork. This is important to remember–if another thread has a mutex locked when you call fork, you will lose access to that mutex and any data controlled by that mutex.</li>
+</ul>
+</blockquote>
+</li>
+<li><p><code>Avoid using fork inthreaded code except where the child process will immediately exec a new program.</code></p>
+</li>
+<li><p><code>Calling pthread_exit from main will terminate the initial thread without affecting the other threads in the process, allowing them to continue and complete normally.</code></p>
+</li>
+<li><p><code>flockfile and funlockfile</code></p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">void flockfile (FILE *file);</div><div class="line">int ftrylockfile (FILE *file);</div><div class="line">void funlockfile (FILE *file);</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>getchar_unlocked and putchar_unlocked</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">int getc_unlocked (FILE *stream);</div><div class="line">int getchar_unlocked (void);</div><div class="line">int putc_unlocked (int c, FILE *stream);</div><div class="line">int putchar_unlocked (int c)</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<p></p><h4>Hints to avoid debugging</h4><p></p>
+<blockquote>
+<ul>
+<li>Never assume that a thread you create will wait for you.</li>
+<li>Thread inertia is a special case of thread races.</li>
+<li>thread races that the “loser” generally wins because the memory system will keep the last value written to an address.</li>
+<li><p><code>No ordering exists between threads</code></p>
+</li>
+<li><p>Scheduling exists to tell the system how important a specific job (thread) is to yourapplication so it can schedule the job you need the most. </p>
+</li>
+<li>Synchronization exists to tell the system that no other thread can be allowed into the critical section until the calling thread is done.</li>
+</ul>
+</blockquote>
+<ul>
+<li>Cooperate to avoid deadlocks<blockquote>
+<p>One common cause of a deadlock is that some thread has returned from a function without unlocking a mutex</p>
+</blockquote>
+</li>
+<li>Beware of priority inversion</li>
+<li>Never share condition variables between predicates<blockquote>
+<p>The best solution, when you really want to share a condition variable between predicates, is always to use pthread_cond_broadcast. But when you broadcast, all waiting threads wake up to reevaluate their predicates.</p>
+</blockquote>
+</li>
+<li>Sharing stacks and related memory corrupters<blockquote>
+<p>Having carefully ensured that there is no possible way for the owning thread to pop the stack data while other threads are using the shared data</p>
+</blockquote>
+</li>
+<li>Beware of concurrent serialization</li>
+<li>Use the right number of mutexes<blockquote>
+<p>A common strategy is to create a separate mutex for each data structure, and use those mutexes to serialize access to the shared data, rather than using the “big mutex” to serialize access to the library.</p>
+<ul>
+<li>you may decrease the efficiency of the memory system by excessive locking</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/01/Object Oriented in C++/" itemprop="url">
                   Object Oriented in C++
                 </a>
@@ -1520,173 +1843,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/27/Mysql/" itemprop="url">
-                  Mysql
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-08-27T03:24:10+08:00" content="2016-08-27">
-              2016-08-27
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/SQL/" itemprop="url" rel="index">
-                    <span itemprop="name">SQL</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>管理用户：<br>USE mysql；<br>SELECT user FROM user；</li>
-<li>创建账户：<br>CTEATE USER name IDENTIFIED BY ‘PASSWAORD’；</li>
-<li>删除用户 DROP USER name；</li>
-<li>设置权限：<br>SHOW GRANTS FOR name；</li>
-<li>修改权限：<br>GRANT SELECT ON …. TO username；</li>
-</ul>
-<hr>
-<ul>
-<li>sql语句创建库:<br>SOURCE 绝对路径+文件名；<br>SHOW columns FROM tablename；<br>SHOW STATUS;<br>SHOW GRANTS;<br>SHOW CREATE TABLES;<br>SHOW ERRORS;</li>
-<li><p>create database and use<br>create database [if not exists]database_name;<br>show databases;<br>show tables;<br>drop database [if exists]database_name;<br>create table [if not exists] table_name(<br>  column_name data_type[size] [not null|null] [default value] [auto+increment]<br>)engine=engine_name;<br>alter table table_name<br>change/add/drop/rename column column_name ….</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">A temporary table is only available and accessible by the client who creates the table.</div><div class="line">SELECT </div><div class="line">    column_1, column_2, ...</div><div class="line">FROM</div><div class="line">    table_1</div><div class="line">[INNER | LEFT |RIGHT] JOIN table_2 ON conditions</div><div class="line">WHERE</div><div class="line">    conditions</div><div class="line">GROUP BY column_1</div><div class="line">HAVING group_conditions</div><div class="line">ORDER BY column_1</div><div class="line">LIMIT offset, length;</div></pre></td></tr></table></figure>
-</li>
-<li><p>A temporary table is only available and accessible by the client who creates the table.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">CREATE [UNIQUE|FULLTEXT|SPATIAL] INDEX index_name</div><div class="line">USING [BTREE | HASH | RTREE] </div><div class="line">ON table_name (column_name [(length)] [ASC | DESC],...)</div></pre></td></tr></table></figure>
-</li>
-<li><p><strong>INNER JOIN</strong><br><img src="http://www.mysqltutorial.org/wp-content/uploads/2011/05/mysql-inner-join-Venn-Diagram.png" alt="inner join"></p>
-</li>
-<li><strong>INTERSET</strong>    <code>NO DUPLICATE</code><br>The left query produces a result set of (1,2,3)<br>The right query returns a result set of (2,3,4)<br>The INTERSECT operator returns the distinct rows of both result sets which are (2,3).<br><img src="http://www.mysqltutorial.org/wp-content/uploads/2016/05/MySQL-Intersect.png" alt="intersect"></li>
-</ul>
-<hr>
-<ul>
-<li><p><strong>Index</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">NUMERIC TYPES	DESCRIPTION</div><div class="line">TINYINT		A very small integer</div><div class="line">SMALLINT	   A small integer</div><div class="line">MEDIUMINT	  A medium-sized integer</div><div class="line">INT			A standard integer</div><div class="line">BIGINT		 A large integer</div><div class="line">DECIMAL		A fixed-point number</div><div class="line">FLOAT		  A single-precision floating point number</div><div class="line">DOUBLE	 	A double-precision floating point number</div><div class="line">BIT			A bit field</div></pre></td></tr></table></figure>
-</li>
-<li><p><strong>DATE functions</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">NOW();</div><div class="line">DATE(NOW());//format</div><div class="line">DATE_FORMAT(CURDATE(), &apos;%m/%d/%Y&apos;);//foramt_function</div><div class="line">CURRENT_TIME()//HHMMSS</div><div class="line">ADDTIME(CURRENT_TIME(), 023000), </div><div class="line">SUBTIME(CURRENT_TIME(), 023000);</div></pre></td></tr></table></figure>
-</li>
-<li><p><strong>TRANSICTION</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">START TRANSACTION</div><div class="line">....</div><div class="line">COMIT</div></pre></td></tr></table></figure>
-<p><code>if all the action in the tansaction sucessed it will commit,if not it will rollback to start</code></p>
-</li>
-<li><strong>TABLE LOCK</strong><br><code>LOCK TABLE tablename [READ|WRITE];</code><blockquote>
-<p><strong>read</strong>:<br>other session can read without lock but this session cao only read but not write;<br><strong>write</strong>:<br>only this session can read and write<br>other session cannot read and write untill the lock is released.</p>
-</blockquote>
-</li>
-</ul>
-<p>UNLOCK TABLES;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">``when a table locks other  session cann`t use it untill it unlocked``</div><div class="line">* * A REFERENCRS B  ON []</div><div class="line">  when B [] act which will act to A the same</div><div class="line">* SELECT column FROM tablename LIMIT num1，num2；</div><div class="line">输出从num1行开始的num2行</div><div class="line"></div><div class="line">&gt; **BETWEEN AND 两值之间</div><div class="line">[NOT] IN(范围) 制定范围之间</div><div class="line">LIKE 字符匹配**</div><div class="line"></div><div class="line">* MYSQL REGEXP</div></pre></td></tr></table></figure></p>
-<p>|       或<br>[ a-z ]     范围所有小写字母<br>.       任意字符<br>\      转义<br>[: :]       匹配字符类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* 重复前字符</div></pre></td></tr></table></figure></p>
-<p>*      0或多个匹配<br>+      1或多个匹配<br>？       0或1个匹配<br>{n}     指定数目匹配<br>{n，}     不少于制定数目匹配<br>{n,m}    匹配数目不超过m<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* 定位符</div></pre></td></tr></table></figure></p>
-<p>^        文本开始<br>$       文本结尾<br>[[:&lt;:]]     词开始<br>[[:&gt;:]]     词结束<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">**LIKE 匹配整串 REGEXP 匹配子串**</div><div class="line">mysq以concat()实现拼接，一般sql可以用+或者||实现</div><div class="line">* 文本函数</div></pre></td></tr></table></figure></p>
-<p>rtrim()     去掉数值右侧空格<br>Left()         返回串左边字符<br>Length()       返回串长度<br>Locate()       找出串中一个子串<br>Lower()     转换为小写<br>Ltrim()     去除左边空字符<br>Rtrim()     去除右边空字符<br>Right()     返回串右边字符<br>Soundex()     发音相似<br>Substring() 返回子串<br>Upper()     转换为大写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
-<ol>
-<li>DISTINCT  只能用于COUNT(),不能用于COUNT(*)</li>
-<li>GROUP BY 子句嵌套分组时，数据将在最后规定的分组进行汇总</li>
-<li>HAVING 过滤分组子句</li>
-<li>WHERE 在数据分组前进行过滤，HAVING 在数据分组后过滤<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">等值连接即内连接INNER JOIN  ON 子句筛选</div><div class="line">自链接，使用表别名防止链接错误</div><div class="line"></div><div class="line">* 全文匹配</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>FULLTEXT（tablename）:为该列建立索引<br>MATCH（指定搜索列）AGAINST（搜索文本）[WITH QUERY EXPANSION]/查询扩展<br>FULLTEX与MATCH参数必须一致<br>全文匹配自动排序，相似度高的先输出<br>扩展查询：两次索引查询，第一次查询相似词，第二次用相似词查询并返回结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* IN BINARY MODE</div></pre></td></tr></table></figure></p>
-<p>+  包含，词必须存在<br>—   排除，词不出现<br>>  包含，增加等级<br>&lt;   包含，减少等级<br>()      词组排列组合<br>~   取消一个词的排序值<br>*  词尾通配符<br>“”  定义为一个短语<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* 引擎类型</div></pre></td></tr></table></figure></p>
-<p>ENGINE=[]<br>InnoDB  事务处理，不支持全文搜索<br>MEMORY  快速MyISAM，内存存储，速度快<br>MyISAM  支持全文搜索不支持事务处理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">0. **外键不能跨引擎**</div><div class="line">1. **在视图定义中有如下操作不能更新:分组、链接、子查询、并、、聚集函数，distinct**</div><div class="line"></div><div class="line">* 创建存储过程：</div></pre></td></tr></table></figure></p>
-<p>CREATE PROCEDURE procedurename(参数)<br>BEGIN<br>………;<br>END;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">* 调用存储过程：CALL preocedurename（@p1，@p2，@p3）；</div><div class="line">*参数变量以@开头*</div></pre></td></tr></table></figure></p>
-<p>* 备份前FLUSH TABLES;             刷新<br>* 备份：mysqldump                  转储所有内文件到外部文件<br>* mysqlhotcopy                      复制数据库<br>* BACKUP TABLE /SELECT INTOOUTFILE  转储到外部文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">*</div></pre></td></tr></table></figure></p>
-<p>SHOW CHARACTER SET；         显示字符集<br>SHOW COLLATION；             显示校对<br>ANALYZE TABLE tablename；       分析表状态<br>CHECK TABLE tabkename；       检查表状态<br>```</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1732,7 +1888,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1749,7 +1905,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
