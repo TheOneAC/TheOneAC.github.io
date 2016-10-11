@@ -250,6 +250,632 @@
             
               
                 
+                <a class="post-title-link" href="/2016/10/10/APUE-Process/" itemprop="url">
+                  APUE Process
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-10-10T16:40:03+08:00" content="2016-10-10">
+              2016-10-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Process/" itemprop="url" rel="index">
+                    <span itemprop="name">Process</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="chapter-seven"><a href="#chapter-seven" class="headerlink" title="chapter seven"></a>chapter seven</h5><ul>
+<li><p>Process tremination</p>
+<blockquote>
+<ul>
+<li>Return from main</li>
+<li>Calling exit</li>
+<li>Calling _exit or _Exit</li>
+<li>Return of the last thread from its start routine</li>
+<li>Calling pthread_exit</li>
+<li>from the last thread</li>
+</ul>
+<ul>
+<li><code>Abnormal termination occurs in three ways:</code><ul>
+<li>Calling abort (Section 10.17)</li>
+<li>Receipt of a signal (Section 10.2)</li>
+<li>Response of the last thread to a cancellation request</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><p>Exit Functions</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdlib.h&gt;</div><div class="line">void exit(int status);</div><div class="line">void _Exit(int status);</div><div class="line">#include &lt;unistd.h&gt;</div><div class="line">void _exit(int status);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p><code>_exit</code> and <code>_Exit</code>, which <code>return</code> to the kernel <code>immediately</code>, and <code>exit</code>, which <code>performs certain cleanup processing</code>and then returns to the kernel.</p>
+</blockquote>
+<ul>
+<li>atexit()<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdlib.h&gt;</div><div class="line">int atexit(void (*func)(void));</div><div class="line">Returns: 0 if OK, nonzero on error</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>a process can register at least 32 functions that are automatically called by exit. These are called exit handlers and are registered by calling the atexit function.</li>
+<li>The exit function calls these functions in reverse order of their registration.</li>
+<li>Each function is called as many times as it was registered.</li>
+<li>Environment List<br><img src="" alt="Environment"><br>the environment strings are typically stored at the top<br>of a process’s memory space, above the stack.</li>
+</ul>
+</blockquote>
+<h5 id="chapter-eight"><a href="#chapter-eight" class="headerlink" title="chapter eight"></a>chapter eight</h5><ul>
+<li>pid_t<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#include &lt;unistd.h&gt;</div><div class="line">pid_t getpid(void);</div><div class="line">Returns: process ID of calling process</div><div class="line">pid_t getppid(void);</div><div class="line">Returns: parent process ID of calling process</div><div class="line">uid_t getuid(void);</div><div class="line">Returns: real user ID of calling process</div><div class="line">uid_t geteuid(void);</div><div class="line">Returns: effective user ID of calling process</div><div class="line">gid_t getgid(void);</div><div class="line">Returns: real group ID of calling process</div><div class="line">gid_t getegid(void);</div><div class="line">Returns: effective group ID of calling process</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="fork"><a href="#fork" class="headerlink" title="fork"></a><code>fork</code></h4><p>-　调用一次，返回两次，子进程返回０，　父进程返回子线程pid<br>-　子进程只保留调用fork 的线程副本<br>-　父进程中所有打开的文件描述符被复制到子进程<br>-　子进程不集成父进程的文件锁，<code>未处理闹钟清除，未处理信号集置空</code><br>-　父进程先于子进程结束，子进程被<code>init</code>进程收养，其父进程ＩＤ为１<br>-　已经结束但未被父进程处理的进程：<code>僵死进程</code></p>
+<h4 id="wait-waitpid"><a href="#wait-waitpid" class="headerlink" title="wait waitpid"></a><code>wait</code> <code>waitpid</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#include &lt;sys/wait.h&gt;</div><div class="line">pid_t wait(int *statloc);</div><div class="line">pid_t waitpid(pid_t pid, int *statloc, int options);</div><div class="line">Both return: process ID if OK, 0 (see later), or −1 on error</div></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>wait or waitpid do<br>• <code>Block</code>, if <code>all of its children are still running</code><br>• <code>Return immediately</code> with the termination status of <code>a child</code>, if a child has terminated and is waiting for its termination status to be fetched<br>• <code>Return immediately with an error</code>, if it <code>doesn’t have any child</code> processes</li>
+<li>OSIX.1 waitpid function.<br>The interpretation of the pid argument for waitpid depends on its value:</li>
+<li>pid == −1  <code>Waits for any child process</code>. In this respect, waitpid is equivalent to wait.</li>
+<li>pid &gt; 0 <code>Waits for the child whose process ID equals pid</code>.</li>
+<li>pid == 0 Waits for <code>any child</code> whose process <code>group ID</code> equals that of the calling process.</li>
+<li>pid &lt; −1 Waits for <code>any child</code> whose process <code>group ID</code> equals the absolute value of pid</li>
+</ul>
+</blockquote>
+<h4 id="exec"><a href="#exec" class="headerlink" title="exec"></a><code>exec</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#include &lt;unistd.h&gt;</div><div class="line">int execl(const char *pathname, const char *arg0, ... /* (char *)0 */ );</div><div class="line">int execv(const char *pathname, char *const argv[]);</div><div class="line">int execle(const char *pathname, const char *arg0, ...</div><div class="line">/* (char *)0, char *const envp[] */ );</div><div class="line">int execve(const char *pathname, char *const argv[], char *const envp[]);</div><div class="line">int execlp(const char *filename, const char *arg0, ... /* (char *)0 */ );</div><div class="line">int execvp(const char *filename, char *const argv[]);</div><div class="line">int fexecve(int fd, char *const argv[], char *const envp[]);</div><div class="line">All seven return: −1 on error, no return on success</div></pre></td></tr></table></figure>
+<blockquote>
+<p><code>l</code> stands for <code>list</code>, <code>v</code> stands for <code>vector</code>, <code>e</code> stands for <code>environment</code><br>The functions <code>execl, execlp, and execle</code> require <code>each of the
+command-line arguments</code> to the new program to be specified as separate arguments. We <code>mark the end of the arguments</code> with <code>a null pointer</code>.<br>For the other four functions (<code>execv, execvp, execve, and fexecve</code>), build an array of pointers to the arguments, and <code>the address of this array</code> pass to these three functions.<br><img src="" alt="exec"></p>
+</blockquote>
+<h4 id="Process-schedule"><a href="#Process-schedule" class="headerlink" title="Process schedule"></a><code>Process schedule</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#include &lt;unistd.h&gt;</div><div class="line">int nice(int incr);</div><div class="line">#include &lt;sys/resource.h&gt;</div><div class="line">int getpriority(int which, id_t who);</div><div class="line">Returns: new nice value − NZERO if OK, −1 on error</div><div class="line">#include &lt;sys/resource.h&gt;</div><div class="line">int setpriority(int which, id_t who, int value);</div><div class="line">Returns: 0 if OK, −1 on error</div></pre></td></tr></table></figure>
+<blockquote>
+<p>which : PRO_PROCESS , PRO_GROUP, PRO_USER</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/10/10/Network-programming-csapp/" itemprop="url">
+                  Network programming csapp
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-10-10T11:19:22+08:00" content="2016-10-10">
+              2016-10-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Network-Programming/" itemprop="url" rel="index">
+                    <span itemprop="name">Network Programming</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>IP 地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">struct in_addr&#123;</div><div class="line">	unsigned int s_addr</div><div class="line">&#125;</div><div class="line">#include &lt;netinet/in.h&gt;</div><div class="line">unsigned long int  htonl(unsigned long int hostlong);</div><div class="line">unsigned short int  htons(unsigned short int hostshort);</div><div class="line">本地转网络字节序</div><div class="line">unsigned long int ntohl(unsigned long int hostlong);</div><div class="line">unsigned short int ntohs(unsigned short int hostlong);</div><div class="line">网络转本地字节</div><div class="line">均以无符号数转换</div><div class="line">网络字节摩恩为：大端，即有效地位存放在地址高位</div><div class="line">＃include&lt;arpa/inet.h&gt;</div><div class="line">int inet_aton((const char*cp, struct in_addr *inp);</div><div class="line">点分十进制串(cp)转网络字节序IP(inp)</div><div class="line">int inet_ntoa (struct in_addr in);</div><div class="line">网络字节序IP 转点分十进制</div></pre></td></tr></table></figure>
+</li>
+<li><p>Domain structure</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#include &lt;netdb.h&gt;</div><div class="line">struct host&#123;</div><div class="line">	char *h_name;        // domain name</div><div class="line">    char **h_aliases;    // Null-terminated array of domain names</div><div class="line">    int h_addrtype;      // host type (AF_INET)</div><div class="line">    int h_length;        // length of addr in bytes</div><div class="line">    char **h_addr_list;  // Null-terminated array of in_addr strcuts</div><div class="line">&#125;</div><div class="line">struct  hostent * gethostbyname(const char* name);</div><div class="line">strcut hostent *gethostbtaddr(const char* addr,</div><div class="line">				int len(sizeof(addr)),int type(AF_INET))</div><div class="line">success none -null return, else set h_errno</div></pre></td></tr></table></figure>
+</li>
+<li><p>Socket structure</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#include&lt;netinet/in.h&gt;</div><div class="line">struct sockaddr&#123;</div><div class="line">	unsigned short sin_family; // address falily (AF_INET)</div><div class="line">    char      sa_data[14];     // address data</div><div class="line">&#125;;</div><div class="line">struct sockaddr_in&#123;</div><div class="line">	unsigned short sin_family;// AF_INET</div><div class="line">    unsigned short sin_port;  // port number</div><div class="line">    unsigned short sin_addr;  //  IP address</div><div class="line">    unsigned char sin_zero[8] // pad</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>Socket function</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">#include &lt;sys/typs.h&gt;</div><div class="line">#include &lt;sys/socket.h&gt;</div><div class="line">int socket(inr domain, SOCK_TREAM, int protoctol);</div><div class="line">成功非负，失败－１</div><div class="line">常规调用　: clinetfd = socket(AF_INET,SOCK_STREAM,0);</div><div class="line">int connect(int sockfd, struct sockaddr * server_addr, int addrlen);</div><div class="line">成功０，失败－１</div><div class="line">connect函数与套接字地址为serv_addr服务器连接，阻塞直到连接成功</div><div class="line">int bind(int sockfd, struct *my_addr, int len);</div><div class="line">success 0,eles -1</div><div class="line">将my_addr服务器套接字地址与套接字描述符sockfd绑定，addrlen = sizeof(sockaddr_in);</div><div class="line">int listen(int sockfd, int backlog);</div><div class="line">成功０，失败－１</div><div class="line">将sockfd从主动套接字转为监听套接字，backlog 设置拒绝连接前的等待队列请求数量</div><div class="line">int accept(int listenfd, struct sockaddr *adr, int * addrlen);</div><div class="line">成功非负，失败－１</div><div class="line">等待到达侦听描述符sockfd的连接请求，将客户端套接字地址写入addr, 并返回已链接符</div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/10/09/APUE-Sockets/" itemprop="url">
+                  APUE Sockets
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-10-09T19:28:10+08:00" content="2016-10-09">
+              2016-10-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Sockets/" itemprop="url" rel="index">
+                    <span itemprop="name">Sockets</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>Socket Descriptors<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#include &lt;sys/socket.h&gt;</div><div class="line">int socket(int domain, int type, int protocol);</div><div class="line">Returns: file (socket) descriptor if OK, −1 on error</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#include &lt;sys/socket.h&gt;</div><div class="line">int shutdown(int sockfd, int how);</div><div class="line">Returns: 0 if OK, −1 on error</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>how : SHUT_RD   SHUT_WR     SHOT_RDWR</p>
+<ul>
+<li>Byte Ordering<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#include &lt;arpa/inet.h&gt;</div><div class="line">uint32_t htonl(uint32_t hostint32);</div><div class="line">$ Returns: 32-bit integer in network byte order</div><div class="line">uint16_t htons(uint16_t hostint16);</div><div class="line">$ Returns: 16-bit integer in network byte order</div><div class="line">uint32_t ntohl(uint32_t netint32);</div><div class="line">$ Returns: 32-bit integer in host byte order</div><div class="line">uint16_t ntohs(uint16_t netint16);</div><div class="line">$ Returns: 16-bit integer in host byte order</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>translate btween binary and text<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#include &lt;arpa/inet.h&gt;</div><div class="line">const char *inet_ntop(int domain, const void *restrict addr,</div><div class="line">char *restrict str, socklen_t size);</div><div class="line">Returns: pointer to address string on success, NULL on error</div><div class="line">int inet_pton(int domain, const char *restrict str,</div><div class="line">void *restrict addr);</div><div class="line">Returns: 1 on success, 0 if the format is invalid, or −1 on error</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>dimain : AF_INET, AF_INET6</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/10/09/APUE-Threads/" itemprop="url">
+                  APUE Threads
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-10-09T10:23:33+08:00" content="2016-10-09">
+              2016-10-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Threads/" itemprop="url" rel="index">
+                    <span itemprop="name">Threads</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>A thread ID is represented by the pthread_t data type. Implementations are allowed to use a structure to represent the pthread_t data type</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#include &lt;pthread.h&gt;</div><div class="line">int pthread_equal(pthread_t tid1, pthread_t tid2);</div><div class="line">Returns: nonzero if equal, 0 otherwise</div></pre></td></tr></table></figure>
+</li>
+<li><p>A thread can obtain its own thread ID by calling the pthread_self function.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">pthread_t</span> pthread_self(<span class="keyword">void</span>);</div><div class="line">Returns: the thread ID of the calling thread</div></pre></td></tr></table></figure>
+</li>
+<li><p>Thread Creation</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">int pthread_create(pthread_t *restrict tidp,</div><div class="line">const pthread_attr_t *restrict attr,</div><div class="line">void *(*start_rtn)(void *), void *restrict arg);</div><div class="line">Returns: 0 if OK, error number on failure</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>Note that the pthread functions usually return an error code when they fail. They don’t set errno like the other POSIX functions.</p>
+<ul>
+<li>Thread Termination<br>A single thread can exit in three ways, thereby stopping its flow of control, without terminating the entire process.</li>
+</ul>
+<ol>
+<li>return from the start routine. The return value is the thread’s exit code.</li>
+<li>be canceled by another thread in the same process.</li>
+<li>pthread_exit.<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">void pthread_exit(void *rval_ptr);</div><div class="line">int pthread_join(pthread_t thread, void **rval_ptr);</div><div class="line">Returns: 0 if OK, error number on failure</div></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<ul>
+<li>pthread_cancel: One thread cancel another in the same process <blockquote>
+<p>pthread_cancel doesn’t wait for the thread to terminate; it merely makes the request.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int pthread_mutex_timedlock(pthread_mutex_t *restrict mutex,</div><div class="line">const struct timespec *restrict tsptr);</div><div class="line">Returns: 0 if OK, error number on failure</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>the timeout value is reached, <code>pthread_mutex_timedlock</code> will return the error code <code>ETIMEDOUT</code> <code>without locking the mutex</code>.</p>
+<ul>
+<li>Reader–Writer Locks<br><code>hare in read, exclusive in write</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">int pthread_rwlock_init(pthread_rwlock_t *restrict rwlock,</div><div class="line">const pthread_rwlockattr_t *restrict attr);</div><div class="line">int pthread_rwlock_destroy(pthread_rwlock_t *rwlock);</div><div class="line">int pthread_rwlock_rdlock(pthread_rwlock_t *rwlock);</div><div class="line">int pthread_rwlock_wrlock(pthread_rwlock_t *rwlock);</div><div class="line">int pthread_rwlock_unlock(pthread_rwlock_t *rwlock);</div><div class="line">All return: 0 if OK, error number on failure</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>Cond_wait</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#include &lt;pthread.h&gt;</div><div class="line">int pthread_cond_signal(pthread_cond_t *cond);</div><div class="line">int pthread_cond_broadcast(pthread_cond_t *cond);</div><div class="line">Both return: 0 if OK, error number on failure</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>Signal</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;semaphore.h&gt;</div><div class="line">int sem_init(sem_t *sem, 0, unsigned int value);</div><div class="line">int sem_wait(sem_t *s)//P</div><div class="line">int sem_post(sem_t *s)//V</div><div class="line">success return 0, else -1</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>线程安全</p>
+<blockquote>
+<p>不安全函数类</p>
+<ol>
+<li>不保护共享变量</li>
+<li>保持跨越多个调用状态的函数　：非原子操作</li>
+<li>返回指向静态变量指针的函数　：某个线程的返回覆盖其他线程的调用</li>
+<li>调用线程部不安全函数<ul>
+<li>调用２类线程一定不安全,只能重写保证线程安全</li>
+<li>调用１，３类时，用互斥所保护共享变量则线程安全</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>reentrant funtion : never change any shared-variables.</li>
+<li>reentrant funtion is a subset of thread-safe funtion</li>
+<li>some thread-safe funtion may be not reentrant.</li>
+</ul>
+<p><code>none-thread-safe library funtions</code></p>
+<ul>
+<li>rand</li>
+<li>strtok</li>
+<li>asctime</li>
+<li>ctime</li>
+<li>gethostbyaddr/gethostbyname</li>
+<li>int_ntoa</li>
+<li>locatime</li>
+</ul>
+<p><strong>互斥锁加锁，同时占用s,t两个锁的线程必须以相同顺序给s,t加锁</strong></p>
+</blockquote>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/01/Programming-With-POSIX-Threads/" itemprop="url">
                   Programming With POSIX Threads
                 </a>
@@ -376,6 +1002,11 @@
 <li>The mutex must always be locked when you wait on a condition variable</li>
 </ul>
 <p><strong>Creating and destroying a condition variable</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pthread_cond_t cond = PTHREAD_COND_INITIALIZER;</div><div class="line">int pthread_cond_init (pthread_cond_t *cond, pthread_condattr_t *condattr);</div><div class="line">int pthread_cond_destroy (pthread_cond_t *cond);</div></pre></td></tr></table></figure></p>
+<ol>
+<li><code>cond_wait</code> 等待信号量，若未收到信号量，<code>解锁mutex，并挂起到相应信号量等待队列</code>原子操作(<code>cond\_wait 不返回处于等待信号量状态，不占用CPU</code>)</li>
+<li>收到信号量，<code>尝试上锁mutex</code>，若锁被占用则等待，直到获得锁,若上锁成功，进入临界区使用条件变量</li>
+<li>由外部<code>unlock</code>完成解锁</li>
+</ol>
 <p><strong>Waiting on a condition variable</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int pthread_cond_wait (pthread_cond_t *cond, pthread_mutex_t *mutex);</div><div class="line">int pthread_cond_timedwait (pthread_cond_t *cond, pthread_mutex_t *mutex, struct timespec *expiration);</div></pre></td></tr></table></figure></p>
 <ul>
 <li>Each condition variable must be associated with a specific mutex, and with a predicate condition.</li>
@@ -1161,7 +1792,7 @@
               
                 
                 <a class="post-title-link" href="/2016/09/19/APUE-File IO/" itemprop="url">
-                  APUE chapter three
+                  APUE File IO
                 </a>
               
             
@@ -1188,8 +1819,8 @@
               <span class="post-meta-item-text">In</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/linux-unix/" itemprop="url" rel="index">
-                    <span itemprop="name">linux/unix</span>
+                  <a href="/categories/IO/" itemprop="url" rel="index">
+                    <span itemprop="name">IO</span>
                   </a>
                 </span>
 
@@ -1328,526 +1959,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/18/linux-basic-command/" itemprop="url">
-                  linux basic command
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-09-18T21:35:43+08:00" content="2016-09-18">
-              2016-09-18
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/linux-unix/" itemprop="url" rel="index">
-                    <span itemprop="name">linux/unix</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><code>from xiongdilian</code><br><img src="http://odfcr7qs4.bkt.clouddn.com/20151126231945042.png" alt="linux basic comand "></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/17/leetcode-022-Generate-Parentheses/" itemprop="url">
-                  leetcode 022. Generate Parentheses
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-09-17T18:58:05+08:00" content="2016-09-17">
-              2016-09-17
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OJ/" itemprop="url" rel="index">
-                    <span itemprop="name">OJ</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="leetcode-022-Generate-Parentheses"><a href="#leetcode-022-Generate-Parentheses" class="headerlink" title="leetcode 022. Generate Parentheses"></a>leetcode 022. Generate Parentheses</h2><ul>
-<li><p><a href="https://discuss.leetcode.com/topic/4485/concise-recursive-c-solution" target="_blank" rel="external">Concise recursive C++ solution</a></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; generateParenthesis(<span class="keyword">int</span> n) &#123;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; res;</div><div class="line">        addingpar(res, <span class="string">""</span>, n, <span class="number">0</span>);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"><span class="keyword">private</span>:</div><div class="line"> 	<span class="function"><span class="keyword">void</span> <span class="title">addingpar</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;v, <span class="built_in">string</span> str, <span class="keyword">int</span> n, <span class="keyword">int</span> m)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(n==<span class="number">0</span> &amp;&amp; m==<span class="number">0</span>) &#123;</div><div class="line">            v.push_back(str);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(m &gt; <span class="number">0</span>)&#123; addingpar(v, str+<span class="string">")"</span>, n, m<span class="number">-1</span>); &#125;</div><div class="line">        <span class="keyword">if</span>(n &gt; <span class="number">0</span>)&#123; addingpar(v, str+<span class="string">"("</span>, n<span class="number">-1</span>, m+<span class="number">1</span>); &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-</li>
-<li><p><a href="https://discuss.leetcode.com/topic/7250/the-most-concise-solution-i-know-ever" target="_blank" rel="external">The most concise solution I know ever</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">     vector&lt;string&gt; generateParenthesis(int n) &#123;</div><div class="line">        if(n==0) return vector&lt;string&gt;(1,&quot;&quot;) ;</div><div class="line">        if(n==1) return vector&lt;string&gt;(1,&quot;()&quot;) ;</div><div class="line">        vector&lt;string&gt; result;</div><div class="line">        for(int i=0;i!=n;i++)</div><div class="line">            for(auto inner: generateParenthesis(i))</div><div class="line">                for(auto outter:  generateParenthesis(n-i-1))</div><div class="line">                    result.push_back(&quot;(&quot;+inner+&quot;)&quot;+outter);</div><div class="line">        return result;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-</li>
-<li><p><a href="https://discuss.leetcode.com/topic/35617/my-4ms-c-solution-without-using-recursion" target="_blank" rel="external">My 4ms C++ solution without using recursion</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">M Mein-Fuhrer </div><div class="line">Reputation:  3</div><div class="line"> class Solution &#123;</div><div class="line"> public:</div><div class="line">vector&lt;string&gt; generateParenthesis(int n) &#123;</div><div class="line">    vector&lt;string&gt; result;</div><div class="line">    string str(&quot;(&quot;);</div><div class="line">    result.push_back(str);</div><div class="line">    vector&lt;int&gt; left(&#123;1&#125;);</div><div class="line">    for(int pos = 1;pos &lt; 2*n;++pos) &#123;</div><div class="line">        int tmp = left.size();</div><div class="line">        for(int i = 0;i &lt; tmp;++i) &#123;</div><div class="line">            if(left[i] &lt; n) &#123;</div><div class="line">                if(pos - left[i] &lt; left[i]) &#123;</div><div class="line">                    result.push_back(result[i] + &apos;)&apos;);</div><div class="line">                    left.push_back(left[i]);</div><div class="line">                &#125;</div><div class="line">                result[i] += &apos;(&apos;;</div><div class="line">                left[i]++;</div><div class="line">            &#125;</div><div class="line">            else &#123;</div><div class="line">                result[i] += &apos;)&apos;;</div><div class="line">                continue;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return result;</div><div class="line">&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/31/补课之后/" itemprop="url">
-                  after
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-08-31T20:49:49+08:00" content="2016-08-31">
-              2016-08-31
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Dairy/" itemprop="url" rel="index">
-                    <span itemprop="name">Dairy</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="写在补课之后："><a href="#写在补课之后：" class="headerlink" title="写在补课之后："></a>写在补课之后：</h3><p>**</p>
-<ul>
-<li>补课强度高，消化不良，但是有一点明确，让你知道要学什么</li>
-<li>有一堆志同道合的人一块自习撸码还是很享受的，科大的实验课真心不错</li>
-<li>碰撞，或者老司机带路跟自己干还是不一样的</li>
-<li>将来找团队，找妹子也一定要志同道合啊…… :joy: :joy:</li>
-</ul>
-<hr>
-<ul>
-<li><p>数据结构：树变种，复杂堆，红黑树，图剪枝回溯</p>
-<blockquote>
-<p>leetcode      随算法导论进行</p>
-</blockquote>
-</li>
-<li><p>网络：socket 编程，网络协议，TCP/IP三卷，</p>
-<blockquote>
-<p>UNP           随高网进行</p>
-</blockquote>
-</li>
-<li><p>操作系统：linux私房菜未看完，在正式开学前搞完</p>
-<blockquote>
-<p>APUE          随CSAPP进行</p>
-</blockquote>
-</li>
-<li><p>数据库：范式理解需要加深</p>
-<blockquote>
-<p>高性能mysql   随高级数据库进行</p>
-</blockquote>
-</li>
-<li><p>c++：</p>
-<blockquote>
-<p>c++ primier ：后四章理解不够，<br>effective c++ ：中关于泛型编程 理解不足，缺少使用经验<br>stl 标准库 ：明显理解不够需要重新理解思考                          随c++ 面向对象复习</p>
-</blockquote>
-</li>
-<li>当前未涉及领域<blockquote>
-<p>机器学习/推荐算法，python<br>python 参考手册<br>提前理解孟宁老师网络程序课程涉及的机器学习框架和内容<br>刷网易云课堂：保健老师编译原理计划待定</p>
-</blockquote>
-</li>
-</ul>
-<hr>
-<blockquote>
-<p><strong>尝试图形化笔记，增加会议性笔记，以代码注释代替文字笔记<br>辅助技能：git不能满足于基本操作，markdown语法加入html，vim进阶，linux深入</strong></p>
-</blockquote>
-<h4 id="思考："><a href="#思考：" class="headerlink" title="思考："></a>思考：</h4><p><code>1、看书的正确方式：从c++书籍的经验看，直接上效果低，先用遇到问题查询，缺哪块补哪块</code><br><code>2、笔记的正确方式：禁止抄书，以思考写笔记，注意总和测试</code></p>
-<ul>
-<li>问题：<blockquote>
-<p>书籍pdf 还是纸质版？<br>中文书籍书籍速度快，效果差，解析未必透侧<br>文外书籍，阅读慢，讲解透侧，官网教程代码简洁</p>
-</blockquote>
-</li>
-</ul>
-<ul>
-<li>是否涉入JAVA：<blockquote>
-<p>优点：JAVA应用广，框架多，封装良好，岗位多<br>困境：目前位涉猎java领域，c++（算法）/python（机器学习） 将在第一学期计划中占据很大代码量</p>
-</blockquote>
-</li>
-</ul>
-<p><code>技能树存在java 和 编译原理  缺口</code><br><code>分布式缺口在下学期的分布式与云计算课同步补齐</code></p>
-<hr>
-<p>###总结：<br><strong>增加代码量，代码为主，看书为辅<br>新知识关注官网tutorial<br>图形化笔记，回忆性笔记<br>重理解，英文化</strong></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/27/程序员的自我修养/" itemprop="url">
-                  程序员的自我修养
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-08-27T03:34:31+08:00" content="2016-08-27">
-              2016-08-27
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>ELF文件格式与windows PE/COFF章节未做细致分析</li>
-</ul>
-<h4 id="review"><a href="#review" class="headerlink" title="review"></a>review</h4><p>操作系统：硬件资源管理，抽象接口<br>同一个系统：页大小固定<br>fork并不复制原任务内存空间，而是和原任务共享一个<code>写时复制</code>的内存空间<br>写时复制：两个任务可同事自由读取内存，任意任务视图修改时，复制一份原内存内容给修改方，以免影响其他任务。<br>i++；汇编变为三个指令，非原子操作，会被多线程打断。<br>读写锁：自由态  共享/独占均可，共享态  共享成功/独占失败 ，独占态  共享失败/独占成功<br>volatile：直接存取原始内存地址<br>（两者均可能造成线程执行顺序错误）<br>1、阻止编译器为了提高速度将一个变量缓存到寄存器而不写回；<br>2、阻止编译器调整操作volatile变量的顺序<br>barrier指令：阻止编译器将barrier之前的指令换到barrier之后</p>
-<h4 id="compile-and-link"><a href="#compile-and-link" class="headerlink" title="compile and link"></a>compile and link</h4><p>预编译 gcc -E<br>以“#”开头语句被处理，宏展开，注释清楚，<br>保留#prama给编译器，插入行号和文件名表示用于编译错误提醒<br>编译 gcc -S<br>生成汇编代码<br>gcc   根据不同参数，调用预编译程序，汇编器，链接器<br>汇编<br>as/gcc -c<br>链接：地址空间分配，符号决议（绑定），重定位<br>编译时不能确定地址，链接时确定和修改地址：重定位</p>
-<h5 id="object-file"><a href="#object-file" class="headerlink" title="object file"></a>object file</h5><p>目标文件、动态链接库、静态链接库、可执行文件均按照可执行文件格式存储，linux中为ELF<br>ELF文件分类<br>1、可重定位文件relocatable file   linux.o<br>2、可执行文件 executable file     windows.exe<br>3、共享目标文件shared object file linux.so windows.dll<br>4、核心转储文件 coredump file     linux.core dump(意外终止进程文件内容与信息)<br>c语言编译后文件：<br>.text  执行语句<br>.data  以初始化的全局变量和局部静态变量<br>.bss   未初始化的全局变量和局部静态变量</p>
-<p>objdump -x -s -d name.o<br>文件name.o内容显示格式：<br>.字段名   十六进制存储标识      汇编语言</p>
-<p>自定义段存储位置<br><strong>attribute</strong>((section(“name”))) int var=value;<br>将var放置在name段中<br>readlf -h name.o显示ELF文件</p>
-<h4 id="static-link"><a href="#static-link" class="headerlink" title="static link"></a>static link</h4><p>链接器为目标文件分配地址和空间：<br>1、分配输出文件空间<br>2、完整装载厚厚的地址定位，即形成程序虚拟地址<br>two-passing link<br>1、空间域地址分配：文件、符号合并，建立映射关系<br>2、符号解析与重定位：调整代码中地址为虚拟地址<br>可重定位文件中，每一个可重定位ELF段赌赢一个重定位表<br>objdump  -r name.o   查看name.o的重定位表<br>重定位过程中：每个重定位入口都是对一个符号的引用<br>readelf -s name.o    查看name.o的符号表<br>重定位方式：<br>R_386_32    1           绝对寻址修正S+A<br>R_386_PC32  2           相对寻址修正S+A-P<br>A=保存在被修正位置的值<br>P=被修正的位置（相对于断开始的偏移量或者虚拟地址）<br>S=符号实际地址r_info（重定位表）确定的符号的实际地址</p>
-<p>弱符号的COMMON块机制<br>原因：编译器允许不同类型的弱符号存在，本质时链接器部支持符号类型，即无法判断符号类型是否一致<br>弱符号：未初始化的全局变量定义<br>两个弱符号以大的为准<br>一强一弱以强为准，若果若大小大于强，报错<br>gcc -fno-common/int global <strong>atttribute</strong>((nocommon))<br>定义未初始化全局变量nocommon不以COMMON块形式处理<br>一个为初始化的全局变量不以COMMON块形式存在，就相当于一个强符号，如果其他目标文件还存在同一个变量的强符号定义，连接时发生符号重定义<br>c++中编译问题<br>1、重复代码<br>模板在不同文件被相同类型实例化造成代码重复<br>解决方案：将每个模板的市里代码单独放置在一个段里，每个段只把含有一个模板实例<br>有虚函数的类有一个虚函数表，在不同编译单元生虚函数表造成代码重复，外部内联函数、默认构造函数、默认拷贝函数、赋值操作和虚函数表做法类似<br>函数级别链接：每个函数单独成段，单独链接一个函数段，链接时必须明确函数依赖关系<br>全局构造与析构<br>c++的全局构造函数在mian函数之前执行，析构函数在main之后执行<br>linux中程序入口为_start,这个函数就是程序初始化入口，初始化完成后调用main函数主体，main完整后返回到初始化部分，清理现场，结束进程<br>ABI：可执行二进制兼容性相关内容（符号修饰标准，变量内存布局，函数调用方式等）二进制层面接口<br>静态库：一组目标文件object的集合</p>
-<h4 id="execute-file-loading-and-process"><a href="#execute-file-loading-and-process" class="headerlink" title="execute file loading and process"></a>execute file loading and process</h4><p>装载：程序局部性，覆盖装入overlay、页映射paging<br>进程的建立<br>1、创建独立虚拟地址空间\<br>2、读取可执行文件头，建立虚拟空间与可执行文件的映射关系<br>    &amp; 虚拟空间发生页错误时定位可执行文件位置<br>3、CPU指令寄存器设置成可执行文件入口地址<br>    &amp;涉及用户态与内核态转换<br>进程虚拟地址空间VMA：<br>代码VMA：只读，可执行<br>数据VMA：可读可写可执行<br>堆VMA：  可读写可执行<br>栈VMA：  可读写不可执行</p>
-<h4 id="dynamic-link"><a href="#dynamic-link" class="headerlink" title="dynamic link"></a>dynamic link</h4><p>gcc -fPIC -shared -o lib.s0 lib.c   生成动态库<br>静态共享库 ：操作系统划分固定空间存储静态库模块<br>动态共享库：共享对象编译时不明却自己的进程虚拟地址空间中的位置<br>PIC地址无关代码：<br>模块内部调用与跳转：相对寻址<br>模块内数据访问：相对寻址<br>模块间数据访问：全局偏移表，标记偏移位置<br>模块见调用域跳转：全局偏移表保存目标函数位置<br>延迟绑定：函数第一次调用时绑定<br>/lib  关键基础共享库<br>/usr/lib 开发共享库<br>/usr/local/lib 三方应用库</p>
-<h4 id="memory"><a href="#memory" class="headerlink" title="memory"></a>memory</h4><p>内核空间，栈向下延伸，动态链接库在堆栈中间，堆向上延伸，读写部分（.data .bss）,只读部分(.init .text .rodata)装载起始位置0x08048000,之下为reserved<br>segment fault:指针非法,读写不可读写空间,指针未初始化或者初始化为NULL就使用指针<br>堆栈帧:储存函数返回地址与参数,临时变量,函数调用前后不便的寄存器(上下文)<br>esp指向栈顶,ebp指向活动栈帧,又称为帧指针<br>ebp函数返回位置<br>调用惯例calling conversion<br>函数参数传递顺序域方式:压栈传递参数.函数调用方压栈,函数本身弹栈取值<br>c语言调用惯例:从右至左压栈参数<br>返回值传递:使用临时栈上存储区作为中转,两次copy,一次存入栈上tmp,一次存回返回区</p>
-<p>堆空间由运行库管理<br>mmap申请匿名空间实现malloc<br>堆分配算法:空闲链表\位图\对象池</p>
-<p><strong>MINI CRT的实现</strong></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1888,7 +2004,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">27</span>
+              <span class="site-state-item-count">31</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1896,7 +2012,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1905,7 +2021,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

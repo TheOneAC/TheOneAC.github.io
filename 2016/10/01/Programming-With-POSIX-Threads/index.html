@@ -104,7 +104,7 @@ concurency does not imply that the  operations proceed simult">
 Asynchronous: two operation proceed independently of each other.
 thread: just a more way to make application asynchronous
 concurency does not imply that the  operations proceed simult">
-<meta property="og:updated_time" content="2016-10-03T12:41:24.884Z">
+<meta property="og:updated_time" content="2016-10-10T10:19:47.640Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Programming With POSIX Threads">
 <meta name="twitter:description" content="Chapter One 
@@ -388,6 +388,11 @@ concurency does not imply that the  operations proceed simult">
 <li>The mutex must always be locked when you wait on a condition variable</li>
 </ul>
 <p><strong>Creating and destroying a condition variable</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pthread_cond_t cond = PTHREAD_COND_INITIALIZER;</div><div class="line">int pthread_cond_init (pthread_cond_t *cond, pthread_condattr_t *condattr);</div><div class="line">int pthread_cond_destroy (pthread_cond_t *cond);</div></pre></td></tr></table></figure></p>
+<ol>
+<li><code>cond_wait</code> 等待信号量，若未收到信号量，<code>解锁mutex，并挂起到相应信号量等待队列</code>原子操作(<code>cond\_wait 不返回处于等待信号量状态，不占用CPU</code>)</li>
+<li>收到信号量，<code>尝试上锁mutex</code>，若锁被占用则等待，直到获得锁,若上锁成功，进入临界区使用条件变量</li>
+<li>由外部<code>unlock</code>完成解锁</li>
+</ol>
 <p><strong>Waiting on a condition variable</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int pthread_cond_wait (pthread_cond_t *cond, pthread_mutex_t *mutex);</div><div class="line">int pthread_cond_timedwait (pthread_cond_t *cond, pthread_mutex_t *mutex, struct timespec *expiration);</div></pre></td></tr></table></figure></p>
 <ul>
 <li>Each condition variable must be associated with a specific mutex, and with a predicate condition.</li>
@@ -577,6 +582,10 @@ concurency does not imply that the  operations proceed simult">
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2016/10/09/APUE-Threads/" rel="prev" title="APUE Threads">
+                APUE Threads <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -649,7 +658,7 @@ concurency does not imply that the  operations proceed simult">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">27</span>
+              <span class="site-state-item-count">31</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -657,7 +666,7 @@ concurency does not imply that the  operations proceed simult">
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -666,7 +675,7 @@ concurency does not imply that the  operations proceed simult">
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

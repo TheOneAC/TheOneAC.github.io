@@ -250,6 +250,517 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/28/C Primier Plus Dynamic-Memory /" itemprop="url">
+                  Dynamic Memory
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-28T18:30:47+08:00" content="2016-07-28">
+              2016-07-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Dynamic-Memory-and-Smart-Pointers"><a href="#Dynamic-Memory-and-Smart-Pointers" class="headerlink" title="Dynamic Memory and Smart Pointers"></a>Dynamic Memory and Smart Pointers</h3><p>shared_ptr:<br>init: make_shared&lt; Type &gt;(args);   shared_ptr&lt; Type &gt;(q); p=q;<br>function :<br>p.unique() if count return 1 truw,else false.<br>p.use_count() return the number of object sharing with p.<br>make_shared. allocates and initializes an object in dynamic memory and returns a shared_ptr that points to that object.<code>shared_ptr&lt;string&gt; p4 = make_shared&lt;string&gt;(10, &#39;9&#39;);</code><br><strong>new</strong> returns a pointer to the object it allocates:<code>int *pi = new int;</code><br>By default, dynamically allocated objects are default initialized, which means that objects of built-in or compound type have undefined value<br>Like any other const, a dynamically allocated const object must be initialized.<br><code>const string *pcs = new const string;</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int *p1 = new int; // if allocation fails, new throws std::bad_alloc</div><div class="line">int *p2 = new (nothrow) int; // if allocation fails, new returns a null pointer</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>Functions that return pointers (rather than smart pointers) to dynamic memory put a<br>burden on their callers—the caller must remember to delete the memory</strong></p>
+</blockquote>
+<h2 id="Dynamic-memory-managed-through-built-in-pointers-rather-than-smart-pointers-exists-until-it-is-explicitly-freed"><a href="#Dynamic-memory-managed-through-built-in-pointers-rather-than-smart-pointers-exists-until-it-is-explicitly-freed" class="headerlink" title="Dynamic memory managed through built-in pointers (rather than smart pointers) exists until it is explicitly freed."></a><strong>Dynamic memory managed through built-in pointers (rather than smart pointers) exists until it is explicitly freed.</strong></h2><p><strong>three common problems with using new and delete</strong></p>
+<ol>
+<li>Forgetting to delete memory. Neglecting to delete dynamic memory is known as a “memory leak,”</li>
+<li>Using an object after it has been deleted.</li>
+<li>Deleting the same memory twice.</li>
+</ol>
+<p><strong>dangling pointer</strong>:When we delete a pointer, that pointer becomes invalid.but the pointer continues to hold the address of the (freed) dynamic memory.<br>we cannot implicitly convert a built-in pointer to a smart pointer; we must use<br>the direct form of initialization to initialize a smart pointer<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">shared_ptr&lt;int&gt; p1 = new int(1024); // error: must use direct initialization</div><div class="line">shared_ptr&lt;int&gt; p2(new int(1024)); // ok: uses direct initialization</div></pre></td></tr></table></figure></p>
+<p>use <strong>reset</strong> to assign a new pointer to a shared_ptr.</p>
+<h2 id="In-particular-classes-that-are-designed-to-be-used-by-both-C-and-C-generally-require-the-user-to-specifically-free-any-resources-that-are-used"><a href="#In-particular-classes-that-are-designed-to-be-used-by-both-C-and-C-generally-require-the-user-to-specifically-free-any-resources-that-are-used" class="headerlink" title="In particular, classes that are designed to be used by both C and C++ generally require the user to specifically free any resources that are used."></a>In particular, classes that are designed to be used by both C and C++ generally require the user to specifically free any resources that are used.</h2><p>unique_ptr:”owns” the object which it points.<br>so it doesn`t support ordinary copy and assignment.<br>but can transfer ownership fron one (nonconst)unique_ptr to another by calling release or set.<br><code>// transfers ownership from p3 to p2
+p2.reset(p3.release()); 
+// reset deletes the memory to which p2 had pointed</code><br>only one unique_ptr at a time can point to  a given object.<br>unique_ptr destroyed so the object it point to.<br>u.release() :return the pointer u had held and makes u null;<br>u.reset() :deletes the object to which i pointes;<br>u.reset(q) :if the built-in pointer q is supplied ,makes u pointe to that object.<br>u=nullptr; deletes the object to which u points,makes u null;<br>unique_ptr : bind to a pointer<br><strong><a href="http://stackoverflow.com/questions/6876751/differences-between-unique-ptr-and-shared-ptr" target="_blank" rel="external">http://stackoverflow.com/questions/6876751/differences-between-unique-ptr-and-shared-ptr</a></strong></p>
+<h3 id="weak-ptr"><a href="#weak-ptr" class="headerlink" title="weak_ptr"></a>weak_ptr</h3><p>not control the lifetime of the object it point to.<br>bind a weak_ptr to a shared_ptr not change the reference count of that shared_ptr.<br><strong>weak</strong>:Once the last shared_ptr pointing to the object goes away, the object itself will be deleted. That object will be deleted even if there are weak_ptrs pointing to it.<br>The <strong>lock</strong> function checks whether the object to which the weak_ptr points still exists. If so, lock returns a shared_ptr to the shared object.</p>
+<h3 id="Dynamic-Arrays"><a href="#Dynamic-Arrays" class="headerlink" title="Dynamic Arrays"></a>Dynamic Arrays</h3><p>Classes that allocate dynamic arrays must define their own versions of these operations to manage the associated memory when objects are copied, assigned, and destroyed.<br><code>int *pia = new int[get_size()]; 
+// pia points to the first of these ints</code><br>The size inside the brackets must have integral type but need not be a constant.</p>
+<blockquote>
+<p><strong>Allocating an Array Yields a Pointer to the Element Type</strong></p>
+</blockquote>
+<p>shared_ptrs provide no direct support for managing a dynamic array. If we want to use a shared_ptr to manage a dynamic array, we must provide our own deleter:<br><code>shared_ptr&lt;int&gt; sp(new int[10], [](int *p) { delete[] p; });
+sp.reset(); // uses the lambda we supplied that uses delete[] to free the array</code><br>classes that do not have default constructors cannot be dynamically allocated as an array.<br><strong>allocator</strong>: provides type-aware allocation of raw, unconstructed, memory.<br>We must construct objects in order to use memory returned by<br>allocate. Using unconstructed memory in other ways is undefined.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/28/C Primier Plus Associative containers/" itemprop="url">
+                  Associative Containers
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-28T11:35:15+08:00" content="2016-07-28">
+              2016-07-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Associative containers support efficient lookup and retrieval by a key.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">        word.erase(std::remove_if(word.begin(), word.end(), ispunct),word.end());</div><div class="line">$   remove_if move container to the end and return a partition iterater, erase the container from partition to the end.</div></pre></td></tr></table></figure></p>
+<p>the ordered containers—map, multimap, set, and multiset—the key type must define a way to compare the elements.<br>Callable objects passed to a sort algorithm (§ 10.3.1, p. 386) must meet the same requirements as do the keys in an associative container.<br>To use our own operation, we must define the multiset with two types: the key type,  and the comparison type, which is a function pointer type  that can point to compare function.<br>the data members of pair are public ,These members are named first and second,respectively. We access these members using the normal member access notation.<br>It is essential to remember that the value_type of a map is a pair and that we can change the value but not the key member of that pair.<br>Iterators for sets Are const,the keys in a set are also const.<br><strong>The output of this program is in alphabetical order. When we use an iterator to traverse a map, multimap, set, or multiset, the iterators yield  elements in ascending key order.</strong><br>The insert members (Table 11.4 (overleaf)) add one element or a range of elements.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// four ways to add word to map word_count</div><div class="line">word_count.insert(&#123;word, 1&#125;);</div><div class="line">word_count.insert(make_pair(word, 1));</div><div class="line">word_count.insert(pair&lt;string, size_t&gt;(word, 1));</div><div class="line">word_count.insert(map&lt;string, size_t&gt;::value_type(word, 1));</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>Erasing Elements<br>c.erase(k)     remove every element with the key k from c.<br>c.erase(p)     remove the element denoted by the iterater p from c.<br>c.erase(b,e)   remove the element in  the range demoted by b and e and return e.</p>
+</blockquote>
+<p>The map and unordered_map containers provide the subscript operator and a<br>corresponding at function,We cannot subscript a multimap or an unordered_multimap because there may be more than one value associated with a given key.<br><strong>Subscripting a map behaves quite differently from subscripting an array or vector: Using a key that is not already present adds an element with that key to the map.</strong></p>
+<blockquote>
+<p>Operations to Find Elements in an Associative Container<br>c.find(k)   return iterator to the first element with the key k or the off-the-end iterator.<br>c.count(k) return the number of elements with key k.<br>c.lower_bound(k) return an iterator to the first element with key not less than k.<br>c.upper_bound(k) return an iterator to the first element with key greater than k.<br>c.equal_range(k) return a pair of iterator denoting the elements with key k,if k is not present, both menbers are c.end().<br>If the key is present, then the first iterator refers to the first instance of the key and the second iterator refers one past the last instance of the key. If no matching element is found, then both the first and second iterators refer to the position where this key can be inserted.</p>
+</blockquote>
+<p>For the map and unordered_map types,using a subscript has an important side effect: If that key is not already in the map, then subscript inserts an element with that key.<br>When a multimap or multiset has multiple elements of a given key, those elements will be adjacent within the container.</p>
+<p><strong>Hash and Unordermap???</strong></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/26/C Primier Plus Generic-Algorithms/" itemprop="url">
+                  C++ Primier Plus Generic Algorithms
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-26T19:10:40+08:00" content="2016-07-26">
+              2016-07-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>find algorithm: auto result = find(vec.cbegin(), vec.cend(), val);<br>It returns an iterator to the first element that is equal to that value.<br><strong>use the library begin and end functions to pass a pointer to the first and one past the last elements in ia.</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">int ia[] = &#123;27, 210, 12, 47, 109, 83&#125;;</div><div class="line">int val = 83;</div><div class="line">//int* result = find(begin(ia), end(ia), val);</div><div class="line">//              count(v.cbegin(), v.cend(), value)</div><div class="line">//    int sum = accumulate(vec.cbegin(), vec.cend(), 0);</div><div class="line">The accumulate function takes three arguments. The first two specify a</div><div class="line">range of elements to sum. The third is an initial value for the sum.</div></pre></td></tr></table></figure></p>
+<p>equal(roster1.cbegin(), roster1.cend(), roster2.cbegin());<br>fill(vec.begin(), vec.end(), value);<br>fill(vec.begin(), vec.begin() + vec.size()/2, value);<br>fill_n(dest, n, val)<br><strong>Algorithms that write to a destination iterator assume the destination is large enough to hold the number of elements being written.</strong><br>back_inserter takes a reference to a container and returns an insert iterator bound to that container. When we assign through that iterator, the assignment calls push_back to add an element with the given value to the container.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vector&lt;int&gt; vec; // empty vector</div><div class="line">auto it = back_inserter(vec); // assigning through it adds elements to vec</div><div class="line">*it = 42; // vec now has one element with value 42</div></pre></td></tr></table></figure></p>
+<p><strong>auto ret = copy(begin(a1), end(a1), a2);</strong><br>The value returned by copy is the (incremented) value of its destination iterator. That is, ret will point just past the last element copied into a2.<br><strong>replace(ilst.begin(), ilst.end(), 0, 42);</strong><br>This call replaces all instances of 0 by 42. If we want to leave the original sequence unchanged, we can call replace_copy.<br><strong>back_inserter is a insert iterator, what iterator adaptor that generates an iterator that uses a container operation to add elements to a given container.<br>the algorithms don’t change the size, but the iterator can change it by using the container operation.</strong><br>Eliminating Duplicates<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">void elimDups(vector&lt;string&gt; &amp;words)</div><div class="line">&#123;</div><div class="line">// sort words alphabetically so we can find the duplicates</div><div class="line">sort(words.begin(), words.end());</div><div class="line">// unique reorders the input range so that each word appears once in the</div><div class="line">// front portion of the range and returns an iterator one past the unique range</div><div class="line">auto end_unique = unique(words.begin(), words.end());</div><div class="line">// erase uses a vector operation to remove the nonunique elements</div><div class="line">words.erase(end_unique, words.end());</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ol>
+<li>The library algorithms operate on iterators, not containers. Therefore, an<br>algorithm cannot (directly) add or remove elements.</li>
+<li>To actually remove the unused elements, we must use a container operation</li>
+</ol>
+<p>A lambda expression represents a callable unit of code. It can be thought of as an unnamed, inline function.</p>
+<h3 id="lambda"><a href="#lambda" class="headerlink" title="lambda"></a>lambda</h3><p><a href="http://www.cnblogs.com/knowledgesea/p/3163725.html" target="_blank" rel="external">http://www.cnblogs.com/knowledgesea/p/3163725.html</a><br><code>[capture list] (parameter list) -&gt; return type { function body }</code><br>The capture list directs the lambda to include information needed to access those variables within the lambda itself.<br>The capture list is used for local nonstatic variables only; lambdas can use local statics and variables declared outside the function directly.<br>When we capture a variable by reference, we must ensure that the variable exists at the time that the lambda executes.<br>By default, a lambda may not change the value of a variable that it copies by value.<br>be able to change the value of a captured variable, we must follow the parameter list with the keyword mutable.</p>
+<blockquote>
+<p>Insert Iterators<br>• back_inserter (§ 10.2.2, p. 382) creates an iterator that uses push_back.<br>• front_inserter creates an iterator that uses push_front.<br>• inserter creates an iterator that uses insert. This function takes a second argument, which must be an iterator into the given container. Elements are inserted ahead of the element denoted by the given iterator.</p>
+</blockquote>
+<p><strong>it is not possible to create a reverse iterator from a forward_list or a stream iterator.</strong></p>
+<blockquote>
+<p>List the five iterator categories and the operations that each supports.<br>• Input iterators : ==, !=, ++, <em>, -&gt;<br>• Output iterators : ++, </em><br>• Forward iterators : ==, !=, ++, <em>, -&gt;<br>• Bidirectional iterators : ==, !=, ++, –, </em>, -&gt;<br>• Random-access iterators : ==, !=, &lt;, &lt;=, &gt;, &gt;=, ++, –, +, +=, -, -=, -(two iterators), <em>, -&gt;, iter[n] == </em> (iter + n)</p>
+</blockquote>
+<p>The list member versions should be used in preference to the generic algorithms for lists and forward_lists.<br>a crucially important difference between the list-specific and the generic versions is that the list versions change the underlying container.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/25/C Primier Plus Sequential Container/" itemprop="url">
+                  C Primier Plus Sequential Container
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-25T21:33:22+08:00" content="2016-07-25">
+              2016-07-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>vector deque list forward-list array string<br>string and vector hold their elements in contiguous memory.<br>it is best to use vector unless there is a good reason to prefer another container.<br>the predominant operation of the application (whether it does more access or more insertion or deletion) will determine the choice of container type.<br>The exception is that the forward_list iterators do not support the decrement (–) operator.<br><strong>a reverse iterator is an iterator that goes backward through a<br>container and inverts the meaning of the iterator operations. For example, saying ++ on a reverse iterator yields the previous element.</strong><br>When write access is not needed, use cbegin and cend.<br><strong>When we initialize a container as a copy of another container, the container type and element type of both containers must be identical.</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">list&lt;string&gt; authors = &#123;&quot;Milton&quot;, &quot;Shakespeare&quot;, &quot;Austen&quot;&#125;;</div><div class="line">vector&lt;const char*&gt; articles = &#123;&quot;a&quot;, &quot;an&quot;, &quot;the&quot;&#125;;</div><div class="line">list&lt;string&gt; list2(authors); // ok: types match</div><div class="line">deque&lt;string&gt; authList(authors); // error: container types don&apos;t match</div><div class="line">vector&lt;string&gt; words(articles); // error: element types must match</div><div class="line">// ok: converts const char* elements to string</div><div class="line">forward_list&lt;string&gt; words(articles.begin(), articles.end());</div></pre></td></tr></table></figure></p>
+<p><strong>Sequential Container Size-Related Constructors</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">vector&lt;int&gt; ivec(10, -1); // ten int elements, each initialized to -1</div><div class="line">list&lt;string&gt; svec(10, &quot;hi!&quot;); // ten strings; each element is &quot;hi!&quot;</div><div class="line">forward_list&lt;int&gt; ivec(10); // ten elements, each initialized to 0</div><div class="line">deque&lt;string&gt; svec(10); // ten elements, each an empty string</div></pre></td></tr></table></figure></p>
+<p><strong>The constructors that take a size are valid only for sequential containers; they are not supported for the associative containers.</strong><br>To use an array type we must specify both the element type and the size:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">array&lt;int, 10&gt;::size_type i; // array type includes element type and size.</div><div class="line">array&lt;int&gt;::size_type j; // error: array&lt;int&gt; is not a type.</div></pre></td></tr></table></figure></p>
+<p><strong>Six Way to Create and Initialize a vector</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">vector&lt;int&gt; vec;    // 0</div><div class="line">vector&lt;int&gt; vec(10);    // 0</div><div class="line">vector&lt;int&gt; vec(10,1);  // 1</div><div class="line">vector&lt;int&gt; vec&#123;1,2,3,4,5&#125;; // 1,2,3,4,5</div><div class="line">vector&lt;int&gt; vec(other_vec); // same as other_vec</div><div class="line">vector&lt;int&gt; vec(other_vec.begin(), other_vec.end()); // same as other_vec</div></pre></td></tr></table></figure></p>
+<ol>
+<li>The constructor that takes another container as an argument (excepting array) assumes the container type and element type of both containers are identical.</li>
+<li>The constructor that takes two iterators as arguments does not require the container types to be identical. Moreover, the element types in the new and original containers can differ as long as it is possible to convert the elements we’re copying to the element type of the container we are initializing.</li>
+</ol>
+<p>Unlike built-in arrays, the library array type does allow assignment,the array type does not support assign and it does not allow assignment from a braced list of values.<br><strong>Using assign (Sequential Containers Only)</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">list&lt;string&gt; names;</div><div class="line">vector&lt;const char*&gt; oldstyle;</div><div class="line">names = oldstyle; // error: container types don&apos;t match</div><div class="line">// ok: can convert from const char*to string</div><div class="line">names.assign(oldstyle.cbegin(), oldstyle.cend());</div></pre></td></tr></table></figure></p>
+<p>after swap,with the exception of string,iterators, references, and pointers into the containers are not invalidated.but a call to swap on a string may invalidate iterators, references and pointers.<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/25/C Primier Plus Sequential Container/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/25/C Primier Plus IO Library/" itemprop="url">
                   C Primier Plus IO Library
                 </a>
@@ -558,7 +1069,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" rel="gallery_citu1py8y000dh7ou9wv7vzqx"
+                 href="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" rel="gallery_ciu54blwv000jikou7vih927b"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" itemprop="contentUrl"/>
               </a>
@@ -975,144 +1486,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/05/Git-command/" itemprop="url">
-                  C Primier Plus Sequential Container
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-05T21:33:22+08:00" content="2016-07-05">
-              2016-07-05
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Notes/" itemprop="url" rel="index">
-                    <span itemprop="name">Notes</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox"
-                 href="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" rel="gallery_citu1pyal0019h7oure8ootmp"
-                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" itemprop="contentUrl"/>
-              </a>
-            
-          
-
-          
-          </div>
-        </div>
-      
-
-      
-        
-          <p><img src="http://www.runoob.com/manual/github-git-cheat-sheet.pdf" alt="Git Command Sheet"><br>$ git add forgotten_file<br>$ git checkout branch1<br>$ git commit –amend :overwrite the previous commit<br>$ git commit -m ‘initial commit’</p>
-<h2 id="git-rebase-master-git-merge-master-branch1"><a href="#git-rebase-master-git-merge-master-branch1" class="headerlink" title="$ git rebase master    #git  merge master branch1"></a>$ git rebase master    #git  merge master branch1</h2><hr>
-<p>1.one branch is the ancester of another -&gt; fast-forward<br>2.two  branch has commom ancester -&gt; recursive strategy<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/05/Git-command/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1153,7 +1531,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">27</span>
+              <span class="site-state-item-count">31</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1161,7 +1539,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1170,7 +1548,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
