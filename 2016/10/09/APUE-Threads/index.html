@@ -94,7 +94,7 @@
 <meta property="og:site_name" content="TheOneAC">
 <meta property="og:description" content="A thread ID is represented by the pthread_t data type. Implementations are allowed to use a structure to represent the pthread_t data type
 123#include &amp;lt;pthread.h&amp;gt;int pthread_equal(pthread_t tid">
-<meta property="og:updated_time" content="2016-10-11T06:38:35.301Z">
+<meta property="og:updated_time" content="2016-10-11T09:09:01.093Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="APUE Threads">
 <meta name="twitter:description" content="A thread ID is represented by the pthread_t data type. Implementations are allowed to use a structure to represent the pthread_t data type
@@ -353,6 +353,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#include &lt;pthread.h&gt;</div><div class="line">int pthread_cond_signal(pthread_cond_t *cond);</div><div class="line">int pthread_cond_broadcast(pthread_cond_t *cond);</div><div class="line">Both return: 0 if OK, error number on failure</div></pre></td></tr></table></figure>
 </blockquote>
 </li>
+<li><p>Cancel</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#include &lt;pthread.h&gt;</div><div class="line">int pthread_setcancelstate(int state, int *oldstate);</div><div class="line">$ state : PTHREAD_CANCEL_ENABLE/ PTHREAD_CANCEL_DISABLE</div><div class="line">int pthread_setcanceltype(int type, int *oldtype);</div><div class="line"># type : PTHREADCANCEL_DEFERRED / PTHREADCANCEL_ASYNCHRONOUS</div><div class="line">Returns: 0 if OK, error number on failure</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
 <li><p>Signal</p>
 <blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;semaphore.h&gt;</div><div class="line">int sem_init(sem_t *sem, 0, unsigned int value);</div><div class="line">int sem_wait(sem_t *s)//P</div><div class="line">int sem_post(sem_t *s)//V</div><div class="line">success return 0, else -1</div></pre></td></tr></table></figure>
@@ -505,7 +510,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">31</span>
+              <span class="site-state-item-count">32</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>

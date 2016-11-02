@@ -250,6 +250,136 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/03/C Primier Plus Copy-Control/" itemprop="url">
+                  Copy Control
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-08-03T20:02:40+08:00" content="2016-08-03">
+              2016-08-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="The-Copy-Constructer"><a href="#The-Copy-Constructer" class="headerlink" title="The Copy Constructer"></a>The Copy Constructer</h4><p>the first parameter is a reference to the class type.<br>usually not be eaplicit.</p>
+<blockquote>
+<p>the difference between direct initialization and copy initialization.<br>direct initialization :the compiler use ordinary function matching to select the cnstructer that best matchs the arguments we provide;<br>copy initialization : the compiler copy the right oprand into the object being created,converting that operand if necessary.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">string s(dots); // direct initialization</div><div class="line">string s2 = dots; // copy initialization</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p><strong><br>Copy initialization happens<br>• Define variables using an =<br>• Pass an object as an argument to a parameter of nonreference type<br>• Return an object from a function that has a nonreference return type<br>• Brace initialize the elements in an array or the members of an aggregate class<br>• Some class types also use copy initialization for the objects they allocate.<br><em>insert or push:copy initialize             empalce :   direct initialized</em>
+</strong></p>
+<h4 id="The-Copy-Assignment-Operater"><a href="#The-Copy-Assignment-Operater" class="headerlink" title="The Copy-Assignment Operater"></a>The Copy-Assignment Operater</h4><p>Assignment operators ordinarily should return a reference to their left-hand operand.<br><code>copy-assignment</code> operator is function named <code>operator=</code>.<br>and is used when assignment occurred.</p>
+<h4 id="The-Destructor"><a href="#The-Destructor" class="headerlink" title="The Destructor"></a>The Destructor</h4><p>prefixed by a tilde (~).             no return value and takes no parameters:</p>
+<blockquote>
+<p>When a Destructor Is Called<br>• Variables are destroyed when they go out of scope.<br>• Members of an object are destroyed when the object of which they are a part is<br>destroyed.<br>• Elements in a container—whether a library container or an array—are destroyed<br>when the container is destroyed.<br>• Dynamically allocated objects are destroyed when the delete operator is<br>applied to a pointer to the object<br>• Temporary objects are destroyed at the end of the full expression in which the<br>temporary was created.</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;initializer_list&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cout</span>;</div><div class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line"><span class="keyword">struct</span> X</div><div class="line">&#123;</div><div class="line">    X()&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"X()"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;;</div><div class="line">    X(<span class="keyword">const</span> X&amp;)&#123; <span class="built_in">cout</span>&lt;&lt;<span class="string">"X(const X&amp;)"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;; <span class="comment">//copy</span></div><div class="line">    X&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> X&amp;) <span class="comment">//copy assignment</span></div><div class="line">    &#123;</div><div class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"X&amp; operater=(const X&amp;)"</span>&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">        <span class="keyword">return</span> *<span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line">    ~X()&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"~X()"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;;  <span class="comment">//destucter</span></div><div class="line">&#125;;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">const</span> X&amp;rx,X x)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;X&gt;vec;</div><div class="line">    vec.reserve(<span class="number">2</span>);</div><div class="line">    vec.push_back(rx);</div><div class="line">    vec.push_back(x);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    X* px=<span class="keyword">new</span> X;</div><div class="line">    f(*px,*px);</div><div class="line">    <span class="keyword">delete</span> px;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>Classes That Need Destructors Need Copy and Assignment</strong><br><strong>If a class needs a copy constructor, it almost surely needs a copy-assignment operator.</strong><br><strong>= default</strong>:use the defaluter constructer;(only on the default constructor or a copy-control member)<br><strong>= delete</strong>: unable the constructer;</p>
+<blockquote>
+<p>The Destructor Should Not be a Deleted Member<br>if a class has a data member that cannot be default<br>constructed, copied, assigned, or destroyed, then the corresponding member will be a<br>deleted function.</p>
+</blockquote>
+<h3 id="Copy-Control-and-Resource-Management"><a href="#Copy-Control-and-Resource-Management" class="headerlink" title="Copy Control and Resource Management"></a>Copy Control and Resource Management</h3><p>two points in assignment operator:<br>• Assignment operators must work correctly if an object is assigned to itself.<br>• Most assignment operators share work with the destructor and copy<br>constructor.</p>
+<h4 id="SteVec"><a href="#SteVec" class="headerlink" title="SteVec"></a>SteVec</h4><p>Each StrVec will have three pointers into the space it uses for its elements:<br>• elements, which points to the first element in the allocated memory<br>• first_free, which points just after the last actual element<br>• cap, which points just past the end of the allocated memory</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/28/C Primier Plus Dynamic-Memory /" itemprop="url">
                   Dynamic Memory
                 </a>
@@ -1069,7 +1199,7 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" rel="gallery_ciu54blwv000jikou7vih927b"
+                 href="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" rel="gallery_civ0p7z9z000ibjou7lq02h4h"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" itemprop="contentUrl"/>
               </a>
@@ -1366,126 +1496,6 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/15/C Primier Plus Chapter_Two/" itemprop="url">
-                  C Primier Plus --chapter two
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-15T18:29:17+08:00" content="2016-07-15">
-              2016-07-15
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="Top-Level-const"><a href="#Top-Level-const" class="headerlink" title="Top-Level const"></a>Top-Level const</h3><p>A pointer who is const is top-level const,<br>and the object it point to is const ,it is low-level<br>pointer must point to an object，not a value.<br>pointer pointe to an const object may not be initialize,but const pointer must be intialized when defined.</p>
-<ul>
-<li><strong>Top-level indicates that an object itself is const, and appear in any object type.</strong></li>
-<li><strong>Low-level const only appear in the base type of compiund type such as pointer and reference</strong></li>
-<li><strong>when copy an object top-level const will be ipnored</strong></li>
-<li><strong>when copy an object low-level const must be the same ,because it cann’t be ignored</strong>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/15/C Primier Plus Chapter_Two/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1531,7 +1541,7 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">31</span>
+              <span class="site-state-item-count">32</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
