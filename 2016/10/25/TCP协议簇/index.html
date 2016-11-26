@@ -137,7 +137,7 @@
 <meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/%E5%9B%BE2.14.PNG">
 <meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/%E5%9B%BE8.10IP%E9%80%89%E9%A1%B9.PNG">
 <meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/%E5%9B%BE9.1ICMP%E6%8A%A5%E6%96%87%E7%B1%BB%E5%9E%8B.PNG">
-<meta property="og:updated_time" content="2016-11-02T09:03:14.943Z">
+<meta property="og:updated_time" content="2016-11-08T07:25:18.086Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TCP协议簇">
 <meta name="twitter:description" content="part 1
@@ -426,7 +426,13 @@ RARP响应： 4  *      *     *      *
 <li>多播路由器提取D类IP地址的低23位插入以太网多播地址中</li>
 <li>D类IP地址组标识共28位，取23位映射以太网多播地址，位未使用，32-&gt;1</li>
 <li>以太网多播地址范围：01:00:5E:00:00:00 ~ 01:00:5E:7F:FF:FF</li>
-<li>广域网不支持物理多播地址，只能采用隧道技术，封装成单播，到达局域网后解析成多播<br>####### UDP<br>熟知端口号:0~1023,注册端口号：1024~49151，动态端口号：49152~65535<br>UDP长度 = IP长度-IP首部长度</li>
+<li>广域网不支持物理多播地址，只能采用隧道技术，封装成单播，到达局域网后解析成多播<br>####### UDP<br>熟知端口号:0~1023,注册端口号：1024~49151，动态端口号：49152~65535<br>UDP长度 = IP长度-IP首部长度<h6 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h6></li>
+<li>编号从随机数开始</li>
+<li>报文序号：首字节序号</li>
+<li>确认号：期望接收的下一个序号</li>
+<li>SYN 和SYN+ACK报文不携带数据，消耗一个序号</li>
+<li>ACK不携带数据则不消耗序号<br><img src="" alt="12.9"><br><img src="" alt="12.11"></li>
+<li>FIN不消耗序号，FIN+ACK只消耗一个序号</li>
 </ul>
 
       
@@ -460,6 +466,10 @@ RARP响应： 4  *      *     *      *
           </div>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/26/Object Oriented in C++/" rel="prev" title="Object Oriented in C++">
+                Object Oriented in C++ <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -533,7 +543,7 @@ RARP响应： 4  *      *     *      *
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -617,7 +627,7 @@ RARP响应： 4  *      *     *      *
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#part-1"><span class="nav-number">1.</span> <span class="nav-text">part 1</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#物理层"><span class="nav-number">1.0.1.</span> <span class="nav-text">物理层</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#数据链路层"><span class="nav-number">1.0.2.</span> <span class="nav-text">数据链路层</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#网络层"><span class="nav-number">1.0.3.</span> <span class="nav-text">网络层</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#传输层"><span class="nav-number">1.0.4.</span> <span class="nav-text">传输层</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#会话层"><span class="nav-number">1.0.5.</span> <span class="nav-text">会话层</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#表示层"><span class="nav-number">1.0.6.</span> <span class="nav-text">表示层</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#应用层"><span class="nav-number">1.0.7.</span> <span class="nav-text">应用层</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#part-1"><span class="nav-number">1.</span> <span class="nav-text">part 1</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#物理层"><span class="nav-number">1.0.1.</span> <span class="nav-text">物理层</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#数据链路层"><span class="nav-number">1.0.2.</span> <span class="nav-text">数据链路层</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#网络层"><span class="nav-number">1.0.3.</span> <span class="nav-text">网络层</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#传输层"><span class="nav-number">1.0.4.</span> <span class="nav-text">传输层</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#会话层"><span class="nav-number">1.0.5.</span> <span class="nav-text">会话层</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#表示层"><span class="nav-number">1.0.6.</span> <span class="nav-text">表示层</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#应用层"><span class="nav-number">1.0.7.</span> <span class="nav-text">应用层</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#TCP"><span class="nav-number">1.0.8.</span> <span class="nav-text">TCP</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
         </section>

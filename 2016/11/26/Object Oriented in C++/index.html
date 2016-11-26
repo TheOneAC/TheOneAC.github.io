@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Notes,C++," />
+  <meta name="keywords" content="C++," />
 
 
 
@@ -86,16 +86,34 @@
 
 
 
-<meta name="description" content="Dynamic Memory and Smart Pointersshared_ptr:init: make_shared&amp;lt; Type &amp;gt;(args);   shared_ptr&amp;lt; Type &amp;gt;(q); p=q;function :p.unique() if count return 1 truw,else false.p.use_count() return the nu">
+<meta name="description" content="定义const 成员函数时,const 位于参数与函数体之间
+const成员函数只能调用 const成员函数,保证不做修改
+禁用默认函数(构造,赋值构造等),将默认函数私有化private
+const成员变量只能参数列表初始化
+成员函数内部static变量为所有调用该成员函数的对象共有
+this指针不用于static 成员函数中,不能指向const 对象
+隐藏的父类成员,子类不可直接调用,通过父">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Dynamic Memory">
-<meta property="og:url" content="http://yoursite.com/2016/07/28/C Primier Plus Dynamic-Memory /index.html">
+<meta property="og:title" content="Object Oriented in C++">
+<meta property="og:url" content="http://yoursite.com/2016/11/26/Object Oriented in C++/index.html">
 <meta property="og:site_name" content="TheOneAC">
-<meta property="og:description" content="Dynamic Memory and Smart Pointersshared_ptr:init: make_shared&amp;lt; Type &amp;gt;(args);   shared_ptr&amp;lt; Type &amp;gt;(q); p=q;function :p.unique() if count return 1 truw,else false.p.use_count() return the nu">
-<meta property="og:updated_time" content="2016-08-03T12:02:53.554Z">
+<meta property="og:description" content="定义const 成员函数时,const 位于参数与函数体之间
+const成员函数只能调用 const成员函数,保证不做修改
+禁用默认函数(构造,赋值构造等),将默认函数私有化private
+const成员变量只能参数列表初始化
+成员函数内部static变量为所有调用该成员函数的对象共有
+this指针不用于static 成员函数中,不能指向const 对象
+隐藏的父类成员,子类不可直接调用,通过父">
+<meta property="og:updated_time" content="2016-11-26T14:08:56.483Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Dynamic Memory">
-<meta name="twitter:description" content="Dynamic Memory and Smart Pointersshared_ptr:init: make_shared&amp;lt; Type &amp;gt;(args);   shared_ptr&amp;lt; Type &amp;gt;(q); p=q;function :p.unique() if count return 1 truw,else false.p.use_count() return the nu">
+<meta name="twitter:title" content="Object Oriented in C++">
+<meta name="twitter:description" content="定义const 成员函数时,const 位于参数与函数体之间
+const成员函数只能调用 const成员函数,保证不做修改
+禁用默认函数(构造,赋值构造等),将默认函数私有化private
+const成员变量只能参数列表初始化
+成员函数内部static变量为所有调用该成员函数的对象共有
+this指针不用于static 成员函数中,不能指向const 对象
+隐藏的父类成员,子类不可直接调用,通过父">
 
 
 
@@ -116,9 +134,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/28/C Primier Plus Dynamic-Memory /"/>
+  <link rel="canonical" href="http://yoursite.com/2016/11/26/Object Oriented in C++/"/>
 
-  <title> Dynamic Memory | TheOneAC </title>
+  <title> Object Oriented in C++ | TheOneAC </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -248,7 +266,7 @@
             
             
               
-                Dynamic Memory
+                Object Oriented in C++
               
             
           </h1>
@@ -260,30 +278,11 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-28T18:30:47+08:00" content="2016-07-28">
-              2016-07-28
+            <time itemprop="dateCreated" datetime="2016-11-26T22:00:54+08:00" content="2016-11-26">
+              2016-11-26
             </time>
           </span>
 
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
           
 
           
@@ -307,29 +306,84 @@
       
 
       
-        <h3 id="Dynamic-Memory-and-Smart-Pointers"><a href="#Dynamic-Memory-and-Smart-Pointers" class="headerlink" title="Dynamic Memory and Smart Pointers"></a>Dynamic Memory and Smart Pointers</h3><p>shared_ptr:<br>init: make_shared&lt; Type &gt;(args);   shared_ptr&lt; Type &gt;(q); p=q;<br>function :<br>p.unique() if count return 1 truw,else false.<br>p.use_count() return the number of object sharing with p.<br>make_shared. allocates and initializes an object in dynamic memory and returns a shared_ptr that points to that object.<code>shared_ptr&lt;string&gt; p4 = make_shared&lt;string&gt;(10, &#39;9&#39;);</code><br><strong>new</strong> returns a pointer to the object it allocates:<code>int *pi = new int;</code><br>By default, dynamically allocated objects are default initialized, which means that objects of built-in or compound type have undefined value<br>Like any other const, a dynamically allocated const object must be initialized.<br><code>const string *pcs = new const string;</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int *p1 = new int; // if allocation fails, new throws std::bad_alloc</div><div class="line">int *p2 = new (nothrow) int; // if allocation fails, new returns a null pointer</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p><strong>Functions that return pointers (rather than smart pointers) to dynamic memory put a<br>burden on their callers—the caller must remember to delete the memory</strong></p>
-</blockquote>
-<h2 id="Dynamic-memory-managed-through-built-in-pointers-rather-than-smart-pointers-exists-until-it-is-explicitly-freed"><a href="#Dynamic-memory-managed-through-built-in-pointers-rather-than-smart-pointers-exists-until-it-is-explicitly-freed" class="headerlink" title="Dynamic memory managed through built-in pointers (rather than smart pointers) exists until it is explicitly freed."></a><strong>Dynamic memory managed through built-in pointers (rather than smart pointers) exists until it is explicitly freed.</strong></h2><p><strong>three common problems with using new and delete</strong></p>
-<ol>
-<li>Forgetting to delete memory. Neglecting to delete dynamic memory is known as a “memory leak,”</li>
-<li>Using an object after it has been deleted.</li>
-<li>Deleting the same memory twice.</li>
-</ol>
-<p><strong>dangling pointer</strong>:When we delete a pointer, that pointer becomes invalid.but the pointer continues to hold the address of the (freed) dynamic memory.<br>we cannot implicitly convert a built-in pointer to a smart pointer; we must use<br>the direct form of initialization to initialize a smart pointer<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">shared_ptr&lt;int&gt; p1 = new int(1024); // error: must use direct initialization</div><div class="line">shared_ptr&lt;int&gt; p2(new int(1024)); // ok: uses direct initialization</div></pre></td></tr></table></figure></p>
-<p>use <strong>reset</strong> to assign a new pointer to a shared_ptr.</p>
-<h2 id="In-particular-classes-that-are-designed-to-be-used-by-both-C-and-C-generally-require-the-user-to-specifically-free-any-resources-that-are-used"><a href="#In-particular-classes-that-are-designed-to-be-used-by-both-C-and-C-generally-require-the-user-to-specifically-free-any-resources-that-are-used" class="headerlink" title="In particular, classes that are designed to be used by both C and C++ generally require the user to specifically free any resources that are used."></a>In particular, classes that are designed to be used by both C and C++ generally require the user to specifically free any resources that are used.</h2><p>unique_ptr:”owns” the object which it points.<br>so it doesn`t support ordinary copy and assignment.<br>but can transfer ownership fron one (nonconst)unique_ptr to another by calling release or set.<br><code>// transfers ownership from p3 to p2
-p2.reset(p3.release()); 
-// reset deletes the memory to which p2 had pointed</code><br>only one unique_ptr at a time can point to  a given object.<br>unique_ptr destroyed so the object it point to.<br>u.release() :return the pointer u had held and makes u null;<br>u.reset() :deletes the object to which i pointes;<br>u.reset(q) :if the built-in pointer q is supplied ,makes u pointe to that object.<br>u=nullptr; deletes the object to which u points,makes u null;<br>unique_ptr : bind to a pointer<br><strong><a href="http://stackoverflow.com/questions/6876751/differences-between-unique-ptr-and-shared-ptr" target="_blank" rel="external">http://stackoverflow.com/questions/6876751/differences-between-unique-ptr-and-shared-ptr</a></strong></p>
-<h3 id="weak-ptr"><a href="#weak-ptr" class="headerlink" title="weak_ptr"></a>weak_ptr</h3><p>not control the lifetime of the object it point to.<br>bind a weak_ptr to a shared_ptr not change the reference count of that shared_ptr.<br><strong>weak</strong>:Once the last shared_ptr pointing to the object goes away, the object itself will be deleted. That object will be deleted even if there are weak_ptrs pointing to it.<br>The <strong>lock</strong> function checks whether the object to which the weak_ptr points still exists. If so, lock returns a shared_ptr to the shared object.</p>
-<h3 id="Dynamic-Arrays"><a href="#Dynamic-Arrays" class="headerlink" title="Dynamic Arrays"></a>Dynamic Arrays</h3><p>Classes that allocate dynamic arrays must define their own versions of these operations to manage the associated memory when objects are copied, assigned, and destroyed.<br><code>int *pia = new int[get_size()]; 
-// pia points to the first of these ints</code><br>The size inside the brackets must have integral type but need not be a constant.</p>
-<blockquote>
-<p><strong>Allocating an Array Yields a Pointer to the Element Type</strong></p>
-</blockquote>
-<p>shared_ptrs provide no direct support for managing a dynamic array. If we want to use a shared_ptr to manage a dynamic array, we must provide our own deleter:<br><code>shared_ptr&lt;int&gt; sp(new int[10], [](int *p) { delete[] p; });
-sp.reset(); // uses the lambda we supplied that uses delete[] to free the array</code><br>classes that do not have default constructors cannot be dynamically allocated as an array.<br><strong>allocator</strong>: provides type-aware allocation of raw, unconstructed, memory.<br>We must construct objects in order to use memory returned by<br>allocate. Using unconstructed memory in other ways is undefined.</p>
+        <ul>
+<li>定义<code>const</code> 成员函数时,<code>const</code> 位于<code>参数</code>与<code>函数体</code>之间</li>
+<li><code>const</code>成员函数只能调用 <code>const</code>成员函数,保证不做修改</li>
+<li><code>禁用默认函数</code>(构造,赋值构造等),将<code>默认函数私有化</code>private</li>
+<li><code>const</code>成员变量只能<code>参数列表初始化</code></li>
+<li>成员函数内部<code>static</code>变量为<code>所有调用该成员函数的对象共有</code></li>
+<li><code>this</code>指针<code>不用于static 成员函数</code>中,<code>不能指向const 对象</code></li>
+<li>隐藏的父类成员,子类不可直接调用,通过父类共有函数调用</li>
+<li><code>派生类同名成员或者函数 屏蔽父类同名成员或者函数</code></li>
+<li>为<code>基类设置默认构造函数</code>,方便子类继承</li>
+<li>基类声明虚函数后,<code>子类同名</code>自动定义为<code>虚函数</code></li>
+<li>构造函数<code>不可以是虚成员函数</code>, <code>析构函数</code>可以</li>
+<li><code>重载</code>在<code>编译时期绑定</code>,<code>虚函数(多态)</code> <code>运行期间绑定</code></li>
+<li><code>覆盖</code>:多态虚函数函数签名相同,  <code>遮蔽</code>: 共享函数名但签名不同</li>
+<li><code>抽象基类确保派生类必须定义某些特定函数（纯虚函数）</code>，否则派生类不可以实例化</li>
+<li>抽象基类：<code>包含一个纯虚函数　　virtual    =0;</code></li>
+<li><p><code>抽象基类不可实例化</code>，可派生，其<code>派生类必须覆盖全部纯虚函数</code>才可被实例化</p>
+</li>
+<li><p>重载不改变符号优先级</p>
+</li>
+<li>除<code>new new[] delete delete[]</code>外以顶层函数重载操作符必须包含一个类对象</li>
+<li>操作符<code>[] ()　-&gt;</code>必须以<code>类成员形式重载</code></li>
+<li>以成员函数重载二元操作符，只需一个参数，而以顶层函数重载二元操作符时必须两个参数</li>
+<li>使用<code>顶层函数重载非对象操作数可出现在操作符左边</code>，<code>类成员函数重载</code>时<code>第一个操作数必须是类对象</code><br>-　<code>praivete member</code> only access by <code>menberfunction and friend funtion.</code></li>
+<li><code>protect member</code> can be accessed by <code>menber funtion</code>, <code>friend function</code> and <code>member function of derived class</code></li>
+<li>using <code>friend function</code> <code>only</code> in <code>overloading operator</code> as possible as we can</li>
+<li>前置自增：　operator++()     后置自增：　operator++(int );</li>
+<li><code>new new[]</code>  <code>return type</code> must be <code>void*</code>, the first parameter must be <code>size_t</code></li>
+<li><code>delete delete[]</code> return type must be <code>void*</code>, the first parameter must be <code>void *</code> wihch point to the object need to destroied</li>
+<li><p>对象不能属于模板类，只能属于模板类实例</p>
+</li>
+<li><p>duque :双端插入删除效率一致，vector 尾部插入删除效率高</p>
+</li>
+<li><code>protect</code>成员只能被<code>该类和子类的方法访问</code></li>
+<li>父类成员必须定义默认构造函数，否则子类构造前出现编译错误</li>
+<li>同一域名空间，函数名相同，签名不同</li>
+<li>编译期绑定确定绑定函数，也称为静态多态<h4 id="重写-覆盖-override"><a href="#重写-覆盖-override" class="headerlink" title="重写:覆盖(override)"></a>重写:覆盖(override)</h4></li>
+<li>虚函数</li>
+<li>子类空间，函数名相同，签名相同<h4 id="重定义：遮蔽（redefine）"><a href="#重定义：遮蔽（redefine）" class="headerlink" title="重定义：遮蔽（redefine）"></a>重定义：遮蔽（redefine）</h4></li>
+<li>非虚函数，子类成员函数与父类成员函数同名</li>
+<li>虚函数，子类成员函数与父类成员函数同名但不同签名<h4 id="多态：（动态多态）"><a href="#多态：（动态多态）" class="headerlink" title="多态：（动态多态）"></a>多态：（动态多态）</h4></li>
+<li>运行期确定绑定对象，也称为动态多态</li>
+<li>同签名虚函数构成覆盖</li>
+<li>父类指针指向子类对象，调用属于子类的函数</li>
+</ul>
+<hr>
+<ul>
+<li>顶层函数重载操作符<ul>
+<li>非对象操作数可以出现在操作符左边</li>
+<li>使用类成员函数重载是，第一操作数必须是累的对象</li>
+<li>顶层函数不能直接访问类私有成员，最好将顶层重载函数设为友元函数，方便直接访问私有数据成员</li>
+</ul>
+</li>
+<li>重载[]:  重载为成员函数，检查下标 ， 返回一个引用适应左值情况</li>
+<li>重载（）： 函数调用重载操作符</li>
+<li>析构函数出现，必须定义拷贝构造，赋值构造函数</li>
+</ul>
+<hr>
+<ul>
+<li>继承下的构造函数：<ul>
+<li>先父类按继承顺序构造，再成员按顺序构造，最后派生类构造</li>
+<li>每一层只负责调用父类构造函数</li>
+<li>基类没有默认构造时，子类构造函数必须显式调用基类的某个构造函数</li>
+<li>创建派生类对象时，自动调用基类默认构造函数<ul>
+<li>子类有构造函数，基类没有默认构造，创建子类对象时，自动创建基类默认构造函数</li>
+<li>子类没有构造函数，基类有默认构造，创建子类对象时，自动调用基类默认构造</li>
+<li>子类有构造函数，基类也有默认构造，创建子类对象时，直接调用基类默认构造，或者调用子类显式调用的构造函数</li>
+<li>子类基类均有构造，但是基类没有默认构造，创建子类对象时，必须显式调用基类构造函数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>继承下的析构函数: 定义实现对派生类新增成员的析构释放</li>
+<li>虚基类构造优先于非虚基类的构造</li>
+<li>虚基类构造由最派生类调用，其他派生类跳过对虚基类构造的调用</li>
+<li>派生类对象和指针可适用于任何基类对象或指针使用的位置（子类可以向上转型）</li>
+<li>赋值兼容：子类对象可以赋值或者初始化父类对象，基类指针可以指向子类对象地址</li>
+</ul>
 
       
     </div>
@@ -352,8 +406,6 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
       
         <div class="post-tags">
           
-            <a href="/tags/Notes/" rel="tag">#Notes</a>
-          
             <a href="/tags/C/" rel="tag">#C++</a>
           
         </div>
@@ -363,16 +415,16 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/28/C Primier Plus Associative containers/" rel="next" title="Associative Containers">
-                <i class="fa fa-chevron-left"></i> Associative Containers
+              <a href="/2016/10/25/TCP协议簇/" rel="next" title="TCP协议簇">
+                <i class="fa fa-chevron-left"></i> TCP协议簇
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/08/03/C Primier Plus Copy-Control/" rel="prev" title="Copy Control">
-                Copy Control <i class="fa fa-chevron-right"></i>
+              <a href="/2016/11/26/leetcode279-Perfect-Squares-basic-dp/" rel="prev" title="leetcode279. Perfect Squares(basic dp)">
+                leetcode279. Perfect Squares(basic dp) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -531,7 +583,7 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-Memory-and-Smart-Pointers"><span class="nav-number">1.</span> <span class="nav-text">Dynamic Memory and Smart Pointers</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dynamic-memory-managed-through-built-in-pointers-rather-than-smart-pointers-exists-until-it-is-explicitly-freed"><span class="nav-number"></span> <span class="nav-text">Dynamic memory managed through built-in pointers (rather than smart pointers) exists until it is explicitly freed.</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#In-particular-classes-that-are-designed-to-be-used-by-both-C-and-C-generally-require-the-user-to-specifically-free-any-resources-that-are-used"><span class="nav-number"></span> <span class="nav-text">In particular, classes that are designed to be used by both C and C++ generally require the user to specifically free any resources that are used.</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#weak-ptr"><span class="nav-number">1.</span> <span class="nav-text">weak_ptr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Dynamic-Arrays"><span class="nav-number">2.</span> <span class="nav-text">Dynamic Arrays</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#重写-覆盖-override"><span class="nav-number">1.</span> <span class="nav-text">重写:覆盖(override)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重定义：遮蔽（redefine）"><span class="nav-number">2.</span> <span class="nav-text">重定义：遮蔽（redefine）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多态：（动态多态）"><span class="nav-number">3.</span> <span class="nav-text">多态：（动态多态）</span></a></li></ol></div>
             
           </div>
         </section>

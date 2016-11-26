@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="C++," />
+  <meta name="keywords" content="OJ,Leetcode," />
 
 
 
@@ -86,34 +86,22 @@
 
 
 
-<meta name="description" content="定义const 成员函数时,const 位于参数与函数体之间
-const成员函数只能调用 const成员函数,保证不做修改
-禁用默认函数(构造,赋值构造等),将默认函数私有化private
-const成员变量只能参数列表初始化
-成员函数内部static变量为所有调用该成员函数的对象共有
-this指针不用于static 成员函数中,不能指向const 对象
-隐藏的父类成员,子类不可直接调用,通过父">
+<meta name="description" content="learn from this
+DP
+12345678910111213141516class Solution &amp;#123;public:    int numSquares(int n) &amp;#123;        if(n&amp;lt;=0)return 0;        int * dp = new int[n+1]();        for(int i=1;i&amp;lt;=n;i++)&amp;#12">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Object Oriented in C++">
-<meta property="og:url" content="http://yoursite.com/2016/10/01/Object Oriented in C++/index.html">
+<meta property="og:title" content="leetcode279. Perfect Squares(basic dp)">
+<meta property="og:url" content="http://yoursite.com/2016/11/26/leetcode279-Perfect-Squares-basic-dp/index.html">
 <meta property="og:site_name" content="TheOneAC">
-<meta property="og:description" content="定义const 成员函数时,const 位于参数与函数体之间
-const成员函数只能调用 const成员函数,保证不做修改
-禁用默认函数(构造,赋值构造等),将默认函数私有化private
-const成员变量只能参数列表初始化
-成员函数内部static变量为所有调用该成员函数的对象共有
-this指针不用于static 成员函数中,不能指向const 对象
-隐藏的父类成员,子类不可直接调用,通过父">
-<meta property="og:updated_time" content="2016-10-01T03:39:22.935Z">
+<meta property="og:description" content="learn from this
+DP
+12345678910111213141516class Solution &amp;#123;public:    int numSquares(int n) &amp;#123;        if(n&amp;lt;=0)return 0;        int * dp = new int[n+1]();        for(int i=1;i&amp;lt;=n;i++)&amp;#12">
+<meta property="og:updated_time" content="2016-11-26T14:09:09.068Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Object Oriented in C++">
-<meta name="twitter:description" content="定义const 成员函数时,const 位于参数与函数体之间
-const成员函数只能调用 const成员函数,保证不做修改
-禁用默认函数(构造,赋值构造等),将默认函数私有化private
-const成员变量只能参数列表初始化
-成员函数内部static变量为所有调用该成员函数的对象共有
-this指针不用于static 成员函数中,不能指向const 对象
-隐藏的父类成员,子类不可直接调用,通过父">
+<meta name="twitter:title" content="leetcode279. Perfect Squares(basic dp)">
+<meta name="twitter:description" content="learn from this
+DP
+12345678910111213141516class Solution &amp;#123;public:    int numSquares(int n) &amp;#123;        if(n&amp;lt;=0)return 0;        int * dp = new int[n+1]();        for(int i=1;i&amp;lt;=n;i++)&amp;#12">
 
 
 
@@ -134,9 +122,9 @@ this指针不用于static 成员函数中,不能指向const 对象
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/10/01/Object Oriented in C++/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/11/26/leetcode279-Perfect-Squares-basic-dp/"/>
 
-  <title> Object Oriented in C++ | TheOneAC </title>
+  <title> leetcode279. Perfect Squares(basic dp) | TheOneAC </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -266,7 +254,7 @@ this指针不用于static 成员函数中,不能指向const 对象
             
             
               
-                Object Oriented in C++
+                leetcode279. Perfect Squares(basic dp)
               
             
           </h1>
@@ -278,11 +266,30 @@ this指针不用于static 成员函数中,不能指向const 对象
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-10-01T11:37:20+08:00" content="2016-10-01">
-              2016-10-01
+            <time itemprop="dateCreated" datetime="2016-11-26T22:03:54+08:00" content="2016-11-26">
+              2016-11-26
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/OJ/" itemprop="url" rel="index">
+                    <span itemprop="name">OJ</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -306,41 +313,13 @@ this指针不用于static 成员函数中,不能指向const 对象
       
 
       
-        <ul>
-<li>定义<code>const</code> 成员函数时,<code>const</code> 位于<code>参数</code>与<code>函数体</code>之间</li>
-<li><code>const</code>成员函数只能调用 <code>const</code>成员函数,保证不做修改</li>
-<li><code>禁用默认函数</code>(构造,赋值构造等),将<code>默认函数私有化</code>private</li>
-<li><code>const</code>成员变量只能<code>参数列表初始化</code></li>
-<li>成员函数内部<code>static</code>变量为<code>所有调用该成员函数的对象共有</code></li>
-<li><code>this</code>指针<code>不用于static 成员函数</code>中,<code>不能指向const 对象</code></li>
-<li>隐藏的父类成员,子类不可直接调用,通过父类共有函数调用</li>
-<li><code>派生类同名成员或者函数 屏蔽父类同名成员或者函数</code></li>
-<li>为<code>基类设置默认构造函数</code>,方便子类继承</li>
-<li>基类声明虚函数后,<code>子类同名</code>自动定义为<code>虚函数</code></li>
-<li>构造函数<code>不可以是虚成员函数</code>, <code>析构函数</code>可以</li>
-<li><code>重载</code>在<code>编译时期绑定</code>,<code>虚函数(多态)</code> <code>运行期间绑定</code></li>
-<li><code>覆盖</code>:多态虚函数函数签名相同,  <code>遮蔽</code>: 共享函数名但签名不同</li>
-<li><code>抽象基类确保派生类必须定义某些特定函数（纯虚函数）</code>，否则派生类不可以实例化</li>
-<li>抽象基类：<code>包含一个纯虚函数　　virtual    =0;</code></li>
-<li><p><code>抽象基类不可实例化</code>，可派生，其<code>派生类必须覆盖全部纯虚函数</code>才可被实例化</p>
+        <h3 id="learn-from-this"><a href="#learn-from-this" class="headerlink" title="learn from this"></a>learn from <a href="https://discuss.leetcode.com/topic/24255/summary-of-4-different-solutions-bfs-dp-static-dp-and-mathematics" target="_blank" rel="external">this</a></h3><ul>
+<li><p>DP</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int numSquares(int n) &#123;</div><div class="line">        if(n&lt;=0)return 0;</div><div class="line">        int * dp = new int[n+1]();</div><div class="line">        for(int i=1;i&lt;=n;i++)&#123;</div><div class="line">            dp[i]= INT_MAX;</div><div class="line">            for(int j =1;j*j &lt;=i;j++)&#123;</div><div class="line">                int tmp = dp[i-j*j]+1;</div><div class="line">                dp[i]=dp[i]&lt;tmp?dp[i]:tmp;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        //for(int i=0;i&lt;=n;i++)cout&lt;&lt; dp[i]&lt;&lt;&apos; &apos;;</div><div class="line">        return dp[n];</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 </li>
-<li><p>重载不改变符号优先级</p>
+<li><p>BFS</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int numSquares(int n) &#123;</div><div class="line">        if (n &lt;= 0)return 0;</div><div class="line">        else if(pow((int)sqrt(n),2) == n)return 1;</div><div class="line">        vector&lt;int&gt; perfectSquares;//candinates</div><div class="line">        vector&lt;int&gt; cntPerfectSquares(n);//count_index</div><div class="line">        for (int i = 1; i*i &lt;= n; i++)</div><div class="line">        &#123;</div><div class="line">            perfectSquares.push_back(i*i);</div><div class="line">            cntPerfectSquares[i*i - 1] = 1;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        queue&lt;int&gt; searchQ;</div><div class="line">        for (auto&amp; i : perfectSquares) searchQ.push(i);</div><div class="line">        int currCntPerfectSquares = 1;</div><div class="line">        while (!searchQ.empty())//BFS</div><div class="line">        &#123;</div><div class="line">            currCntPerfectSquares++;</div><div class="line">            </div><div class="line">            int searchQSize = searchQ.size();</div><div class="line">            for (int i = 0; i &lt; searchQSize; i++)</div><div class="line">            &#123;</div><div class="line">                int tmp = searchQ.front();</div><div class="line">                for (auto&amp; j : perfectSquares)</div><div class="line">                &#123;</div><div class="line">                    if (tmp + j == n)return currCntPerfectSquares;</div><div class="line">                    else if ((tmp + j &lt; n) &amp;&amp; (cntPerfectSquares[tmp + j - 1] == 0))</div><div class="line">                    &#123;</div><div class="line">                        cntPerfectSquares[tmp + j - 1] = currCntPerfectSquares;</div><div class="line">                        searchQ.push(tmp + j);</div><div class="line">                    &#125;</div><div class="line">                    else if (tmp + j &gt; n)break;</div><div class="line">                &#125;</div><div class="line">                searchQ.pop();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return 0;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 </li>
-<li>除<code>new new[] delete delete[]</code>外以顶层函数重载操作符必须包含一个类对象</li>
-<li>操作符<code>[] ()　-&gt;</code>必须以<code>类成员形式重载</code></li>
-<li>以成员函数重载二元操作符，只需一个参数，而以顶层函数重载二元操作符时必须两个参数</li>
-<li>使用<code>顶层函数重载非对象操作数可出现在操作符左边</code>，<code>类成员函数重载</code>时<code>第一个操作数必须是类对象</code><br>-　<code>praivete member</code> only access by <code>menberfunction and friend funtion.</code></li>
-<li><code>protect member</code> can be accessed by <code>menber funtion</code>, <code>friend function</code> and <code>member function of derived class</code></li>
-<li>using <code>friend function</code> <code>only</code> in <code>overloading operator</code> as possible as we can</li>
-<li>前置自增：　operator++()     后置自增：　operator++(int );</li>
-<li><code>new new[]</code>  <code>return type</code> must be <code>void*</code>, the first parameter must be <code>size_t</code></li>
-<li><code>delete delete[]</code> return type must be <code>void*</code>, the first parameter must be <code>void *</code> wihch point to the object need to destroied</li>
-<li><p>对象不能属于模板类，只能属于模板类实例</p>
-</li>
-<li><p>duque :双端插入删除效率一致，vector 尾部插入删除效率高</p>
-</li>
-<li><code>protect</code>成员只能被<code>该类和子类的方法访问</code></li>
-<li>父类成员必须定义默认构造函数，否则子类构造前出现编译错误</li>
 </ul>
 
       
@@ -364,7 +343,9 @@ this指针不用于static 成员函数中,不能指向const 对象
       
         <div class="post-tags">
           
-            <a href="/tags/C/" rel="tag">#C++</a>
+            <a href="/tags/OJ/" rel="tag">#OJ</a>
+          
+            <a href="/tags/Leetcode/" rel="tag">#Leetcode</a>
           
         </div>
       
@@ -373,17 +354,13 @@ this指针不用于static 成员函数中,不能指向const 对象
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/10/01/TCPIP-illustraed-V1/" rel="next" title="TCP/IP illustraed V1">
-                <i class="fa fa-chevron-left"></i> TCP/IP illustraed V1
+              <a href="/2016/11/26/Object Oriented in C++/" rel="next" title="Object Oriented in C++">
+                <i class="fa fa-chevron-left"></i> Object Oriented in C++
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/10/01/Programming-With-POSIX-Threads/" rel="prev" title="Programming With POSIX Threads">
-                Programming With POSIX Threads <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -457,7 +434,7 @@ this指针不用于static 成员函数中,不能指向const 对象
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -541,7 +518,7 @@ this指针不用于static 成员函数中,不能指向const 对象
               
             
             
-              <p class="post-toc-empty">This post does not have a Table of Contents</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#learn-from-this"><span class="nav-number">1.</span> <span class="nav-text">learn from this</span></a></li></ol></div>
             
           </div>
         </section>

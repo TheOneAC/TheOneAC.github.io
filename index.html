@@ -250,6 +250,297 @@
             
               
                 
+                <a class="post-title-link" href="/2016/11/26/leetcode279-Perfect-Squares-basic-dp/" itemprop="url">
+                  leetcode279. Perfect Squares(basic dp)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-11-26T22:03:54+08:00" content="2016-11-26">
+              2016-11-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/OJ/" itemprop="url" rel="index">
+                    <span itemprop="name">OJ</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="learn-from-this"><a href="#learn-from-this" class="headerlink" title="learn from this"></a>learn from <a href="https://discuss.leetcode.com/topic/24255/summary-of-4-different-solutions-bfs-dp-static-dp-and-mathematics" target="_blank" rel="external">this</a></h3><ul>
+<li><p>DP</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int numSquares(int n) &#123;</div><div class="line">        if(n&lt;=0)return 0;</div><div class="line">        int * dp = new int[n+1]();</div><div class="line">        for(int i=1;i&lt;=n;i++)&#123;</div><div class="line">            dp[i]= INT_MAX;</div><div class="line">            for(int j =1;j*j &lt;=i;j++)&#123;</div><div class="line">                int tmp = dp[i-j*j]+1;</div><div class="line">                dp[i]=dp[i]&lt;tmp?dp[i]:tmp;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        //for(int i=0;i&lt;=n;i++)cout&lt;&lt; dp[i]&lt;&lt;&apos; &apos;;</div><div class="line">        return dp[n];</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+<li><p>BFS</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int numSquares(int n) &#123;</div><div class="line">        if (n &lt;= 0)return 0;</div><div class="line">        else if(pow((int)sqrt(n),2) == n)return 1;</div><div class="line">        vector&lt;int&gt; perfectSquares;//candinates</div><div class="line">        vector&lt;int&gt; cntPerfectSquares(n);//count_index</div><div class="line">        for (int i = 1; i*i &lt;= n; i++)</div><div class="line">        &#123;</div><div class="line">            perfectSquares.push_back(i*i);</div><div class="line">            cntPerfectSquares[i*i - 1] = 1;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        queue&lt;int&gt; searchQ;</div><div class="line">        for (auto&amp; i : perfectSquares) searchQ.push(i);</div><div class="line">        int currCntPerfectSquares = 1;</div><div class="line">        while (!searchQ.empty())//BFS</div><div class="line">        &#123;</div><div class="line">            currCntPerfectSquares++;</div><div class="line">            </div><div class="line">            int searchQSize = searchQ.size();</div><div class="line">            for (int i = 0; i &lt; searchQSize; i++)</div><div class="line">            &#123;</div><div class="line">                int tmp = searchQ.front();</div><div class="line">                for (auto&amp; j : perfectSquares)</div><div class="line">                &#123;</div><div class="line">                    if (tmp + j == n)return currCntPerfectSquares;</div><div class="line">                    else if ((tmp + j &lt; n) &amp;&amp; (cntPerfectSquares[tmp + j - 1] == 0))</div><div class="line">                    &#123;</div><div class="line">                        cntPerfectSquares[tmp + j - 1] = currCntPerfectSquares;</div><div class="line">                        searchQ.push(tmp + j);</div><div class="line">                    &#125;</div><div class="line">                    else if (tmp + j &gt; n)break;</div><div class="line">                &#125;</div><div class="line">                searchQ.pop();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return 0;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/26/Object Oriented in C++/" itemprop="url">
+                  Object Oriented in C++
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-11-26T22:00:54+08:00" content="2016-11-26">
+              2016-11-26
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>定义<code>const</code> 成员函数时,<code>const</code> 位于<code>参数</code>与<code>函数体</code>之间</li>
+<li><code>const</code>成员函数只能调用 <code>const</code>成员函数,保证不做修改</li>
+<li><code>禁用默认函数</code>(构造,赋值构造等),将<code>默认函数私有化</code>private</li>
+<li><code>const</code>成员变量只能<code>参数列表初始化</code></li>
+<li>成员函数内部<code>static</code>变量为<code>所有调用该成员函数的对象共有</code></li>
+<li><code>this</code>指针<code>不用于static 成员函数</code>中,<code>不能指向const 对象</code></li>
+<li>隐藏的父类成员,子类不可直接调用,通过父类共有函数调用</li>
+<li><code>派生类同名成员或者函数 屏蔽父类同名成员或者函数</code></li>
+<li>为<code>基类设置默认构造函数</code>,方便子类继承</li>
+<li>基类声明虚函数后,<code>子类同名</code>自动定义为<code>虚函数</code></li>
+<li>构造函数<code>不可以是虚成员函数</code>, <code>析构函数</code>可以</li>
+<li><code>重载</code>在<code>编译时期绑定</code>,<code>虚函数(多态)</code> <code>运行期间绑定</code></li>
+<li><code>覆盖</code>:多态虚函数函数签名相同,  <code>遮蔽</code>: 共享函数名但签名不同</li>
+<li><code>抽象基类确保派生类必须定义某些特定函数（纯虚函数）</code>，否则派生类不可以实例化</li>
+<li>抽象基类：<code>包含一个纯虚函数　　virtual    =0;</code></li>
+<li><p><code>抽象基类不可实例化</code>，可派生，其<code>派生类必须覆盖全部纯虚函数</code>才可被实例化</p>
+</li>
+<li><p>重载不改变符号优先级</p>
+</li>
+<li>除<code>new new[] delete delete[]</code>外以顶层函数重载操作符必须包含一个类对象</li>
+<li>操作符<code>[] ()　-&gt;</code>必须以<code>类成员形式重载</code></li>
+<li>以成员函数重载二元操作符，只需一个参数，而以顶层函数重载二元操作符时必须两个参数</li>
+<li>使用<code>顶层函数重载非对象操作数可出现在操作符左边</code>，<code>类成员函数重载</code>时<code>第一个操作数必须是类对象</code><br>-　<code>praivete member</code> only access by <code>menberfunction and friend funtion.</code></li>
+<li><code>protect member</code> can be accessed by <code>menber funtion</code>, <code>friend function</code> and <code>member function of derived class</code></li>
+<li>using <code>friend function</code> <code>only</code> in <code>overloading operator</code> as possible as we can</li>
+<li>前置自增：　operator++()     后置自增：　operator++(int );</li>
+<li><code>new new[]</code>  <code>return type</code> must be <code>void*</code>, the first parameter must be <code>size_t</code></li>
+<li><code>delete delete[]</code> return type must be <code>void*</code>, the first parameter must be <code>void *</code> wihch point to the object need to destroied</li>
+<li><p>对象不能属于模板类，只能属于模板类实例</p>
+</li>
+<li><p>duque :双端插入删除效率一致，vector 尾部插入删除效率高</p>
+</li>
+<li><code>protect</code>成员只能被<code>该类和子类的方法访问</code></li>
+<li>父类成员必须定义默认构造函数，否则子类构造前出现编译错误</li>
+<li>同一域名空间，函数名相同，签名不同</li>
+<li>编译期绑定确定绑定函数，也称为静态多态<h4 id="重写-覆盖-override"><a href="#重写-覆盖-override" class="headerlink" title="重写:覆盖(override)"></a>重写:覆盖(override)</h4></li>
+<li>虚函数</li>
+<li>子类空间，函数名相同，签名相同<h4 id="重定义：遮蔽（redefine）"><a href="#重定义：遮蔽（redefine）" class="headerlink" title="重定义：遮蔽（redefine）"></a>重定义：遮蔽（redefine）</h4></li>
+<li>非虚函数，子类成员函数与父类成员函数同名</li>
+<li>虚函数，子类成员函数与父类成员函数同名但不同签名<h4 id="多态：（动态多态）"><a href="#多态：（动态多态）" class="headerlink" title="多态：（动态多态）"></a>多态：（动态多态）</h4></li>
+<li>运行期确定绑定对象，也称为动态多态</li>
+<li>同签名虚函数构成覆盖</li>
+<li>父类指针指向子类对象，调用属于子类的函数</li>
+</ul>
+<hr>
+<ul>
+<li>顶层函数重载操作符<ul>
+<li>非对象操作数可以出现在操作符左边</li>
+<li>使用类成员函数重载是，第一操作数必须是累的对象</li>
+<li>顶层函数不能直接访问类私有成员，最好将顶层重载函数设为友元函数，方便直接访问私有数据成员</li>
+</ul>
+</li>
+<li>重载[]:  重载为成员函数，检查下标 ， 返回一个引用适应左值情况</li>
+<li>重载（）： 函数调用重载操作符</li>
+<li>析构函数出现，必须定义拷贝构造，赋值构造函数</li>
+</ul>
+<hr>
+<ul>
+<li>继承下的构造函数：<ul>
+<li>先父类按继承顺序构造，再成员按顺序构造，最后派生类构造</li>
+<li>每一层只负责调用父类构造函数</li>
+<li>基类没有默认构造时，子类构造函数必须显式调用基类的某个构造函数</li>
+<li>创建派生类对象时，自动调用基类默认构造函数<ul>
+<li>子类有构造函数，基类没有默认构造，创建子类对象时，自动创建基类默认构造函数</li>
+<li>子类没有构造函数，基类有默认构造，创建子类对象时，自动调用基类默认构造</li>
+<li>子类有构造函数，基类也有默认构造，创建子类对象时，直接调用基类默认构造，或者调用子类显式调用的构造函数</li>
+<li>子类基类均有构造，但是基类没有默认构造，创建子类对象时，必须显式调用基类构造函数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>继承下的析构函数: 定义实现对派生类新增成员的析构释放</li>
+<li>虚基类构造优先于非虚基类的构造</li>
+<li>虚基类构造由最派生类调用，其他派生类跳过对虚基类构造的调用</li>
+<li>派生类对象和指针可适用于任何基类对象或指针使用的位置（子类可以向上转型）</li>
+<li>赋值兼容：子类对象可以赋值或者初始化父类对象，基类指针可以指向子类对象地址</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/25/TCP协议簇/" itemprop="url">
                   TCP协议簇
                 </a>
@@ -365,7 +656,13 @@ RARP响应： 4  *      *     *      *
 <li>多播路由器提取D类IP地址的低23位插入以太网多播地址中</li>
 <li>D类IP地址组标识共28位，取23位映射以太网多播地址，位未使用，32-&gt;1</li>
 <li>以太网多播地址范围：01:00:5E:00:00:00 ~ 01:00:5E:7F:FF:FF</li>
-<li>广域网不支持物理多播地址，只能采用隧道技术，封装成单播，到达局域网后解析成多播<br>####### UDP<br>熟知端口号:0~1023,注册端口号：1024~49151，动态端口号：49152~65535<br>UDP长度 = IP长度-IP首部长度</li>
+<li>广域网不支持物理多播地址，只能采用隧道技术，封装成单播，到达局域网后解析成多播<br>####### UDP<br>熟知端口号:0~1023,注册端口号：1024~49151，动态端口号：49152~65535<br>UDP长度 = IP长度-IP首部长度<h6 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h6></li>
+<li>编号从随机数开始</li>
+<li>报文序号：首字节序号</li>
+<li>确认号：期望接收的下一个序号</li>
+<li>SYN 和SYN+ACK报文不携带数据，消耗一个序号</li>
+<li>ACK不携带数据则不消耗序号<br><img src="" alt="12.9"><br><img src="" alt="12.11"></li>
+<li>FIN不消耗序号，FIN+ACK只消耗一个序号</li>
 </ul>
 
           
@@ -1385,135 +1682,6 @@ command-line arguments</code> to the new program to be specified as separate arg
             
               
                 
-                <a class="post-title-link" href="/2016/10/01/Object Oriented in C++/" itemprop="url">
-                  Object Oriented in C++
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-10-01T11:37:20+08:00" content="2016-10-01">
-              2016-10-01
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>定义<code>const</code> 成员函数时,<code>const</code> 位于<code>参数</code>与<code>函数体</code>之间</li>
-<li><code>const</code>成员函数只能调用 <code>const</code>成员函数,保证不做修改</li>
-<li><code>禁用默认函数</code>(构造,赋值构造等),将<code>默认函数私有化</code>private</li>
-<li><code>const</code>成员变量只能<code>参数列表初始化</code></li>
-<li>成员函数内部<code>static</code>变量为<code>所有调用该成员函数的对象共有</code></li>
-<li><code>this</code>指针<code>不用于static 成员函数</code>中,<code>不能指向const 对象</code></li>
-<li>隐藏的父类成员,子类不可直接调用,通过父类共有函数调用</li>
-<li><code>派生类同名成员或者函数 屏蔽父类同名成员或者函数</code></li>
-<li>为<code>基类设置默认构造函数</code>,方便子类继承</li>
-<li>基类声明虚函数后,<code>子类同名</code>自动定义为<code>虚函数</code></li>
-<li>构造函数<code>不可以是虚成员函数</code>, <code>析构函数</code>可以</li>
-<li><code>重载</code>在<code>编译时期绑定</code>,<code>虚函数(多态)</code> <code>运行期间绑定</code></li>
-<li><code>覆盖</code>:多态虚函数函数签名相同,  <code>遮蔽</code>: 共享函数名但签名不同</li>
-<li><code>抽象基类确保派生类必须定义某些特定函数（纯虚函数）</code>，否则派生类不可以实例化</li>
-<li>抽象基类：<code>包含一个纯虚函数　　virtual    =0;</code></li>
-<li><p><code>抽象基类不可实例化</code>，可派生，其<code>派生类必须覆盖全部纯虚函数</code>才可被实例化</p>
-</li>
-<li><p>重载不改变符号优先级</p>
-</li>
-<li>除<code>new new[] delete delete[]</code>外以顶层函数重载操作符必须包含一个类对象</li>
-<li>操作符<code>[] ()　-&gt;</code>必须以<code>类成员形式重载</code></li>
-<li>以成员函数重载二元操作符，只需一个参数，而以顶层函数重载二元操作符时必须两个参数</li>
-<li>使用<code>顶层函数重载非对象操作数可出现在操作符左边</code>，<code>类成员函数重载</code>时<code>第一个操作数必须是类对象</code><br>-　<code>praivete member</code> only access by <code>menberfunction and friend funtion.</code></li>
-<li><code>protect member</code> can be accessed by <code>menber funtion</code>, <code>friend function</code> and <code>member function of derived class</code></li>
-<li>using <code>friend function</code> <code>only</code> in <code>overloading operator</code> as possible as we can</li>
-<li>前置自增：　operator++()     后置自增：　operator++(int );</li>
-<li><code>new new[]</code>  <code>return type</code> must be <code>void*</code>, the first parameter must be <code>size_t</code></li>
-<li><code>delete delete[]</code> return type must be <code>void*</code>, the first parameter must be <code>void *</code> wihch point to the object need to destroied</li>
-<li><p>对象不能属于模板类，只能属于模板类实例</p>
-</li>
-<li><p>duque :双端插入删除效率一致，vector 尾部插入删除效率高</p>
-</li>
-<li><code>protect</code>成员只能被<code>该类和子类的方法访问</code></li>
-<li>父类成员必须定义默认构造函数，否则子类构造前出现编译错误</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/10/01/TCPIP-illustraed-V1/" itemprop="url">
                   TCP/IP illustraed V1
                 </a>
@@ -1838,119 +2006,6 @@ command-line arguments</code> to the new program to be specified as separate arg
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/22/TCP-IP/" itemprop="url">
-                  TCP/IP
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-09-22T21:58:31+08:00" content="2016-09-22">
-              2016-09-22
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/TCP-IP/" itemprop="url" rel="index">
-                    <span itemprop="name">TCP/IP</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="http://odfcr7qs4.bkt.clouddn.com/UDP.png" alt="UDP"><br><img src="http://odfcr7qs4.bkt.clouddn.com/tcps%E9%A6%96%E9%83%A8.png" alt="TCP head"><br><img src="http://odfcr7qs4.bkt.clouddn.com/TCP.png" alt="TCP"></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1996,7 +2051,7 @@ command-line arguments</code> to the new program to be specified as separate arg
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">32</span>
+              <span class="site-state-item-count">33</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
