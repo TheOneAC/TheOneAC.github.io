@@ -1,0 +1,686 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="7989000bfd4e43ea" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="unix,IO," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="5.2流和file对象123#include &amp;lt;wchar.h&amp;gt;int fwide(FILE *fp, int mode);Returns: positive if stream is wide oriented,negative if stream is byte oriented,or 0 if stream has no orientation
+
+mode 负：字节定向，mode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="APUE第五章：标准IO库">
+<meta property="og:url" content="http://yoursite.com/2016/12/12/APUE第五章：标准IO库/index.html">
+<meta property="og:site_name" content="TheOneAC">
+<meta property="og:description" content="5.2流和file对象123#include &amp;lt;wchar.h&amp;gt;int fwide(FILE *fp, int mode);Returns: positive if stream is wide oriented,negative if stream is byte oriented,or 0 if stream has no orientation
+
+mode 负：字节定向，mode">
+<meta property="og:updated_time" content="2016-12-12T11:38:00.234Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="APUE第五章：标准IO库">
+<meta name="twitter:description" content="5.2流和file对象123#include &amp;lt;wchar.h&amp;gt;int fwide(FILE *fp, int mode);Returns: positive if stream is wide oriented,negative if stream is byte oriented,or 0 if stream has no orientation
+
+mode 负：字节定向，mode">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/12/APUE第五章：标准IO库/"/>
+
+  <title> APUE第五章：标准IO库 | TheOneAC </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">TheOneAC</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">init</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                APUE第五章：标准IO库
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-12-12T19:36:47+08:00" content="2016-12-12">
+              2016-12-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/unix/" itemprop="url" rel="index">
+                    <span itemprop="name">unix</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="5-2流和file对象"><a href="#5-2流和file对象" class="headerlink" title="5.2流和file对象"></a>5.2流和file对象</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#include &lt;wchar.h&gt;</div><div class="line">int fwide(FILE *fp, int mode);</div><div class="line">Returns: positive if stream is wide oriented,negative if stream is byte oriented,or 0 if stream has no orientation</div></pre></td></tr></table></figure>
+<ul>
+<li>mode 负：字节定向，mode 正:宽字节定向， mode 0：不设置流定向但是返回流定向值</li>
+</ul>
+<h4 id="5-4缓冲"><a href="#5-4缓冲" class="headerlink" title="5.4缓冲"></a>5.4缓冲</h4><pre><code>IO缓冲方式：全缓冲（缓冲区满存入磁盘），行缓冲（收到换行符存入磁盘），不带缓冲
+</code></pre><blockquote>
+<ol>
+<li>标准错误不缓冲</li>
+<li>终端设备行缓冲</li>
+<li>其他全缓冲</li>
+</ol>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">void setbuf(FILE *restrict fp, char *restrict buf );</div><div class="line">int setvbuf(FILE *restrict fp, char *restrict buf, int mode,size_t size);</div><div class="line">        Returns: 0 if OK, nonzero on error</div><div class="line">fp: 已打开的文件指针</div><div class="line">buf:未未指定缓冲的流指定缓冲区</div><div class="line">size： 制定的缓冲区大小</div><div class="line">mode：</div><div class="line"> * _IOFBF   全缓冲</div><div class="line"> * _IOLBF   行缓冲</div><div class="line"> * _IONBF   不缓冲</div></pre></td></tr></table></figure>
+<h4 id="5-5-打开流"><a href="#5-5-打开流" class="headerlink" title="5.5 打开流"></a>5.5 打开流</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">FILE *fopen(const char *restrict pathname, const char *restrict type);</div><div class="line">FILE *freopen(const char *restrict pathname, const char *restrict type,FILE *restrict fp);</div><div class="line">FILE *fdopen(int fd, const char *type);</div><div class="line">All three return: file pointer if OK, NULL on error</div></pre></td></tr></table></figure>
+<ul>
+<li>fopen 指定方式读取pathname路径名指定的文件</li>
+<li>freopen 指定流上打开指定文件</li>
+<li>fdopen 关联一和IO流和一个指定文件指针</li>
+</ul>
+<h4 id="5-6-读写流"><a href="#5-6-读写流" class="headerlink" title="5.6 读写流"></a>5.6 读写流</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">int getc(FILE *fp);</div><div class="line">int fgetc(FILE *fp);</div><div class="line">int getchar(void);</div><div class="line">All three return: next character if OK, EOF on end of file or error</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">int ferror(FILE *fp);</div><div class="line">int feof(FILE *fp);</div><div class="line">Both return: nonzero (true) if condition is true, 0 (false) otherwise</div><div class="line">void clearerr(FILE *fp);</div></pre></td></tr></table></figure>
+<ul>
+<li><p>每个问价对象维护一个出错标志和一个结束标志，clearerr清除这两个标志</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">int ungetc(int c, FILE *fp);</div><div class="line">        Returns: c if OK, EOF on error</div></pre></td></tr></table></figure>
+</li>
+<li><p>字符压回流中，顺序与读出相反（暂时写回缓冲区，并未写回磁盘）</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">int putc(int c, FILE *fp);</div><div class="line">int fputc(int c, FILE *fp);</div><div class="line">int putchar(int c);</div><div class="line">            All three return: c if OK, EOF on error</div></pre></td></tr></table></figure>
+<ul>
+<li>行读入<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">char *fgets(char *restrict buf, int n, FILE *restrict fp);</div><div class="line">char *gets(char *buf );</div><div class="line">Both return: buf if OK, NULL on end of file or error</div><div class="line">int fputs(const char *restrict str, FILE *restrict fp);</div><div class="line">int puts(const char *str);</div><div class="line">Both return: non-negative value if OK, EOF on error</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="5-9-二进制IO"><a href="#5-9-二进制IO" class="headerlink" title="5.9 二进制IO"></a>5.9 二进制IO</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">size_t fread(void *restrict ptr, size_t size, size_t nobj,FILE *restrict fp);</div><div class="line">size_t fwrite(const void *restrict ptr, size_t size, size_t nobj,FILE *restrict fp);</div><div class="line">                            Both return: number of objects read or written</div><div class="line">size : object size</div><div class="line">nobj : number of object</div></pre></td></tr></table></figure>
+<h4 id="5-10-定位流"><a href="#5-10-定位流" class="headerlink" title="5.10 定位流"></a>5.10 定位流</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">long ftell(FILE *fp);</div><div class="line">                    Returns: current file position indicator if OK, .1L on error</div><div class="line">int fseek(FILE *fp, long offset, int whence);</div><div class="line">                    Returns: 0 if OK, .1 on error</div><div class="line">void rewind(FILE *fp); 流指针返回初始位置</div><div class="line">#include &lt;stdio.h&gt;</div><div class="line">int fgetpos(FILE *restrict fp, fpos_t *restrict pos);</div><div class="line">将文件位置指示器存入pos</div><div class="line">int fsetpos(FILE *fp, const fpos_t *pos);</div><div class="line">将文件位置指示器设置为pos</div><div class="line">            Both return: 0 if OK, nonzero on error</div></pre></td></tr></table></figure>
+<h4 id="5-11格式化IO"><a href="#5-11格式化IO" class="headerlink" title="5.11格式化IO"></a>5.11格式化IO</h4><ul>
+<li><p>output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">int printf(const char *restrict format, ...);</div><div class="line">int fprintf(FILE *restrict fp, const char *restrict format, ...);</div><div class="line">int dprintf(int fd, const char *restrict format, ...);</div><div class="line">                All three return: number of characters output if OK, negative value if output error</div><div class="line">int sprintf(char *restrict buf, const char *restrict format, ...);</div><div class="line">                Returns: number of characters stored in array if OK, negative value if encoding error</div><div class="line">int snprintf(char *restrict buf, size_t n,const char *restrict format, ...);</div><div class="line">                Returns: number of characters that would have been stored in array</div><div class="line">                    if buffer was large enough, negative value if encoding error</div></pre></td></tr></table></figure>
+</li>
+<li><p>input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">int scanf(const char *restrict format, ...);</div><div class="line">int fscanf(FILE *restrict fp, const char *restrict format, ...);</div><div class="line">int sscanf(const char *restrict buf, const char *restrict format, ...);</div><div class="line">            All three return: number of input items assigned,EOF if input error or end of file before any conversion</div></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/unix/" rel="tag">#unix</a>
+          
+            <a href="/tags/IO/" rel="tag">#IO</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/12/inside-the-c-model/" rel="next" title="inside the c++ model">
+                <i class="fa fa-chevron-left"></i> inside the c++ model
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="TheOneAC" />
+          <p class="site-author-name" itemprop="name">TheOneAC</p>
+          <p class="site-description motion-element" itemprop="description">生如逆旅  一苇可航</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/TheOneAc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:scuhss@Gamil.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.quora.com/profile/SCUhss-%E9%BB%84%E5%B8%85" target="_blank" title="Quora">
+                  
+                    <i class="fa fa-fw fa-comments"></i>
+                  
+                  Quora
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/huang-shuai-4" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2流和file对象"><span class="nav-number">1.</span> <span class="nav-text">5.2流和file对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-4缓冲"><span class="nav-number">2.</span> <span class="nav-text">5.4缓冲</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-5-打开流"><span class="nav-number">3.</span> <span class="nav-text">5.5 打开流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-6-读写流"><span class="nav-number">4.</span> <span class="nav-text">5.6 读写流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-9-二进制IO"><span class="nav-number">5.</span> <span class="nav-text">5.9 二进制IO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-10-定位流"><span class="nav-number">6.</span> <span class="nav-text">5.10 定位流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-11格式化IO"><span class="nav-number">7.</span> <span class="nav-text">5.11格式化IO</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016.7.14 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheOneAC</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
