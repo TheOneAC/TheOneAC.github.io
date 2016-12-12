@@ -1,0 +1,872 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="7989000bfd4e43ea" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="HTTP,network," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="第一章 http概述1.3.1 媒体类型- http为每种web传输的数据格式加上MIME类型数据标签（multipurpose internet mail 
+
+1.4 事务
+一个请求 + 一个响应 构成一个事务，通过 格式化的http报文实现1.4.1 方法
+GET 从服务器向客户端发送命名资源
+PUT 将客户端数据存储到命名服务器中
+DELETE 从服务器删除命名资源
+POST 将客户端信息发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="http权威指南">
+<meta property="og:url" content="http://yoursite.com/2016/12/12/http权威指南/index.html">
+<meta property="og:site_name" content="TheOneAC">
+<meta property="og:description" content="第一章 http概述1.3.1 媒体类型- http为每种web传输的数据格式加上MIME类型数据标签（multipurpose internet mail 
+
+1.4 事务
+一个请求 + 一个响应 构成一个事务，通过 格式化的http报文实现1.4.1 方法
+GET 从服务器向客户端发送命名资源
+PUT 将客户端数据存储到命名服务器中
+DELETE 从服务器删除命名资源
+POST 将客户端信息发">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/MIME%E7%B1%BB%E5%9E%8B.PNG">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/http%E7%8A%B6%E6%80%81%E7%A0%81.PNG">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/http%E7%9A%84tcp%E4%B8%8Eip%E4%BC%A0%E8%BE%93.PNG">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/tcp%E8%BF%9E%E6%8E%A5.PNG">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/%E7%AE%A1%E9%81%93%E5%8C%96%E8%BF%9E%E6%8E%A5%E9%99%90%E5%88%B6.PNG">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/%E6%8A%A5%E6%96%87%E5%86%85%E9%83%A8%E8%A7%A3%E6%9E%90.PNG">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/%E4%BB%A3%E7%90%86.PNG">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/%E7%BC%93%E5%AD%98%E5%A4%84%E7%90%86%E6%AD%A5%E9%AA%A4.PNG">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/%E5%8D%8F%E8%AE%AE%E7%BD%91%E5%85%B3.PNG">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/http%E9%9A%A7%E9%81%93.PNG">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/%E6%91%98%E8%A6%81%E6%8F%A1%E6%89%8B%E6%9C%BA%E5%88%B6.PNG">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/ssl%E6%8F%A1%E6%89%8B.PNG">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/%E5%86%85%E5%AE%B9%E5%8D%8F%E5%95%86.PNG">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/%E9%80%9A%E7%94%A8%E9%87%8D%E5%AE%9A%E5%90%91%E6%96%B9%E6%B3%95.PNG">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/%E4%BB%A3%E7%90%86%E4%B8%8E%E7%BC%93%E5%AD%98%E9%87%8D%E5%AE%9A%E5%90%91.PNG">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/mac%E8%BD%AC%E5%8F%91.PNG">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/ip%E5%9C%B0%E5%9D%80nat%E8%BD%AC%E5%8F%91.PNG">
+<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/%E6%97%A5%E5%BF%97%E6%A0%BC%E5%BC%8F.PNG">
+<meta property="og:updated_time" content="2016-12-12T11:50:29.713Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="http权威指南">
+<meta name="twitter:description" content="第一章 http概述1.3.1 媒体类型- http为每种web传输的数据格式加上MIME类型数据标签（multipurpose internet mail 
+
+1.4 事务
+一个请求 + 一个响应 构成一个事务，通过 格式化的http报文实现1.4.1 方法
+GET 从服务器向客户端发送命名资源
+PUT 将客户端数据存储到命名服务器中
+DELETE 从服务器删除命名资源
+POST 将客户端信息发">
+<meta name="twitter:image" content="http://odfcr7qs4.bkt.clouddn.com/MIME%E7%B1%BB%E5%9E%8B.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/12/http权威指南/"/>
+
+  <title> http权威指南 | TheOneAC </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">TheOneAC</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">init</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                http权威指南
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-12-12T19:48:36+08:00" content="2016-12-12">
+              2016-12-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/HTTP/" itemprop="url" rel="index">
+                    <span itemprop="name">HTTP</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="第一章-http概述"><a href="#第一章-http概述" class="headerlink" title="第一章 http概述"></a>第一章 http概述</h4><h5 id="1-3-1-媒体类型"><a href="#1-3-1-媒体类型" class="headerlink" title="1.3.1 媒体类型"></a>1.3.1 媒体类型</h5><pre><code>- http为每种web传输的数据格式加上MIME类型数据标签（multipurpose internet mail 
+</code></pre><p><img src="http://odfcr7qs4.bkt.clouddn.com/MIME%E7%B1%BB%E5%9E%8B.PNG" alt="MIME类型"></p>
+<h5 id="1-4-事务"><a href="#1-4-事务" class="headerlink" title="1.4 事务"></a>1.4 事务</h5><ul>
+<li>一个请求 + 一个响应 构成一个事务，通过 格式化的http报文实现<h6 id="1-4-1-方法"><a href="#1-4-1-方法" class="headerlink" title="1.4.1 方法"></a>1.4.1 方法</h6></li>
+<li>GET 从服务器向客户端发送命名资源</li>
+<li>PUT 将客户端数据存储到命名服务器中</li>
+<li>DELETE 从服务器删除命名资源</li>
+<li>POST 将客户端信息发送到一个服务器网关应用程序</li>
+<li>HEAD 仅发送命名资源响应中的HTTP首部</li>
+</ul>
+<h6 id="1-4-2-状态码"><a href="#1-4-2-状态码" class="headerlink" title="1.4.2 状态码"></a>1.4.2 状态码</h6><pre><code>- 200 ok 
+- 302 redirect
+- 404 notfound
+</code></pre><p>###第二章 URL与资源</p>
+<ul>
+<li>在获取用户URL的源端处处理组件不完全字符</li>
+</ul>
+<h3 id="第三章-HTTP报文"><a href="#第三章-HTTP报文" class="headerlink" title="第三章 HTTP报文"></a>第三章 HTTP报文</h3><h6 id="3-1-报文流"><a href="#3-1-报文流" class="headerlink" title="3.1 报文流"></a>3.1 报文流</h6><ul>
+<li>不管是请求还是响应，所有报文向下游流动<h6 id="3-2-报文组成部分"><a href="#3-2-报文组成部分" class="headerlink" title="3.2 报文组成部分"></a>3.2 报文组成部分</h6>  request：<br>  <method> <reuqest-url> <version><br>  <headers><br>  <entity-body><br>  respose:<br>  <version> <status> <reason-phase><br>  <headers><br>  <entity-body><br>####### 3.2.2 起始行</entity-body></headers></reason-phase></status></version></entity-body></headers></version></reuqest-url></method></li>
+<li>请求行：请求报文起始行：说明要做什么，响应报文说明：发生了什么</li>
+<li>响应行： http 版本，状态码， 状态文本描述</li>
+<li>状态码：<br>  <img src="http://odfcr7qs4.bkt.clouddn.com/http%E7%8A%B6%E6%80%81%E7%A0%81.PNG" alt="状态码"><br>####### 3.3.1 方法</li>
+<li>安全方法: GET HEAD 不产生动作即不会再拂去其上产生什么结果</li>
+<li>HEAD:不获取资源情况下查看资源情况，查看响应状态码，了解对象情况，查看首部，了解资源是否被修改</li>
+<li>TRACE：行程最后一站服务器弹回一条响应，携带收到的原始请求报文，方便发送方查看原始报文是否被修改</li>
+</ul>
+<hr>
+<p>状态码与首部：查字典http 口袋书</p>
+<h5 id="第四章-连接管理"><a href="#第四章-连接管理" class="headerlink" title="第四章 连接管理"></a>第四章 连接管理</h5><p><img src="http://odfcr7qs4.bkt.clouddn.com/http%E7%9A%84tcp%E4%B8%8Eip%E4%BC%A0%E8%BE%93.PNG" alt="http的tcp/ip连接"></p>
+<ul>
+<li>tcp 的socket 套接字通信<br><img src="http://odfcr7qs4.bkt.clouddn.com/tcp%E8%BF%9E%E6%8E%A5.PNG" alt="tcp  socket"></li>
+</ul>
+<p>####### 4.2 HTTP 事务时延</p>
+<ul>
+<li>url 地址端口映射， tcp连接的建立，端口的释放时延</li>
+<li>tcp链接建立的握手机制</li>
+<li>tcp慢启动拥塞控制</li>
+<li>捎带确认的tcp延迟算法</li>
+<li>time_wait 时延和端口耗尽</li>
+</ul>
+<p>####### 4.4 并行连接</p>
+<ul>
+<li>并行连接可以加快加载速度，但是不是一定可以加快加载速度</li>
+<li>多个对象同时出现在页面，让用户感觉好像加快了加载</li>
+</ul>
+<p>####### 4.5 持久连接</p>
+<ul>
+<li>在http设备事务处理结束之后将tcp连接保持在打开状态直到客户端决定关闭</li>
+<li>http/1.0 + keep—live 连接<br>  客户端通过包含connection：keep_live首部请求将连接保持在打开状态<br>  服务器允许下一条请求将连接保持在打开状态，将响应中包含相同首部<br>  响应中没有conncetion： keep-live首部，客户端认为服务器不支持keep—live，会在响应之后关闭连接</li>
+<li>keep-alive通用首部选项<br>  timeout： 响应首部发送，服务器保持连接活跃的时间<br>  max：     响应首部发送，服务器可以保持的活跃的连接数</li>
+</ul>
+<p>####### 4.6 管道化连接<br><img src="http://odfcr7qs4.bkt.clouddn.com/%E7%AE%A1%E9%81%93%E5%8C%96%E8%BF%9E%E6%8E%A5%E9%99%90%E5%88%B6.PNG" alt="管道化连接限制"></p>
+<p>####### 4.7 连接关闭</p>
+<ul>
+<li>客户端、服务器、代理都可以在任何时刻关闭一条TCP传输连接</li>
+<li>事务多次执行所得结果相同， 则该事物是幂等的（GET\ HEA\ PUT\DELETE\ TRACE\ OPTIONS）</li>
+</ul>
+<h4 id="第五章-http结构"><a href="#第五章-http结构" class="headerlink" title="第五章 http结构"></a>第五章 http结构</h4><ul>
+<li>web服务器动作内容： 建立连接，接受请求，处理请求，访问资源，构建响应，发送响应，记录事物处理过程</li>
+<li>新连接添加到web服务器列表中，并驾驶连接的数据传输准备</li>
+<li>ip地址解析成主机名用于访问控制和日志记录，但是会降低web事务处理速度</li>
+<li>服务器通过ident协议找到发起连接的用户名用于日志记录</li>
+<li>报文的内部解析<br><img src="http://odfcr7qs4.bkt.clouddn.com/%E6%8A%A5%E6%96%87%E5%86%85%E9%83%A8%E8%A7%A3%E6%9E%90.PNG" alt="报文内部解析"></li>
+</ul>
+<h4 id="第六章-代理"><a href="#第六章-代理" class="headerlink" title="第六章 代理"></a>第六章 代理</h4><ul>
+<li>代理连接的是使用相同协议的应用程序，网关连接的是使用不同协议的端点</li>
+<li>反向代理代替web服务器处理请求必要时向web服务器请求资源</li>
+<li>网络交换代理：通过缓存减轻节点拥塞</li>
+<li>动态父代理：<ul>
+<li>负载均衡：根据父代理工作负载决定选择哪一个父代理</li>
+<li>地理位置附近的路由</li>
+<li>协议类型路由</li>
+<li>基于订购的路由，高性能付费用户<br><img src="http://odfcr7qs4.bkt.clouddn.com/%E4%BB%A3%E7%90%86.PNG" alt="代理"></li>
+</ul>
+</li>
+<li>没有设置科幻段使用代理时，发送部分URL</li>
+<li>设置使用客户端代理时，发送完整URL</li>
+<li>通用代理服务器应该既支持完整URL，也支持部分URL<br>####### 追踪报文</li>
+<li>via首部列出把报文途径的每个节点的有关信息</li>
+<li>max-forward 最大转发次数</li>
+</ul>
+<p>####### 代理认证</p>
+<ul>
+<li>受限请求到达服务器，服务器返回一个要求范文证书的的407代码里认证请求状态码</li>
+<li>用户收到407 响应，尝试从本地数据库寻找证书</li>
+<li>获得证书，客户端重新发送请求，在proxy-authorization首部字段提供所要求的的证书</li>
+<li>证书有效，代理将院士请求沿着传输链路向下传送，否则发送另外一条407 应答</li>
+</ul>
+<h4 id="第七章-缓存"><a href="#第七章-缓存" class="headerlink" title="第七章 缓存"></a>第七章 缓存</h4><ul>
+<li>缓存：减少冗余数据传输，缓解网络瓶颈，降低对原始服务器的要求，降低时延</li>
+<li>http再验证（revalidation）：缓存与服务器一致性验证<ul>
+<li>再验证命中：响应http304not modified</li>
+<li>再验证未命中：响应普通带内容的http200ok（更新缓存）</li>
+<li>对象被删除： 响应404not found 缓存删除相应副本</li>
+</ul>
+</li>
+<li>字节命中率：缓存提供的字节在传输的所有字节中所占的比例</li>
+<li>提高文档命中率，阻止通往外部的web事务，有理由降低延迟， 提高字节命中率，阻止字节传向因特网，节省带宽</li>
+<li>缓存响应与服务器响应的区分： 缓存响应的date标签早于当前时间，服务器响应的data标签晚于当前时间<br><img src="http://odfcr7qs4.bkt.clouddn.com/%E7%BC%93%E5%AD%98%E5%A4%84%E7%90%86%E6%AD%A5%E9%AA%A4.PNG" alt="缓存处理步骤"></li>
+</ul>
+<h3 id="缓存副本新鲜度"><a href="#缓存副本新鲜度" class="headerlink" title="缓存副本新鲜度"></a>缓存副本新鲜度</h3><h5 id="文档过期"><a href="#文档过期" class="headerlink" title="文档过期"></a>文档过期</h5><ul>
+<li>cache-control 首部：max-age 相对第一次生成时间的最大合法生存时间（version 1.1）</li>
+<li>Expires 首部： 过期时间    （version 1.0）<blockquote>
+<p>服务器再验证： 缓存文档过期，向服务器请求验证文档是否改变，改变则更新文档，为改变则跟新缓存文档首部（date）</p>
+</blockquote>
+</li>
+<li>条件再验证（条件GET）<ul>
+<li>if-modified-since： 如果指定日期之后修改，执行GET请求，更新缓存</li>
+<li>if-none-match ：文档修改时更新版本标签，实体标签修改后条件首部可执行，实现缓存更新</li>
+</ul>
+</li>
+<li>no-store ：禁止缓存对响应复制</li>
+<li>no-cache ：缓存本地，新鲜度验证之前不能提供给客户端</li>
+</ul>
+<h4 id="第八章-网关隧道及中继"><a href="#第八章-网关隧道及中继" class="headerlink" title="第八章 网关隧道及中继"></a>第八章 网关隧道及中继</h4><ul>
+<li>协议网关<br><img src="http://odfcr7qs4.bkt.clouddn.com/%E5%8D%8F%E8%AE%AE%E7%BD%91%E5%85%B3.PNG" alt="协议网关"></li>
+<li>服务器协议网关、服务器端安全网关、客户端安全网关、应用程序服务器</li>
+<li>web 隧道<blockquote>
+<ul>
+<li>web隧道用http连接传送非http流量，可以穿过只允许web流量的防火墙<br><img src="http://odfcr7qs4.bkt.clouddn.com/http%E9%9A%A7%E9%81%93.PNG" alt="隧道"></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h4 id="第九章-爬虫"><a href="#第九章-爬虫" class="headerlink" title="第九章 爬虫"></a>第九章 爬虫</h4><ul>
+<li>避免环路冗余，url规则化处理</li>
+<li>支持host首部以区别虚拟主机上的不同服务器</li>
+<li>条件请求（GET）减少页面请求冗余重复</li>
+</ul>
+<h4 id="第十一章-cookie"><a href="#第十一章-cookie" class="headerlink" title="第十一章 cookie"></a>第十一章 cookie</h4><ul>
+<li>会话cookie：记录用户访问站点时的设置和偏好，用户推出浏览器时删除</li>
+<li>持久cookie： 硬盘存储，过期时间与临时cookie不同<blockquote>
+<p>cookie:服务器为了跟踪用户而产生的id识别码，服务器根据id累计访问者的数据库信息</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="第十二章-认证"><a href="#第十二章-认证" class="headerlink" title="第十二章 认证"></a>第十二章 认证</h4><ul>
+<li>http质询与响应<blockquote>
+<p>服务器收到http请求时，响应一个“认证质询”要求用户提供保密信息说明身份，<br>再次发起请求时，要求附上保密证书（用户名和密码），证书不匹配则再次质询客户端，并产生错误信息</p>
+</blockquote>
+</li>
+<li>摘要认证： 只发送密码摘要，不再明文发送密码本身</li>
+<li>摘要认证中使用随机数随机化摘要，随机数由www-authenticate 质询从服务器发送给客户端<br><img src="http://odfcr7qs4.bkt.clouddn.com/%E6%91%98%E8%A6%81%E6%8F%A1%E6%89%8B%E6%9C%BA%E5%88%B6.PNG" alt="摘要握手机制"></li>
+</ul>
+<h4 id="第十四章-http安全"><a href="#第十四章-http安全" class="headerlink" title="第十四章 http安全"></a>第十四章 http安全</h4><h5 id="https"><a href="#https" class="headerlink" title="https"></a>https</h5><ul>
+<li>增加传输安全层，请求和响应全部加密处理<br><img src="http://odfcr7qs4.bkt.clouddn.com/ssl%E6%8F%A1%E6%89%8B.PNG" alt="ssl握手"></li>
+</ul>
+<h4 id="第十七章-内容协商"><a href="#第十七章-内容协商" class="headerlink" title="第十七章 内容协商"></a>第十七章 内容协商</h4><p><img src="http://odfcr7qs4.bkt.clouddn.com/%E5%86%85%E5%AE%B9%E5%8D%8F%E5%95%86.PNG" alt="内容协商"></p>
+<ul>
+<li>服务器驱动协商：http服务器根据accept首部集自动评估发送的响应类型</li>
+<li>Apache web服务器内容协商根据type-map类型映射文件，查找变体和先关内容协商首部集<br>  MultiViews指令自动为目录创建type-map文件</li>
+<li><p>透明协商：代理了解客户需求，代替客户向服务器请求相应最佳匹配变体类型</p>
+<blockquote>
+<p>不同变体代表文件类型不一样，必须同时缓存变体和器请求首部、服务器响应首部，代理选择最合适变体方会给用户</p>
+</blockquote>
+</li>
+<li><p>转码：服务器不能满足客户端请求时，将已存在文档转化为用户可用文档</p>
+</li>
+</ul>
+<ol>
+<li>格式转换</li>
+<li>信息综合</li>
+<li>内容注入</li>
+</ol>
+<ul>
+<li>即时转换比静态预生成更加容易实现</li>
+</ul>
+<h4 id="第二十章-重定向与负载均衡"><a href="#第二十章-重定向与负载均衡" class="headerlink" title="第二十章 重定向与负载均衡"></a>第二十章 重定向与负载均衡</h4><p><img src="http://odfcr7qs4.bkt.clouddn.com/%E9%80%9A%E7%94%A8%E9%87%8D%E5%AE%9A%E5%90%91%E6%96%B9%E6%B3%95.PNG" alt="通用重定向方法"><br><img src="http://odfcr7qs4.bkt.clouddn.com/%E4%BB%A3%E7%90%86%E4%B8%8E%E7%BC%93%E5%AD%98%E9%87%8D%E5%AE%9A%E5%90%91.PNG" alt="代理与缓存重定向"></p>
+<ul>
+<li><p>http重定向：短的重定向白问发回给客户端，或者找到负载最想内容服务器做负载均衡，重定向服务器回到用户端IP地址</p>
+<blockquote>
+<p>增加用户时延，原始服务器处理重定向流量，重定向服务器瘫痪导致站点瘫痪</p>
+</blockquote>
+</li>
+<li><p>DNS 重定向：DNS解析返回的ip地址是多个服务器地址的轮转或者负载最小选择或者跳过故障服务器（故障屏蔽）</p>
+<blockquote>
+<p>DNS缓存失效，同一个主机的多个服务被分支到多个服务器，每次解析得到的DNS地址均不一样</p>
+</blockquote>
+</li>
+<li><p>任播寻址： 多个分离服务器拥有相同IP地址，通过主干路由器的最毒路径路由功能将客户请求发送给最近服务器</p>
+</li>
+<li><p>IP MAC转发<br><img src="http://odfcr7qs4.bkt.clouddn.com/mac%E8%BD%AC%E5%8F%91.PNG" alt="mac转发"></p>
+</li>
+<li><p>IP地址转发<br><img src="http://odfcr7qs4.bkt.clouddn.com/ip%E5%9C%B0%E5%9D%80nat%E8%BD%AC%E5%8F%91.PNG" alt="IP地址nat转发"></p>
+</li>
+<li><p>用户选择配置从代理服务器上获取内容</p>
+<blockquote>
+<p>代理崩溃时，系统无法联系原始服务器</p>
+</blockquote>
+</li>
+<li><p>记录内容:http方法，http版本，请求资源url，响应状态码，请求与响应报文尺寸，事务开始时间戳，referer首部，user-agent 首部值</p>
+</li>
+<li>日志格式<br><img src="http://odfcr7qs4.bkt.clouddn.com/%E6%97%A5%E5%BF%97%E6%A0%BC%E5%BC%8F.PNG" alt="日志格式"></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HTTP/" rel="tag">#HTTP</a>
+          
+            <a href="/tags/network/" rel="tag">#network</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/12/APUE第五章：标准IO库/" rel="next" title="APUE第五章：标准IO库">
+                <i class="fa fa-chevron-left"></i> APUE第五章：标准IO库
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="TheOneAC" />
+          <p class="site-author-name" itemprop="name">TheOneAC</p>
+          <p class="site-description motion-element" itemprop="description">生如逆旅  一苇可航</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/TheOneAc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:scuhss@Gamil.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.quora.com/profile/SCUhss-%E9%BB%84%E5%B8%85" target="_blank" title="Quora">
+                  
+                    <i class="fa fa-fw fa-comments"></i>
+                  
+                  Quora
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/huang-shuai-4" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#第一章-http概述"><span class="nav-number">1.</span> <span class="nav-text">第一章 http概述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-3-1-媒体类型"><span class="nav-number">1.1.</span> <span class="nav-text">1.3.1 媒体类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-4-事务"><span class="nav-number">1.2.</span> <span class="nav-text">1.4 事务</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-4-1-方法"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.4.1 方法</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#1-4-2-状态码"><span class="nav-number">1.2.2.</span> <span class="nav-text">1.4.2 状态码</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三章-HTTP报文"><span class="nav-number"></span> <span class="nav-text">第三章 HTTP报文</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1-报文流"><span class="nav-number">0.0.1.</span> <span class="nav-text">3.1 报文流</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-2-报文组成部分"><span class="nav-number">0.0.2.</span> <span class="nav-text">3.2 报文组成部分</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#第四章-连接管理"><span class="nav-number">0.1.</span> <span class="nav-text">第四章 连接管理</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第五章-http结构"><span class="nav-number">1.</span> <span class="nav-text">第五章 http结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第六章-代理"><span class="nav-number">2.</span> <span class="nav-text">第六章 代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第七章-缓存"><span class="nav-number">3.</span> <span class="nav-text">第七章 缓存</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存副本新鲜度"><span class="nav-number"></span> <span class="nav-text">缓存副本新鲜度</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#文档过期"><span class="nav-number">0.1.</span> <span class="nav-text">文档过期</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第八章-网关隧道及中继"><span class="nav-number">1.</span> <span class="nav-text">第八章 网关隧道及中继</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第九章-爬虫"><span class="nav-number">2.</span> <span class="nav-text">第九章 爬虫</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第十一章-cookie"><span class="nav-number">3.</span> <span class="nav-text">第十一章 cookie</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第十二章-认证"><span class="nav-number">4.</span> <span class="nav-text">第十二章 认证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第十四章-http安全"><span class="nav-number">5.</span> <span class="nav-text">第十四章 http安全</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#https"><span class="nav-number">5.1.</span> <span class="nav-text">https</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第十七章-内容协商"><span class="nav-number">6.</span> <span class="nav-text">第十七章 内容协商</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二十章-重定向与负载均衡"><span class="nav-number">7.</span> <span class="nav-text">第二十章 重定向与负载均衡</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016.7.14 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheOneAC</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

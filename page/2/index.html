@@ -250,6 +250,334 @@
             
               
                 
+                <a class="post-title-link" href="/2016/10/01/Programming-With-POSIX-Threads/" itemprop="url">
+                  Programming With POSIX Threads
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-10-01T13:06:18+08:00" content="2016-10-01">
+              2016-10-01
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4> Chapter One </h4>
+
+<blockquote>
+<ul>
+<li><code>Asynchronous</code>: two operation proceed independently of each other.</li>
+<li><code>thread</code>: just a more way to <code>make application asynchronous</code></li>
+<li><code>concurency</code> does <code>not imply</code> that the  <code>operations proceed simultaneously</code></li>
+<li><code>concurrency</code> allows application to <code>take adcantage of asynchronous capabilities</code> and “do work” while independent operations are proceeding.</li>
+<li>并发的实质是一个物理CPU(也可以多个物理CPU) 在若干道程序之间多路复用，并发性是对有限物理资源强制行使多用户共享以提高效率。</li>
+<li>并行性指两个或两个以上事件或活动在同一时刻发生。在多道程序环境下，并行性使多个程序同一时刻可在不同CPU上同时执行。</li>
+<li><code>Reentrant code</code> should <code>avoid relying on static data</code> and, ideally, should <code>avoid reliance on any form of synchronization</code> between threads.</li>
+<li>A system’s scheduling facility may allow each thread to run until it voluntarily yields the processor to another thread <code>(&quot;run until block&quot;)</code>.</li>
+<li>It may provide time-slicing, where each thread is forced to periodically yield so that other threads may run `(“round-robin”)</li>
+</ul>
+</blockquote>
+<ul>
+<li>A thread may have o processor status and coprocessor control registers. </li>
+<li>A thread does not include most of the rest of the state associated with a process; </li>
+<li>threads do not have their own file descriptors or address space.</li>
+</ul>
+<blockquote>
+<p><strong>gcc thread.c -o thread -lpthread</strong></p>
+</blockquote>
+<ul>
+<li><p>For very <code>simple applications</code> ,<code>an event-based implementation</code> may be <code>simpler</code> than the <code>multiprocess or multithread variations</code></p>
+</li>
+<li><p>Some advantages of the multithreaded programming model follow:</p>
+<blockquote>
+<ol>
+<li>Exploitation of program parallelism on multiprocessor hardware. Parallelism is the only benefit that requires special hardware. The others can help most programs without specialhardware.</li>
+<li>More efficient exploitation of a program’s natural concurrency, by allowing the programto perform computations while waiting for slow I/O operations to complete.</li>
+<li>A modular programming model that clearly expresses relationships between independent “events” within the program. These advantages are detailed in the following sections.</li>
+</ol>
+</blockquote>
+</li>
+<li><p>It is easy to lose performance by using too much synchronization;</p>
+</li>
+<li>The performance suffers when the <code>multithreaded implementation</code> adds <code>threadsynchronization</code> and <code>scheduling overhead</code> to the work you are to accomplish.</li>
+<li><h5 id="Your-most-powerful-and-portable-thread-debugging-tool-is-your-mind"><a href="#Your-most-powerful-and-portable-thread-debugging-tool-is-your-mind" class="headerlink" title="Your most powerful and portable thread debugging tool is your mind"></a><code>Your most powerful and portable thread debugging tool is your mind</code></h5></li>
+</ul>
+<h4> Chapter Two </h4>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">pthread_t thread;</div><div class="line">int pthread_equal (pthread_t t1, pthread_t t2); </div><div class="line">//compare two thread identifiers</div><div class="line">int pthread_create (pthread_t *thread, const pthread_attr_t *attr, void *(*start)(void *),void *arg);</div><div class="line">pthread_t pthread_self (void);</div><div class="line">//get its own identifier using the pthread\_self function</div><div class="line">//returns a nonzero value if refer to the same thread,  0 if not the same </div><div class="line">int sched_yield (void);</div><div class="line">int pthread_exit (void *value_ptr);</div><div class="line">int pthread_detach (pthread_t thread);</div><div class="line">int pthread_join (pthread_t thread, void **value_ptr);</div></pre></td></tr></table></figure>
+<ul>
+<li>The initial thread is special because the process terminates without allowing other threads to complete</li>
+<li>Detaching a thread tells the system that you no longer need that thread, and allows the system to reclaim the resources allocated to the thread.</li>
+<li>Returning from main will cause the process to terminate, along with all threads.</li>
+<li><p>code the main thread to terminate by calling pthread_exit, which would allow the process to continue until all threads have terminated.</p>
+<blockquote>
+<p>The most important thing to remember about thread creation is that there is no synchronization between the creating thread’s return from pthread_create and the scheduling of the new thread. That is, the thread may start before the creating thread returns. The thread may even run to completion and terminate before pthread_create returns</p>
+</blockquote>
+</li>
+<li><p>pthread_join is a convenience, not a rule.</p>
+<blockquote>
+<p>it is often at least as simple to create the thread detached and devise your own customized return mechanism as it is to use pthread_join. For example, broadcast a condition variable when done.</p>
+</blockquote>
+</li>
+</ul>
+<h4> Chapter Three </h4>
+
+<ul>
+<li><code>Critical sections</code>  “serial regions” :  areas of code that <code>affect a shared state</code>.</li>
+<li><p>The most common and general way to <code>synchronize between threads</code> is to ensure that <code>all memory accesses to the same (or related) data</code> are “<code>mutually exclusive</code>.”</p>
+</li>
+<li><p>Creating and destroying a mutex</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pthread_mutex_t mutex = PTHREAD_MUNEX_INITIALIZER;</div><div class="line">int pthread_mutex_init (pthread_mitex_t *mutex, pthread_mutexattr_t *attr);</div><div class="line">int pthread_mutex_destroy (pthread_mutex_t *mutex);</div></pre></td></tr></table></figure>
+</li>
+<li><p>never make a copy of a mutex, the result of using a copied mutex is undefined.</p>
+</li>
+<li>It is a good idea to <code>associate a mutex clearly with the data</code> it protects, if possible, by keeping the definition of the mutex and data together</li>
+<li>it is safe (and a good idea) to <code>unlock and destroy the mutex</code> before <code>freeing the storage that the mutex occupies</code>.</li>
+<li>the <code>mutex dynamically initialized</code> by calling <code>pthread_mutex_init</code> should <code>destroyed</code>  by calling <code>pthread_mutex_destroy</code>. but a mutex that was <code>statically initialized</code> using the <code>PTHREAD_MUTEX_INITIALIZER</code> macro <code>not</code>, wihch will be destroyed automatically.</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int pthread_mutex_lock (pthread_mutex_t *mutex);</div><div class="line">int pthread_mutex_trylock (pthread_mutex_t *mutex);</div><div class="line">int pthread_mutex_unlock (pthread_mutex_t *mutex);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>pthread_mutex_trylock function will return an error status (EBUSY) instead of blocking if the mutex is already locked.</p>
+</blockquote>
+<ul>
+<li>A condition variable wait always returns with the mutex locked</li>
+<li>The mutex must always be locked when you wait on a condition variable</li>
+</ul>
+<p><strong>Creating and destroying a condition variable</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pthread_cond_t cond = PTHREAD_COND_INITIALIZER;</div><div class="line">int pthread_cond_init (pthread_cond_t *cond, pthread_condattr_t *condattr);</div><div class="line">int pthread_cond_destroy (pthread_cond_t *cond);</div></pre></td></tr></table></figure></p>
+<ol>
+<li><code>cond_wait</code> 等待信号量，若未收到信号量，<code>解锁mutex，并挂起到相应信号量等待队列</code>原子操作(<code>cond\_wait 不返回处于等待信号量状态，不占用CPU</code>)</li>
+<li>收到信号量，<code>尝试上锁mutex</code>，若锁被占用则等待，直到获得锁,若上锁成功，进入临界区使用条件变量</li>
+<li>由外部<code>unlock</code>完成解锁</li>
+</ol>
+<p><strong>Waiting on a condition variable</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int pthread_cond_wait (pthread_cond_t *cond, pthread_mutex_t *mutex);</div><div class="line">int pthread_cond_timedwait (pthread_cond_t *cond, pthread_mutex_t *mutex, struct timespec *expiration);</div></pre></td></tr></table></figure></p>
+<ul>
+<li>Each condition variable must be associated with a specific mutex, and with a predicate condition.</li>
+<li>That is, each condition variable must be associated, at any given time, with only one mutex–but a mutex may have any number of condition variables associated with it.</li>
+</ul>
+<p><strong>Waking condition variable waiters</strong></p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int pthread_cond_signal (pthread_cond_t *cond);</div><div class="line">int pthread_cond_broadcast (pthread_cond_t *cond);</div></pre></td></tr></table></figure>
+</blockquote>
+<h4> Chapter five </h4>
+
+<ul>
+<li><code>once initialize</code><blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pthread_once_t once_control = PTHREAD_ONCE_INIT;</div><div class="line">int pthread_once (pthread_once_t *once_control, void(*init_routine) (void));</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>First, you declare a <code>control variable</code> of type <code>pthread_once_t</code>. The control variable must be <code>statically initialized</code> using the <code>PTHREAD_ONCE_INIT</code> macro, </li>
+<li>You must also create a <code>function</code> containing the <code>code to perform all initialization</code> that is to be associated with the control variable.</li>
+<li>Now, at any time, a thread may call pthread_once, specifying a pointer to the control variable and a pointer to the associated initialization function.</li>
+<li>only the <code>first call</code> <code>pthread_once</code> will <code>successfully initialized</code>．</li>
+</ul>
+</blockquote>
+<ul>
+<li><code>Mutex attributes</code><blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">pthread_mutexattr_t attr;</div><div class="line">int pthread_mutexattr_init &#123; pthread_mutexattr_t *attr);</div><div class="line">int pthread_mutexattr_destroy (pthread_mutexattr_t *attr);</div><div class="line">\#ifdef _POSIX_THREAD PROCESS SHARED</div><div class="line">int pthread_mutexattr_getpshared (pthread_mutexattr_t  *attr, int *pshared);</div><div class="line">int pthread_mutexattr_setpshared (pthread_mutexattr_t *attr, int pshared);</div><div class="line">endif</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">#include &lt;pthread.h&gt;</div><div class="line">#include &quot;errors.h&quot;</div><div class="line">pthread_mutex_t mutex;</div><div class="line">int main (int argc, char *argv[])</div><div class="line">&#123;</div><div class="line">    pthread_mutexattr_t mutex_attr;</div><div class="line">    int status;</div><div class="line">    status = pthread_mutexattr_init (&amp; mutex\_attr);</div><div class="line">    if (status != 0)</div><div class="line">        err_abort (status, &quot;Create attr&quot;);</div><div class="line">#ifdef _POSIX_THREAD_PROCESS_SHARED</div><div class="line">    status = pthread_mutexattr_setpshared (</div><div class="line">        &amp; mutex\_attr, PTHREAD_PROCESS_PRIVATE);</div><div class="line">    if (status != 0)err_abort (status, &quot;Set pshared&quot;);</div><div class="line">#endif</div><div class="line">    status = pthread_mutex_init (&amp;mutex, &amp;mutex_attr);</div><div class="line">    if (status != 0)</div><div class="line">        err_abort (status, &quot;Init mutex&quot;);</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p><code>Condition variable attributes</code></p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">pthread_condattr_t attr;</div><div class="line">int pthread_condattr_init (pthread_condattr_t *attr);</div><div class="line">int pthread_condattr_destroy (pthread_condattr_t *attr);</div><div class="line">#ifdef _POSIX_THREAD_PROCESS_SHARED</div><div class="line">int pthread_condattr_getpshared(pthread_condattr_t *attr, int *pshared);</div><div class="line">int pthread_condattr_setpshared (pthread_condattr_t *attr, int pshared);</div><div class="line">#endif</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p><code>Thread attributes</code></p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">pthread_attr_t attr;</div><div class="line">int pthread_attr_init (pthread_attr_t *attr);</div><div class="line">int pthread_attr_destroy (pthread_attr_t *attr);</div><div class="line">int pthread_attr_getdetachstate (pthread_attr_t *attr, int *detachstate);</div><div class="line">int pthread_attr_setdetachstate (pthread_attr_t *attr, int detachstate);</div><div class="line">#ifdef _POSIX_THREAD_ATTR_STACKSISE</div><div class="line">int pthread_attr_getstacksize (pthread_attr_t *attr, size_t *stacksize);</div><div class="line">int pthreae_attr_setstacksize (pthread_attr_t *attr, size_t stacksize);</div><div class="line">#endif</div><div class="line">#ifdef _POSIX_THREAD_ATTR_STACKADDR</div><div class="line">int pthread_attr_getstarkaddr (pthread_attr_t *attr, void *stackaddr);</div><div class="line">int pthread_attr_set-tackaddr (pthread_attr_t *attr, void **stackaddr);</div><div class="line">#endif</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p><code>Cancellation</code></p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">int pthread_cancel (pthread_t thread);</div><div class="line">int pthread_setcancelstate (int state, int * oldstate);</div><div class="line">int pthread_setcanceltype (int type, int *oldstate);</div><div class="line">void pthread_testcancel (void);</div><div class="line">void pthread_cleanup_push (void (*routine)(void *), void *arg);</div><div class="line">void pthread_cleanup_pop (int execute);</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p><code>Creating thread-specific data</code></p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pthread_key_t key;</div><div class="line">int pthread_key_create (pthread_key_t *key, void (*destructor)(void *));</div><div class="line">int pthread_key_delete (pthread_key_t key);</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>you should never delete a thread-specific data key until you are sure that no existing threads have a value for that key,</li>
+<li><code>Using thread-specific data</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int pthread_setspecific (pthread_key_t key, const void *value);</div><div class="line">void *pthread_getspecific (pthread_key_t key);</div></pre></td></tr></table></figure>
+<ul>
+<li>Pthreads will not call the destructor for a thread-specific data key if the terminating thread has a value of NULL for that key.</li>
+</ul>
+</blockquote>
+<ul>
+<li><code>Using destructor functions</code><blockquote>
+<ul>
+<li>If your <code>key&#39;s value</code> is <code>a pointer to heap memory</code>, you will need to <code>free the memory</code> to <code>avoid a memory leak</code> each time a thread terminates.Pthreads allows you to <code>define a destructor function</code> when you create a thread-specific data key. When a <code>thread terminates</code> with a <code>non-NULL value</code> for a <code>thread-specific data key</code>, the <code>key&#39;s destructor</code> (if any) is called with the current value of the key.</li>
+<li>the <code>order</code> in which <code>destructors are called</code> is undefined. Try to <code>make each destructor</code> as <code>independent</code> as possible.</li>
+</ul>
+</blockquote>
+</li>
+<li><code>Scheduling policies and priorities</code><blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">int sched_get_priority_max (int policy);</div><div class="line">int sched_get_priority_min (int policy);</div><div class="line">int pthread_attr_getinheritsched( const pthread_attr_t *attr, int *inheritsched);</div><div class="line">int pthread_attr_setinheritsched( pthread_attr_t *attr, int inheritsched);</div><div class="line">int pthread_attr_getschedparam (const pthread_attr_t *attr, struct sched_param *param);</div><div class="line">int pthread_attr_setschedparam ( pthread_attr_t *attr, const struct sched_param *param);</div><div class="line">int pthread_attr_getschedpolicy (const pthread_attr_t *attr, int *policy);</div><div class="line">int pthread_attr_setschedpolicy (pthread_attr_t *attr, int policy);</div><div class="line">int pthread_getschedparam (pthread_t thread, int *policy, struct sched_param *param);</div><div class="line">int pthread_setschedparam (pthread_t thread; int policy; const struct sched_param *param);</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>When you set the scheduling policy or priority attributes in an attributes object, you must also set the inheritsched attribute!</li>
+<li>Pthreads does not specify a default value for inheritsched</li>
+</ul>
+</blockquote>
+<p><code>Priority inversion is when a low-priority thread can prevent a high-priority thread from running</code></p>
+<h4>POSIX adjusts to threads</h4>
+
+<ul>
+<li><p><code>fork</code></p>
+<blockquote>
+<ul>
+<li>When <code>a threaded process</code> calls <code>fork</code> to create <code>a child process</code>, Pthreads specifies that <code>only the thread calling fork exists in the child</code>.</li>
+<li>the thread has the same thread state as in the parent</li>
+<li>you use fork to clone a threaded program, beware that you may lose access to memory, especially heap memory stored only as thread-specific data values.</li>
+<li>a mutex was locked at the time of the call to fork, then it is still locked in the child. Because a locked mutex is owned by the thread that locked it, the mutex can be unlocked in the child only if the thread that locked the mutex was the one that called fork. This is important to remember–if another thread has a mutex locked when you call fork, you will lose access to that mutex and any data controlled by that mutex.</li>
+</ul>
+</blockquote>
+</li>
+<li><p><code>Avoid using fork inthreaded code except where the child process will immediately exec a new program.</code></p>
+</li>
+<li><p><code>Calling pthread_exit from main will terminate the initial thread without affecting the other threads in the process, allowing them to continue and complete normally.</code></p>
+</li>
+<li><p><code>flockfile and funlockfile</code></p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">void flockfile (FILE *file);</div><div class="line">int ftrylockfile (FILE *file);</div><div class="line">void funlockfile (FILE *file);</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>getchar_unlocked and putchar_unlocked</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">int getc_unlocked (FILE *stream);</div><div class="line">int getchar_unlocked (void);</div><div class="line">int putc_unlocked (int c, FILE *stream);</div><div class="line">int putchar_unlocked (int c)</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<p></p><h4>Hints to avoid debugging</h4><p></p>
+<blockquote>
+<ul>
+<li>Never assume that a thread you create will wait for you.</li>
+<li>Thread inertia is a special case of thread races.</li>
+<li>thread races that the “loser” generally wins because the memory system will keep the last value written to an address.</li>
+<li><p><code>No ordering exists between threads</code></p>
+</li>
+<li><p>Scheduling exists to tell the system how important a specific job (thread) is to yourapplication so it can schedule the job you need the most. </p>
+</li>
+<li>Synchronization exists to tell the system that no other thread can be allowed into the critical section until the calling thread is done.</li>
+</ul>
+</blockquote>
+<ul>
+<li>Cooperate to avoid deadlocks<blockquote>
+<p>One common cause of a deadlock is that some thread has returned from a function without unlocking a mutex</p>
+</blockquote>
+</li>
+<li>Beware of priority inversion</li>
+<li>Never share condition variables between predicates<blockquote>
+<p>The best solution, when you really want to share a condition variable between predicates, is always to use pthread_cond_broadcast. But when you broadcast, all waiting threads wake up to reevaluate their predicates.</p>
+</blockquote>
+</li>
+<li>Sharing stacks and related memory corrupters<blockquote>
+<p>Having carefully ensured that there is no possible way for the owning thread to pop the stack data while other threads are using the shared data</p>
+</blockquote>
+</li>
+<li>Beware of concurrent serialization</li>
+<li>Use the right number of mutexes<blockquote>
+<p>A common strategy is to create a separate mutex for each data structure, and use those mutexes to serialize access to the shared data, rather than using the “big mutex” to serialize access to the library.</p>
+<ul>
+<li>you may decrease the efficiency of the memory system by excessive locking</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/01/TCPIP-illustraed-V1/" itemprop="url">
                   TCP/IP illustraed V1
                 </a>
@@ -1558,189 +1886,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/27/sqlite/" itemprop="url">
-                  sqlite
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-08-27T03:23:53+08:00" content="2016-08-27">
-              2016-08-27
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/SQL/" itemprop="url" rel="index">
-                    <span itemprop="name">SQL</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="sqlite"><a href="#sqlite" class="headerlink" title="sqlite"></a>sqlite</h2><p>格式化输出</p>
-<blockquote>
-<p>.heade on<br>.mode column</p>
-</blockquote>
-<p>LIKE</p>
-<blockquote>
-<p>% 任意多个字符 LIKE ‘XX*’;<br>_ 唯一一个字符 LIKE ‘_X’;</p>
-</blockquote>
-<p>GLOB</p>
-<blockquote>
-<p>* 任意字符<br>? 单一数字或者字符</p>
-</blockquote>
-<p>LIMIT</p>
-<blockquote>
-<p>LIMIT n<br>从开始到n项<br>LIMIT n OFFSET m;<br>以 n项为中心,m正向下m项,m负向上m项</p>
-</blockquote>
-<p><code>SELECT   [] FROM [table.name] ORDER BY [column] ASC|DESC;</code><br><strong>SELECT 语句中，GROUP BY 子句放在 WHERE 子句之后，放在 ORDER BY 子句之前</strong><br>聚集函数</p>
-<blockquote>
-<p>COUNT(DISTINCT|ALL&lt;列名&gt;);<br>SUM(DISTINCT|ALL&lt;列名&gt;);<br>AVG(DISTINCT|ALL&lt;列名&gt;);<br>MAX/MIN(DISTINCT|ALL&lt;列名&gt;);</p>
-</blockquote>
-<p>HAVING   [condition]<br><strong>HAVING 子句必须放在 GROUP BY 子句之后，必须放在 ORDER BY 子句之前</strong><br>DISTINCT </p>
-<blockquote>
-<p>SELECT DISTINCT [] FROM<br>与 SELECT 语句一起使用，来消除所有重复的记录</p>
-</blockquote>
-<p>链接实现:<br>1、nested-loop<br>2、排序合并：子表排序后顺序查找</p>
-<p>sqlite约束:</p>
-<blockquote>
-<p>NOT NULL<br>DEDFAULT:创建表格时设置默认值<br>UNIQUE<br>PRIMMARY KET<br>CHECK:输入值时check,false则输入无效<br>    example:SALARY     REAL   CHECK(SALARY&gt; 0);</p>
-</blockquote>
-<p><strong>重命名列,删除列,删除约束在sqlite不可实现</strong></p>
-<h4 id="sqlite-joins"><a href="#sqlite-joins" class="headerlink" title="sqlite joins"></a>sqlite joins</h4><p>CROSS JOIN</p>
-<blockquote>
-<ul>
-<li>SELECT COLUMN1,…COLUMN2 FROM TABLE1 CROSS JOIN TABLE2<br>INNER JOIN</li>
-<li>SELECT COLUMN,…COLUMNn FROM TABLE1 JOIN TABLE2 USING COLUMN1…COLUMNn;</li>
-<li>SELECT COLUMN,…COLUMNn FROM TABLE1 INNER JOIN TABLE2 ON condition;</li>
-<li>SELECT COLUMN,…COLUMNn FROM TABLE1 NATURE JOIN TABLE2 COLUMN1 … COLUMNn;</li>
-<li>OUTER JOIN:LEFT OUTER JOIN\ RIGTH OUTER JOIN\ FULL OUTER JOIN</li>
-<li>SELECT…..FROM table1 [ ] OUTER JOIN table2 ON condition/ USING column….</li>
-</ul>
-</blockquote>
-<hr>
-<p>UNION  </p>
-<blockquote>
-<p>每个 SELECT 被选择的列数必须是相同的，相同数目的列表达式，相同的数据类型，并确保它们有相同的顺序，但它们不必具有相同的长度。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">SELECT .... FROM TABLE1....WHERE .....</div><div class="line">UNION</div><div class="line">SELECT .... FROM TABLE2....WHERE .....</div><div class="line">//UNION 去重，UNION ALL 不去重</div></pre></td></tr></table></figure></p>
-</blockquote>
-<p>Alias<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">table：</div><div class="line">SELECT  aliase_name.column... </div><div class="line">FROM  table.name AS aliase_name</div><div class="line">WHERE [condition];</div><div class="line">column:</div><div class="line">SELECT column_name AS alias_name</div><div class="line">FROM table_name;</div><div class="line">WHERE [condition]；</div></pre></td></tr></table></figure></p>
-<p>TRIIGGER<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">CREATE TRIGGER tiggername [AFTER/BEFORE] [action] ON tablename</div><div class="line">BEGIN</div><div class="line">.....</div><div class="line">END;</div></pre></td></tr></table></figure></p>
-<ul>
-<li>显示触发器：<br>SELECT name FROM SQLITE——master<br>WHERE type=’trigger’;</li>
-<li>删除触发器：<br>DROP TRIGGER triggername；</li>
-<li>INDEX:<br>CREAT [UNIQUE] INDEX indwx_name  ON table_name(column1,column);</li>
-<li>显示单表中index：<br>.indices table</li>
-<li>显示全部：<br>SELECT * FROM sqlite_master WHERE type = ‘index’;</li>
-<li>DROP INDEX index_name;<br>索引不应该使用在较小的表上。<br>索引不应该使用在有频繁的大批量的更新或插入操作的表上。<br>索引不应该使用在含有大量的 NULL 值的列上。<br>索引不应该使用在频繁操作的列上。</li>
-<li><p>ALERT<br>ALTER TABLE tablename RENAME TO new_tablename<br>ALERT TABLE databasename.tablename ADD COLUMN columnname def….. </p>
-</li>
-<li><p>VIEW<br>CREATE [TEMPORY|TEMP]VIEW viewname AS<br>SELECT column1 column2….<br>FROM tablename<br>WHERE [condition];<br>SELECT * FROM viewname;<br>DROP VIEW viewname;</p>
-</li>
-<li><p>TRANSICTION</p>
-<blockquote>
-<p>原子性（Atomicity）：确保工作单位内的所有操作都成功完成，否则，事务会在出现故障时终止，之前的操作也会回滚到以前的状态。<br>一致性（Consistency)：确保数据库在成功提交的事务上正确地改变状态。<br>隔离性（Isolation）：使事务操作相互独立和透明。<br>持久性（Durability）：确保已提交事务的结果或效果在系统发生故障的情况下仍然存在。</p>
-</blockquote>
-</li>
-</ul>
-<p><code>BEGIN;/BEGIN TRANSACTION;
-ROLLBACK/COMMIT;</code></p>
-<ul>
-<li>VACUUM<br>VACUUM 命令通过复制主数据库中的内容到一个临时数据库文件，然后清空主数据库，并从副本中重新载入原始的数据库文件。这消除了空闲页，把表中的数据排列为连续的，另外会清理数据库文件结构<br>VACUUM 命令只适用于主数据库，附加的数据库文件是不可能使用 VACUUM 命令。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sqlite&gt; PRAGMA auto_vacuum = NONE;  -- 0 means disable auto vacuum</div><div class="line">sqlite&gt; PRAGMA auto_vacuum = INCREMENTAL;  -- 1 means enable incremental vacuum</div><div class="line">sqlite&gt; PRAGMA auto_vacuum = FULL;  -- 2 means enable full auto vacuum</div></pre></td></tr></table></figure>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1786,7 +1931,7 @@ ROLLBACK/COMMIT;</code></p>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-count">36</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1794,7 +1939,7 @@ ROLLBACK/COMMIT;</code></p>
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1803,7 +1948,7 @@ ROLLBACK/COMMIT;</code></p>
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">24</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
