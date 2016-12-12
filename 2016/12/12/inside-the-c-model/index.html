@@ -1,0 +1,861 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="7989000bfd4e43ea" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="c++,comments," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="第一章关于对象
+
+c++在布局和存取时间的额外负担主要有virtual引起
+virtual function：运行期动态绑定
+virtual base class ：base class多次出现在派生类中，但只有一个单一而被共享的实体（虚基类）
+对象模型
+简单模型：每一个地址slot指向一个成员，
+表格模型：数据表和成员函数表
+
+
+数据表包含数据本身
+成员函数表包含指向每个成员函数的指针slot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="inside the c++ model">
+<meta property="og:url" content="http://yoursite.com/2016/12/12/inside-the-c-model/index.html">
+<meta property="og:site_name" content="TheOneAC">
+<meta property="og:description" content="第一章关于对象
+
+c++在布局和存取时间的额外负担主要有virtual引起
+virtual function：运行期动态绑定
+virtual base class ：base class多次出现在派生类中，但只有一个单一而被共享的实体（虚基类）
+对象模型
+简单模型：每一个地址slot指向一个成员，
+表格模型：数据表和成员函数表
+
+
+数据表包含数据本身
+成员函数表包含指向每个成员函数的指针slot">
+<meta property="og:updated_time" content="2016-12-12T11:33:37.640Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="inside the c++ model">
+<meta name="twitter:description" content="第一章关于对象
+
+c++在布局和存取时间的额外负担主要有virtual引起
+virtual function：运行期动态绑定
+virtual base class ：base class多次出现在派生类中，但只有一个单一而被共享的实体（虚基类）
+对象模型
+简单模型：每一个地址slot指向一个成员，
+表格模型：数据表和成员函数表
+
+
+数据表包含数据本身
+成员函数表包含指向每个成员函数的指针slot">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/12/inside-the-c-model/"/>
+
+  <title> inside the c++ model | TheOneAC </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">TheOneAC</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">init</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                inside the c++ model
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-12-12T19:31:22+08:00" content="2016-12-12">
+              2016-12-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/c/" itemprop="url" rel="index">
+                    <span itemprop="name">c++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="第一章关于对象"><a href="#第一章关于对象" class="headerlink" title="第一章关于对象"></a>第一章关于对象</h3><blockquote>
+<ul>
+<li>c++在布局和存取时间的额外负担主要有virtual引起<ul>
+<li>virtual function：运行期动态绑定</li>
+<li>virtual base class ：base class多次出现在派生类中，但只有一个单一而被共享的实体（虚基类）<ul>
+<li>对象模型</li>
+<li>简单模型：每一个地址slot指向一个成员，</li>
+<li>表格模型：数据表和成员函数表</li>
+</ul>
+<ol>
+<li>数据表包含数据本身</li>
+<li>成员函数表包含指向每个成员函数的指针slot</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>虚函数表</p>
+<ul>
+<li>每个class产生一堆指向virtual function的指针，，指针形成一个virtual function table；</li>
+<li>每一个class object 添加一个指向virtual function table 的指针vptr</li>
+<li>每一个class 关联一个type_info object由虚函数表指出<blockquote>
+<p> <code>被指定的object在执行点之前是无法确定类型的，必须通过指针或者引用操作实现</code></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>c++支持多态的方式</p>
+<ul>
+<li>隐含转化操作，子类指针赋值给父类指针</li>
+<li>virtual function</li>
+<li>dynamic_cast 和 typeid</li>
+<li>基类定义接口，通过virtual function方式，在运行时确定object类型并执行相应操作</li>
+</ul>
+</li>
+</ul>
+<h3 id="第二章-构造函数"><a href="#第二章-构造函数" class="headerlink" title="第二章 构造函数"></a>第二章 构造函数</h3><h4 id="2-1-default-constructor-的构建"><a href="#2-1-default-constructor-的构建" class="headerlink" title="2.1 default constructor 的构建"></a>2.1 default constructor 的构建</h4><blockquote>
+<ul>
+<li>生成default constructor 的要素：<ul>
+<li>含有member object 且member object 均有default constructor</li>
+<li>class本身无任何constructor，则调用constructor 时编辑器将为class合成一个default constructor</li>
+<li>以member objects 在class 声明次序调用各个member object 的 default constructor<br><code>如果derived class 拥有多个constructor 但是没有default constructor，编译器将扩张每一个consturctor，加入每一个必要的基类default constructor,但不会再合成default constructor</code></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h6 id="2-1-1“带有default-constructor-”的base-class-："><a href="#2-1-1“带有default-constructor-”的base-class-：" class="headerlink" title="2.1.1“带有default constructor ”的base class  ："></a>2.1.1“带有default constructor ”的base class  ：</h6><blockquote>
+<ul>
+<li>自动合成default constructor<pre><code>- class 声明（继承）一个virtual function
+- class 派生自一个继承串联，其中至少一个virtual base class
+</code></pre></li>
+<li>自动合成过程<ul>
+<li>产生一个virtual function table，内放class的virtual functions 地址</li>
+<li>每一个class object合成一个pointer（vptr）只想class 的virtual function table<br><code>已定义constructor则扩展，未定义则合成default constructor， 保证正确初始化每一个class object 的vptr</code></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h6 id="2-1-2“带有一个virtual-base-class”的class"><a href="#2-1-2“带有一个virtual-base-class”的class" class="headerlink" title="2.1.2“带有一个virtual base class”的class"></a>2.1.2“带有一个virtual base class”的class</h6><blockquote>
+<ul>
+<li>在derived class object 的每一个virtual base class 中插入一个指向，经由pointer 和reference 存取virtual base class 的操作由这个指针完整（指向同一份内容）<ul>
+<li>已定义constructor则扩展，未定义则合成default constructor， 保证允许每一个virtual base class 执行器存取操作</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>summary:合成 implicit nontrivial default constructor<ul>
+<li>借用member object 或者 base class 的default constructor</li>
+<li>为每一个object 初始化virtual function机制 或者 virtual base机制 </li>
+<li>除以上以外，如无任何声明constructor 则不会合成default constructor</li>
+</ul>
+</li>
+<li>合成的default constructor 中只有base class objects 和member class objects 被初始化</li>
+</ul>
+<p>####2.2 copy constructor 的构建</p>
+<blockquote>
+<ul>
+<li>执行copy constructor的三种情况：<pre><code>- 赋值
+- 作为参数传递
+- 作为返回值
+</code></pre></li>
+<li>default memberwise initialization<ul>
+<li>对于member data 逐一赋值</li>
+<li>对于member function 递归调用 memberwise initialization</li>
+</ul>
+</li>
+<li>当class 不展现一个“bitewise copy semantics”(如下四种情况)，需要合成copy constructor<ol>
+<li>class 内包含一个member object 且后者（声明或者合成）copy constrctor 时</li>
+<li>class 继承一个base class 且后者（声明或者合成）copy constrctor 时</li>
+<li>class 声明至少一个virtual function时</li>
+<li>class 派生自一个继承串联，其中至少一个virtual base class</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<h4 id="2-3-program-transformation-semantics"><a href="#2-3-program-transformation-semantics" class="headerlink" title="2.3 program transformation semantics"></a>2.3 program transformation semantics</h4><blockquote>
+<ul>
+<li>explicit initialization:直接逐位赋值member data<ul>
+<li>argument initialization:参数构造临时对象并copy constrcuct</li>
+<li>copy construct and 返回引用</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h4 id="2-4-member-initialization-list"><a href="#2-4-member-initialization-list" class="headerlink" title="2.4 member initialization list"></a>2.4 member initialization list</h4><blockquote>
+<ul>
+<li>initial 时：= 操作符以arguement初始化对象时分为三步：1、以arguement 构造一个 临时对象，2、将临时对象copy给目标对象，3、销毁临时对象<ul>
+<li>初始化顺序是由members声明次序决定的，不是由member list 顺序决定的；</li>
+<li>member list 中初始化先于explicit assignment：即：之后的初始化先于{}内部member data的初始化或者赋值<br><code>X::x(int v):j(v){i = j;}j 的初始化先于i的初始化</code></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="第三章-the-semantaic-of-data"><a href="#第三章-the-semantaic-of-data" class="headerlink" title="第三章 the semantaic of data"></a>第三章 the semantaic of data</h3><h4 id="3-1-data-member-绑定"><a href="#3-1-data-member-绑定" class="headerlink" title="3.1 data member 绑定"></a>3.1 data member 绑定</h4><pre><code>- 局域绑定
+</code></pre><h4 id="3-2-data-member-layout"><a href="#3-2-data-member-layout" class="headerlink" title="3.2 data member layout"></a>3.2 data member layout</h4><pre><code>- 同一access session 按照声明顺序合并，静态成员不存在class 内部
+</code></pre><h4 id="3-3-data-member-存取"><a href="#3-3-data-member-存取" class="headerlink" title="3.3 data member 存取"></a>3.3 data member 存取</h4><pre><code>- static data member 
+ &gt; 独立于class 之外，不论是继承virtual base class而来或者函数调用得到的static 都是直接存取，通过指针和通过对象存取是一样的
+- nonstatic data member
+ &gt; 通过指向对象的指针和对象访问一致的，当访问的member data是一个从virtual base class 继承而来的member时，指针访问在运行时才能确定
+- 多重继承
+![pointer实现：共享虚基类](http://odfcr7qs4.bkt.clouddn.com/IMG_0073.PNG)
+![offset实现：共享虚基类](http://odfcr7qs4.bkt.clouddn.com/IMG_0074.PNG)
+</code></pre><h4 id="3-6-pointer-to-data-member"><a href="#3-6-pointer-to-data-member" class="headerlink" title="3.6 pointer to data member"></a>3.6 pointer to data member</h4><pre><code>* &amp;Pointer：：z   “取一个nonstaic data member，得到它在class 中的偏移量”
+* &amp;origin.z   “取一个class object 的datamenber地址， 得到member在内存中的真正地址”
+* 继承层次越深，指针代码执行速度越慢
+</code></pre><h3 id="第四章-the-semantics-of-function"><a href="#第四章-the-semantics-of-function" class="headerlink" title="第四章 the semantics of function"></a>第四章 the semantics of function</h3><h4 id="4-1-member-调用方式"><a href="#4-1-member-调用方式" class="headerlink" title="4.1 member 调用方式"></a>4.1 member 调用方式</h4><pre><code>* nonstatic member function
+  〉 0. 安插this指针   
+    1. 对nonstatic member function 经由this 指针存取
+    2. 将member function 改写成独一无二（name mangling）的外部函数
+  - nonstatic member function 与外部函数的访问性能是一样的
+* virtual member function
+ &gt;  经由对象调用virtual function 被处理为编译绑定，与nonstatic member function的调用方式一致
+* static member function
+ &gt;  0. 通过指针或者对象调用静态成员函数都被当做一般函数处理
+ 〉 1. static member function 没有this 指针，被当做一般函数处理
+</code></pre><h3 id="第五章-the-semantics-of-construction-destruction-and-copy"><a href="#第五章-the-semantics-of-construction-destruction-and-copy" class="headerlink" title="第五章  the semantics of construction destruction and  copy"></a>第五章  the semantics of construction destruction and  copy</h3><h4 id="5-1-无继承的对象构造"><a href="#5-1-无继承的对象构造" class="headerlink" title="5.1 无继承的对象构造"></a>5.1 无继承的对象构造</h4><blockquote>
+<ol>
+<li>bitwise member copy<ol>
+<li>ADT class 执行default copy constructor，copy constructor， destructor，但是并不产生相应函数</li>
+</ol>
+</li>
+</ol>
+</blockquote>
+<h4 id="5-2-继承体系下的对象构造"><a href="#5-2-继承体系下的对象构造" class="headerlink" title="5.2 继承体系下的对象构造"></a>5.2 继承体系下的对象构造</h4><ul>
+<li>vptr 初始化语义学<ul>
+<li>在class的constructor 或者 destructor 中调用一个virtual function ，调用的必须是本class 中的那个function实体</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>dervied class constructor 中所有virtual base class 和base class constructor 被调用</li>
+<li>对象vprt被设置，指向相关virtual function table</li>
+<li>member initialization list 在constructor 内部展开</li>
+<li>执行程序直接赋值代码和生成对象的代码</li>
+</ol>
+<ul>
+<li>不要在虚基类中声明数据</li>
+</ul>
+<h4 id="5-5-semantics-of-destructor"><a href="#5-5-semantics-of-destructor" class="headerlink" title="5.5 semantics of destructor"></a>5.5 semantics of destructor</h4><ul>
+<li>如果class 未声明destructor 且member object 拥有destructor ，编译器自动合成destructor，否则不合成<blockquote>
+<ol>
+<li>destructor 函数本身最先执行</li>
+<li>member class object 执行自己的destructor</li>
+<li>object 每部vptr 重置</li>
+<li>直接上层的nonvirtual base class 以其声明的顺序的逆序执行destructor</li>
+<li>virtual base class 按照与构造顺序相反的顺序执行destructor</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<hr>
+<p>后边两章感觉理解不到位啊，缺少实踩代码坑</p>
+<h3 id="第六章-runtime-semantics"><a href="#第六章-runtime-semantics" class="headerlink" title="第六章 runtime semantics"></a>第六章 runtime semantics</h3><h4 id="6-2-new-delete-运算符"><a href="#6-2-new-delete-运算符" class="headerlink" title="6.2 new delete 运算符"></a>6.2 new delete 运算符</h4><pre><code>- new 和delete 底层以malloc 和free 实现
+- new 失败，必须在new 内部完成已分配空间的释放
+</code></pre><h4 id="6-3-临时对象的处理"><a href="#6-3-临时对象的处理" class="headerlink" title="6.3 临时对象的处理"></a>6.3 临时对象的处理</h4><pre><code>- 临时对象的销毁，必须在完整表达式求值过程的最后，该完整表达式造成临时对象的生成
+- 如果临时对象被reference 对象将残留到reference 生命周期结束
+</code></pre><h3 id="第七章-on-the-cusp-of-the-object-model"><a href="#第七章-on-the-cusp-of-the-object-model" class="headerlink" title="第七章 on the cusp of the object model"></a>第七章 on the cusp of the object model</h3><pre><code>- template
+&gt; member function 只在使用时具现出来
+- exception handing 快速检阅
+&gt; 0. throw 子句，发出exception
+  1. 多个catch 子句捕获相应类型的exception
+  2. try区段处理
+- RTTI
+&gt;  dynamic_cast 通过vptr指向type_info运行时判定类型实现转型，比static_cast代价高但是更安全
+&gt;  dynamic_cast 应用于pointer 时，安全转型则直接向下转型，不安全则pointer置0
+&gt;  dynamic_cast 应用于reference 时，安全转型则直接向下转型，不安全则返回一个bad_cast exception
+&gt;  typeid 返回一个 const reference，类型为type_info,
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/c/" rel="tag">#c++</a>
+          
+            <a href="/tags/comments/" rel="tag">#comments</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/26/leetcode279-Perfect-Squares-basic-dp/" rel="next" title="leetcode279. Perfect Squares(basic dp)">
+                <i class="fa fa-chevron-left"></i> leetcode279. Perfect Squares(basic dp)
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="TheOneAC" />
+          <p class="site-author-name" itemprop="name">TheOneAC</p>
+          <p class="site-description motion-element" itemprop="description">生如逆旅  一苇可航</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/TheOneAc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:scuhss@Gamil.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.quora.com/profile/SCUhss-%E9%BB%84%E5%B8%85" target="_blank" title="Quora">
+                  
+                    <i class="fa fa-fw fa-comments"></i>
+                  
+                  Quora
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/huang-shuai-4" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一章关于对象"><span class="nav-number">1.</span> <span class="nav-text">第一章关于对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二章-构造函数"><span class="nav-number">2.</span> <span class="nav-text">第二章 构造函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-default-constructor-的构建"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 default constructor 的构建</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#2-1-1“带有default-constructor-”的base-class-："><span class="nav-number">2.1.0.1.</span> <span class="nav-text">2.1.1“带有default constructor ”的base class  ：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-1-2“带有一个virtual-base-class”的class"><span class="nav-number">2.1.0.2.</span> <span class="nav-text">2.1.2“带有一个virtual base class”的class</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-program-transformation-semantics"><span class="nav-number">2.2.</span> <span class="nav-text">2.3 program transformation semantics</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-4-member-initialization-list"><span class="nav-number">2.3.</span> <span class="nav-text">2.4 member initialization list</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三章-the-semantaic-of-data"><span class="nav-number">3.</span> <span class="nav-text">第三章 the semantaic of data</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-data-member-绑定"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 data member 绑定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-data-member-layout"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 data member layout</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-data-member-存取"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 data member 存取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-6-pointer-to-data-member"><span class="nav-number">3.4.</span> <span class="nav-text">3.6 pointer to data member</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四章-the-semantics-of-function"><span class="nav-number">4.</span> <span class="nav-text">第四章 the semantics of function</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-member-调用方式"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 member 调用方式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第五章-the-semantics-of-construction-destruction-and-copy"><span class="nav-number">5.</span> <span class="nav-text">第五章  the semantics of construction destruction and  copy</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-无继承的对象构造"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 无继承的对象构造</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-继承体系下的对象构造"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 继承体系下的对象构造</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-5-semantics-of-destructor"><span class="nav-number">5.3.</span> <span class="nav-text">5.5 semantics of destructor</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第六章-runtime-semantics"><span class="nav-number">6.</span> <span class="nav-text">第六章 runtime semantics</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-2-new-delete-运算符"><span class="nav-number">6.1.</span> <span class="nav-text">6.2 new delete 运算符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-3-临时对象的处理"><span class="nav-number">6.2.</span> <span class="nav-text">6.3 临时对象的处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第七章-on-the-cusp-of-the-object-model"><span class="nav-number">7.</span> <span class="nav-text">第七章 on the cusp of the object model</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016.7.14 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheOneAC</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
