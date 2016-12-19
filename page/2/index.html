@@ -250,6 +250,203 @@
             
               
                 
+                <a class="post-title-link" href="/2016/10/09/APUE-Threads/" itemprop="url">
+                  APUE Threads
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-10-09T10:23:33+08:00" content="2016-10-09">
+              2016-10-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Threads/" itemprop="url" rel="index">
+                    <span itemprop="name">Threads</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>A thread ID is represented by the pthread_t data type. Implementations are allowed to use a structure to represent the pthread_t data type</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#include &lt;pthread.h&gt;</div><div class="line">int pthread_equal(pthread_t tid1, pthread_t tid2);</div><div class="line">Returns: nonzero if equal, 0 otherwise</div></pre></td></tr></table></figure>
+</li>
+<li><p>A thread can obtain its own thread ID by calling the pthread_self function.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">pthread_t</span> pthread_self(<span class="keyword">void</span>);</div><div class="line">Returns: the thread ID of the calling thread</div></pre></td></tr></table></figure>
+</li>
+<li><p>Thread Creation</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">int pthread_create(pthread_t *restrict tidp,</div><div class="line">const pthread_attr_t *restrict attr,</div><div class="line">void *(*start_rtn)(void *), void *restrict arg);</div><div class="line">Returns: 0 if OK, error number on failure</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>Note that the pthread functions usually return an error code when they fail. They don’t set errno like the other POSIX functions.</p>
+<ul>
+<li>Thread Termination<br>A single thread can exit in three ways, thereby stopping its flow of control, without terminating the entire process.</li>
+</ul>
+<ol>
+<li>return from the start routine. The return value is the thread’s exit code.</li>
+<li>be canceled by another thread in the same process.</li>
+<li>pthread_exit.<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">void pthread_exit(void *rval_ptr);</div><div class="line">int pthread_join(pthread_t thread, void **rval_ptr);</div><div class="line">Returns: 0 if OK, error number on failure</div></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<ul>
+<li>pthread_cancel: One thread cancel another in the same process <blockquote>
+<p>pthread_cancel doesn’t wait for the thread to terminate; it merely makes the request.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int pthread_mutex_timedlock(pthread_mutex_t *restrict mutex,</div><div class="line">const struct timespec *restrict tsptr);</div><div class="line">Returns: 0 if OK, error number on failure</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>the timeout value is reached, <code>pthread_mutex_timedlock</code> will return the error code <code>ETIMEDOUT</code> <code>without locking the mutex</code>.</p>
+<ul>
+<li>Reader–Writer Locks<br><code>hare in read, exclusive in write</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">int pthread_rwlock_init(pthread_rwlock_t *restrict rwlock,</div><div class="line">const pthread_rwlockattr_t *restrict attr);</div><div class="line">int pthread_rwlock_destroy(pthread_rwlock_t *rwlock);</div><div class="line">int pthread_rwlock_rdlock(pthread_rwlock_t *rwlock);</div><div class="line">int pthread_rwlock_wrlock(pthread_rwlock_t *rwlock);</div><div class="line">int pthread_rwlock_unlock(pthread_rwlock_t *rwlock);</div><div class="line">All return: 0 if OK, error number on failure</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>Cond_wait</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#include &lt;pthread.h&gt;</div><div class="line">int pthread_cond_signal(pthread_cond_t *cond);</div><div class="line">int pthread_cond_broadcast(pthread_cond_t *cond);</div><div class="line">Both return: 0 if OK, error number on failure</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>Cancel</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#include &lt;pthread.h&gt;</div><div class="line">int pthread_setcancelstate(int state, int *oldstate);</div><div class="line">$ state : PTHREAD_CANCEL_ENABLE/ PTHREAD_CANCEL_DISABLE</div><div class="line">int pthread_setcanceltype(int type, int *oldtype);</div><div class="line"># type : PTHREADCANCEL_DEFERRED / PTHREADCANCEL_ASYNCHRONOUS</div><div class="line">Returns: 0 if OK, error number on failure</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>Signal</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;semaphore.h&gt;</div><div class="line">int sem_init(sem_t *sem, 0, unsigned int value);</div><div class="line">int sem_wait(sem_t *s)//P</div><div class="line">int sem_post(sem_t *s)//V</div><div class="line">success return 0, else -1</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>线程安全</p>
+<blockquote>
+<p>不安全函数类</p>
+<ol>
+<li>不保护共享变量</li>
+<li>保持跨越多个调用状态的函数　：非原子操作</li>
+<li>返回指向静态变量指针的函数　：某个线程的返回覆盖其他线程的调用</li>
+<li>调用线程部不安全函数<ul>
+<li>调用２类线程一定不安全,只能重写保证线程安全</li>
+<li>调用１，３类时，用互斥所保护共享变量则线程安全</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>reentrant funtion : never change any shared-variables.</li>
+<li>reentrant funtion is a subset of thread-safe funtion</li>
+<li>some thread-safe funtion may be not reentrant.</li>
+</ul>
+<p><code>none-thread-safe library funtions</code></p>
+<ul>
+<li>rand</li>
+<li>strtok</li>
+<li>asctime</li>
+<li>ctime</li>
+<li>gethostbyaddr/gethostbyname</li>
+<li>int_ntoa</li>
+<li>locatime</li>
+</ul>
+<p><strong>互斥锁加锁，同时占用s,t两个锁的线程必须以相同顺序给s,t加锁</strong></p>
+</blockquote>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/01/Programming-With-POSIX-Threads/" itemprop="url">
                   Programming With POSIX Threads
                 </a>
@@ -1719,173 +1916,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/27/Mysql/" itemprop="url">
-                  Mysql
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-08-27T03:24:10+08:00" content="2016-08-27">
-              2016-08-27
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/SQL/" itemprop="url" rel="index">
-                    <span itemprop="name">SQL</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>管理用户：<br>USE mysql；<br>SELECT user FROM user；</li>
-<li>创建账户：<br>CTEATE USER name IDENTIFIED BY ‘PASSWAORD’；</li>
-<li>删除用户 DROP USER name；</li>
-<li>设置权限：<br>SHOW GRANTS FOR name；</li>
-<li>修改权限：<br>GRANT SELECT ON …. TO username；</li>
-</ul>
-<hr>
-<ul>
-<li>sql语句创建库:<br>SOURCE 绝对路径+文件名；<br>SHOW columns FROM tablename；<br>SHOW STATUS;<br>SHOW GRANTS;<br>SHOW CREATE TABLES;<br>SHOW ERRORS;</li>
-<li><p>create database and use<br>create database [if not exists]database_name;<br>show databases;<br>show tables;<br>drop database [if exists]database_name;<br>create table [if not exists] table_name(<br>  column_name data_type[size] [not null|null] [default value] [auto+increment]<br>)engine=engine_name;<br>alter table table_name<br>change/add/drop/rename column column_name ….</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">A temporary table is only available and accessible by the client who creates the table.</div><div class="line">SELECT </div><div class="line">    column_1, column_2, ...</div><div class="line">FROM</div><div class="line">    table_1</div><div class="line">[INNER | LEFT |RIGHT] JOIN table_2 ON conditions</div><div class="line">WHERE</div><div class="line">    conditions</div><div class="line">GROUP BY column_1</div><div class="line">HAVING group_conditions</div><div class="line">ORDER BY column_1</div><div class="line">LIMIT offset, length;</div></pre></td></tr></table></figure>
-</li>
-<li><p>A temporary table is only available and accessible by the client who creates the table.</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">CREATE [UNIQUE|FULLTEXT|SPATIAL] INDEX index_name</div><div class="line">USING [BTREE | HASH | RTREE] </div><div class="line">ON table_name (column_name [(length)] [ASC | DESC],...)</div></pre></td></tr></table></figure>
-</li>
-<li><p><strong>INNER JOIN</strong><br><img src="http://www.mysqltutorial.org/wp-content/uploads/2011/05/mysql-inner-join-Venn-Diagram.png" alt="inner join"></p>
-</li>
-<li><strong>INTERSET</strong>    <code>NO DUPLICATE</code><br>The left query produces a result set of (1,2,3)<br>The right query returns a result set of (2,3,4)<br>The INTERSECT operator returns the distinct rows of both result sets which are (2,3).<br><img src="http://www.mysqltutorial.org/wp-content/uploads/2016/05/MySQL-Intersect.png" alt="intersect"></li>
-</ul>
-<hr>
-<ul>
-<li><p><strong>Index</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">NUMERIC TYPES	DESCRIPTION</div><div class="line">TINYINT		A very small integer</div><div class="line">SMALLINT	   A small integer</div><div class="line">MEDIUMINT	  A medium-sized integer</div><div class="line">INT			A standard integer</div><div class="line">BIGINT		 A large integer</div><div class="line">DECIMAL		A fixed-point number</div><div class="line">FLOAT		  A single-precision floating point number</div><div class="line">DOUBLE	 	A double-precision floating point number</div><div class="line">BIT			A bit field</div></pre></td></tr></table></figure>
-</li>
-<li><p><strong>DATE functions</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">NOW();</div><div class="line">DATE(NOW());//format</div><div class="line">DATE_FORMAT(CURDATE(), &apos;%m/%d/%Y&apos;);//foramt_function</div><div class="line">CURRENT_TIME()//HHMMSS</div><div class="line">ADDTIME(CURRENT_TIME(), 023000), </div><div class="line">SUBTIME(CURRENT_TIME(), 023000);</div></pre></td></tr></table></figure>
-</li>
-<li><p><strong>TRANSICTION</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">START TRANSACTION</div><div class="line">....</div><div class="line">COMIT</div></pre></td></tr></table></figure>
-<p><code>if all the action in the tansaction sucessed it will commit,if not it will rollback to start</code></p>
-</li>
-<li><strong>TABLE LOCK</strong><br><code>LOCK TABLE tablename [READ|WRITE];</code><blockquote>
-<p><strong>read</strong>:<br>other session can read without lock but this session cao only read but not write;<br><strong>write</strong>:<br>only this session can read and write<br>other session cannot read and write untill the lock is released.</p>
-</blockquote>
-</li>
-</ul>
-<p>UNLOCK TABLES;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">``when a table locks other  session cann`t use it untill it unlocked``</div><div class="line">* * A REFERENCRS B  ON []</div><div class="line">  when B [] act which will act to A the same</div><div class="line">* SELECT column FROM tablename LIMIT num1，num2；</div><div class="line">输出从num1行开始的num2行</div><div class="line"></div><div class="line">&gt; **BETWEEN AND 两值之间</div><div class="line">[NOT] IN(范围) 制定范围之间</div><div class="line">LIKE 字符匹配**</div><div class="line"></div><div class="line">* MYSQL REGEXP</div></pre></td></tr></table></figure></p>
-<p>|       或<br>[ a-z ]     范围所有小写字母<br>.       任意字符<br>\      转义<br>[: :]       匹配字符类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* 重复前字符</div></pre></td></tr></table></figure></p>
-<p>*      0或多个匹配<br>+      1或多个匹配<br>？       0或1个匹配<br>{n}     指定数目匹配<br>{n，}     不少于制定数目匹配<br>{n,m}    匹配数目不超过m<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* 定位符</div></pre></td></tr></table></figure></p>
-<p>^        文本开始<br>$       文本结尾<br>[[:&lt;:]]     词开始<br>[[:&gt;:]]     词结束<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">**LIKE 匹配整串 REGEXP 匹配子串**</div><div class="line">mysq以concat()实现拼接，一般sql可以用+或者||实现</div><div class="line">* 文本函数</div></pre></td></tr></table></figure></p>
-<p>rtrim()     去掉数值右侧空格<br>Left()         返回串左边字符<br>Length()       返回串长度<br>Locate()       找出串中一个子串<br>Lower()     转换为小写<br>Ltrim()     去除左边空字符<br>Rtrim()     去除右边空字符<br>Right()     返回串右边字符<br>Soundex()     发音相似<br>Substring() 返回子串<br>Upper()     转换为大写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div></pre></td></tr></table></figure></p>
-<ol>
-<li>DISTINCT  只能用于COUNT(),不能用于COUNT(*)</li>
-<li>GROUP BY 子句嵌套分组时，数据将在最后规定的分组进行汇总</li>
-<li>HAVING 过滤分组子句</li>
-<li>WHERE 在数据分组前进行过滤，HAVING 在数据分组后过滤<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">等值连接即内连接INNER JOIN  ON 子句筛选</div><div class="line">自链接，使用表别名防止链接错误</div><div class="line"></div><div class="line">* 全文匹配</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>FULLTEXT（tablename）:为该列建立索引<br>MATCH（指定搜索列）AGAINST（搜索文本）[WITH QUERY EXPANSION]/查询扩展<br>FULLTEX与MATCH参数必须一致<br>全文匹配自动排序，相似度高的先输出<br>扩展查询：两次索引查询，第一次查询相似词，第二次用相似词查询并返回结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* IN BINARY MODE</div></pre></td></tr></table></figure></p>
-<p>+  包含，词必须存在<br>—   排除，词不出现<br>>  包含，增加等级<br>&lt;   包含，减少等级<br>()      词组排列组合<br>~   取消一个词的排序值<br>*  词尾通配符<br>“”  定义为一个短语<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">* 引擎类型</div></pre></td></tr></table></figure></p>
-<p>ENGINE=[]<br>InnoDB  事务处理，不支持全文搜索<br>MEMORY  快速MyISAM，内存存储，速度快<br>MyISAM  支持全文搜索不支持事务处理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">0. **外键不能跨引擎**</div><div class="line">1. **在视图定义中有如下操作不能更新:分组、链接、子查询、并、、聚集函数，distinct**</div><div class="line"></div><div class="line">* 创建存储过程：</div></pre></td></tr></table></figure></p>
-<p>CREATE PROCEDURE procedurename(参数)<br>BEGIN<br>………;<br>END;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">* 调用存储过程：CALL preocedurename（@p1，@p2，@p3）；</div><div class="line">*参数变量以@开头*</div></pre></td></tr></table></figure></p>
-<p>* 备份前FLUSH TABLES;             刷新<br>* 备份：mysqldump                  转储所有内文件到外部文件<br>* mysqlhotcopy                      复制数据库<br>* BACKUP TABLE /SELECT INTOOUTFILE  转储到外部文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">*</div></pre></td></tr></table></figure></p>
-<p>SHOW CHARACTER SET；         显示字符集<br>SHOW COLLATION；             显示校对<br>ANALYZE TABLE tablename；       分析表状态<br>CHECK TABLE tabkename；       检查表状态<br>```</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1931,7 +1961,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-count">37</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1939,7 +1969,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1948,7 +1978,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
