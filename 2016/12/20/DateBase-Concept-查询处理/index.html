@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="TCP/IP," />
+  <meta name="keywords" content="comments," />
 
 
 
@@ -86,32 +86,31 @@
 
 
 
-<meta name="description" content="IP : unreliable, connectionless datagram delivery service
-
-
-unreliable : when something wrong ,throw away the datagram and try to send ICMP to the source
-connectionless : each datagram transfered ind">
+<meta name="description" content="选择运算
+A1：线性搜索，平均代价Br/2，最坏情况Br
+A2: 二分搜索，属性有序，代价[logBr]索引选择
+A3: (主索引，码属性等值比较)可以检索到唯一一条满足条件的记录，代价：B+树树高加上读取一条记录I/O代价
+A4: (主索引，非码属性等值比较)主索引可以检索到多条满足条件的记录，且多条记录顺序存储，代价：B+树树高加上具有搜索码值的盘块数
+A5: (辅助索引，等值比较)索引字段为">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TCP/IP illustraed V1">
-<meta property="og:url" content="http://yoursite.com/2016/10/01/TCPIP-illustraed-V1/index.html">
+<meta property="og:title" content="DateBase Concept 查询处理">
+<meta property="og:url" content="http://yoursite.com/2016/12/20/DateBase-Concept-查询处理/index.html">
 <meta property="og:site_name" content="TheOneAC">
-<meta property="og:description" content="IP : unreliable, connectionless datagram delivery service
-
-
-unreliable : when something wrong ,throw away the datagram and try to send ICMP to the source
-connectionless : each datagram transfered ind">
-<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/RIP%20in%20UDP.png">
-<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/D%20IP%20map%20into%20Ethernet%20address.png">
-<meta property="og:image" content="http://odfcr7qs4.bkt.clouddn.com/SNMP.png">
-<meta property="og:updated_time" content="2016-10-18T10:03:52.202Z">
+<meta property="og:description" content="选择运算
+A1：线性搜索，平均代价Br/2，最坏情况Br
+A2: 二分搜索，属性有序，代价[logBr]索引选择
+A3: (主索引，码属性等值比较)可以检索到唯一一条满足条件的记录，代价：B+树树高加上读取一条记录I/O代价
+A4: (主索引，非码属性等值比较)主索引可以检索到多条满足条件的记录，且多条记录顺序存储，代价：B+树树高加上具有搜索码值的盘块数
+A5: (辅助索引，等值比较)索引字段为">
+<meta property="og:updated_time" content="2016-12-20T09:28:57.097Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TCP/IP illustraed V1">
-<meta name="twitter:description" content="IP : unreliable, connectionless datagram delivery service
-
-
-unreliable : when something wrong ,throw away the datagram and try to send ICMP to the source
-connectionless : each datagram transfered ind">
-<meta name="twitter:image" content="http://odfcr7qs4.bkt.clouddn.com/RIP%20in%20UDP.png">
+<meta name="twitter:title" content="DateBase Concept 查询处理">
+<meta name="twitter:description" content="选择运算
+A1：线性搜索，平均代价Br/2，最坏情况Br
+A2: 二分搜索，属性有序，代价[logBr]索引选择
+A3: (主索引，码属性等值比较)可以检索到唯一一条满足条件的记录，代价：B+树树高加上读取一条记录I/O代价
+A4: (主索引，非码属性等值比较)主索引可以检索到多条满足条件的记录，且多条记录顺序存储，代价：B+树树高加上具有搜索码值的盘块数
+A5: (辅助索引，等值比较)索引字段为">
 
 
 
@@ -132,9 +131,9 @@ connectionless : each datagram transfered ind">
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/10/01/TCPIP-illustraed-V1/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/12/20/DateBase-Concept-查询处理/"/>
 
-  <title> TCP/IP illustraed V1 | TheOneAC </title>
+  <title> DateBase Concept 查询处理 | TheOneAC </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -264,7 +263,7 @@ connectionless : each datagram transfered ind">
             
             
               
-                TCP/IP illustraed V1
+                DateBase Concept 查询处理
               
             
           </h1>
@@ -276,11 +275,30 @@ connectionless : each datagram transfered ind">
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-10-01T11:36:20+08:00" content="2016-10-01">
-              2016-10-01
+            <time itemprop="dateCreated" datetime="2016-12-20T17:27:35+08:00" content="2016-12-20">
+              2016-12-20
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/SQL/" itemprop="url" rel="index">
+                    <span itemprop="name">SQL</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -304,131 +322,52 @@ connectionless : each datagram transfered ind">
       
 
       
-        <blockquote>
-<p><code>IP : unreliable, connectionless datagram delivery service</code></p>
-</blockquote>
-<ul>
-<li>unreliable : when something wrong ,throw away the datagram and try to send ICMP to the source</li>
-<li>connectionless : each datagram transfered indepently which may get delivered out of order, not maintain any state information about sucessive datagrams</li>
-<li><code>network traverse order</code>is<code>big endian</code> </li>
-<li><p>IP rout search : <code>IP address</code> <code>network ID</code> <code>default</code>routing table<br><code>A complete matching host address is searched for before a matching network ID.</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">32-bit IP  ----&gt;  48-bit MAC</div><div class="line">   |       ARP       |</div><div class="line">   |       RARP  	|</div><div class="line">   |&lt;----------------|</div></pre></td></tr></table></figure>
-</li>
-<li><p>ARP Cache :maintains the recent mapping from IP to hardware address(MAC)</p>
-</li>
-<li>Proxy ARP :a router answer ARP requests on one of its networks for a host on another of its networks </li>
-<li>Gratuitous ARP:a host sends an ARP request looking for its own IP address</li>
+        <h3 id="选择运算"><a href="#选择运算" class="headerlink" title="选择运算"></a>选择运算</h3><ul>
+<li>A1：线性搜索，平均代价Br/2，最坏情况Br</li>
+<li>A2: 二分搜索，属性有序，代价[logBr]<h4 id="索引选择"><a href="#索引选择" class="headerlink" title="索引选择"></a>索引选择</h4></li>
+<li>A3: (主索引，码属性等值比较)可以检索到唯一一条满足条件的记录，代价：B+树树高加上读取一条记录I/O代价</li>
+<li>A4: (主索引，非码属性等值比较)主索引可以检索到多条满足条件的记录，且多条记录顺序存储，代价：B+树树高加上具有搜索码值的盘块数</li>
+<li>A5: (辅助索引，等值比较)索引字段为码属性直接得到一条记录．索引字段为非码属性，得到多条记录<h4 id="比较选择"><a href="#比较选择" class="headerlink" title="比较选择"></a>比较选择</h4></li>
+<li>A6: (主索引，比较)B+树有序主索引</li>
+<li>A7: (辅助索引，比较)有序辅助索引，小值从小段开始，大值从　大端开始<h4 id="比较选择-1"><a href="#比较选择-1" class="headerlink" title="比较选择"></a>比较选择</h4></li>
+<li>A8: 索引合取（取交）先现则满足一个条件的记录，加入缓冲区，在缓冲区中验证其他条件</li>
+<li>A9: (组合所用合取)直接利用合适的符合索引查询</li>
+<li>A10: (记录标识符的交)每个条件遍历标记一边，取所有被标记的交际</li>
+<li>A11: (记录标识符的并）逐一扫描索引获取满足单个条件的元祖指针，将所有指针集做并集</li>
 </ul>
-<p><strong>RARP : use the physical address to get the the IP address</strong></p>
-<blockquote>
-<ol>
-<li>RARP request(broadcast), RARP reply (unicast)</li>
-<li>RARP request are sen as hardware-level broadcast, not forward by routers.</li>
-<li>multiply RARP server are normally provided on a single nework<br>all the server replys, but the rquest systerm use the first RARP reply that ir receives.</li>
-</ol>
-</blockquote>
-<p><strong>ICMP</strong></p>
-<blockquote>
-<ul>
-<li>ICMP message are transmitted within IP datagrams.</li>
-<li>chesum cover the entire message</li>
-<li>ICMP donot response to:</li>
+<h3 id="连接运算"><a href="#连接运算" class="headerlink" title="连接运算"></a>连接运算</h3><ul>
+<li>嵌套循环（重名属性会出现）</li>
+<li>块嵌套循环，每次在块内循环嵌套检查元组匹配，有效减少比较次数</li>
+<li>索引嵌套循环连接：嵌套循环连接的内层如果有索引，使用索引代替循环</li>
+<li>归并链接：用于自然链接和等值连接<ul>
+<li>双有序直接有序归并</li>
+<li>单有序，归并后，对索引项进行按地址排序，可实现有序</li>
 </ul>
-<ol>
-<li>An ICMP error message</li>
-<li>A datagram destined to an IP broadcast address.</li>
-<li>Datagram sent as a  link-layer broadcast.</li>
-<li>A fragment other than the first</li>
-<li>A datagram whose source address dose not define a single host.</li>
-</ol>
-</blockquote>
-<p><strong>IP route</strong></p>
-<blockquote>
-<ul>
-<li>netstat -rn<br>U: the route is up;<br>G: the route is to differentiate between an indirect route(G) and a direct route<br>H : specifies the destination address is a complete host address.<ul>
-<li>indirect route: IP address specify the destination and the link layer address specifies the gateway.</li>
-<li>direct route : both the IP address and the  link-layer address specifies the destinations.</li>
+</li>
+<li>消除重复: 代价高，明确声明是否去重<ul>
+<li>归并/散列可直接在过程中消除重复</li>
+</ul>
+</li>
+<li>集合<ul>
+<li>并集：　Hr建立散列索引，将Hs中元组加入到上诉散列索引中，条件是该元组不在散列索引中，散列索引最终即结果</li>
+<li>交集：　Hr建立散列索引，对Hs中元组探查散列索引，出现在散列索引的记录放入结果</li>
+<li>差集：　Hr建立散列索引，对Hs中元组探查散列索引，出现在散列索引的记录从索引中删除</li>
 </ul>
 </li>
 </ul>
-</blockquote>
-<p><strong> match host -&gt; match subnet -&gt; default gateway</strong></p>
-<ul>
-<li>The ICMP “host unreachable” error message is sent by a router when it receives an IP datagram that it cannot deliver or forward</li>
-<li>The ICMP redirect error is sent by a router to the sender of an IP datagram when the datagram should have been sent to a different router</li>
+<h3 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h3><pre><code>-　计算连接法：
+    - 左外连接：计算链接，将左集未参与链接集合扩展放入结果
+    - 右外连接：计算链接，将右集未参与链接集合扩展放入结果
+    - 全外连接：计算链接，将左右集未参与链接集合扩展放入结果
+- 嵌套修改法
+    - 左外连接：左边外循环，右表内循环，内外匹配加入结果，内部均不匹配的外记录也加入结果
+    - 右外连接：右边外循环，左表内循环，内外匹配加入结果，内部均不匹配的外记录也加入结果
+- 扩展归并连接获得自然链接和等值全外联
+    - 归并完成，将不与另一关系任一记录匹配的记录加入结果
+</code></pre><h3 id="表达式计算"><a href="#表达式计算" class="headerlink" title="表达式计算"></a>表达式计算</h3><ul>
+<li>实体化：中间结果实体化，供下一层运算，磁盘代价高，双缓冲降低磁盘代价</li>
+<li>流水线：生产者驱动流水线，需求驱动流水线</li>
 </ul>
-<p><strong>Dynamic route</strong></p>
-<ul>
-<li>RIP messages are carried in UDP datagrams,<code>port number for RIP is UDP port 520</code><br><img src="http://odfcr7qs4.bkt.clouddn.com/RIP%20in%20UDP.png" alt="RIP in UDP"></li>
-</ul>
-<blockquote>
-<ol>
-<li>A stub AS has only a single connection to one other AS. A stub AS carries only local traffic.</li>
-<li>A multihomed AS has connections to more than one other AS, but refuses to carry transit traffic.</li>
-<li>A transit AS has connections to more than one other AS and is designed, under certain policy restrictions, to carry both local and transit traffic.</li>
-</ol>
-<p><strong>BGP uses TCP as its transport protocol, distance vector protocol, but ennumberate the route to each destination</strong></p>
-</blockquote>
-<p><strong>UDP</strong></p>
-<ul>
-<li>The UDP/TCP c<code>hecksum</code>covers <code>the header and the data,</code>but not IP</li>
-<li>both UDP and TCP include a <code>12-byte pseudo-header</code> with the <code>UDP datagram</code> (or TCP segment) just <code>for the checksum computation</code></li>
-<li>fragmentation : if <code>one fragment</code> is <code>lost</code> the <code>entire datagram</code> must be <code>retransmitted.</code></li>
-<li>An <code>IP datagram</code>is the <code>unit of end to end transmission</code> at IP layer ,but a <code>packet</code> is the unit of data passed between  <code>the IP layer and the link layer</code>.</li>
-</ul>
-<blockquote>
-<p><code>Broadcasting and multicasting only apply to UDP</code></p>
-</blockquote>
-<p><img src="http://odfcr7qs4.bkt.clouddn.com/D%20IP%20map%20into%20Ethernet%20address.png" alt="Mapping of a class D IP address into Ethernet multicast address"></p>
-<p><strong>IGMP</strong></p>
-<blockquote>
-<ol>
-<li>A host sends an IGMP report when the first process joins a group. If multiple processes on a given host join the same group, only one report is sent, the first time a process joins that group. This report is sent out the same interface on which the process joined the group.</li>
-<li>A host does not send a report when processes leave a group, even when the last process leaves a group. The host knows that there are no members in a given group, so when it receives the next query (next step), it won’t report the group.</li>
-<li>A multicast router sends an IGMP query at regular intervals to see if any hosts still have processes belonging to any groups. The router must send one query out each interface. The group address in the query is 0 since the router expects one response from a host for every group that contains one or more members on that host.</li>
-<li>A host responds to an IGMP query by sending one IGMP report for each group that still contains at least one process.</li>
-</ol>
-<ul>
-<li>an application must convert a hostname to an IP address before it can ask TCP to open a connection or send a datagram using UDP. The TCP/IP protocols within the kernel know nothing about the DNS.</li>
-</ul>
-</blockquote>
-<ul>
-<li>TFTP use in UDP<blockquote>
-<ul>
-<li>each exchange start with the clinet asking the server read a file for the clinet or write a file for the client</li>
-<li>be used only during the bootstrap process of diskless systems. It uses only a few message formats and a stop-and-wait protocol.</li>
-<li>he TFTP server provides concurrency by creating a new UDP port for each client.</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<blockquote>
-<p>connection-oriented, reliable, byte stream service</p>
-</blockquote>
-<p><strong>TCP Interactive Data Flow</strong></p>
-<blockquote>
-<p>each interactive keystroke normally generates a datapacket in Rlogin</p>
-</blockquote>
-<p><code>four segments:</code></p>
-<blockquote>
-<p>(1) the interactive keystroke from the client,<br>(2) anacknowledgment of the keystroke from the server,<br>(3) the echo of the keystroke from the server,<br>(4)an acknowledgment of the echo from the client.</p>
-</blockquote>
-<p><code>Nagle algorithm</code></p>
-<blockquote>
-<ul>
-<li>a TCP connection can have only one outstanding small segment that has not yet been acknowledged. No additional small segments can be sent until the acknowledgment is received. Instead, small amounts of data are collected by TCP and sent in a single segment when the acknowledgment arrives.</li>
-<li>Delayed acknowledgments are used by the receiver of these small segments to see if the acknowledgment can be piggybacked along with data going back to the sender. This often reduces the number of segments, especially for an Rlogin session, where the server is echoing the characters typed at the client.</li>
-<li>On slower WANs the Nagle algorithm is often used to reduce the number of these small segments. This algorithm limits the sender to a single small packet of unacknowledged data at any time. But there are times when the Nagle algorithm needs to be disabled, and we showed an example of this.</li>
-</ul>
-</blockquote>
-<ul>
-<li>flow control is done by the Rlogin client.</li>
-</ul>
-<p><strong>SNMP</strong></p>
-<blockquote>
-<p><code>SNMP uses UDP</code>,a request from the manager may not arrive at the agent, The manager probably wants to implement <code>a timeout and retransmission.</code><br>The manager sends its three <code>requests</code> to <code>UDP port 161</code>. The agent sends <code>traps</code> to <code>UDP port 162</code>.</p>
-</blockquote>
-<p><img src="http://odfcr7qs4.bkt.clouddn.com/SNMP.png" alt="SNMP"></p>
 
       
     </div>
@@ -451,7 +390,7 @@ connectionless : each datagram transfered ind">
       
         <div class="post-tags">
           
-            <a href="/tags/TCP-IP/" rel="tag">#TCP/IP</a>
+            <a href="/tags/comments/" rel="tag">#comments</a>
           
         </div>
       
@@ -460,17 +399,13 @@ connectionless : each datagram transfered ind">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/09/23/sctp/" rel="next" title="SCTP">
-                <i class="fa fa-chevron-left"></i> SCTP
+              <a href="/2016/12/19/Thinking after a little Java lab/" rel="next" title="post">
+                <i class="fa fa-chevron-left"></i> post
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/10/01/Programming-With-POSIX-Threads/" rel="prev" title="Programming With POSIX Threads">
-                Programming With POSIX Threads <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -628,7 +563,7 @@ connectionless : each datagram transfered ind">
               
             
             
-              <p class="post-toc-empty">This post does not have a Table of Contents</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#选择运算"><span class="nav-number">1.</span> <span class="nav-text">选择运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#索引选择"><span class="nav-number">1.1.</span> <span class="nav-text">索引选择</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#比较选择"><span class="nav-number">1.2.</span> <span class="nav-text">比较选择</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#比较选择-1"><span class="nav-number">1.3.</span> <span class="nav-text">比较选择</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接运算"><span class="nav-number">2.</span> <span class="nav-text">连接运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#外连接"><span class="nav-number">3.</span> <span class="nav-text">外连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表达式计算"><span class="nav-number">4.</span> <span class="nav-text">表达式计算</span></a></li></ol></div>
             
           </div>
         </section>
