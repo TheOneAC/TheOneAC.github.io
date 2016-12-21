@@ -250,6 +250,142 @@
             
               
                 
+                <a class="post-title-link" href="/2016/10/10/Network-programming-csapp/" itemprop="url">
+                  Network programming csapp
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-10-10T11:19:22+08:00" content="2016-10-10">
+              2016-10-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Network-Programming/" itemprop="url" rel="index">
+                    <span itemprop="name">Network Programming</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>IP 地址</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">struct in_addr&#123;</div><div class="line">	unsigned int s_addr</div><div class="line">&#125;</div><div class="line">#include &lt;netinet/in.h&gt;</div><div class="line">unsigned long int  htonl(unsigned long int hostlong);</div><div class="line">unsigned short int  htons(unsigned short int hostshort);</div><div class="line">本地转网络字节序</div><div class="line">unsigned long int ntohl(unsigned long int hostlong);</div><div class="line">unsigned short int ntohs(unsigned short int hostlong);</div><div class="line">网络转本地字节</div><div class="line">均以无符号数转换</div><div class="line">网络字节摩恩为：大端，即有效地位存放在地址高位</div><div class="line">＃include&lt;arpa/inet.h&gt;</div><div class="line">int inet_aton((const char*cp, struct in_addr *inp);</div><div class="line">点分十进制串(cp)转网络字节序IP(inp)</div><div class="line">int inet_ntoa (struct in_addr in);</div><div class="line">网络字节序IP 转点分十进制</div></pre></td></tr></table></figure>
+</li>
+<li><p>Domain structure</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#include &lt;netdb.h&gt;</div><div class="line">struct host&#123;</div><div class="line">	char *h_name;        // domain name</div><div class="line">    char **h_aliases;    // Null-terminated array of domain names</div><div class="line">    int h_addrtype;      // host type (AF_INET)</div><div class="line">    int h_length;        // length of addr in bytes</div><div class="line">    char **h_addr_list;  // Null-terminated array of in_addr strcuts</div><div class="line">&#125;</div><div class="line">struct  hostent * gethostbyname(const char* name);</div><div class="line">strcut hostent *gethostbtaddr(const char* addr,</div><div class="line">				int len(sizeof(addr)),int type(AF_INET))</div><div class="line">success none -null return, else set h_errno</div></pre></td></tr></table></figure>
+</li>
+<li><p>Socket structure</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#include&lt;netinet/in.h&gt;</div><div class="line">struct sockaddr&#123;</div><div class="line">	unsigned short sin_family; // address falily (AF_INET)</div><div class="line">    char      sa_data[14];     // address data</div><div class="line">&#125;;</div><div class="line">struct sockaddr_in&#123;</div><div class="line">	unsigned short sin_family;// AF_INET</div><div class="line">    unsigned short sin_port;  // port number</div><div class="line">    unsigned short sin_addr;  //  IP address</div><div class="line">    unsigned char sin_zero[8] // pad</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>Socket function</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">#include &lt;sys/typs.h&gt;</div><div class="line">#include &lt;sys/socket.h&gt;</div><div class="line">int socket(inr domain, SOCK_TREAM, int protoctol);</div><div class="line">成功非负，失败－１</div><div class="line">常规调用　: clinetfd = socket(AF_INET,SOCK_STREAM,0);</div><div class="line">int connect(int sockfd, struct sockaddr * server_addr, int addrlen);</div><div class="line">成功０，失败－１</div><div class="line">connect函数与套接字地址为serv_addr服务器连接，阻塞直到连接成功</div><div class="line">int bind(int sockfd, struct *my_addr, int len);</div><div class="line">success 0,eles -1</div><div class="line">将my_addr服务器套接字地址与套接字描述符sockfd绑定，addrlen = sizeof(sockaddr_in);</div><div class="line">int listen(int sockfd, int backlog);</div><div class="line">成功０，失败－１</div><div class="line">将sockfd从主动套接字转为监听套接字，backlog 设置拒绝连接前的等待队列请求数量</div><div class="line">int accept(int listenfd, struct sockaddr *adr, int * addrlen);</div><div class="line">成功非负，失败－１</div><div class="line">等待到达侦听描述符sockfd的连接请求，将客户端套接字地址写入addr, 并返回已链接符</div></pre></td></tr></table></figure>
+</li>
+<li><h6 id="数据传输"><a href="#数据传输" class="headerlink" title="数据传输"></a>数据传输</h6></li>
+<li><code>send</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;sys/socket.h&gt;</div><div class="line">ssize_t send(int sockfd, const void *buf, size_t nbytes, int flags);</div><div class="line">ssize_t sendto(int sockfd, const void *buf, size_t nbytes, int flags, const struct sockaddr *destaddr, socklen_t destlen);</div><div class="line">ssize_t sendmsg(int sockfd, const struct msghdr *msg, int flags);</div><div class="line">Returns: number of bytes sent if OK, −1 on error</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p><code>sendto</code> 可在无连接端口上指定目标地址</p>
+<ul>
+<li><code>receive</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ssize_t recv(int sockfd, void *buf, size_t nbytes, int flags);</div><div class="line">ssize_t recvfrom(int sockfd, void *restrict buf, size_t len, int flags, struct sockaddr *restrict addr, socklen_t *restrict addrlen);</div><div class="line">ssize_t recvmsg(int sockfd, struct msghdr *msg, int flags);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/09/APUE-Sockets/" itemprop="url">
                   APUE Sockets
                 </a>
@@ -1768,177 +1904,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/31/补课之后/" itemprop="url">
-                  after
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-08-31T20:49:49+08:00" content="2016-08-31">
-              2016-08-31
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Dairy/" itemprop="url" rel="index">
-                    <span itemprop="name">Dairy</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="写在补课之后："><a href="#写在补课之后：" class="headerlink" title="写在补课之后："></a>写在补课之后：</h3><p>**</p>
-<ul>
-<li>补课强度高，消化不良，但是有一点明确，让你知道要学什么</li>
-<li>有一堆志同道合的人一块自习撸码还是很享受的，科大的实验课真心不错</li>
-<li>碰撞，或者老司机带路跟自己干还是不一样的</li>
-<li>将来找团队，找妹子也一定要志同道合啊…… :joy: :joy:</li>
-</ul>
-<hr>
-<ul>
-<li><p>数据结构：树变种，复杂堆，红黑树，图剪枝回溯</p>
-<blockquote>
-<p>leetcode      随算法导论进行</p>
-</blockquote>
-</li>
-<li><p>网络：socket 编程，网络协议，TCP/IP三卷，</p>
-<blockquote>
-<p>UNP           随高网进行</p>
-</blockquote>
-</li>
-<li><p>操作系统：linux私房菜未看完，在正式开学前搞完</p>
-<blockquote>
-<p>APUE          随CSAPP进行</p>
-</blockquote>
-</li>
-<li><p>数据库：范式理解需要加深</p>
-<blockquote>
-<p>高性能mysql   随高级数据库进行</p>
-</blockquote>
-</li>
-<li><p>c++：</p>
-<blockquote>
-<p>c++ primier ：后四章理解不够，<br>effective c++ ：中关于泛型编程 理解不足，缺少使用经验<br>stl 标准库 ：明显理解不够需要重新理解思考                          随c++ 面向对象复习</p>
-</blockquote>
-</li>
-<li>当前未涉及领域<blockquote>
-<p>机器学习/推荐算法，python<br>python 参考手册<br>提前理解孟宁老师网络程序课程涉及的机器学习框架和内容<br>刷网易云课堂：保健老师编译原理计划待定</p>
-</blockquote>
-</li>
-</ul>
-<hr>
-<blockquote>
-<p><strong>尝试图形化笔记，增加会议性笔记，以代码注释代替文字笔记<br>辅助技能：git不能满足于基本操作，markdown语法加入html，vim进阶，linux深入</strong></p>
-</blockquote>
-<h4 id="思考："><a href="#思考：" class="headerlink" title="思考："></a>思考：</h4><p><code>1、看书的正确方式：从c++书籍的经验看，直接上效果低，先用遇到问题查询，缺哪块补哪块</code><br><code>2、笔记的正确方式：禁止抄书，以思考写笔记，注意总和测试</code></p>
-<ul>
-<li>问题：<blockquote>
-<p>书籍pdf 还是纸质版？<br>中文书籍书籍速度快，效果差，解析未必透侧<br>文外书籍，阅读慢，讲解透侧，官网教程代码简洁</p>
-</blockquote>
-</li>
-</ul>
-<ul>
-<li>是否涉入JAVA：<blockquote>
-<p>优点：JAVA应用广，框架多，封装良好，岗位多<br>困境：目前位涉猎java领域，c++（算法）/python（机器学习） 将在第一学期计划中占据很大代码量</p>
-</blockquote>
-</li>
-</ul>
-<p><code>技能树存在java 和 编译原理  缺口</code><br><code>分布式缺口在下学期的分布式与云计算课同步补齐</code></p>
-<hr>
-<p>###总结：<br><strong>增加代码量，代码为主，看书为辅<br>新知识关注官网tutorial<br>图形化笔记，回忆性笔记<br>重理解，英文化</strong></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1984,7 +1949,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">38</span>
+              <span class="site-state-item-count">39</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
