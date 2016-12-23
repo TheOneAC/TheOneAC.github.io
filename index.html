@@ -250,6 +250,291 @@
             
               
                 
+                <a class="post-title-link" href="/2016/12/23/算法导论-系列二：排序/" itemprop="url">
+                  算法导论 系列二：排序
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-12-23T22:26:02+08:00" content="2016-12-23">
+              2016-12-23
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CLRS/" itemprop="url" rel="index">
+                    <span itemprop="name">CLRS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h4><ul>
+<li>完全二叉树实现：节点i的左子2i，右子2i+1，父节点i/2<ul>
+<li>build_max_heap 复杂度O(n)</li>
+<li>heap_sort 复杂度O(nlgn)n取最小</li>
+<li>inset extract_max max_heap 复杂度均为O(n)</li>
+</ul>
+</li>
+<li>保持堆性质（递归下调）<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161223211606370-606442304.png" alt=""></li>
+<li>建堆：O(n)次 调用 max_heap复杂为O（lgn）准确上界为O（n）<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161223211825886-1508300400.png" alt=""><h3 id="优先级队列"><a href="#优先级队列" class="headerlink" title="优先级队列"></a>优先级队列</h3></li>
+<li>内部由堆实现<ul>
+<li>抽取最大值<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161223213945979-895297262.png" alt=""></li>
+</ul>
+</li>
+</ul>
+<h3 id="堆操作分析"><a href="#堆操作分析" class="headerlink" title="堆操作分析"></a>堆操作分析</h3><ul>
+<li>建堆：从n/2至0调用求最大，调整位置使得根最大</li>
+<li>插入：直接插入数组尾部，递归向上调整，保持堆性质</li>
+<li>删除最值：直接交换根和尾值。缩小空间（-1），递归向下调整保持堆性质</li>
+<li>优先队列操作间接调用堆操作</li>
+<li>k路归并，构建k路小根堆，每次取最小值，复杂度O(nlgk）<h4 id="快排"><a href="#快排" class="headerlink" title="快排"></a>快排</h4></li>
+<li>找出pivit，以pivot为轴心做一次partition，分割成两个子集，对子集递归调用快排</li>
+<li>partiiton过程<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161223215246948-413701979.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161223220130198-2017095297.png" alt=""></li>
+<li>快排性能分析：划分极端不对称时，复杂度退化为O(n^2)序列有序时性能退化最严重</li>
+<li>随机化版本：随机选取pivot<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161223215837276-1160478488.png" alt=""></li>
+<li>利用随机化版本，快排期望时间复杂度为O(nlgn)</li>
+</ul>
+<h3 id="线性时间排序"><a href="#线性时间排序" class="headerlink" title="线性时间排序"></a>线性时间排序</h3><ul>
+<li>计数排序<ul>
+<li>n个输入元素每一个都介于0~k之间，且k=O(n)</li>
+<li>对每一个输入的元素x都直接确定出比x小的元素的个数，则可以直接将其放入排序后的位置<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161223221244214-1375705305.png" alt=""></li>
+<li>倒序插入是为了保证稳定性，即值相同元素的插入顺序与排序前顺序保持一致 </li>
+</ul>
+</li>
+<li>基数排序<ul>
+<li>先按低位排序，然后递归的的向高位排序</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/23/算法导论-系列一：算法分析基础/" itemprop="url">
+                  算法导论 系列一：算法分析基础
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-12-23T22:25:20+08:00" content="2016-12-23">
+              2016-12-23
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CLRS/" itemprop="url" rel="index">
+                    <span itemprop="name">CLRS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="循环不变式与算法正确性"><a href="#循环不变式与算法正确性" class="headerlink" title="循环不变式与算法正确性"></a>循环不变式与算法正确性</h3><ul>
+<li>初始化：循环第一轮开始前是正确的</li>
+<li>保持： 每次迭代之后，下次迭代开始前，保持正确</li>
+<li>终止： 循环节俗时，算法性质保持正确</li>
+<li>以插入排序为例：一个元素必定有序，插入一个元素保证有序，迭代至最后一个元素，整体必然有序<h3 id="传统分析方法与表示"><a href="#传统分析方法与表示" class="headerlink" title="传统分析方法与表示"></a>传统分析方法与表示</h3></li>
+<li>最坏情况：运行时间的上界</li>
+<li>合并排序使用分治法，最坏运行情况为O(nlgn)</li>
+<li>在合并排序中对小数组使用插入排序<ul>
+<li>n个元素分为定长k的小数组排序，共分为n/k个子数组，每个时间复杂度为k<em>k，总的时间复杂度为n/k</em>k*k = O(nk)</li>
+<li>合并n/k个小数组，复杂度最差为n*lg（n/k）</li>
+</ul>
+</li>
+<li>上下渐进界<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161223192206011-2090820165.png" alt=""></li>
+<li>代换法<ul>
+<li>猜测解的形式，用数学归纳写出解有效的常数，调整边界条件</li>
+</ul>
+</li>
+<li>递归树方法：每层代价之和即为代价上界<ul>
+<li>对T(n) = 3T(n/4) + cn^2<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161223195950432-580000624.png" alt=""></li>
+</ul>
+</li>
+<li>主定理<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161223200211261-1800195280.png" alt=""></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/12/21/DataBase-Concept/" itemprop="url">
                   DataBase Concept
                 </a>
@@ -1743,360 +2028,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/25/TCP协议簇/" itemprop="url">
-                  TCP协议簇
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-10-25T10:41:48+08:00" content="2016-10-25">
-              2016-10-25
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="part-1"><a href="#part-1" class="headerlink" title="part 1"></a>part 1</h4><blockquote>
-<h6 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h6><ul>
-<li>比特流传输</li>
-<li>比特同步、物理拓扑</li>
-<li>传输方式：半双工、双工<h6 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h6></li>
-<li>节点间帧传输</li>
-<li>组帧</li>
-<li>加入物理地址</li>
-<li>流量控制：发送速度小于接受速度</li>
-<li>接入控制：决定链路控制权</li>
-<li>确保组网内部节点间传递<h6 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h6></li>
-<li>确保源点到终点间的分组交付</li>
-<li>路由选择</li>
-<li>点点交付<h6 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h6></li>
-<li>报文源点到终点的端端交付</li>
-<li>分段与重装<h6 id="会话层"><a href="#会话层" class="headerlink" title="会话层"></a>会话层</h6></li>
-<li>会话控制与同步<h6 id="表示层"><a href="#表示层" class="headerlink" title="表示层"></a>表示层</h6></li>
-<li>编码转换</li>
-<li>信息加密与压缩<h6 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h6></li>
-<li>虚拟终端</li>
-<li>文件传输与管理</li>
-<li>邮件服务和名录服务<br><img src="http://odfcr7qs4.bkt.clouddn.com/%E5%9B%BE2.14.PNG" alt="图2.14"></li>
-<li>以太网数据帧长46~1500字节</li>
-<li>隐蔽站问题：先发一个请求服务帧（RTS），请求服务时间，接收站广播(CTS)在服务时间内只为请求站服务</li>
-<li>中继器：连接同一子网的不同网段</li>
-<li>集线器：多端口转发</li>
-<li>网桥：工作在链路层，检查MAC地址，过滤帧转发地址</li>
-<li>透明网桥： 帧转发，自学习，避免环路</li>
-<li>路由器转发会修改物理地址，工作在网络层，<ul>
-<li>整个传递过程目的IP地址不变</li>
-<li>路由器接受前，目的物理地址是路由器地址</li>
-<li>接收后转发，源物理地址是路由器物理地址<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">网络地址：主机位全0</div><div class="line">直接广播地址：主机位全1</div><div class="line">受限广播地址：全1</div><div class="line">这个网络这个主机：全0</div><div class="line">这个网络特定主机：网络位全0</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<p>路由表</p>
-<ul>
-<li>目的网络地址：使用特定网络地址转发</li>
-<li>下一跳地址：直接交付时为空</li>
-<li>接口位置：定义转发接口</li>
-<li>目的地址查找成功，ARP映射获得物理地址，帧转发到下一跳<pre><code>        OP 源MAC 源IP 目的MAC 目的IP
-ARP请求： 1  *      *            *
-ARP响应： 2  *      *     *      *
-RARP请求： 3  *
-RARP响应： 4  *      *     *      *
-</code></pre><img src="http://odfcr7qs4.bkt.clouddn.com/%E5%9B%BE8.10IP%E9%80%89%E9%A1%B9.PNG" alt="图8.10IP选项格式"><br>IP报文总长20~65535，首部长：20~60字节<br>总长以1字为单位，首部 长以4字节为单位<br>分片偏移以8字为单位，相对于原始数据包起点</li>
-<li>IP协议字段：1 ICMP 2 IGMP 6 TCP 17：UDP 89 OSPF<br><img src="http://odfcr7qs4.bkt.clouddn.com/%E5%9B%BE9.1ICMP%E6%8A%A5%E6%96%87%E7%B1%BB%E5%9E%8B.PNG" alt="图9.1ICMP报文类型"></li>
-<li>差错报文发送给原始数据源</li>
-<li>对差错报文不再发送差多报文</li>
-<li>对多播报文不发送差错报文</li>
-<li>分片数据报的非首片不发送差错报文</li>
-<li>特殊地址数据报不发送差错报文<br>每一个因为拥塞丢弃的报文都向源点发送源点抑制报文<br>ICMP协议为IP协议提供：</li>
-<li>差错报告、差错控制（重点不可达，超时、源点抑制、参数问题、改变路由）、</li>
-<li>主机管理查询（回送送请求和响应、时间戳请求与响应）、</li>
-<li>流量控制（源点抑制报文）服务</li>
-</ul>
-</blockquote>
-<p>发送超时报文：</p>
-<ul>
-<li>（路由器发送）收到的报文TTL字段为0，</li>
-<li>（目的主机发送）规定时间内未收到报文的某个分片<br>改变路由报文：路由器向主机发送改变路由报文<br>回送请求和回送回答报文用于测试主机可达性确认网络层通信是否正常<br>时间戳请求与回答：确认往返时间，机器间时间同步<br>ping利用回送请求与响应报文实现<br>traceroute利用超时报文（中间TTL减少至0，路由器发回超时）和终点不可达报文（UDP端口异常）</li>
-<li>ICMP 报文类型：查询、成员关系报告、推出报告</li>
-<li>成员关系报告需要连续发送两次</li>
-<li>成员关系报告：加入组</li>
-<li>退出报告：退出一个组</li>
-<li>一般性查询：多播路由器周期性发送以监视成员关系</li>
-<li>延迟响应：主机等待随机时间，该时间内若有成员关系报告广播，就不再对这个组发送成员关系响应广播<br>携带ICMP报文的IP报文中：协议字段为2，TTL必须是1（局域网内）<br>目的IP地址：查询（多播）：224.0.0.1，成员关系报告（广播）：这个组的多播地址，退出报告（多播）：224.0.0.2<br>####### 数据链路层MAC地址映射：</li>
-<li>多播路由器提取D类IP地址的低23位插入以太网多播地址中</li>
-<li>D类IP地址组标识共28位，取23位映射以太网多播地址，位未使用，32-&gt;1</li>
-<li>以太网多播地址范围：01:00:5E:00:00:00 ~ 01:00:5E:7F:FF:FF</li>
-<li>广域网不支持物理多播地址，只能采用隧道技术，封装成单播，到达局域网后解析成多播<br>####### UDP<br>熟知端口号:0~1023,注册端口号：1024~49151，动态端口号：49152~65535<br>UDP长度 = IP长度-IP首部长度<h6 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h6></li>
-<li>编号从随机数开始</li>
-<li>报文序号：首字节序号</li>
-<li>确认号：期望接收的下一个序号</li>
-<li>SYN 和SYN+ACK报文不携带数据，消耗一个序号</li>
-<li>ACK不携带数据则不消耗序号<br><img src="" alt="12.9"><br><img src="" alt="12.11"></li>
-<li>FIN不消耗序号，FIN+ACK只消耗一个序号</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/10/APUE-Process/" itemprop="url">
-                  APUE Process
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-10-10T16:40:03+08:00" content="2016-10-10">
-              2016-10-10
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Process/" itemprop="url" rel="index">
-                    <span itemprop="name">Process</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h5 id="chapter-seven"><a href="#chapter-seven" class="headerlink" title="chapter seven"></a>chapter seven</h5><ul>
-<li><p>Process tremination</p>
-<blockquote>
-<ul>
-<li>Return from main</li>
-<li>Calling exit</li>
-<li>Calling _exit or _Exit</li>
-<li>Return of the last thread from its start routine</li>
-<li>Calling pthread_exit</li>
-<li>from the last thread</li>
-</ul>
-<ul>
-<li><code>Abnormal termination occurs in three ways:</code><ul>
-<li>Calling abort (Section 10.17)</li>
-<li>Receipt of a signal (Section 10.2)</li>
-<li>Response of the last thread to a cancellation request</li>
-</ul>
-</li>
-</ul>
-</blockquote>
-</li>
-<li><p>Exit Functions</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdlib.h&gt;</div><div class="line">void exit(int status);</div><div class="line">void _Exit(int status);</div><div class="line">#include &lt;unistd.h&gt;</div><div class="line">void _exit(int status);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<p><code>_exit</code> and <code>_Exit</code>, which <code>return</code> to the kernel <code>immediately</code>, and <code>exit</code>, which <code>performs certain cleanup processing</code>and then returns to the kernel.</p>
-</blockquote>
-<ul>
-<li>atexit()<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdlib.h&gt;</div><div class="line">int atexit(void (*func)(void));</div><div class="line">Returns: 0 if OK, nonzero on error</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<ul>
-<li>a process can register at least 32 functions that are automatically called by exit. These are called exit handlers and are registered by calling the atexit function.</li>
-<li>The exit function calls these functions in reverse order of their registration.</li>
-<li>Each function is called as many times as it was registered.</li>
-<li>Environment List<br><img src="" alt="Environment"><br>the environment strings are typically stored at the top<br>of a process’s memory space, above the stack.</li>
-</ul>
-</blockquote>
-<h5 id="chapter-eight"><a href="#chapter-eight" class="headerlink" title="chapter eight"></a>chapter eight</h5><ul>
-<li>pid_t<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#include &lt;unistd.h&gt;</div><div class="line">pid_t getpid(void);</div><div class="line">Returns: process ID of calling process</div><div class="line">pid_t getppid(void);</div><div class="line">Returns: parent process ID of calling process</div><div class="line">uid_t getuid(void);</div><div class="line">Returns: real user ID of calling process</div><div class="line">uid_t geteuid(void);</div><div class="line">Returns: effective user ID of calling process</div><div class="line">gid_t getgid(void);</div><div class="line">Returns: real group ID of calling process</div><div class="line">gid_t getegid(void);</div><div class="line">Returns: effective group ID of calling process</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="fork"><a href="#fork" class="headerlink" title="fork"></a><code>fork</code></h4><p>-　调用一次，返回两次，子进程返回０，　父进程返回子线程pid<br>-　子进程只保留调用fork 的线程副本<br>-　父进程中所有打开的文件描述符被复制到子进程<br>-　子进程不集成父进程的文件锁，<code>未处理闹钟清除，未处理信号集置空</code><br>-　父进程先于子进程结束，子进程被<code>init</code>进程收养，其父进程ＩＤ为１<br>-　已经结束但未被父进程处理的进程：<code>僵死进程</code></p>
-<h4 id="wait-waitpid"><a href="#wait-waitpid" class="headerlink" title="wait waitpid"></a><code>wait</code> <code>waitpid</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#include &lt;sys/wait.h&gt;</div><div class="line">pid_t wait(int *statloc);</div><div class="line">pid_t waitpid(pid_t pid, int *statloc, int options);</div><div class="line">Both return: process ID if OK, 0 (see later), or −1 on error</div></pre></td></tr></table></figure>
-<blockquote>
-<ul>
-<li>wait or waitpid do<br>• <code>Block</code>, if <code>all of its children are still running</code><br>• <code>Return immediately</code> with the termination status of <code>a child</code>, if a child has terminated and is waiting for its termination status to be fetched<br>• <code>Return immediately with an error</code>, if it <code>doesn’t have any child</code> processes</li>
-<li>OSIX.1 waitpid function.<br>The interpretation of the pid argument for waitpid depends on its value:</li>
-<li>pid == −1  <code>Waits for any child process</code>. In this respect, waitpid is equivalent to wait.</li>
-<li>pid &gt; 0 <code>Waits for the child whose process ID equals pid</code>.</li>
-<li>pid == 0 Waits for <code>any child</code> whose process <code>group ID</code> equals that of the calling process.</li>
-<li>pid &lt; −1 Waits for <code>any child</code> whose process <code>group ID</code> equals the absolute value of pid</li>
-</ul>
-</blockquote>
-<h4 id="exec"><a href="#exec" class="headerlink" title="exec"></a><code>exec</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#include &lt;unistd.h&gt;</div><div class="line">int execl(const char *pathname, const char *arg0, ... /* (char *)0 */ );</div><div class="line">int execv(const char *pathname, char *const argv[]);</div><div class="line">int execle(const char *pathname, const char *arg0, ...</div><div class="line">/* (char *)0, char *const envp[] */ );</div><div class="line">int execve(const char *pathname, char *const argv[], char *const envp[]);</div><div class="line">int execlp(const char *filename, const char *arg0, ... /* (char *)0 */ );</div><div class="line">int execvp(const char *filename, char *const argv[]);</div><div class="line">int fexecve(int fd, char *const argv[], char *const envp[]);</div><div class="line">All seven return: −1 on error, no return on success</div></pre></td></tr></table></figure>
-<blockquote>
-<p><code>l</code> stands for <code>list</code>, <code>v</code> stands for <code>vector</code>, <code>e</code> stands for <code>environment</code><br>The functions <code>execl, execlp, and execle</code> require <code>each of the
-command-line arguments</code> to the new program to be specified as separate arguments. We <code>mark the end of the arguments</code> with <code>a null pointer</code>.<br>For the other four functions (<code>execv, execvp, execve, and fexecve</code>), build an array of pointers to the arguments, and <code>the address of this array</code> pass to these three functions.<br><img src="" alt="exec"></p>
-</blockquote>
-<h4 id="Process-schedule"><a href="#Process-schedule" class="headerlink" title="Process schedule"></a><code>Process schedule</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#include &lt;unistd.h&gt;</div><div class="line">int nice(int incr);</div><div class="line">#include &lt;sys/resource.h&gt;</div><div class="line">int getpriority(int which, id_t who);</div><div class="line">Returns: new nice value − NZERO if OK, −1 on error</div><div class="line">#include &lt;sys/resource.h&gt;</div><div class="line">int setpriority(int which, id_t who, int value);</div><div class="line">Returns: 0 if OK, −1 on error</div></pre></td></tr></table></figure>
-<blockquote>
-<p>which : PRO_PROCESS , PRO_GROUP, PRO_USER</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2137,7 +2073,7 @@ command-line arguments</code> to the new program to be specified as separate arg
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-count">41</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -2145,7 +2081,7 @@ command-line arguments</code> to the new program to be specified as separate arg
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>

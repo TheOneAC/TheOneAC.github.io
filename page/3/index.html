@@ -250,6 +250,242 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/18/linux-basic-command/" itemprop="url">
+                  linux basic command
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-09-18T21:35:43+08:00" content="2016-09-18">
+              2016-09-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/linux-unix/" itemprop="url" rel="index">
+                    <span itemprop="name">linux/unix</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><code>from xiongdilian</code><br><img src="http://odfcr7qs4.bkt.clouddn.com/20151126231945042.png" alt="linux basic comand "></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/17/leetcode-022-Generate-Parentheses/" itemprop="url">
+                  leetcode 022. Generate Parentheses
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-09-17T18:58:05+08:00" content="2016-09-17">
+              2016-09-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/OJ/" itemprop="url" rel="index">
+                    <span itemprop="name">OJ</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="leetcode-022-Generate-Parentheses"><a href="#leetcode-022-Generate-Parentheses" class="headerlink" title="leetcode 022. Generate Parentheses"></a>leetcode 022. Generate Parentheses</h2><ul>
+<li><p><a href="https://discuss.leetcode.com/topic/4485/concise-recursive-c-solution" target="_blank" rel="external">Concise recursive C++ solution</a></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; generateParenthesis(<span class="keyword">int</span> n) &#123;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; res;</div><div class="line">        addingpar(res, <span class="string">""</span>, n, <span class="number">0</span>);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"><span class="keyword">private</span>:</div><div class="line"> 	<span class="function"><span class="keyword">void</span> <span class="title">addingpar</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;v, <span class="built_in">string</span> str, <span class="keyword">int</span> n, <span class="keyword">int</span> m)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(n==<span class="number">0</span> &amp;&amp; m==<span class="number">0</span>) &#123;</div><div class="line">            v.push_back(str);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(m &gt; <span class="number">0</span>)&#123; addingpar(v, str+<span class="string">")"</span>, n, m<span class="number">-1</span>); &#125;</div><div class="line">        <span class="keyword">if</span>(n &gt; <span class="number">0</span>)&#123; addingpar(v, str+<span class="string">"("</span>, n<span class="number">-1</span>, m+<span class="number">1</span>); &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+<li><p><a href="https://discuss.leetcode.com/topic/7250/the-most-concise-solution-i-know-ever" target="_blank" rel="external">The most concise solution I know ever</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">     vector&lt;string&gt; generateParenthesis(int n) &#123;</div><div class="line">        if(n==0) return vector&lt;string&gt;(1,&quot;&quot;) ;</div><div class="line">        if(n==1) return vector&lt;string&gt;(1,&quot;()&quot;) ;</div><div class="line">        vector&lt;string&gt; result;</div><div class="line">        for(int i=0;i!=n;i++)</div><div class="line">            for(auto inner: generateParenthesis(i))</div><div class="line">                for(auto outter:  generateParenthesis(n-i-1))</div><div class="line">                    result.push_back(&quot;(&quot;+inner+&quot;)&quot;+outter);</div><div class="line">        return result;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+<li><p><a href="https://discuss.leetcode.com/topic/35617/my-4ms-c-solution-without-using-recursion" target="_blank" rel="external">My 4ms C++ solution without using recursion</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">M Mein-Fuhrer </div><div class="line">Reputation:  3</div><div class="line"> class Solution &#123;</div><div class="line"> public:</div><div class="line">vector&lt;string&gt; generateParenthesis(int n) &#123;</div><div class="line">    vector&lt;string&gt; result;</div><div class="line">    string str(&quot;(&quot;);</div><div class="line">    result.push_back(str);</div><div class="line">    vector&lt;int&gt; left(&#123;1&#125;);</div><div class="line">    for(int pos = 1;pos &lt; 2*n;++pos) &#123;</div><div class="line">        int tmp = left.size();</div><div class="line">        for(int i = 0;i &lt; tmp;++i) &#123;</div><div class="line">            if(left[i] &lt; n) &#123;</div><div class="line">                if(pos - left[i] &lt; left[i]) &#123;</div><div class="line">                    result.push_back(result[i] + &apos;)&apos;);</div><div class="line">                    left.push_back(left[i]);</div><div class="line">                &#125;</div><div class="line">                result[i] += &apos;(&apos;;</div><div class="line">                left[i]++;</div><div class="line">            &#125;</div><div class="line">            else &#123;</div><div class="line">                result[i] += &apos;)&apos;;</div><div class="line">                continue;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return result;</div><div class="line">&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/31/补课之后/" itemprop="url">
                   after
                 </a>
@@ -1197,7 +1433,7 @@ $ when const and non-const member function have essentialy identical implementio
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://www.tutorialspoint.com/cplusplus/images/cpp-mini-logo.jpg" rel="gallery_ciwz14so6001agioup1ejg9b8"
+                 href="http://www.tutorialspoint.com/cplusplus/images/cpp-mini-logo.jpg" rel="gallery_cix1w788t001gjqouin0e86ru"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://www.tutorialspoint.com/cplusplus/images/cpp-mini-logo.jpg" itemprop="contentUrl"/>
               </a>
@@ -1532,269 +1768,11 @@ IO operators usually must be declared as friends</code></p>
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/28/C Primier Plus Dynamic-Memory /" itemprop="url">
-                  Dynamic Memory
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-28T18:30:47+08:00" content="2016-07-28">
-              2016-07-28
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Dynamic-Memory-and-Smart-Pointers"><a href="#Dynamic-Memory-and-Smart-Pointers" class="headerlink" title="Dynamic Memory and Smart Pointers"></a>Dynamic Memory and Smart Pointers</h3><p>shared_ptr:<br>init: make_shared&lt; Type &gt;(args);   shared_ptr&lt; Type &gt;(q); p=q;<br>function :<br>p.unique() if count return 1 truw,else false.<br>p.use_count() return the number of object sharing with p.<br>make_shared. allocates and initializes an object in dynamic memory and returns a shared_ptr that points to that object.<code>shared_ptr&lt;string&gt; p4 = make_shared&lt;string&gt;(10, &#39;9&#39;);</code><br><strong>new</strong> returns a pointer to the object it allocates:<code>int *pi = new int;</code><br>By default, dynamically allocated objects are default initialized, which means that objects of built-in or compound type have undefined value<br>Like any other const, a dynamically allocated const object must be initialized.<br><code>const string *pcs = new const string;</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int *p1 = new int; // if allocation fails, new throws std::bad_alloc</div><div class="line">int *p2 = new (nothrow) int; // if allocation fails, new returns a null pointer</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p><strong>Functions that return pointers (rather than smart pointers) to dynamic memory put a<br>burden on their callers—the caller must remember to delete the memory</strong></p>
-</blockquote>
-<h2 id="Dynamic-memory-managed-through-built-in-pointers-rather-than-smart-pointers-exists-until-it-is-explicitly-freed"><a href="#Dynamic-memory-managed-through-built-in-pointers-rather-than-smart-pointers-exists-until-it-is-explicitly-freed" class="headerlink" title="Dynamic memory managed through built-in pointers (rather than smart pointers) exists until it is explicitly freed."></a><strong>Dynamic memory managed through built-in pointers (rather than smart pointers) exists until it is explicitly freed.</strong></h2><p><strong>three common problems with using new and delete</strong></p>
-<ol>
-<li>Forgetting to delete memory. Neglecting to delete dynamic memory is known as a “memory leak,”</li>
-<li>Using an object after it has been deleted.</li>
-<li>Deleting the same memory twice.</li>
-</ol>
-<p><strong>dangling pointer</strong>:When we delete a pointer, that pointer becomes invalid.but the pointer continues to hold the address of the (freed) dynamic memory.<br>we cannot implicitly convert a built-in pointer to a smart pointer; we must use<br>the direct form of initialization to initialize a smart pointer<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">shared_ptr&lt;int&gt; p1 = new int(1024); // error: must use direct initialization</div><div class="line">shared_ptr&lt;int&gt; p2(new int(1024)); // ok: uses direct initialization</div></pre></td></tr></table></figure></p>
-<p>use <strong>reset</strong> to assign a new pointer to a shared_ptr.</p>
-<h2 id="In-particular-classes-that-are-designed-to-be-used-by-both-C-and-C-generally-require-the-user-to-specifically-free-any-resources-that-are-used"><a href="#In-particular-classes-that-are-designed-to-be-used-by-both-C-and-C-generally-require-the-user-to-specifically-free-any-resources-that-are-used" class="headerlink" title="In particular, classes that are designed to be used by both C and C++ generally require the user to specifically free any resources that are used."></a>In particular, classes that are designed to be used by both C and C++ generally require the user to specifically free any resources that are used.</h2><p>unique_ptr:”owns” the object which it points.<br>so it doesn`t support ordinary copy and assignment.<br>but can transfer ownership fron one (nonconst)unique_ptr to another by calling release or set.<br><code>// transfers ownership from p3 to p2
-p2.reset(p3.release()); 
-// reset deletes the memory to which p2 had pointed</code><br>only one unique_ptr at a time can point to  a given object.<br>unique_ptr destroyed so the object it point to.<br>u.release() :return the pointer u had held and makes u null;<br>u.reset() :deletes the object to which i pointes;<br>u.reset(q) :if the built-in pointer q is supplied ,makes u pointe to that object.<br>u=nullptr; deletes the object to which u points,makes u null;<br>unique_ptr : bind to a pointer<br><strong><a href="http://stackoverflow.com/questions/6876751/differences-between-unique-ptr-and-shared-ptr" target="_blank" rel="external">http://stackoverflow.com/questions/6876751/differences-between-unique-ptr-and-shared-ptr</a></strong></p>
-<h3 id="weak-ptr"><a href="#weak-ptr" class="headerlink" title="weak_ptr"></a>weak_ptr</h3><p>not control the lifetime of the object it point to.<br>bind a weak_ptr to a shared_ptr not change the reference count of that shared_ptr.<br><strong>weak</strong>:Once the last shared_ptr pointing to the object goes away, the object itself will be deleted. That object will be deleted even if there are weak_ptrs pointing to it.<br>The <strong>lock</strong> function checks whether the object to which the weak_ptr points still exists. If so, lock returns a shared_ptr to the shared object.</p>
-<h3 id="Dynamic-Arrays"><a href="#Dynamic-Arrays" class="headerlink" title="Dynamic Arrays"></a>Dynamic Arrays</h3><p>Classes that allocate dynamic arrays must define their own versions of these operations to manage the associated memory when objects are copied, assigned, and destroyed.<br><code>int *pia = new int[get_size()]; 
-// pia points to the first of these ints</code><br>The size inside the brackets must have integral type but need not be a constant.</p>
-<blockquote>
-<p><strong>Allocating an Array Yields a Pointer to the Element Type</strong></p>
-</blockquote>
-<p>shared_ptrs provide no direct support for managing a dynamic array. If we want to use a shared_ptr to manage a dynamic array, we must provide our own deleter:<br><code>shared_ptr&lt;int&gt; sp(new int[10], [](int *p) { delete[] p; });
-sp.reset(); // uses the lambda we supplied that uses delete[] to free the array</code><br>classes that do not have default constructors cannot be dynamically allocated as an array.<br><strong>allocator</strong>: provides type-aware allocation of raw, unconstructed, memory.<br>We must construct objects in order to use memory returned by<br>allocate. Using unconstructed memory in other ways is undefined.</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/28/C Primier Plus Associative containers/" itemprop="url">
-                  Associative Containers
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-28T11:35:15+08:00" content="2016-07-28">
-              2016-07-28
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Associative containers support efficient lookup and retrieval by a key.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">        word.erase(std::remove_if(word.begin(), word.end(), ispunct),word.end());</div><div class="line">$   remove_if move container to the end and return a partition iterater, erase the container from partition to the end.</div></pre></td></tr></table></figure></p>
-<p>the ordered containers—map, multimap, set, and multiset—the key type must define a way to compare the elements.<br>Callable objects passed to a sort algorithm (§ 10.3.1, p. 386) must meet the same requirements as do the keys in an associative container.<br>To use our own operation, we must define the multiset with two types: the key type,  and the comparison type, which is a function pointer type  that can point to compare function.<br>the data members of pair are public ,These members are named first and second,respectively. We access these members using the normal member access notation.<br>It is essential to remember that the value_type of a map is a pair and that we can change the value but not the key member of that pair.<br>Iterators for sets Are const,the keys in a set are also const.<br><strong>The output of this program is in alphabetical order. When we use an iterator to traverse a map, multimap, set, or multiset, the iterators yield  elements in ascending key order.</strong><br>The insert members (Table 11.4 (overleaf)) add one element or a range of elements.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// four ways to add word to map word_count</div><div class="line">word_count.insert(&#123;word, 1&#125;);</div><div class="line">word_count.insert(make_pair(word, 1));</div><div class="line">word_count.insert(pair&lt;string, size_t&gt;(word, 1));</div><div class="line">word_count.insert(map&lt;string, size_t&gt;::value_type(word, 1));</div></pre></td></tr></table></figure></p>
-<blockquote>
-<p>Erasing Elements<br>c.erase(k)     remove every element with the key k from c.<br>c.erase(p)     remove the element denoted by the iterater p from c.<br>c.erase(b,e)   remove the element in  the range demoted by b and e and return e.</p>
-</blockquote>
-<p>The map and unordered_map containers provide the subscript operator and a<br>corresponding at function,We cannot subscript a multimap or an unordered_multimap because there may be more than one value associated with a given key.<br><strong>Subscripting a map behaves quite differently from subscripting an array or vector: Using a key that is not already present adds an element with that key to the map.</strong></p>
-<blockquote>
-<p>Operations to Find Elements in an Associative Container<br>c.find(k)   return iterator to the first element with the key k or the off-the-end iterator.<br>c.count(k) return the number of elements with key k.<br>c.lower_bound(k) return an iterator to the first element with key not less than k.<br>c.upper_bound(k) return an iterator to the first element with key greater than k.<br>c.equal_range(k) return a pair of iterator denoting the elements with key k,if k is not present, both menbers are c.end().<br>If the key is present, then the first iterator refers to the first instance of the key and the second iterator refers one past the last instance of the key. If no matching element is found, then both the first and second iterators refer to the position where this key can be inserted.</p>
-</blockquote>
-<p>For the map and unordered_map types,using a subscript has an important side effect: If that key is not already in the map, then subscript inserts an element with that key.<br>When a multimap or multiset has multiple elements of a given key, those elements will be adjacent within the container.</p>
-<p><strong>Hash and Unordermap???</strong></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1835,7 +1813,7 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-count">41</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1843,7 +1821,7 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>

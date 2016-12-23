@@ -250,6 +250,355 @@
             
               
                 
+                <a class="post-title-link" href="/2016/10/25/TCP协议簇/" itemprop="url">
+                  TCP协议簇
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-10-25T10:41:48+08:00" content="2016-10-25">
+              2016-10-25
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="part-1"><a href="#part-1" class="headerlink" title="part 1"></a>part 1</h4><blockquote>
+<h6 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h6><ul>
+<li>比特流传输</li>
+<li>比特同步、物理拓扑</li>
+<li>传输方式：半双工、双工<h6 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h6></li>
+<li>节点间帧传输</li>
+<li>组帧</li>
+<li>加入物理地址</li>
+<li>流量控制：发送速度小于接受速度</li>
+<li>接入控制：决定链路控制权</li>
+<li>确保组网内部节点间传递<h6 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h6></li>
+<li>确保源点到终点间的分组交付</li>
+<li>路由选择</li>
+<li>点点交付<h6 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h6></li>
+<li>报文源点到终点的端端交付</li>
+<li>分段与重装<h6 id="会话层"><a href="#会话层" class="headerlink" title="会话层"></a>会话层</h6></li>
+<li>会话控制与同步<h6 id="表示层"><a href="#表示层" class="headerlink" title="表示层"></a>表示层</h6></li>
+<li>编码转换</li>
+<li>信息加密与压缩<h6 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h6></li>
+<li>虚拟终端</li>
+<li>文件传输与管理</li>
+<li>邮件服务和名录服务<br><img src="http://odfcr7qs4.bkt.clouddn.com/%E5%9B%BE2.14.PNG" alt="图2.14"></li>
+<li>以太网数据帧长46~1500字节</li>
+<li>隐蔽站问题：先发一个请求服务帧（RTS），请求服务时间，接收站广播(CTS)在服务时间内只为请求站服务</li>
+<li>中继器：连接同一子网的不同网段</li>
+<li>集线器：多端口转发</li>
+<li>网桥：工作在链路层，检查MAC地址，过滤帧转发地址</li>
+<li>透明网桥： 帧转发，自学习，避免环路</li>
+<li>路由器转发会修改物理地址，工作在网络层，<ul>
+<li>整个传递过程目的IP地址不变</li>
+<li>路由器接受前，目的物理地址是路由器地址</li>
+<li>接收后转发，源物理地址是路由器物理地址<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">网络地址：主机位全0</div><div class="line">直接广播地址：主机位全1</div><div class="line">受限广播地址：全1</div><div class="line">这个网络这个主机：全0</div><div class="line">这个网络特定主机：网络位全0</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p>路由表</p>
+<ul>
+<li>目的网络地址：使用特定网络地址转发</li>
+<li>下一跳地址：直接交付时为空</li>
+<li>接口位置：定义转发接口</li>
+<li>目的地址查找成功，ARP映射获得物理地址，帧转发到下一跳<pre><code>        OP 源MAC 源IP 目的MAC 目的IP
+ARP请求： 1  *      *            *
+ARP响应： 2  *      *     *      *
+RARP请求： 3  *
+RARP响应： 4  *      *     *      *
+</code></pre><img src="http://odfcr7qs4.bkt.clouddn.com/%E5%9B%BE8.10IP%E9%80%89%E9%A1%B9.PNG" alt="图8.10IP选项格式"><br>IP报文总长20~65535，首部长：20~60字节<br>总长以1字为单位，首部 长以4字节为单位<br>分片偏移以8字为单位，相对于原始数据包起点</li>
+<li>IP协议字段：1 ICMP 2 IGMP 6 TCP 17：UDP 89 OSPF<br><img src="http://odfcr7qs4.bkt.clouddn.com/%E5%9B%BE9.1ICMP%E6%8A%A5%E6%96%87%E7%B1%BB%E5%9E%8B.PNG" alt="图9.1ICMP报文类型"></li>
+<li>差错报文发送给原始数据源</li>
+<li>对差错报文不再发送差多报文</li>
+<li>对多播报文不发送差错报文</li>
+<li>分片数据报的非首片不发送差错报文</li>
+<li>特殊地址数据报不发送差错报文<br>每一个因为拥塞丢弃的报文都向源点发送源点抑制报文<br>ICMP协议为IP协议提供：</li>
+<li>差错报告、差错控制（重点不可达，超时、源点抑制、参数问题、改变路由）、</li>
+<li>主机管理查询（回送送请求和响应、时间戳请求与响应）、</li>
+<li>流量控制（源点抑制报文）服务</li>
+</ul>
+</blockquote>
+<p>发送超时报文：</p>
+<ul>
+<li>（路由器发送）收到的报文TTL字段为0，</li>
+<li>（目的主机发送）规定时间内未收到报文的某个分片<br>改变路由报文：路由器向主机发送改变路由报文<br>回送请求和回送回答报文用于测试主机可达性确认网络层通信是否正常<br>时间戳请求与回答：确认往返时间，机器间时间同步<br>ping利用回送请求与响应报文实现<br>traceroute利用超时报文（中间TTL减少至0，路由器发回超时）和终点不可达报文（UDP端口异常）</li>
+<li>ICMP 报文类型：查询、成员关系报告、推出报告</li>
+<li>成员关系报告需要连续发送两次</li>
+<li>成员关系报告：加入组</li>
+<li>退出报告：退出一个组</li>
+<li>一般性查询：多播路由器周期性发送以监视成员关系</li>
+<li>延迟响应：主机等待随机时间，该时间内若有成员关系报告广播，就不再对这个组发送成员关系响应广播<br>携带ICMP报文的IP报文中：协议字段为2，TTL必须是1（局域网内）<br>目的IP地址：查询（多播）：224.0.0.1，成员关系报告（广播）：这个组的多播地址，退出报告（多播）：224.0.0.2<br>####### 数据链路层MAC地址映射：</li>
+<li>多播路由器提取D类IP地址的低23位插入以太网多播地址中</li>
+<li>D类IP地址组标识共28位，取23位映射以太网多播地址，位未使用，32-&gt;1</li>
+<li>以太网多播地址范围：01:00:5E:00:00:00 ~ 01:00:5E:7F:FF:FF</li>
+<li>广域网不支持物理多播地址，只能采用隧道技术，封装成单播，到达局域网后解析成多播<br>####### UDP<br>熟知端口号:0~1023,注册端口号：1024~49151，动态端口号：49152~65535<br>UDP长度 = IP长度-IP首部长度<h6 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h6></li>
+<li>编号从随机数开始</li>
+<li>报文序号：首字节序号</li>
+<li>确认号：期望接收的下一个序号</li>
+<li>SYN 和SYN+ACK报文不携带数据，消耗一个序号</li>
+<li>ACK不携带数据则不消耗序号<br><img src="" alt="12.9"><br><img src="" alt="12.11"></li>
+<li>FIN不消耗序号，FIN+ACK只消耗一个序号</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/10/10/APUE-Process/" itemprop="url">
+                  APUE Process
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-10-10T16:40:03+08:00" content="2016-10-10">
+              2016-10-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Process/" itemprop="url" rel="index">
+                    <span itemprop="name">Process</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="chapter-seven"><a href="#chapter-seven" class="headerlink" title="chapter seven"></a>chapter seven</h5><ul>
+<li><p>Process tremination</p>
+<blockquote>
+<ul>
+<li>Return from main</li>
+<li>Calling exit</li>
+<li>Calling _exit or _Exit</li>
+<li>Return of the last thread from its start routine</li>
+<li>Calling pthread_exit</li>
+<li>from the last thread</li>
+</ul>
+<ul>
+<li><code>Abnormal termination occurs in three ways:</code><ul>
+<li>Calling abort (Section 10.17)</li>
+<li>Receipt of a signal (Section 10.2)</li>
+<li>Response of the last thread to a cancellation request</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><p>Exit Functions</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdlib.h&gt;</div><div class="line">void exit(int status);</div><div class="line">void _Exit(int status);</div><div class="line">#include &lt;unistd.h&gt;</div><div class="line">void _exit(int status);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p><code>_exit</code> and <code>_Exit</code>, which <code>return</code> to the kernel <code>immediately</code>, and <code>exit</code>, which <code>performs certain cleanup processing</code>and then returns to the kernel.</p>
+</blockquote>
+<ul>
+<li>atexit()<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdlib.h&gt;</div><div class="line">int atexit(void (*func)(void));</div><div class="line">Returns: 0 if OK, nonzero on error</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>a process can register at least 32 functions that are automatically called by exit. These are called exit handlers and are registered by calling the atexit function.</li>
+<li>The exit function calls these functions in reverse order of their registration.</li>
+<li>Each function is called as many times as it was registered.</li>
+<li>Environment List<br><img src="" alt="Environment"><br>the environment strings are typically stored at the top<br>of a process’s memory space, above the stack.</li>
+</ul>
+</blockquote>
+<h5 id="chapter-eight"><a href="#chapter-eight" class="headerlink" title="chapter eight"></a>chapter eight</h5><ul>
+<li>pid_t<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#include &lt;unistd.h&gt;</div><div class="line">pid_t getpid(void);</div><div class="line">Returns: process ID of calling process</div><div class="line">pid_t getppid(void);</div><div class="line">Returns: parent process ID of calling process</div><div class="line">uid_t getuid(void);</div><div class="line">Returns: real user ID of calling process</div><div class="line">uid_t geteuid(void);</div><div class="line">Returns: effective user ID of calling process</div><div class="line">gid_t getgid(void);</div><div class="line">Returns: real group ID of calling process</div><div class="line">gid_t getegid(void);</div><div class="line">Returns: effective group ID of calling process</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="fork"><a href="#fork" class="headerlink" title="fork"></a><code>fork</code></h4><p>-　调用一次，返回两次，子进程返回０，　父进程返回子线程pid<br>-　子进程只保留调用fork 的线程副本<br>-　父进程中所有打开的文件描述符被复制到子进程<br>-　子进程不集成父进程的文件锁，<code>未处理闹钟清除，未处理信号集置空</code><br>-　父进程先于子进程结束，子进程被<code>init</code>进程收养，其父进程ＩＤ为１<br>-　已经结束但未被父进程处理的进程：<code>僵死进程</code></p>
+<h4 id="wait-waitpid"><a href="#wait-waitpid" class="headerlink" title="wait waitpid"></a><code>wait</code> <code>waitpid</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#include &lt;sys/wait.h&gt;</div><div class="line">pid_t wait(int *statloc);</div><div class="line">pid_t waitpid(pid_t pid, int *statloc, int options);</div><div class="line">Both return: process ID if OK, 0 (see later), or −1 on error</div></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>wait or waitpid do<br>• <code>Block</code>, if <code>all of its children are still running</code><br>• <code>Return immediately</code> with the termination status of <code>a child</code>, if a child has terminated and is waiting for its termination status to be fetched<br>• <code>Return immediately with an error</code>, if it <code>doesn’t have any child</code> processes</li>
+<li>OSIX.1 waitpid function.<br>The interpretation of the pid argument for waitpid depends on its value:</li>
+<li>pid == −1  <code>Waits for any child process</code>. In this respect, waitpid is equivalent to wait.</li>
+<li>pid &gt; 0 <code>Waits for the child whose process ID equals pid</code>.</li>
+<li>pid == 0 Waits for <code>any child</code> whose process <code>group ID</code> equals that of the calling process.</li>
+<li>pid &lt; −1 Waits for <code>any child</code> whose process <code>group ID</code> equals the absolute value of pid</li>
+</ul>
+</blockquote>
+<h4 id="exec"><a href="#exec" class="headerlink" title="exec"></a><code>exec</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#include &lt;unistd.h&gt;</div><div class="line">int execl(const char *pathname, const char *arg0, ... /* (char *)0 */ );</div><div class="line">int execv(const char *pathname, char *const argv[]);</div><div class="line">int execle(const char *pathname, const char *arg0, ...</div><div class="line">/* (char *)0, char *const envp[] */ );</div><div class="line">int execve(const char *pathname, char *const argv[], char *const envp[]);</div><div class="line">int execlp(const char *filename, const char *arg0, ... /* (char *)0 */ );</div><div class="line">int execvp(const char *filename, char *const argv[]);</div><div class="line">int fexecve(int fd, char *const argv[], char *const envp[]);</div><div class="line">All seven return: −1 on error, no return on success</div></pre></td></tr></table></figure>
+<blockquote>
+<p><code>l</code> stands for <code>list</code>, <code>v</code> stands for <code>vector</code>, <code>e</code> stands for <code>environment</code><br>The functions <code>execl, execlp, and execle</code> require <code>each of the
+command-line arguments</code> to the new program to be specified as separate arguments. We <code>mark the end of the arguments</code> with <code>a null pointer</code>.<br>For the other four functions (<code>execv, execvp, execve, and fexecve</code>), build an array of pointers to the arguments, and <code>the address of this array</code> pass to these three functions.<br><img src="" alt="exec"></p>
+</blockquote>
+<h4 id="Process-schedule"><a href="#Process-schedule" class="headerlink" title="Process schedule"></a><code>Process schedule</code></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#include &lt;unistd.h&gt;</div><div class="line">int nice(int incr);</div><div class="line">#include &lt;sys/resource.h&gt;</div><div class="line">int getpriority(int which, id_t who);</div><div class="line">Returns: new nice value − NZERO if OK, −1 on error</div><div class="line">#include &lt;sys/resource.h&gt;</div><div class="line">int setpriority(int which, id_t who, int value);</div><div class="line">Returns: 0 if OK, −1 on error</div></pre></td></tr></table></figure>
+<blockquote>
+<p>which : PRO_PROCESS , PRO_GROUP, PRO_USER</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/10/Network-programming-csapp/" itemprop="url">
                   Network programming csapp
                 </a>
@@ -1668,247 +2017,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/18/linux-basic-command/" itemprop="url">
-                  linux basic command
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-09-18T21:35:43+08:00" content="2016-09-18">
-              2016-09-18
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/linux-unix/" itemprop="url" rel="index">
-                    <span itemprop="name">linux/unix</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><code>from xiongdilian</code><br><img src="http://odfcr7qs4.bkt.clouddn.com/20151126231945042.png" alt="linux basic comand "></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/17/leetcode-022-Generate-Parentheses/" itemprop="url">
-                  leetcode 022. Generate Parentheses
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-09-17T18:58:05+08:00" content="2016-09-17">
-              2016-09-17
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OJ/" itemprop="url" rel="index">
-                    <span itemprop="name">OJ</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="leetcode-022-Generate-Parentheses"><a href="#leetcode-022-Generate-Parentheses" class="headerlink" title="leetcode 022. Generate Parentheses"></a>leetcode 022. Generate Parentheses</h2><ul>
-<li><p><a href="https://discuss.leetcode.com/topic/4485/concise-recursive-c-solution" target="_blank" rel="external">Concise recursive C++ solution</a></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">class</span> Solution &#123;</div><div class="line"><span class="keyword">public</span>:</div><div class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; generateParenthesis(<span class="keyword">int</span> n) &#123;</div><div class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; res;</div><div class="line">        addingpar(res, <span class="string">""</span>, n, <span class="number">0</span>);</div><div class="line">        <span class="keyword">return</span> res;</div><div class="line">    &#125;</div><div class="line"><span class="keyword">private</span>:</div><div class="line"> 	<span class="function"><span class="keyword">void</span> <span class="title">addingpar</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;v, <span class="built_in">string</span> str, <span class="keyword">int</span> n, <span class="keyword">int</span> m)</span></span>&#123;</div><div class="line">        <span class="keyword">if</span>(n==<span class="number">0</span> &amp;&amp; m==<span class="number">0</span>) &#123;</div><div class="line">            v.push_back(str);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span>(m &gt; <span class="number">0</span>)&#123; addingpar(v, str+<span class="string">")"</span>, n, m<span class="number">-1</span>); &#125;</div><div class="line">        <span class="keyword">if</span>(n &gt; <span class="number">0</span>)&#123; addingpar(v, str+<span class="string">"("</span>, n<span class="number">-1</span>, m+<span class="number">1</span>); &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-</li>
-<li><p><a href="https://discuss.leetcode.com/topic/7250/the-most-concise-solution-i-know-ever" target="_blank" rel="external">The most concise solution I know ever</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">     vector&lt;string&gt; generateParenthesis(int n) &#123;</div><div class="line">        if(n==0) return vector&lt;string&gt;(1,&quot;&quot;) ;</div><div class="line">        if(n==1) return vector&lt;string&gt;(1,&quot;()&quot;) ;</div><div class="line">        vector&lt;string&gt; result;</div><div class="line">        for(int i=0;i!=n;i++)</div><div class="line">            for(auto inner: generateParenthesis(i))</div><div class="line">                for(auto outter:  generateParenthesis(n-i-1))</div><div class="line">                    result.push_back(&quot;(&quot;+inner+&quot;)&quot;+outter);</div><div class="line">        return result;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-</li>
-<li><p><a href="https://discuss.leetcode.com/topic/35617/my-4ms-c-solution-without-using-recursion" target="_blank" rel="external">My 4ms C++ solution without using recursion</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">M Mein-Fuhrer </div><div class="line">Reputation:  3</div><div class="line"> class Solution &#123;</div><div class="line"> public:</div><div class="line">vector&lt;string&gt; generateParenthesis(int n) &#123;</div><div class="line">    vector&lt;string&gt; result;</div><div class="line">    string str(&quot;(&quot;);</div><div class="line">    result.push_back(str);</div><div class="line">    vector&lt;int&gt; left(&#123;1&#125;);</div><div class="line">    for(int pos = 1;pos &lt; 2*n;++pos) &#123;</div><div class="line">        int tmp = left.size();</div><div class="line">        for(int i = 0;i &lt; tmp;++i) &#123;</div><div class="line">            if(left[i] &lt; n) &#123;</div><div class="line">                if(pos - left[i] &lt; left[i]) &#123;</div><div class="line">                    result.push_back(result[i] + &apos;)&apos;);</div><div class="line">                    left.push_back(left[i]);</div><div class="line">                &#125;</div><div class="line">                result[i] += &apos;(&apos;;</div><div class="line">                left[i]++;</div><div class="line">            &#125;</div><div class="line">            else &#123;</div><div class="line">                result[i] += &apos;)&apos;;</div><div class="line">                continue;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return result;</div><div class="line">&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1949,7 +2062,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-count">41</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1957,7 +2070,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
