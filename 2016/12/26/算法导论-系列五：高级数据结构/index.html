@@ -1,0 +1,762 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="7989000bfd4e43ea" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="comments," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="B树
+n节点的B树高度为O(lgn)
+每个节点:n[x]当前节点内关键字数，
+n[x]个关键字本身，非降序排列；
+leaf[x],x为叶子则为true；
+n[x]+1个子女指针，叶节点指针域为空
+关键字对子树进行划分分割
+叶节点具有相同深度，即树高
+每个节点包含关键字字数有上界，即B树的最小度数t
+非根节点至少t-1个节点，t个子女
+每个节点至多2t-1关键字，内街店至多2t个节点
+
+
+
+
+n个关">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法导论 系列五：高级数据结构">
+<meta property="og:url" content="http://yoursite.com/2016/12/26/算法导论-系列五：高级数据结构/index.html">
+<meta property="og:site_name" content="TheOneAC">
+<meta property="og:description" content="B树
+n节点的B树高度为O(lgn)
+每个节点:n[x]当前节点内关键字数，
+n[x]个关键字本身，非降序排列；
+leaf[x],x为叶子则为true；
+n[x]+1个子女指针，叶节点指针域为空
+关键字对子树进行划分分割
+叶节点具有相同深度，即树高
+每个节点包含关键字字数有上界，即B树的最小度数t
+非根节点至少t-1个节点，t个子女
+每个节点至多2t-1关键字，内街店至多2t个节点
+
+
+
+
+n个关">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225223218339-1494708174.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226143117304-1243256737.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226151316117-49319174.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226152419992-1073338498.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226162529132-1564296168.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226162553023-720101874.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226163147882-244748304.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226164521039-267012977.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226165707007-2098982964.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226165642601-615526678.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226171240461-1284115104.png">
+<meta property="og:updated_time" content="2016-12-26T09:35:22.859Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法导论 系列五：高级数据结构">
+<meta name="twitter:description" content="B树
+n节点的B树高度为O(lgn)
+每个节点:n[x]当前节点内关键字数，
+n[x]个关键字本身，非降序排列；
+leaf[x],x为叶子则为true；
+n[x]+1个子女指针，叶节点指针域为空
+关键字对子树进行划分分割
+叶节点具有相同深度，即树高
+每个节点包含关键字字数有上界，即B树的最小度数t
+非根节点至少t-1个节点，t个子女
+每个节点至多2t-1关键字，内街店至多2t个节点
+
+
+
+
+n个关">
+<meta name="twitter:image" content="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225223218339-1494708174.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/26/算法导论-系列五：高级数据结构/"/>
+
+  <title> 算法导论 系列五：高级数据结构 | TheOneAC </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">TheOneAC</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">init</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                算法导论 系列五：高级数据结构
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-12-26T17:32:31+08:00" content="2016-12-26">
+              2016-12-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CLRS/" itemprop="url" rel="index">
+                    <span itemprop="name">CLRS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h3><ul>
+<li>n节点的B树高度为O(lgn)<ul>
+<li>每个节点:n[x]当前节点内关键字数，</li>
+<li>n[x]个关键字本身，非降序排列；</li>
+<li>leaf[x],x为叶子则为true；</li>
+<li>n[x]+1个子女指针，叶节点指针域为空</li>
+<li>关键字对子树进行划分分割</li>
+<li>叶节点具有相同深度，即树高</li>
+<li>每个节点包含关键字字数有上界，即B树的最小度数t<ul>
+<li>非根节点至少t-1个节点，t个子女</li>
+<li>每个节点至多2t-1关键字，内街店至多2t个节点</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>n个关键字，高度为h，最小度数为t》=2的B树有：h &lt;= lgt((n+1)/2)</li>
+<li>B树操作<ul>
+<li>搜索操作：多路分支<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225223218339-1494708174.png" alt=""></li>
+<li>插入关键字<ul>
+<li>满节点（2t-1）个关键字，按照中间关键字分裂成两个各含t-1个关键字的节点</li>
+<li>中间关键字提升到y的双亲节点</li>
+<li>插入的下降过程中每遇到一个满节点就将节点分裂，这样保证最后插入的的节点分裂时其父节点不是满节点<h3 id="二项堆"><a href="#二项堆" class="headerlink" title="二项堆"></a>二项堆</h3><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226143117304-1243256737.png" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>二项树<ul>
+<li>二项树B0只包含一个节点，二项树Bk由2两颗二项树Bk-1连接而成，其中一棵树根是另一棵树根的最左孩子</li>
+<li>二项树性质<ul>
+<li>共有2^k个节点</li>
+<li>树高k</li>
+<li>深度i处有Cki个节点</li>
+<li>根的度数为k，根的子女从左到右编号k-1到0，子女i是子树Bi的根    </li>
+</ul>
+</li>
+<li>n个节点的二项树，任意节点的最大度数lgn</li>
+</ul>
+</li>
+<li>二项堆<ul>
+<li>堆中每个二项树都遵循最小堆性质</li>
+<li>对任意非负整数k，堆中之多有一颗二项树度数为k</li>
+</ul>
+</li>
+<li>创建二项堆：根表头置空</li>
+<li>寻找最小关键字：在根表中寻找最小值</li>
+<li>根表度数严格递增<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226151316117-49319174.png" alt=""></li>
+<li>合并两个二项堆<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226152419992-1073338498.png" alt=""></li>
+<li>插入：直接插入根表中</li>
+<li>抽取最小关键字：将最小关键字子树构建成一个新的二项堆，与原二项堆合并</li>
+<li>减小关键字：递归向上调整至根表</li>
+<li>删除关键字：将关键字降值为最小，然后抽取最小值，复杂度O(lgn)</li>
+</ul>
+<h3 id="斐波那契堆"><a href="#斐波那契堆" class="headerlink" title="斐波那契堆"></a>斐波那契堆</h3><ul>
+<li>结构：最小堆有序树构成，不一定是二项树</li>
+<li>根表由双链表构成，且无序；min[h]指向根表中最小值</li>
+<li>可合并堆操作<ul>
+<li>插入节点：构建节点，插入根表，调整最小值指针<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226162529132-1564296168.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226162553023-720101874.png" alt=""></li>
+<li>寻最小节点：直接返回最小值指针</li>
+<li>合并两个斐波那契堆：合并根表，重置最小值指针<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226163147882-244748304.png" alt=""></li>
+<li>抽取最小点：删除最小值，将其子节点加入根表，然后合并根表（度相同的根合并，保证最后度数唯一）<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226164521039-267012977.png" alt=""></li>
+<li>减小一个关键字和删除一个节点<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226165707007-2098982964.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226165642601-615526678.png" alt=""></li>
+<li>当节点成为另一个节点的子节点后，第一次删除孩子时置mark域为true，第二次删除时，必须级练删除将节点本身从树上删除，加入到根表中</li>
+<li>删除一个节点：将节点降值为最小，然后抽取最小值点<h3 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h3></li>
+</ul>
+</li>
+<li>合并策略：<pre><code>- 按秩合并（节点少的树根合并到节点多大的树根）
+- 路径压缩（查找路径上的每个节点都指向根节点）
+</code></pre><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226171240461-1284115104.png" alt=""></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/comments/" rel="tag">#comments</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/26/算法导论-系列四：算法设计与分析：动态规划、贪心、平摊分析/" rel="next" title="算法导论 系列四：算法设计与分析：动态规划、贪心、平摊分析">
+                <i class="fa fa-chevron-left"></i> 算法导论 系列四：算法设计与分析：动态规划、贪心、平摊分析
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="TheOneAC" />
+          <p class="site-author-name" itemprop="name">TheOneAC</p>
+          <p class="site-description motion-element" itemprop="description">生如逆旅  一苇可航</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">44</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/TheOneAc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:scuhss@Gamil.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.quora.com/profile/SCUhss-%E9%BB%84%E5%B8%85" target="_blank" title="Quora">
+                  
+                    <i class="fa fa-fw fa-comments"></i>
+                  
+                  Quora
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/huang-shuai-4" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#B树"><span class="nav-number">1.</span> <span class="nav-text">B树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二项堆"><span class="nav-number">2.</span> <span class="nav-text">二项堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#斐波那契堆"><span class="nav-number">3.</span> <span class="nav-text">斐波那契堆</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并查集"><span class="nav-number">4.</span> <span class="nav-text">并查集</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016.7.14 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheOneAC</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

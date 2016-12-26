@@ -250,6 +250,365 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/17/C Primier Plus chapter-four/" itemprop="url">
+                  chapter four~five
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-17T19:26:19+08:00" content="2016-07-17">
+              2016-07-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>Parentheses Override Precedence and Associativity</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Managing Compound Expressions</div><div class="line"></div><div class="line">1. When in doubt, parenthesize expressions</div><div class="line"> to force the grouping that the</div><div class="line">logic of your program requires.</div><div class="line">2. If you change the value of an operand,</div><div class="line"> don’t use that operand elsewhere </div><div class="line"> in the same expresion</div></pre></td></tr></table></figure></p>
+<p>Assignment is right associative.<br>Shift Operators (aka IO Operators) Are Left Associative.<br>sizeof operator returns the size, in bytes, of an expression or a type name.<br><strong>right associative</strong><br>sizeof expr :not evaluate the value but return the type returned by the given expression<br>sizeof a reference type returns the size of an object of the referenced type<br>sizeof an array is the size of the entire array</p>
+<h2 id="A-block-is-not-terminated-by-a-semicolon"><a href="#A-block-is-not-terminated-by-a-semicolon" class="headerlink" title="A block is not terminated by a semicolon"></a>A block is not terminated by a semicolon</h2><h3 id="Exception-handling"><a href="#Exception-handling" class="headerlink" title="Exception handling"></a>Exception handling</h3><p>Throw :raise an exception and terminates the current function.<br>Try: deal with exception. one or more <em>catch</em> clauses<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">try &#123;  program-statements&#125; </div><div class="line">catch (exception-declaration) &#123; handler-statements&#125; </div><div class="line">catch (exception-declaration) &#123; handler-statements&#125;</div></pre></td></tr></table></figure></p>
+<p><strong><em>onece one catch executed,execution continues with the statement immediately following the last catch clause of the try block</em></strong><br>variable  declared inside a try block are inaccessible outside the block as well as to catch clauses.<br><strong>If a program has no try blocks and an exception occurs, then terminate is called and the program is exited.</strong></p>
+<p><code>Comments:exception  and leakage</code></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/16/C Primier Plus chapter-three/" itemprop="url">
+                  C Primier Plus --chapter three
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-16T12:10:38+08:00" content="2016-07-16">
+              2016-07-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="Namespace"><a href="#Namespace" class="headerlink" title="Namespace"></a>Namespace</h3><p>std::cin use the name from the namespace std.<br><code>using namespacename::name;</code><br>after the using declaration  we can use the name directly.<br><strong>A Separate using Declaration Is Required for Each Name</strong></p>
+<p><strong>Each <em>using</em> declaration introduces a single namespace member</strong></p>
+<hr>
+<p><strong>initialization of <em>string</em></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">string s1; // default initialization; s1 is the empty string</div><div class="line">string s2 = s1; // s2 is a copy of s1</div><div class="line">string s3 = &quot;hiya&quot;; // s3 is a copy of the string literal</div><div class="line">string s4(10, &apos;c&apos;); // s4 is cccccccccc</div></pre></td></tr></table></figure></p>
+<p><code>os&lt;&lt; s  Write s onto output stream os.return os.</code><br><code>is&gt;&gt; s  Reads whitespace-seperated string from is  into s.return is.</code><br><code>getline(is,s) Reads a line of input from is to s.return is.</code><br><code>s.empty() Returns true if s is empty; otherwise returns false.</code><br><code>s.size() Returns the number of characters in s.</code><br><code>s[n]  Returns a reference to the char at position n in s;position start at 0.</code><br><code>s1+s2 Returns a string that is concatenation of s1 and s2.</code><br><code>!= ,&lt;,&lt;=,&gt;,&gt;= Comparisons are case-sensitive and use dictionary.</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">The string input operator reads and discards any leading whitespace</div><div class="line">(e.g., spaces, newlines, tabs). It then readscharacters until the next </div><div class="line">whitespace character is encountered</div><div class="line">Reading an Unknown Number of strings</div></pre></td></tr></table></figure></p>
+<p>getline() reads to (including)the first newline,but not store in the string.<br>empty:<code>member function of string``return bool</code></p>
+<p>size()<br><code>return string::size_type</code></p>
+<h2 id="always-use-auto-or-decltype-to-let-the-compiler-to-provide-the-approriate"><a href="#always-use-auto-or-decltype-to-let-the-compiler-to-provide-the-approriate" class="headerlink" title="always use auto or decltype to let the compiler to provide the approriate"></a><code>always use auto or decltype to let the compiler to provide the approriate</code></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">DEV-C++支持C++11标准：</div><div class="line">Tools&gt;-Compiler Option &gt;-Code Generation &gt;- Language standart</div></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/16/C Primier Plus chapter-three/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/15/C Primier Plus Chapter_Two/" itemprop="url">
+                  C Primier Plus --chapter two
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-15T18:29:17+08:00" content="2016-07-15">
+              2016-07-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h3 id="Top-Level-const"><a href="#Top-Level-const" class="headerlink" title="Top-Level const"></a>Top-Level const</h3><p>A pointer who is const is top-level const,<br>and the object it point to is const ,it is low-level<br>pointer must point to an object，not a value.<br>pointer pointe to an const object may not be initialize,but const pointer must be intialized when defined.</p>
+<ul>
+<li><strong>Top-level indicates that an object itself is const, and appear in any object type.</strong></li>
+<li><strong>Low-level const only appear in the base type of compiund type such as pointer and reference</strong></li>
+<li><strong>when copy an object top-level const will be ipnored</strong></li>
+<li><strong>when copy an object low-level const must be the same ,because it cann’t be ignored</strong>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/15/C Primier Plus Chapter_Two/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/05/Git-command/" itemprop="url">
                   Git command
                 </a>
@@ -314,7 +673,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" rel="gallery_cix1w789j001sjqouvxxu4k56"
+                 href="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" rel="gallery_cix5w2j7c001uabouclo1fu7m"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" itemprop="contentUrl"/>
               </a>
@@ -407,7 +766,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">41</span>
+              <span class="site-state-item-count">44</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>

@@ -250,6 +250,435 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/23/sctp/" itemprop="url">
+                  SCTP
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-09-23T18:06:16+08:00" content="2016-09-23">
+              2016-09-23
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="SCTP-流传输控制协议"><a href="#SCTP-流传输控制协议" class="headerlink" title="SCTP : 流传输控制协议"></a>SCTP : 流传输控制协议</h4><ol>
+<li>UDP面向报文,保留报文边界,不可靠传输,无流量控制和传输控制</li>
+<li>TCP面向字节,不好刘报文边界,可靠传输,拥塞控制和流量控制</li>
+<li>面向报文,可靠传输,拥塞控制流量控制</li>
+<li>位于网络层与应用之间,全双工</li>
+</ol>
+<ul>
+<li>SCTP 一个关联包含多重流,某一个流堵塞,其他流仍可以交付数据<ul>
+<li>TCP只有一个源IP地址和一个目的IP地址</li>
+</ul>
+</li>
+<li>STCP关联支持<code>多重归属服务</code>,正常情况下只有一个路径有效,其他候补;故障时,候补路径补上</li>
+<li>STCP 允许每一个端使用多个IP地址</li>
+</ul>
+<hr>
+<ul>
+<li>SCTP使用<code>传输序号TSN</code>对数据块编号,TSN累计编号</li>
+<li><code>流标识符SI</code>区分一个关联内的流</li>
+<li><code>流序号SSN</code>区分同一个流中不同数据块</li>
+</ul>
+<hr>
+<ul>
+<li>STCP报头定长１２字节，<code>序号.确认号.窗口大小</code>放在控制块中</li>
+<li>一个分组多个数据块，分属于不同流</li>
+<li>STCP确认号面向数据块，位于控制信息中，<code>只用来确认数据块</code></li>
+<li>控制块位于数据块之前</li>
+<li>通用首部：１６位源端口地址，１６位目的端口地址，３２位验证标志，３２位检验和</li>
+<li>DATA数据块内容只能属于一个数据块，一个报文可以分割为多个数据块</li>
+</ul>
+<hr>
+<p><strong>关联建立</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">INIT          Init tag:1200 rwnd:1000 Init TSN:1000   VT:0</div><div class="line">INITACK       Init tag:5000 rwnd:2000 Init TSN:1700   VT:1200</div><div class="line">COOKIE ECHO   cookie  VT:5000</div><div class="line">COOKIEACK     VT:1200</div><div class="line">＊　INIT. INITACK 不携带其他块，COOKIE ECHO. COOKIE ACK 可以携带数据块 `</div></pre></td></tr></table></figure></p>
+<ul>
+<li>只有DATA块消耗TSN, DATA 块是唯一可确认的块<br><strong>关联终止</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">SHUTDOWN          VT:x   cum :TSN</div><div class="line">SHUTDOWN ACK      VT:y</div><div class="line">SHUTDOWN COMPLETE VT:x</div></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/22/TCP-IP/" itemprop="url">
+                  TCP/IP
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-09-22T21:58:31+08:00" content="2016-09-22">
+              2016-09-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/TCP-IP/" itemprop="url" rel="index">
+                    <span itemprop="name">TCP/IP</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="http://odfcr7qs4.bkt.clouddn.com/UDP.png" alt="UDP"><br><img src="http://odfcr7qs4.bkt.clouddn.com/tcps%E9%A6%96%E9%83%A8.png" alt="TCP head"><br><img src="http://odfcr7qs4.bkt.clouddn.com/TCP.png" alt="TCP"></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/19/APUE-File IO/" itemprop="url">
+                  APUE File IO
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-09-19T18:54:21+08:00" content="2016-09-19">
+              2016-09-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/IO/" itemprop="url" rel="index">
+                    <span itemprop="name">IO</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h4><blockquote>
+<ul>
+<li>0 : STDIN_FILENO</li>
+<li>1 : STDOUT_FILENO</li>
+<li>2 : STDERR_FILENO</li>
+<li>范围: 0 ~ OPEN_MAX -1</li>
+</ul>
+</blockquote>
+<ul>
+<li><p><strong>open and openat</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#include &lt;fcntl.h&gt;</div><div class="line">int open(const char *path, int oflag, ... /* mode_t mode */ );</div><div class="line">int openat(int fd, const char *path, int oflag, ... /* mode_t mode */ );</div><div class="line">Both return: file descriptor if OK, −1 on error</div></pre></td></tr></table></figure>
+<ul>
+<li>open 和 openat 函数返回当前未用最小文件描述符数值</li>
+<li>path specifies an absolute path, then <code>open</code> equals to <code>openat</code></li>
+<li>path specifier an relative path, The <code>fd</code> parameter is obtained by opening the directory by the relative pathname</li>
+</ul>
+</li>
+<li><p><strong>creat</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#include&lt;fcntl.h&gt;</div><div class="line">int creat (const char *path, mode_t mode);</div><div class="line">Returns: file descriptor opened for write-only if OK, −1 on error</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><strong>open(path, O_RDWR | O_CREAT | O_TRUNC, mode);</strong></p>
+<ul>
+<li><p><strong>close</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#include &lt;unistd.h&gt;</div><div class="line">int close(int fd);</div><div class="line">Returns: 0 if OK, −1 on error</div></pre></td></tr></table></figure>
+</li>
+<li><p><strong>lseek</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#include &lt;fcntl.h&gt;</div><div class="line">off_t lseek(int fd, off_t offset, int whence);</div><div class="line">returns: offset if ok, -1 on error</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>• If whence is SEEK_SET, the file’s offset is set to offset bytes from the beginning of<br>the file.<br>• If whence is SEEK_CUR, the file’s offset is set to its current value plus the offset.<br>The offset can be positive or negative.<br>• If whence is SEEK_END, the file’s offset is set to the size of the file plus the offset.<br>The offset can be positive or negative.</p>
+<ul>
+<li><strong>read/write</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;unistd.h&gt;</div><div class="line">ssize_t read(int fd, void *buf, size_t nbytes);</div><div class="line">$ Returns: number of bytes read, 0 if end of file, −1 on error</div><div class="line">ssize_t write(int fd, const void *buf, size_t nbytes);</div><div class="line">$ Returns: number of bytes written if OK, −1 on error</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="文件共享"><a href="#文件共享" class="headerlink" title="文件共享"></a>文件共享</h4><p> <code>文件打开后</code><br><img src="http://odfcr7qs4.bkt.clouddn.com/%E8%BF%9B%E7%A8%8B%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8fromAPUE.png" alt=""><br><img src="http://odfcr7qs4.bkt.clouddn.com/%E7%8B%AC%E7%AB%8B%E8%BF%9B%E7%A8%8B%E6%89%93%E5%BC%80%E5%90%8C%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6.png" alt=""></p>
+<blockquote>
+<ol>
+<li>每个进程在进程变种有一个记录项,记录项包含一张文件描述符表(当前进程打开的所有文件)每个文件描述符包含:一个文件描述符标志,一个指向文件表项的指针</li>
+<li>内核为所有打开文件维持一张文件表,每个表项包含:文件状态,当前文件偏移,该文件的v节点表项指针</li>
+<li>每个打开文件都有一个v节点.包含:文件类型,文件操作指针,索引节点等</li>
+<li><strong>每个进程都有自己的文件表项为了维持不同的当前文件偏移量</strong></li>
+</ol>
+</blockquote>
+<h4 id="原子操作"><a href="#原子操作" class="headerlink" title="原子操作"></a>原子操作</h4><ul>
+<li>追加:每次都定位到结尾并写入:<code>定位结尾</code>与<code>写入</code>整合为一个原子操作</li>
+<li><p><code>pread/pwrite</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">  #include &lt;unistd.h&gt;</div><div class="line">ssize_t pread(int fd, void *buf, size_t nbytes, off_t offset);</div><div class="line">Returns: number of bytes read, 0 if end of file, −1 on error</div><div class="line">ssize_t pwrite(int fd, const void *buf, size_t nbytes, off_t offset);</div><div class="line">Returns: number of bytes written if OK, −1 on error</div></pre></td></tr></table></figure>
+<ul>
+<li><code>定位</code>与<code>读写</code>操作为一个整体<code>不可中断</code></li>
+<li>不更新当前文件偏移量</li>
+</ul>
+</li>
+<li>创建文件: <code>检测当前文件是否存在</code>与<code>创建文件</code>整合为一个操作</li>
+</ul>
+<hr>
+<ul>
+<li><p><strong>dup/dup2</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#include &lt;unistd.h&gt;</div><div class="line">int dup(int fd);</div><div class="line">int dup2(int fd, int fd2);</div><div class="line">Both return: new file descriptor if OK, −1 on error</div></pre></td></tr></table></figure>
+<ul>
+<li><code>dup</code>返回<code>当前最小可用文件描述符</code></li>
+<li><code>dup2</code>关闭<code>fd2</code>,若<code>fd == fd2</code> 不关闭直接返回<code>fd2</code></li>
+</ul>
+</li>
+</ul>
+<h4 id="函数sync-fsync和fdatasync"><a href="#函数sync-fsync和fdatasync" class="headerlink" title="函数sync,fsync和fdatasync"></a>函数<code>sync</code>,<code>fsync</code>和<code>fdatasync</code></h4><blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;unistd.h&gt;</div><div class="line">int fsync(int fd);</div><div class="line">int fdatasync(int fd);</div><div class="line">Returns: 0 if OK, −1 on error</div><div class="line">void sync(void);</div></pre></td></tr></table></figure>
+</blockquote>
+<ul>
+<li><code>sync</code>修改过区块排入写队列.<code>update</code>守护进程周期性调用<code>flush</code>缓冲区</li>
+<li><code>fsync</code>只对<code>fd</code>文件作用,并<code>等待文件写完</code></li>
+<li><code>fdatasync</code>只影响数据部分,<code>同步更新文件属性</code></li>
+</ul>
+<h4 id="函数ioctl"><a href="#函数ioctl" class="headerlink" title="函数ioctl"></a>函数<code>ioctl</code></h4><blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt; #include &lt;unistd.h&gt;</div><div class="line">#include &lt;sys/ioctl.h&gt;</div><div class="line">/* System V */</div><div class="line">/* BSD and Linux */</div><div class="line">int ioctl(int fd, int request, ...);</div><div class="line">Returns: −1 on error, something else if OK</div></pre></td></tr></table></figure>
+</blockquote>
+<p>习题/思维导图</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/18/linux-basic-command/" itemprop="url">
                   linux basic command
                 </a>
@@ -1348,426 +1777,6 @@ $ when const and non-const member function have essentialy identical implementio
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/05/C++ Note/" itemprop="url">
-                  Note
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-08-05T20:10:03+08:00" content="2016-08-05">
-              2016-08-05
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox"
-                 href="http://www.tutorialspoint.com/cplusplus/images/cpp-mini-logo.jpg" rel="gallery_cix1w788t001gjqouin0e86ru"
-                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="http://www.tutorialspoint.com/cplusplus/images/cpp-mini-logo.jpg" itemprop="contentUrl"/>
-              </a>
-            
-          
-
-          
-          </div>
-        </div>
-      
-
-      
-        
-          
-            <p><img src="http://www.tutorialspoint.com/cplusplus/cpp_interfaces.htm" alt="C++ Tutorials"><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;ctime&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdlib&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> maxn 100</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">   <span class="keyword">int</span> i,j;</div><div class="line">   srand((<span class="keyword">unsigned</span>)time(<span class="literal">NULL</span>));</div><div class="line">   <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)</div><div class="line">   &#123;</div><div class="line">       j=rand();</div><div class="line">       <span class="built_in">cout</span>&lt;&lt;<span class="string">"随机数：  "</span>&lt;&lt; j%maxn &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">   &#125;</div><div class="line">   <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>保护成员在派生类（即子类）中是可访问的<br>friend funtion is not belong to any class,and may access any nember of the class which it make firends.<br>inline function: all the funtion defined in the class is default inline function .<br><em>the compiler cooperate the inline function like #define</em><br><strong>this</strong> pointer is the  implicitly arguement of all the menber function.<br>in  any menber funtion ,you can use the <strong>this</strong> pointer to call the object itself.<br>pointer to class is like the pointer to struct ,which can access the member object.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Box *ptrBox;                // Declare pointer to a class.</div><div class="line">   ptrBox = &amp; Box1;// use menber access oprator to call the</div><div class="line">   cout &lt;&lt; &quot;Volume of Box1: &quot; &lt;&lt; ptrBox-&gt;Volume() &lt;&lt; endl;</div></pre></td></tr></table></figure></p>
-<p><strong>static</strong> menber and <strong>static</strong> mener function has the only copy int the class,<br>any object of this class not have a copy.but it`s  accessible  to any object of this class.</p>
-<blockquote>
-<p><strong>inheritance</strong>:<br>class    classname:     access-specifier             base-class<br>         derived-class  (public,private,protected)   defined class</p>
-</blockquote>
-<p>Access               public     protected      private<br>identical-class       yes           yes          yes<br>inherient-class       yes           yes          no<br>outer-class           yes           no           no</p>
-<p><strong>A derived class inherits all base class methods with the following exceptions:</strong></p>
-<ol>
-<li>Constructors, destructors and copy constructors of the base class.</li>
-<li>Overloaded operators of the base class.</li>
-<li>The friend functions of the base class.</li>
-</ol>
-<p>``<br>Type of Inheritance:<br>When deriving a class from a base class, the base class may be inherited through public, protected or private inheritance. The type of inheritance is specified by the access-specifier as explained above.</p>
-<p>We hardly use protected or private inheritance, but public inheritance is commonly used. While using different type of inheritance, following rules are applied:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">* Public Inheritance: When deriving a class from a public base class, public members of the base class become public members of the derived class and protected members of the base class become protected members of the derived class. A base class&apos;s private members are never accessible directly from a derived class, but can be accessed through calls to the public and protected members of the base class.</div><div class="line">* Protected Inheritance: When deriving from a protected base class, public and protected members of the base class become protected members of the derived class.</div><div class="line">* Private Inheritance: When deriving from a private base class, public and protected members of the base class become private members of the derived class.</div></pre></td></tr></table></figure></p>
-<p>``<br><strong>Multiple Inheritances:</strong></p>
-<blockquote>
-<p>class derived-class: access baseA, access baseB….</p>
-</blockquote>
-<p><strong>Overloading function and Overloading operator</strong><br>int the same scope,you can declare some function with the same name,but the parameter list must be different. when the function called ,the compiler will select the most approriate overloaded funtion or operator, which is called overloaded resolution.<br>overloaded funtion character: </p>
-<blockquote>
-<p>The definition of the function must differ from each other by the types and/or the number of arguments in the argument list.<br><code>the list of operators, which can not be overloaded:    ::    .*   .   ?;</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">friend ostream &amp;operator&lt;&lt;( ostream &amp;output, const Distance &amp;D )</div><div class="line">&#123; </div><div class="line">    output &lt;&lt; &quot;F : &quot; &lt;&lt; D.feet &lt;&lt; &quot; I : &quot; &lt;&lt; D.inches;</div><div class="line">    return output;            </div><div class="line">&#125;</div><div class="line"></div><div class="line">friend istream &amp;operator&gt;&gt;( istream  &amp;input, Distance &amp;D )</div><div class="line">&#123; </div><div class="line">    input &gt;&gt; D.feet &gt;&gt; D.inches;</div><div class="line">    return input;            </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-</blockquote>
-<p><strong>Polymorphism</strong></p>
-<blockquote>
-<p>polymorphism occurs when there is hierarchy of class and they are related by inheritance.<br>polymorphism in c++ means that a call to a member function will cause a different function to be executed depending on the type of object that invokes the function.</p>
-</blockquote>
-<p>the call of the member function  is being set once by the compiler as the version defined in the base class,which is called <strong>static resolution</strong> of the function call, or <strong>static linkage</strong> and also sometimes called <strong>early binding</strong><br><strong>Virtual funtion </strong> precede the declaration of menber funtion() in the base class with the keyword <strong>virtual</strong>.<br>virtualed in the base class and each of the child classes has a separate implementation for the function(). This is how polymorphism is generally used.<br><code>A virtual function is a function in a base class that is declared using the keyword virtual. Defining in a base class a virtual function, with another version in a derived class, signals to the compiler that we don&#39;t want static linkage for this function.
-What we do want is the selection of the function to be called at any given point in the program to be based on the kind of object for which it is called. This sort of operation is referred to as **dynamic linkage**, or **late binding**.</code></p>
-<p><strong>Pure Virtual Functions:</strong></p>
-<blockquote>
-<p>there is no meaningful definition you could give for the function in the base class.<br><code>virtual type  functionname() = 0;</code><br>The = 0 tells the compiler that the function has no body and above virtual function will be called pure virtual function.</p>
-</blockquote>
-<p>c++ inteface are implemented by <strong>Abstract class</strong><br>A class is made abstract by declaring at least one of its functions as pure virtual function. using <code>virtual</code> and placing “=0 “ in its declaration.<br>The purpose of an abstract class (often referred to as an ABC) is to provide an appropriate base class from which other classes can inherit. Abstract classes cannot be used to instantiate objects and serves only as an interface.<br><strong>if a subclass of an ABC needs to be instantiated, it has to implement each of the virtual functions, which means that it supports the interface declared by the ABC</strong><br>Classes that can be used to instantiate objects are called <strong>concrete classes</strong><br>.</p>
-<blockquote>
-<p>Memory in c++ program ia divided into two parts:</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">The stack: All variables declared inside the function will take up memory from the stack.</div><div class="line">The heap: This is unused memory of the program and can be used to allocate the memory dynamically when program runs</div><div class="line">&apos;&apos;&apos;</div><div class="line"></div><div class="line">&gt; it is good practice to check if new operator is returning NULL pointer and take appropriate action as below:</div></pre></td></tr></table></figure>
-<p>double* pvalue  = NULL;<br>if( !(pvalue  = new double ))<br>{<br>   cout &lt;&lt; “Error: out of memory.” &lt;<endl; exit(1);="" }="" <figure="" class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">Following is the syntax of new operator for a multi-dimensional array as follows:</div></pre></td></tr></table></endl;></p>
-<p>int ROW = 2;<br>int COL = 3;<br>double <em>*pvalue  = new double</em> [ROW]; // Allocate memory for rows</p>
-<p>// Now allocate memory for columns<br>for(int i = 0; i &lt; COL; i++) {<br>    pvalue[i] = new double[COL];<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">The syntax to release the memory for multi-dimensional will be as follows:</div></pre></td></tr></table></figure></p>
-<p>for(int i = 0; i &lt; COL; i++) {<br>    delete[] pvalue[i];<br>}<br>delete [] pvalue;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">**Function Template**</div></pre></td></tr></table></figure></p>
-<p>template <class type=""> ret-type func-name(parameter list)<br>{<br>   // body of function<br>}<br>```<br><strong>CGI</strong><br><img src="http://www.runoob.com/wp-content/uploads/2015/05/cgiarch.gif" alt="CGI"></class></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/04/C Primier Plus Overloaded-operation-and-conversion/" itemprop="url">
-                  Overloaded operation and conversion
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-08-04T12:14:29+08:00" content="2016-08-04">
-              2016-08-04
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>规范<br>思考 thinkong<br>改进 improvement<br>说明 specification</p>
-<p>When an overloaded operator is a member function, this is bound to the left-hand operand. Member operator functions have one less (explicit)parameter than the number of operands.When an overloaded operator is a member function, this is bound to the left-hand operand. Member operator functions have one less (explicit) parameter than the number of operands.</p>
-<blockquote>
-<p>deciding whether to make an operator a member or an ordinary nonmember function:<br>• The assignment (=), subscript ([]), call (()), and member access arrow (-&gt;)<br>operators must be defined as members.<br>• The compound-assignment operators ordinarily ought to be members. However,<br>unlike assignment, they are not required to be members.<br>• Operators that change the state of their object or that are closely tied to their<br>given type—such as increment, decrement, and dereference—usually should be<br>members.<br>• Symmetric operators—those that might convert either operand, such as the<br>arithmetic, equality, relational, and bitwise operators—usually should be defined<br>as ordinary nonmember functions.</p>
-</blockquote>
-<p><code>IO Operators Must Be Nonmember Functions
-IO operators usually must be declared as friends</code></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/03/C Primier Plus Copy-Control/" itemprop="url">
-                  Copy Control
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-08-03T20:02:40+08:00" content="2016-08-03">
-              2016-08-03
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="The-Copy-Constructer"><a href="#The-Copy-Constructer" class="headerlink" title="The Copy Constructer"></a>The Copy Constructer</h4><p>the first parameter is a reference to the class type.<br>usually not be eaplicit.</p>
-<blockquote>
-<p>the difference between direct initialization and copy initialization.<br>direct initialization :the compiler use ordinary function matching to select the cnstructer that best matchs the arguments we provide;<br>copy initialization : the compiler copy the right oprand into the object being created,converting that operand if necessary.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">string s(dots); // direct initialization</div><div class="line">string s2 = dots; // copy initialization</div></pre></td></tr></table></figure></p>
-</blockquote>
-<p><strong><br>Copy initialization happens<br>• Define variables using an =<br>• Pass an object as an argument to a parameter of nonreference type<br>• Return an object from a function that has a nonreference return type<br>• Brace initialize the elements in an array or the members of an aggregate class<br>• Some class types also use copy initialization for the objects they allocate.<br><em>insert or push:copy initialize             empalce :   direct initialized</em>
-</strong></p>
-<h4 id="The-Copy-Assignment-Operater"><a href="#The-Copy-Assignment-Operater" class="headerlink" title="The Copy-Assignment Operater"></a>The Copy-Assignment Operater</h4><p>Assignment operators ordinarily should return a reference to their left-hand operand.<br><code>copy-assignment</code> operator is function named <code>operator=</code>.<br>and is used when assignment occurred.</p>
-<h4 id="The-Destructor"><a href="#The-Destructor" class="headerlink" title="The Destructor"></a>The Destructor</h4><p>prefixed by a tilde (~).             no return value and takes no parameters:</p>
-<blockquote>
-<p>When a Destructor Is Called<br>• Variables are destroyed when they go out of scope.<br>• Members of an object are destroyed when the object of which they are a part is<br>destroyed.<br>• Elements in a container—whether a library container or an array—are destroyed<br>when the container is destroyed.<br>• Dynamically allocated objects are destroyed when the delete operator is<br>applied to a pointer to the object<br>• Temporary objects are destroyed at the end of the full expression in which the<br>temporary was created.</p>
-</blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;initializer_list&gt;</span></span></div><div class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">cout</span>;</div><div class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">endl</span>;</div><div class="line"><span class="keyword">struct</span> X</div><div class="line">&#123;</div><div class="line">    X()&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"X()"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;;</div><div class="line">    X(<span class="keyword">const</span> X&amp;)&#123; <span class="built_in">cout</span>&lt;&lt;<span class="string">"X(const X&amp;)"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;; <span class="comment">//copy</span></div><div class="line">    X&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> X&amp;) <span class="comment">//copy assignment</span></div><div class="line">    &#123;</div><div class="line">        <span class="built_in">cout</span>&lt;&lt;<span class="string">"X&amp; operater=(const X&amp;)"</span>&lt;&lt;<span class="built_in">endl</span>;</div><div class="line">        <span class="keyword">return</span> *<span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line">    ~X()&#123;<span class="built_in">cout</span>&lt;&lt;<span class="string">"~X()"</span>&lt;&lt;<span class="built_in">endl</span>;&#125;;  <span class="comment">//destucter</span></div><div class="line">&#125;;</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">const</span> X&amp;rx,X x)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;X&gt;vec;</div><div class="line">    vec.reserve(<span class="number">2</span>);</div><div class="line">    vec.push_back(rx);</div><div class="line">    vec.push_back(x);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    X* px=<span class="keyword">new</span> X;</div><div class="line">    f(*px,*px);</div><div class="line">    <span class="keyword">delete</span> px;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>Classes That Need Destructors Need Copy and Assignment</strong><br><strong>If a class needs a copy constructor, it almost surely needs a copy-assignment operator.</strong><br><strong>= default</strong>:use the defaluter constructer;(only on the default constructor or a copy-control member)<br><strong>= delete</strong>: unable the constructer;</p>
-<blockquote>
-<p>The Destructor Should Not be a Deleted Member<br>if a class has a data member that cannot be default<br>constructed, copied, assigned, or destroyed, then the corresponding member will be a<br>deleted function.</p>
-</blockquote>
-<h3 id="Copy-Control-and-Resource-Management"><a href="#Copy-Control-and-Resource-Management" class="headerlink" title="Copy Control and Resource Management"></a>Copy Control and Resource Management</h3><p>two points in assignment operator:<br>• Assignment operators must work correctly if an object is assigned to itself.<br>• Most assignment operators share work with the destructor and copy<br>constructor.</p>
-<h4 id="SteVec"><a href="#SteVec" class="headerlink" title="SteVec"></a>SteVec</h4><p>Each StrVec will have three pointers into the space it uses for its elements:<br>• elements, which points to the first element in the allocated memory<br>• first_free, which points just after the last actual element<br>• cap, which points just past the end of the allocated memory</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1813,7 +1822,7 @@ IO operators usually must be declared as friends</code></p>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">41</span>
+              <span class="site-state-item-count">44</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>

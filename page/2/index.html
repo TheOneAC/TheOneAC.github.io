@@ -250,6 +250,599 @@
             
               
                 
+                <a class="post-title-link" href="/2016/12/12/inside-the-c-model/" itemprop="url">
+                  inside the c++ model
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-12-12T19:31:22+08:00" content="2016-12-12">
+              2016-12-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/c/" itemprop="url" rel="index">
+                    <span itemprop="name">c++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="第一章关于对象"><a href="#第一章关于对象" class="headerlink" title="第一章关于对象"></a>第一章关于对象</h3><blockquote>
+<ul>
+<li>c++在布局和存取时间的额外负担主要有virtual引起<ul>
+<li>virtual function：运行期动态绑定</li>
+<li>virtual base class ：base class多次出现在派生类中，但只有一个单一而被共享的实体（虚基类）<ul>
+<li>对象模型</li>
+<li>简单模型：每一个地址slot指向一个成员，</li>
+<li>表格模型：数据表和成员函数表</li>
+</ul>
+<ol>
+<li>数据表包含数据本身</li>
+<li>成员函数表包含指向每个成员函数的指针slot</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>虚函数表</p>
+<ul>
+<li>每个class产生一堆指向virtual function的指针，，指针形成一个virtual function table；</li>
+<li>每一个class object 添加一个指向virtual function table 的指针vptr</li>
+<li>每一个class 关联一个type_info object由虚函数表指出<blockquote>
+<p> <code>被指定的object在执行点之前是无法确定类型的，必须通过指针或者引用操作实现</code></p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>c++支持多态的方式</p>
+<ul>
+<li>隐含转化操作，子类指针赋值给父类指针</li>
+<li>virtual function</li>
+<li>dynamic_cast 和 typeid</li>
+<li>基类定义接口，通过virtual function方式，在运行时确定object类型并执行相应操作</li>
+</ul>
+</li>
+</ul>
+<h3 id="第二章-构造函数"><a href="#第二章-构造函数" class="headerlink" title="第二章 构造函数"></a>第二章 构造函数</h3><h4 id="2-1-default-constructor-的构建"><a href="#2-1-default-constructor-的构建" class="headerlink" title="2.1 default constructor 的构建"></a>2.1 default constructor 的构建</h4><blockquote>
+<ul>
+<li>生成default constructor 的要素：<ul>
+<li>含有member object 且member object 均有default constructor</li>
+<li>class本身无任何constructor，则调用constructor 时编辑器将为class合成一个default constructor</li>
+<li>以member objects 在class 声明次序调用各个member object 的 default constructor<br><code>如果derived class 拥有多个constructor 但是没有default constructor，编译器将扩张每一个consturctor，加入每一个必要的基类default constructor,但不会再合成default constructor</code></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h6 id="2-1-1“带有default-constructor-”的base-class-："><a href="#2-1-1“带有default-constructor-”的base-class-：" class="headerlink" title="2.1.1“带有default constructor ”的base class  ："></a>2.1.1“带有default constructor ”的base class  ：</h6><blockquote>
+<ul>
+<li>自动合成default constructor<pre><code>- class 声明（继承）一个virtual function
+- class 派生自一个继承串联，其中至少一个virtual base class
+</code></pre></li>
+<li>自动合成过程<ul>
+<li>产生一个virtual function table，内放class的virtual functions 地址</li>
+<li>每一个class object合成一个pointer（vptr）只想class 的virtual function table<br><code>已定义constructor则扩展，未定义则合成default constructor， 保证正确初始化每一个class object 的vptr</code></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h6 id="2-1-2“带有一个virtual-base-class”的class"><a href="#2-1-2“带有一个virtual-base-class”的class" class="headerlink" title="2.1.2“带有一个virtual base class”的class"></a>2.1.2“带有一个virtual base class”的class</h6><blockquote>
+<ul>
+<li>在derived class object 的每一个virtual base class 中插入一个指向，经由pointer 和reference 存取virtual base class 的操作由这个指针完整（指向同一份内容）<ul>
+<li>已定义constructor则扩展，未定义则合成default constructor， 保证允许每一个virtual base class 执行器存取操作</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>summary:合成 implicit nontrivial default constructor<ul>
+<li>借用member object 或者 base class 的default constructor</li>
+<li>为每一个object 初始化virtual function机制 或者 virtual base机制 </li>
+<li>除以上以外，如无任何声明constructor 则不会合成default constructor</li>
+</ul>
+</li>
+<li>合成的default constructor 中只有base class objects 和member class objects 被初始化</li>
+</ul>
+<p>####2.2 copy constructor 的构建</p>
+<blockquote>
+<ul>
+<li>执行copy constructor的三种情况：<pre><code>- 赋值
+- 作为参数传递
+- 作为返回值
+</code></pre></li>
+<li>default memberwise initialization<ul>
+<li>对于member data 逐一赋值</li>
+<li>对于member function 递归调用 memberwise initialization</li>
+</ul>
+</li>
+<li>当class 不展现一个“bitewise copy semantics”(如下四种情况)，需要合成copy constructor<ol>
+<li>class 内包含一个member object 且后者（声明或者合成）copy constrctor 时</li>
+<li>class 继承一个base class 且后者（声明或者合成）copy constrctor 时</li>
+<li>class 声明至少一个virtual function时</li>
+<li>class 派生自一个继承串联，其中至少一个virtual base class</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<h4 id="2-3-program-transformation-semantics"><a href="#2-3-program-transformation-semantics" class="headerlink" title="2.3 program transformation semantics"></a>2.3 program transformation semantics</h4><blockquote>
+<ul>
+<li>explicit initialization:直接逐位赋值member data<ul>
+<li>argument initialization:参数构造临时对象并copy constrcuct</li>
+<li>copy construct and 返回引用</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h4 id="2-4-member-initialization-list"><a href="#2-4-member-initialization-list" class="headerlink" title="2.4 member initialization list"></a>2.4 member initialization list</h4><blockquote>
+<ul>
+<li>initial 时：= 操作符以arguement初始化对象时分为三步：1、以arguement 构造一个 临时对象，2、将临时对象copy给目标对象，3、销毁临时对象<ul>
+<li>初始化顺序是由members声明次序决定的，不是由member list 顺序决定的；</li>
+<li>member list 中初始化先于explicit assignment：即：之后的初始化先于{}内部member data的初始化或者赋值<br><code>X::x(int v):j(v){i = j;}j 的初始化先于i的初始化</code></li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h3 id="第三章-the-semantaic-of-data"><a href="#第三章-the-semantaic-of-data" class="headerlink" title="第三章 the semantaic of data"></a>第三章 the semantaic of data</h3><h4 id="3-1-data-member-绑定"><a href="#3-1-data-member-绑定" class="headerlink" title="3.1 data member 绑定"></a>3.1 data member 绑定</h4><pre><code>- 局域绑定
+</code></pre><h4 id="3-2-data-member-layout"><a href="#3-2-data-member-layout" class="headerlink" title="3.2 data member layout"></a>3.2 data member layout</h4><pre><code>- 同一access session 按照声明顺序合并，静态成员不存在class 内部
+</code></pre><h4 id="3-3-data-member-存取"><a href="#3-3-data-member-存取" class="headerlink" title="3.3 data member 存取"></a>3.3 data member 存取</h4><pre><code>- static data member 
+ &gt; 独立于class 之外，不论是继承virtual base class而来或者函数调用得到的static 都是直接存取，通过指针和通过对象存取是一样的
+- nonstatic data member
+ &gt; 通过指向对象的指针和对象访问一致的，当访问的member data是一个从virtual base class 继承而来的member时，指针访问在运行时才能确定
+- 多重继承
+![pointer实现：共享虚基类](http://odfcr7qs4.bkt.clouddn.com/IMG_0073.PNG)
+![offset实现：共享虚基类](http://odfcr7qs4.bkt.clouddn.com/IMG_0074.PNG)
+</code></pre><h4 id="3-6-pointer-to-data-member"><a href="#3-6-pointer-to-data-member" class="headerlink" title="3.6 pointer to data member"></a>3.6 pointer to data member</h4><pre><code>* &amp;Pointer：：z   “取一个nonstaic data member，得到它在class 中的偏移量”
+* &amp;origin.z   “取一个class object 的datamenber地址， 得到member在内存中的真正地址”
+* 继承层次越深，指针代码执行速度越慢
+</code></pre><h3 id="第四章-the-semantics-of-function"><a href="#第四章-the-semantics-of-function" class="headerlink" title="第四章 the semantics of function"></a>第四章 the semantics of function</h3><h4 id="4-1-member-调用方式"><a href="#4-1-member-调用方式" class="headerlink" title="4.1 member 调用方式"></a>4.1 member 调用方式</h4><pre><code>* nonstatic member function
+  〉 0. 安插this指针   
+    1. 对nonstatic member function 经由this 指针存取
+    2. 将member function 改写成独一无二（name mangling）的外部函数
+  - nonstatic member function 与外部函数的访问性能是一样的
+* virtual member function
+ &gt;  经由对象调用virtual function 被处理为编译绑定，与nonstatic member function的调用方式一致
+* static member function
+ &gt;  0. 通过指针或者对象调用静态成员函数都被当做一般函数处理
+ 〉 1. static member function 没有this 指针，被当做一般函数处理
+</code></pre><h3 id="第五章-the-semantics-of-construction-destruction-and-copy"><a href="#第五章-the-semantics-of-construction-destruction-and-copy" class="headerlink" title="第五章  the semantics of construction destruction and  copy"></a>第五章  the semantics of construction destruction and  copy</h3><h4 id="5-1-无继承的对象构造"><a href="#5-1-无继承的对象构造" class="headerlink" title="5.1 无继承的对象构造"></a>5.1 无继承的对象构造</h4><blockquote>
+<ol>
+<li>bitwise member copy<ol>
+<li>ADT class 执行default copy constructor，copy constructor， destructor，但是并不产生相应函数</li>
+</ol>
+</li>
+</ol>
+</blockquote>
+<h4 id="5-2-继承体系下的对象构造"><a href="#5-2-继承体系下的对象构造" class="headerlink" title="5.2 继承体系下的对象构造"></a>5.2 继承体系下的对象构造</h4><ul>
+<li>vptr 初始化语义学<ul>
+<li>在class的constructor 或者 destructor 中调用一个virtual function ，调用的必须是本class 中的那个function实体</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li>dervied class constructor 中所有virtual base class 和base class constructor 被调用</li>
+<li>对象vprt被设置，指向相关virtual function table</li>
+<li>member initialization list 在constructor 内部展开</li>
+<li>执行程序直接赋值代码和生成对象的代码</li>
+</ol>
+<ul>
+<li>不要在虚基类中声明数据</li>
+</ul>
+<h4 id="5-5-semantics-of-destructor"><a href="#5-5-semantics-of-destructor" class="headerlink" title="5.5 semantics of destructor"></a>5.5 semantics of destructor</h4><ul>
+<li>如果class 未声明destructor 且member object 拥有destructor ，编译器自动合成destructor，否则不合成<blockquote>
+<ol>
+<li>destructor 函数本身最先执行</li>
+<li>member class object 执行自己的destructor</li>
+<li>object 每部vptr 重置</li>
+<li>直接上层的nonvirtual base class 以其声明的顺序的逆序执行destructor</li>
+<li>virtual base class 按照与构造顺序相反的顺序执行destructor</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<hr>
+<p>后边两章感觉理解不到位啊，缺少实踩代码坑</p>
+<h3 id="第六章-runtime-semantics"><a href="#第六章-runtime-semantics" class="headerlink" title="第六章 runtime semantics"></a>第六章 runtime semantics</h3><h4 id="6-2-new-delete-运算符"><a href="#6-2-new-delete-运算符" class="headerlink" title="6.2 new delete 运算符"></a>6.2 new delete 运算符</h4><pre><code>- new 和delete 底层以malloc 和free 实现
+- new 失败，必须在new 内部完成已分配空间的释放
+</code></pre><h4 id="6-3-临时对象的处理"><a href="#6-3-临时对象的处理" class="headerlink" title="6.3 临时对象的处理"></a>6.3 临时对象的处理</h4><pre><code>- 临时对象的销毁，必须在完整表达式求值过程的最后，该完整表达式造成临时对象的生成
+- 如果临时对象被reference 对象将残留到reference 生命周期结束
+</code></pre><h3 id="第七章-on-the-cusp-of-the-object-model"><a href="#第七章-on-the-cusp-of-the-object-model" class="headerlink" title="第七章 on the cusp of the object model"></a>第七章 on the cusp of the object model</h3><pre><code>- template
+&gt; member function 只在使用时具现出来
+- exception handing 快速检阅
+&gt; 0. throw 子句，发出exception
+  1. 多个catch 子句捕获相应类型的exception
+  2. try区段处理
+- RTTI
+&gt;  dynamic_cast 通过vptr指向type_info运行时判定类型实现转型，比static_cast代价高但是更安全
+&gt;  dynamic_cast 应用于pointer 时，安全转型则直接向下转型，不安全则pointer置0
+&gt;  dynamic_cast 应用于reference 时，安全转型则直接向下转型，不安全则返回一个bad_cast exception
+&gt;  typeid 返回一个 const reference，类型为type_info,
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/26/leetcode279-Perfect-Squares-basic-dp/" itemprop="url">
+                  leetcode279. Perfect Squares(basic dp)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-11-26T22:03:54+08:00" content="2016-11-26">
+              2016-11-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/OJ/" itemprop="url" rel="index">
+                    <span itemprop="name">OJ</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="learn-from-this"><a href="#learn-from-this" class="headerlink" title="learn from this"></a>learn from <a href="https://discuss.leetcode.com/topic/24255/summary-of-4-different-solutions-bfs-dp-static-dp-and-mathematics" target="_blank" rel="external">this</a></h3><ul>
+<li><p>DP</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int numSquares(int n) &#123;</div><div class="line">        if(n&lt;=0)return 0;</div><div class="line">        int * dp = new int[n+1]();</div><div class="line">        for(int i=1;i&lt;=n;i++)&#123;</div><div class="line">            dp[i]= INT_MAX;</div><div class="line">            for(int j =1;j*j &lt;=i;j++)&#123;</div><div class="line">                int tmp = dp[i-j*j]+1;</div><div class="line">                dp[i]=dp[i]&lt;tmp?dp[i]:tmp;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        //for(int i=0;i&lt;=n;i++)cout&lt;&lt; dp[i]&lt;&lt;&apos; &apos;;</div><div class="line">        return dp[n];</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+<li><p>BFS</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int numSquares(int n) &#123;</div><div class="line">        if (n &lt;= 0)return 0;</div><div class="line">        else if(pow((int)sqrt(n),2) == n)return 1;</div><div class="line">        vector&lt;int&gt; perfectSquares;//candinates</div><div class="line">        vector&lt;int&gt; cntPerfectSquares(n);//count_index</div><div class="line">        for (int i = 1; i*i &lt;= n; i++)</div><div class="line">        &#123;</div><div class="line">            perfectSquares.push_back(i*i);</div><div class="line">            cntPerfectSquares[i*i - 1] = 1;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        queue&lt;int&gt; searchQ;</div><div class="line">        for (auto&amp; i : perfectSquares) searchQ.push(i);</div><div class="line">        int currCntPerfectSquares = 1;</div><div class="line">        while (!searchQ.empty())//BFS</div><div class="line">        &#123;</div><div class="line">            currCntPerfectSquares++;</div><div class="line">            </div><div class="line">            int searchQSize = searchQ.size();</div><div class="line">            for (int i = 0; i &lt; searchQSize; i++)</div><div class="line">            &#123;</div><div class="line">                int tmp = searchQ.front();</div><div class="line">                for (auto&amp; j : perfectSquares)</div><div class="line">                &#123;</div><div class="line">                    if (tmp + j == n)return currCntPerfectSquares;</div><div class="line">                    else if ((tmp + j &lt; n) &amp;&amp; (cntPerfectSquares[tmp + j - 1] == 0))</div><div class="line">                    &#123;</div><div class="line">                        cntPerfectSquares[tmp + j - 1] = currCntPerfectSquares;</div><div class="line">                        searchQ.push(tmp + j);</div><div class="line">                    &#125;</div><div class="line">                    else if (tmp + j &gt; n)break;</div><div class="line">                &#125;</div><div class="line">                searchQ.pop();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return 0;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/26/Object Oriented in C++/" itemprop="url">
+                  Object Oriented in C++
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-11-26T22:00:54+08:00" content="2016-11-26">
+              2016-11-26
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>定义<code>const</code> 成员函数时,<code>const</code> 位于<code>参数</code>与<code>函数体</code>之间</li>
+<li><code>const</code>成员函数只能调用 <code>const</code>成员函数,保证不做修改</li>
+<li><code>禁用默认函数</code>(构造,赋值构造等),将<code>默认函数私有化</code>private</li>
+<li><code>const</code>成员变量只能<code>参数列表初始化</code></li>
+<li>成员函数内部<code>static</code>变量为<code>所有调用该成员函数的对象共有</code></li>
+<li><code>this</code>指针<code>不用于static 成员函数</code>中,<code>不能指向const 对象</code></li>
+<li>隐藏的父类成员,子类不可直接调用,通过父类共有函数调用</li>
+<li><code>派生类同名成员或者函数 屏蔽父类同名成员或者函数</code></li>
+<li>为<code>基类设置默认构造函数</code>,方便子类继承</li>
+<li>基类声明虚函数后,<code>子类同名</code>自动定义为<code>虚函数</code></li>
+<li>构造函数<code>不可以是虚成员函数</code>, <code>析构函数</code>可以</li>
+<li><code>重载</code>在<code>编译时期绑定</code>,<code>虚函数(多态)</code> <code>运行期间绑定</code></li>
+<li><code>覆盖</code>:多态虚函数函数签名相同,  <code>遮蔽</code>: 共享函数名但签名不同</li>
+<li><code>抽象基类确保派生类必须定义某些特定函数（纯虚函数）</code>，否则派生类不可以实例化</li>
+<li>抽象基类：<code>包含一个纯虚函数　　virtual    =0;</code></li>
+<li><p><code>抽象基类不可实例化</code>，可派生，其<code>派生类必须覆盖全部纯虚函数</code>才可被实例化</p>
+</li>
+<li><p>重载不改变符号优先级</p>
+</li>
+<li>除<code>new new[] delete delete[]</code>外以顶层函数重载操作符必须包含一个类对象</li>
+<li>操作符<code>[] ()　-&gt;</code>必须以<code>类成员形式重载</code></li>
+<li>以成员函数重载二元操作符，只需一个参数，而以顶层函数重载二元操作符时必须两个参数</li>
+<li>使用<code>顶层函数重载非对象操作数可出现在操作符左边</code>，<code>类成员函数重载</code>时<code>第一个操作数必须是类对象</code><br>-　<code>praivete member</code> only access by <code>menberfunction and friend funtion.</code></li>
+<li><code>protect member</code> can be accessed by <code>menber funtion</code>, <code>friend function</code> and <code>member function of derived class</code></li>
+<li>using <code>friend function</code> <code>only</code> in <code>overloading operator</code> as possible as we can</li>
+<li>前置自增：　operator++()     后置自增：　operator++(int );</li>
+<li><code>new new[]</code>  <code>return type</code> must be <code>void*</code>, the first parameter must be <code>size_t</code></li>
+<li><code>delete delete[]</code> return type must be <code>void*</code>, the first parameter must be <code>void *</code> wihch point to the object need to destroied</li>
+<li><p>对象不能属于模板类，只能属于模板类实例</p>
+</li>
+<li><p>duque :双端插入删除效率一致，vector 尾部插入删除效率高</p>
+</li>
+<li><code>protect</code>成员只能被<code>该类和子类的方法访问</code></li>
+<li>父类成员必须定义默认构造函数，否则子类构造前出现编译错误</li>
+<li>同一域名空间，函数名相同，签名不同</li>
+<li>编译期绑定确定绑定函数，也称为静态多态<h4 id="重写-覆盖-override"><a href="#重写-覆盖-override" class="headerlink" title="重写:覆盖(override)"></a>重写:覆盖(override)</h4></li>
+<li>虚函数</li>
+<li>子类空间，函数名相同，签名相同<h4 id="重定义：遮蔽（redefine）"><a href="#重定义：遮蔽（redefine）" class="headerlink" title="重定义：遮蔽（redefine）"></a>重定义：遮蔽（redefine）</h4></li>
+<li>非虚函数，子类成员函数与父类成员函数同名</li>
+<li>虚函数，子类成员函数与父类成员函数同名但不同签名<h4 id="多态：（动态多态）"><a href="#多态：（动态多态）" class="headerlink" title="多态：（动态多态）"></a>多态：（动态多态）</h4></li>
+<li>运行期确定绑定对象，也称为动态多态</li>
+<li>同签名虚函数构成覆盖</li>
+<li>父类指针指向子类对象，调用属于子类的函数</li>
+</ul>
+<hr>
+<ul>
+<li>顶层函数重载操作符<ul>
+<li>非对象操作数可以出现在操作符左边</li>
+<li>使用类成员函数重载是，第一操作数必须是累的对象</li>
+<li>顶层函数不能直接访问类私有成员，最好将顶层重载函数设为友元函数，方便直接访问私有数据成员</li>
+</ul>
+</li>
+<li>重载[]:  重载为成员函数，检查下标 ， 返回一个引用适应左值情况</li>
+<li>重载（）： 函数调用重载操作符</li>
+<li>析构函数出现，必须定义拷贝构造，赋值构造函数</li>
+</ul>
+<hr>
+<ul>
+<li>继承下的构造函数：<ul>
+<li>先父类按继承顺序构造，再成员按顺序构造，最后派生类构造</li>
+<li>每一层只负责调用父类构造函数</li>
+<li>基类没有默认构造时，子类构造函数必须显式调用基类的某个构造函数</li>
+<li>创建派生类对象时，自动调用基类默认构造函数<ul>
+<li>子类有构造函数，基类没有默认构造，创建子类对象时，自动创建基类默认构造函数</li>
+<li>子类没有构造函数，基类有默认构造，创建子类对象时，自动调用基类默认构造</li>
+<li>子类有构造函数，基类也有默认构造，创建子类对象时，直接调用基类默认构造，或者调用子类显式调用的构造函数</li>
+<li>子类基类均有构造，但是基类没有默认构造，创建子类对象时，必须显式调用基类构造函数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>继承下的析构函数: 定义实现对派生类新增成员的析构释放</li>
+<li>虚基类构造优先于非虚基类的构造</li>
+<li>虚基类构造由最派生类调用，其他派生类跳过对虚基类构造的调用</li>
+<li>派生类对象和指针可适用于任何基类对象或指针使用的位置（子类可以向上转型）</li>
+<li>赋值兼容：子类对象可以赋值或者初始化父类对象，基类指针可以指向子类对象地址</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/25/TCP协议簇/" itemprop="url">
                   TCP协议簇
                 </a>
@@ -1588,435 +2181,6 @@ command-line arguments</code> to the new program to be specified as separate arg
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/23/sctp/" itemprop="url">
-                  SCTP
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-09-23T18:06:16+08:00" content="2016-09-23">
-              2016-09-23
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="SCTP-流传输控制协议"><a href="#SCTP-流传输控制协议" class="headerlink" title="SCTP : 流传输控制协议"></a>SCTP : 流传输控制协议</h4><ol>
-<li>UDP面向报文,保留报文边界,不可靠传输,无流量控制和传输控制</li>
-<li>TCP面向字节,不好刘报文边界,可靠传输,拥塞控制和流量控制</li>
-<li>面向报文,可靠传输,拥塞控制流量控制</li>
-<li>位于网络层与应用之间,全双工</li>
-</ol>
-<ul>
-<li>SCTP 一个关联包含多重流,某一个流堵塞,其他流仍可以交付数据<ul>
-<li>TCP只有一个源IP地址和一个目的IP地址</li>
-</ul>
-</li>
-<li>STCP关联支持<code>多重归属服务</code>,正常情况下只有一个路径有效,其他候补;故障时,候补路径补上</li>
-<li>STCP 允许每一个端使用多个IP地址</li>
-</ul>
-<hr>
-<ul>
-<li>SCTP使用<code>传输序号TSN</code>对数据块编号,TSN累计编号</li>
-<li><code>流标识符SI</code>区分一个关联内的流</li>
-<li><code>流序号SSN</code>区分同一个流中不同数据块</li>
-</ul>
-<hr>
-<ul>
-<li>STCP报头定长１２字节，<code>序号.确认号.窗口大小</code>放在控制块中</li>
-<li>一个分组多个数据块，分属于不同流</li>
-<li>STCP确认号面向数据块，位于控制信息中，<code>只用来确认数据块</code></li>
-<li>控制块位于数据块之前</li>
-<li>通用首部：１６位源端口地址，１６位目的端口地址，３２位验证标志，３２位检验和</li>
-<li>DATA数据块内容只能属于一个数据块，一个报文可以分割为多个数据块</li>
-</ul>
-<hr>
-<p><strong>关联建立</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">INIT          Init tag:1200 rwnd:1000 Init TSN:1000   VT:0</div><div class="line">INITACK       Init tag:5000 rwnd:2000 Init TSN:1700   VT:1200</div><div class="line">COOKIE ECHO   cookie  VT:5000</div><div class="line">COOKIEACK     VT:1200</div><div class="line">＊　INIT. INITACK 不携带其他块，COOKIE ECHO. COOKIE ACK 可以携带数据块 `</div></pre></td></tr></table></figure></p>
-<ul>
-<li>只有DATA块消耗TSN, DATA 块是唯一可确认的块<br><strong>关联终止</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">SHUTDOWN          VT:x   cum :TSN</div><div class="line">SHUTDOWN ACK      VT:y</div><div class="line">SHUTDOWN COMPLETE VT:x</div></pre></td></tr></table></figure></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/22/TCP-IP/" itemprop="url">
-                  TCP/IP
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-09-22T21:58:31+08:00" content="2016-09-22">
-              2016-09-22
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/TCP-IP/" itemprop="url" rel="index">
-                    <span itemprop="name">TCP/IP</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><img src="http://odfcr7qs4.bkt.clouddn.com/UDP.png" alt="UDP"><br><img src="http://odfcr7qs4.bkt.clouddn.com/tcps%E9%A6%96%E9%83%A8.png" alt="TCP head"><br><img src="http://odfcr7qs4.bkt.clouddn.com/TCP.png" alt="TCP"></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/19/APUE-File IO/" itemprop="url">
-                  APUE File IO
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-09-19T18:54:21+08:00" content="2016-09-19">
-              2016-09-19
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/IO/" itemprop="url" rel="index">
-                    <span itemprop="name">IO</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="文件描述符"><a href="#文件描述符" class="headerlink" title="文件描述符"></a>文件描述符</h4><blockquote>
-<ul>
-<li>0 : STDIN_FILENO</li>
-<li>1 : STDOUT_FILENO</li>
-<li>2 : STDERR_FILENO</li>
-<li>范围: 0 ~ OPEN_MAX -1</li>
-</ul>
-</blockquote>
-<ul>
-<li><p><strong>open and openat</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#include &lt;fcntl.h&gt;</div><div class="line">int open(const char *path, int oflag, ... /* mode_t mode */ );</div><div class="line">int openat(int fd, const char *path, int oflag, ... /* mode_t mode */ );</div><div class="line">Both return: file descriptor if OK, −1 on error</div></pre></td></tr></table></figure>
-<ul>
-<li>open 和 openat 函数返回当前未用最小文件描述符数值</li>
-<li>path specifies an absolute path, then <code>open</code> equals to <code>openat</code></li>
-<li>path specifier an relative path, The <code>fd</code> parameter is obtained by opening the directory by the relative pathname</li>
-</ul>
-</li>
-<li><p><strong>creat</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#include&lt;fcntl.h&gt;</div><div class="line">int creat (const char *path, mode_t mode);</div><div class="line">Returns: file descriptor opened for write-only if OK, −1 on error</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><strong>open(path, O_RDWR | O_CREAT | O_TRUNC, mode);</strong></p>
-<ul>
-<li><p><strong>close</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#include &lt;unistd.h&gt;</div><div class="line">int close(int fd);</div><div class="line">Returns: 0 if OK, −1 on error</div></pre></td></tr></table></figure>
-</li>
-<li><p><strong>lseek</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#include &lt;fcntl.h&gt;</div><div class="line">off_t lseek(int fd, off_t offset, int whence);</div><div class="line">returns: offset if ok, -1 on error</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>• If whence is SEEK_SET, the file’s offset is set to offset bytes from the beginning of<br>the file.<br>• If whence is SEEK_CUR, the file’s offset is set to its current value plus the offset.<br>The offset can be positive or negative.<br>• If whence is SEEK_END, the file’s offset is set to the size of the file plus the offset.<br>The offset can be positive or negative.</p>
-<ul>
-<li><strong>read/write</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;unistd.h&gt;</div><div class="line">ssize_t read(int fd, void *buf, size_t nbytes);</div><div class="line">$ Returns: number of bytes read, 0 if end of file, −1 on error</div><div class="line">ssize_t write(int fd, const void *buf, size_t nbytes);</div><div class="line">$ Returns: number of bytes written if OK, −1 on error</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h4 id="文件共享"><a href="#文件共享" class="headerlink" title="文件共享"></a>文件共享</h4><p> <code>文件打开后</code><br><img src="http://odfcr7qs4.bkt.clouddn.com/%E8%BF%9B%E7%A8%8B%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8fromAPUE.png" alt=""><br><img src="http://odfcr7qs4.bkt.clouddn.com/%E7%8B%AC%E7%AB%8B%E8%BF%9B%E7%A8%8B%E6%89%93%E5%BC%80%E5%90%8C%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6.png" alt=""></p>
-<blockquote>
-<ol>
-<li>每个进程在进程变种有一个记录项,记录项包含一张文件描述符表(当前进程打开的所有文件)每个文件描述符包含:一个文件描述符标志,一个指向文件表项的指针</li>
-<li>内核为所有打开文件维持一张文件表,每个表项包含:文件状态,当前文件偏移,该文件的v节点表项指针</li>
-<li>每个打开文件都有一个v节点.包含:文件类型,文件操作指针,索引节点等</li>
-<li><strong>每个进程都有自己的文件表项为了维持不同的当前文件偏移量</strong></li>
-</ol>
-</blockquote>
-<h4 id="原子操作"><a href="#原子操作" class="headerlink" title="原子操作"></a>原子操作</h4><ul>
-<li>追加:每次都定位到结尾并写入:<code>定位结尾</code>与<code>写入</code>整合为一个原子操作</li>
-<li><p><code>pread/pwrite</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">  #include &lt;unistd.h&gt;</div><div class="line">ssize_t pread(int fd, void *buf, size_t nbytes, off_t offset);</div><div class="line">Returns: number of bytes read, 0 if end of file, −1 on error</div><div class="line">ssize_t pwrite(int fd, const void *buf, size_t nbytes, off_t offset);</div><div class="line">Returns: number of bytes written if OK, −1 on error</div></pre></td></tr></table></figure>
-<ul>
-<li><code>定位</code>与<code>读写</code>操作为一个整体<code>不可中断</code></li>
-<li>不更新当前文件偏移量</li>
-</ul>
-</li>
-<li>创建文件: <code>检测当前文件是否存在</code>与<code>创建文件</code>整合为一个操作</li>
-</ul>
-<hr>
-<ul>
-<li><p><strong>dup/dup2</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#include &lt;unistd.h&gt;</div><div class="line">int dup(int fd);</div><div class="line">int dup2(int fd, int fd2);</div><div class="line">Both return: new file descriptor if OK, −1 on error</div></pre></td></tr></table></figure>
-<ul>
-<li><code>dup</code>返回<code>当前最小可用文件描述符</code></li>
-<li><code>dup2</code>关闭<code>fd2</code>,若<code>fd == fd2</code> 不关闭直接返回<code>fd2</code></li>
-</ul>
-</li>
-</ul>
-<h4 id="函数sync-fsync和fdatasync"><a href="#函数sync-fsync和fdatasync" class="headerlink" title="函数sync,fsync和fdatasync"></a>函数<code>sync</code>,<code>fsync</code>和<code>fdatasync</code></h4><blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;unistd.h&gt;</div><div class="line">int fsync(int fd);</div><div class="line">int fdatasync(int fd);</div><div class="line">Returns: 0 if OK, −1 on error</div><div class="line">void sync(void);</div></pre></td></tr></table></figure>
-</blockquote>
-<ul>
-<li><code>sync</code>修改过区块排入写队列.<code>update</code>守护进程周期性调用<code>flush</code>缓冲区</li>
-<li><code>fsync</code>只对<code>fd</code>文件作用,并<code>等待文件写完</code></li>
-<li><code>fdatasync</code>只影响数据部分,<code>同步更新文件属性</code></li>
-</ul>
-<h4 id="函数ioctl"><a href="#函数ioctl" class="headerlink" title="函数ioctl"></a>函数<code>ioctl</code></h4><blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt; #include &lt;unistd.h&gt;</div><div class="line">#include &lt;sys/ioctl.h&gt;</div><div class="line">/* System V */</div><div class="line">/* BSD and Linux */</div><div class="line">int ioctl(int fd, int request, ...);</div><div class="line">Returns: −1 on error, something else if OK</div></pre></td></tr></table></figure>
-</blockquote>
-<p>习题/思维导图</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2062,7 +2226,7 @@ command-line arguments</code> to the new program to be specified as separate arg
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">41</span>
+              <span class="site-state-item-count">44</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>

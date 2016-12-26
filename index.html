@@ -250,6 +250,578 @@
             
               
                 
+                <a class="post-title-link" href="/2016/12/26/算法导论-系列五：高级数据结构/" itemprop="url">
+                  算法导论 系列五：高级数据结构
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-12-26T17:32:31+08:00" content="2016-12-26">
+              2016-12-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CLRS/" itemprop="url" rel="index">
+                    <span itemprop="name">CLRS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="B树"><a href="#B树" class="headerlink" title="B树"></a>B树</h3><ul>
+<li>n节点的B树高度为O(lgn)<ul>
+<li>每个节点:n[x]当前节点内关键字数，</li>
+<li>n[x]个关键字本身，非降序排列；</li>
+<li>leaf[x],x为叶子则为true；</li>
+<li>n[x]+1个子女指针，叶节点指针域为空</li>
+<li>关键字对子树进行划分分割</li>
+<li>叶节点具有相同深度，即树高</li>
+<li>每个节点包含关键字字数有上界，即B树的最小度数t<ul>
+<li>非根节点至少t-1个节点，t个子女</li>
+<li>每个节点至多2t-1关键字，内街店至多2t个节点</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>n个关键字，高度为h，最小度数为t》=2的B树有：h &lt;= lgt((n+1)/2)</li>
+<li>B树操作<ul>
+<li>搜索操作：多路分支<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225223218339-1494708174.png" alt=""></li>
+<li>插入关键字<ul>
+<li>满节点（2t-1）个关键字，按照中间关键字分裂成两个各含t-1个关键字的节点</li>
+<li>中间关键字提升到y的双亲节点</li>
+<li>插入的下降过程中每遇到一个满节点就将节点分裂，这样保证最后插入的的节点分裂时其父节点不是满节点<h3 id="二项堆"><a href="#二项堆" class="headerlink" title="二项堆"></a>二项堆</h3><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226143117304-1243256737.png" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>二项树<ul>
+<li>二项树B0只包含一个节点，二项树Bk由2两颗二项树Bk-1连接而成，其中一棵树根是另一棵树根的最左孩子</li>
+<li>二项树性质<ul>
+<li>共有2^k个节点</li>
+<li>树高k</li>
+<li>深度i处有Cki个节点</li>
+<li>根的度数为k，根的子女从左到右编号k-1到0，子女i是子树Bi的根    </li>
+</ul>
+</li>
+<li>n个节点的二项树，任意节点的最大度数lgn</li>
+</ul>
+</li>
+<li>二项堆<ul>
+<li>堆中每个二项树都遵循最小堆性质</li>
+<li>对任意非负整数k，堆中之多有一颗二项树度数为k</li>
+</ul>
+</li>
+<li>创建二项堆：根表头置空</li>
+<li>寻找最小关键字：在根表中寻找最小值</li>
+<li>根表度数严格递增<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226151316117-49319174.png" alt=""></li>
+<li>合并两个二项堆<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226152419992-1073338498.png" alt=""></li>
+<li>插入：直接插入根表中</li>
+<li>抽取最小关键字：将最小关键字子树构建成一个新的二项堆，与原二项堆合并</li>
+<li>减小关键字：递归向上调整至根表</li>
+<li>删除关键字：将关键字降值为最小，然后抽取最小值，复杂度O(lgn)</li>
+</ul>
+<h3 id="斐波那契堆"><a href="#斐波那契堆" class="headerlink" title="斐波那契堆"></a>斐波那契堆</h3><ul>
+<li>结构：最小堆有序树构成，不一定是二项树</li>
+<li>根表由双链表构成，且无序；min[h]指向根表中最小值</li>
+<li>可合并堆操作<ul>
+<li>插入节点：构建节点，插入根表，调整最小值指针<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226162529132-1564296168.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226162553023-720101874.png" alt=""></li>
+<li>寻最小节点：直接返回最小值指针</li>
+<li>合并两个斐波那契堆：合并根表，重置最小值指针<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226163147882-244748304.png" alt=""></li>
+<li>抽取最小点：删除最小值，将其子节点加入根表，然后合并根表（度相同的根合并，保证最后度数唯一）<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226164521039-267012977.png" alt=""></li>
+<li>减小一个关键字和删除一个节点<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226165707007-2098982964.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226165642601-615526678.png" alt=""></li>
+<li>当节点成为另一个节点的子节点后，第一次删除孩子时置mark域为true，第二次删除时，必须级练删除将节点本身从树上删除，加入到根表中</li>
+<li>删除一个节点：将节点降值为最小，然后抽取最小值点<h3 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h3></li>
+</ul>
+</li>
+<li>合并策略：<pre><code>- 按秩合并（节点少的树根合并到节点多大的树根）
+- 路径压缩（查找路径上的每个节点都指向根节点）
+</code></pre><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161226171240461-1284115104.png" alt=""></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/26/算法导论-系列四：算法设计与分析：动态规划、贪心、平摊分析/" itemprop="url">
+                  算法导论 系列四：算法设计与分析：动态规划、贪心、平摊分析
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-12-26T17:32:10+08:00" content="2016-12-26">
+              2016-12-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CLRS/" itemprop="url" rel="index">
+                    <span itemprop="name">CLRS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><ul>
+<li>步骤<ul>
+<li>秒速最优解的结构</li>
+<li>地规定以最优解的值</li>
+<li>自底向上的计算最优解</li>
+<li>由计算结果构造最优解</li>
+</ul>
+</li>
+<li>装配线调度<ul>
+<li>最快路线的结构<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225132710557-298791547.png" alt=""></li>
+<li>一个问题额最优解包含了子问题的一个最优解：即最优子结构</li>
+<li>递归解<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225132910495-1136423986.png" alt=""></li>
+</ul>
+</li>
+<li>矩阵链乘<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225144917104-1856136894.png" alt=""></li>
+<li>动态规划<ul>
+<li>最优子结构：问题的最优解包含了子问题的最优解，即具有最优子结构</li>
+<li>剪切发证明子问题的最优解课推导出问题最优解，如果不是子问题最优解，则剪贴子问题最优解</li>
+<li>重叠子问题：求解原问题过程中多次求解一个子问题，则存在重叠子问题</li>
+<li>备忘录：遇到的子问题未曾遇到则求解并存储，再次遇到时不必重复计算<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225153334761-353719558.png" alt=""></li>
+</ul>
+</li>
+<li>最长公共子序列<ul>
+<li>最长公共子序列结构<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225153514182-1816293547.png" alt=""></li>
+</ul>
+</li>
+<li>最优二叉查找树：期望查找代价最小<ul>
+<li>最优二叉查找树必然具有最优子结构</li>
+<li>求解最优二叉查找树，必然先求自述的最优二叉查找子结构</li>
+</ul>
+</li>
+</ul>
+<h3 id="贪心（最小生成树，单源最短路径）"><a href="#贪心（最小生成树，单源最短路径）" class="headerlink" title="贪心（最小生成树，单源最短路径）"></a>贪心（最小生成树，单源最短路径）</h3><blockquote>
+<p>确定最优子结构，设计递归解，确定最优选择之一是贪心解，证明贪心选择后，只余一个子问题，设计贪心递归，递归算法转为迭代算法</p>
+<ul>
+<li>贪心要素：贪心选择性质和最优子结构</li>
+<li>贪心选择性质：全局最优解和通过局部最优（贪心）达到</li>
+<li>最优子结构：问题的最优解包含了子问题的最优解，即具有最优子结构</li>
+</ul>
+</blockquote>
+<ul>
+<li>贪心理论<ul>
+<li>拟阵<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225201822495-1491516853.png" alt=""></li>
+<li>拟阵证明：非空子集，遗传性（传递性），交换性</li>
+<li>拟阵中所有最大独立子集是相同的</li>
+<li>贪心问题：在加权拟阵中寻找具有最大权值的独立子集<h3 id="任务调度"><a href="#任务调度" class="headerlink" title="任务调度"></a>任务调度</h3></li>
+<li>惩罚最小的调度安排，使得迟任务惩罚最小即早任务集惩罚最大，即求早任务集最大的安排方案</li>
+</ul>
+</li>
+</ul>
+<h3 id="平摊分析"><a href="#平摊分析" class="headerlink" title="平摊分析"></a>平摊分析</h3><ul>
+<li>聚集分析：n个操作的全部时间平均到n个操作中去<ul>
+<li>计算多个操作的总代价，然后平均到一次操作</li>
+</ul>
+</li>
+<li>记账方法<ul>
+<li>总的平摊代价不能为负，保证平摊代价是总的代价的上界</li>
+</ul>
+</li>
+<li>势能方法<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225210348276-1871355090.png" alt=""></li>
+<li>动态表<ul>
+<li>表扩张<ul>
+<li>聚集分析<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225212930495-149772643.png" alt=""></li>
+<li>记账方法<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225213021026-769034729.png" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/26/算法导论-系列三：数据结构/" itemprop="url">
+                  算法导论 系列三：数据结构
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-12-26T17:31:27+08:00" content="2016-12-26">
+              2016-12-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CLRS/" itemprop="url" rel="index">
+                    <span itemprop="name">CLRS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="散列"><a href="#散列" class="headerlink" title="散列"></a>散列</h3><ul>
+<li>链接法解决碰撞问题，散列进同一个桶中元素以链接方式存储</li>
+<li>链接解决碰撞问题，依次查找不成功或成功的查找的期望时间θ（1+a）其中a为装载因子</li>
+<li>散列函数<ul>
+<li>除法散列:取余数映射（m取值多去与2的整数次幂不太接近的质数）</li>
+<li>乘法散列（其中m多取2的整数次幂）<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224151920042-1829545561.png" alt=""></li>
+</ul>
+</li>
+<li>开放寻址：连续检查散列表直到寻找到空槽插入元素</li>
+<li>线性探查：单向线性查找空巢</li>
+<li>二次探查：左右平法探查空巢</li>
+<li>双重散列：冲突节点，再次散列探查</li>
+<li>完全散列：保证二次散列不发生碰撞，且二次散列的期望总体空间为O(n)</li>
+</ul>
+<h3 id="二叉查找树"><a href="#二叉查找树" class="headerlink" title="二叉查找树"></a>二叉查找树</h3><ul>
+<li>前驱和后继<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224155220651-89622958.png" alt=""></li>
+<li>插入<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224155720214-632329009.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224155803339-1806710971.png" alt=""></li>
+</ul>
+<h3 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h3><ul>
+<li>红黑树性质 <ul>
+<li>每个节点红或者黑</li>
+<li>根节点是黑的</li>
+<li>每个叶子节点是黑的</li>
+<li>红节点的子节点均为黑色</li>
+<li>任何一个节点从它本身到其子孙节点路径上抱哈相同数目的黑节点（黑高相同）</li>
+</ul>
+</li>
+<li>黑高：从节点本身出发到叶子节点路径上黑节点的数目</li>
+<li>一颗n各节点的红黑树的高度最多为2lg（n+1）<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224163447948-945615955.png" alt=""></li>
+<li>left_rotate 左旋：右孩子成为父节点<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224164739167-1311722368.png" alt=""></li>
+<li>左旋与右旋对称且只改变指针，在常量时间内完成</li>
+<li><p>插入</p>
+<ul>
+<li>以二叉排序树方法插入节点，并将节点颜色标为红色</li>
+<li>插入调整：当父节点为红色时，进入调整过程</li>
+<li>父节点为祖父节点左子<ul>
+<li>叔节点为红色：父节点，叔节点同时置黑，祖父节点置红，递归调整祖父节点</li>
+<li>叔节点为黑色，且当前节点为父节点的右孩子：父节点左旋</li>
+<li>叔节点为黑色，且当前节点为父节点的左孩子：父节点置黑，祖父节点置红，右旋</li>
+</ul>
+</li>
+<li>父节点为祖父节点右子：<ul>
+<li>叔节点为红色：父节点、叔节点同时置黑，祖父节点置红，提柜调整祖父节点</li>
+<li>叔节点为黑色，且当前节点为父节点的做孩子：父节点右旋</li>
+<li>叔节点为黑色，且当前节点为父节点的右孩子：父节点置黑，祖父节点置红，左旋</li>
+</ul>
+</li>
+<li>插入时间复杂度为O(lgn)</li>
+</ul>
+</li>
+<li><p>删除</p>
+<ul>
+<li>以二叉排序树方法删除一个节点<ul>
+<li>若待删节点为单子节点，则删除节点本身，否则寻找后继节点</li>
+<li>将找到的后继节点或者节点本身，链接为待删节点父节点的子节点</li>
+<li>如果是后继节点，则用后继节点覆盖待删节点</li>
+<li>如果删除的后继节点或者节点本身是黑色，则调整<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224195116198-465666632.png" alt=""></li>
+</ul>
+</li>
+<li>删除调整：当删除节点不是根节点且为黑色时调整<ul>
+<li>删除节点为左子节点<ul>
+<li>兄弟节点为红色，改变兄弟节点和父节点颜色，并对父节点左旋（待删节点下移一层）转入情况234之一</li>
+<li>兄弟节点为黑色，且兄弟节点子节点均为黑色：兄弟节点置红（待删节点向上走一层）</li>
+<li>兄弟节点为黑色，兄弟节点左子红，右子黑：交换兄弟节点和其左子颜色，并右旋，转入情况4</li>
+<li>兄弟节点为黑色，兄弟节点左子黑，右子红：兄弟节点复制父节点颜色，父节点和兄弟节点右子均置黑，左旋父节点</li>
+<li>待删节点指向根</li>
+</ul>
+</li>
+<li>删除节点为右子节点<ul>
+<li>兄弟节点为红色：改变兄弟节点和父节点颜色，并对父节点右旋（待删节点下移一层）转入情况234之一</li>
+<li>兄弟节点为黑色：且兄弟节点子节点均为黑色：兄弟节点置红（待删节点向上走一层）</li>
+<li>兄弟节点为黑色：兄弟节点左子黑，右子红：交换兄弟节点和其右子节点颜色，并左旋，转入情况4</li>
+<li>兄弟节点为黑色：兄弟节点右子黑，左子红：兄弟节点复制父节点颜色，父节点和兄弟节点左子均置黑，右旋父节点</li>
+<li>待删节点指向根</li>
+</ul>
+</li>
+<li>根节点置黑</li>
+</ul>
+</li>
+<li>删除时间复杂度为O(lgn)<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224204925386-1397767445.png" alt=""></li>
+</ul>
+</li>
+</ul>
+<p><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224204957448-2087243033.png" alt=""></p>
+<p><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224201839292-305894321.png" alt=""></p>
+<h3 id="扩展红黑树"><a href="#扩展红黑树" class="headerlink" title="扩展红黑树"></a>扩展红黑树</h3><ul>
+<li>顺序统计树：红黑树加入size域，标记以该节点为根的子树节点数</li>
+<li>检索给定序列元素<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224204515495-1476728321.png" alt=""></li>
+</ul>
+<h3 id="数据结构扩张"><a href="#数据结构扩张" class="headerlink" title="数据结构扩张"></a>数据结构扩张</h3><ul>
+<li>选择基础数据结构</li>
+<li>确定要在基础数据结构中添加哪些信息</li>
+<li>验证可用基础数据结构上基本修改操作维护新添加的信息</li>
+<li>设计心得操作</li>
+</ul>
+<h3 id="区间树"><a href="#区间树" class="headerlink" title="区间树"></a>区间树</h3><ul>
+<li>增加一个区间左界和一个区间右界，一个以该结点为根的子树的右界最大值<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224215758198-904005452.png" alt=""></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/12/23/算法导论-系列二：排序/" itemprop="url">
                   算法导论 系列二：排序
                 </a>
@@ -321,7 +893,8 @@
 </ul>
 </li>
 <li>保持堆性质（递归下调）<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161223211606370-606442304.png" alt=""></li>
-<li>建堆：O(n)次 调用 max_heap复杂为O（lgn）准确上界为O（n）<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161223211825886-1508300400.png" alt=""><h3 id="优先级队列"><a href="#优先级队列" class="headerlink" title="优先级队列"></a>优先级队列</h3></li>
+<li>建堆：O(n)次 调用 max_heap复杂为O（lgn）准确上界为O（n）<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161223211825886-1508300400.png" alt=""></li>
+<li>直接构造堆时间复杂度为O(n)， 插入构造堆复杂度为O(nlgn)<h3 id="优先级队列"><a href="#优先级队列" class="headerlink" title="优先级队列"></a>优先级队列</h3></li>
 <li>内部由堆实现<ul>
 <li>抽取最大值<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161223213945979-895297262.png" alt=""></li>
 </ul>
@@ -348,6 +921,29 @@
 </li>
 <li>基数排序<ul>
 <li>先按低位排序，然后递归的的向高位排序</li>
+<li>复杂度O(d(n+k))</li>
+</ul>
+</li>
+<li>桶排序<ul>
+<li>输入均匀分布时，可以达到线性时间复杂度</li>
+<li>桶内以插入排序实现<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224111332292-332685886.png" alt=""></li>
+<li>θ（n） + n*O(2-1/n) = θ（n）</li>
+</ul>
+</li>
+<li>中位数<ul>
+<li>随机选择算法:平均情况下，顺序统计量可在O(n)复杂度内得到，最坏时间复杂度为O(n^2)<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224130636307-2014096638.png" alt=""></li>
+<li>最坏时间复杂度为O(n)的顺序统计量 </li>
+<li>pivot 的选择以中位数的中位数来衡量，保证避免最坏划分（组划分size&gt;=5的奇数个，都可以保证线性时间复杂度）<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224134317886-2015706043.png" alt=""></li>
+<li>select 方法嵌入快排的partition，可以使得快排的最坏时间复杂度为O(nlgn)</li>
+<li>任意序列的O(n)算法<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224141252589-263737126.png" alt=""></li>
+<li>寻找两个已排序数组 （长度均为n）的中位数<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224142328182-668268882.png" alt=""></li>
+<li>找出已排序的前i个最大数<ul>
+<li>排序，输出前i个数，复杂度θ(nlgn)</li>
+<li>建立优先队列，输出i次最大值θ(n+ilgn)</li>
+<li>顺序统计量量找出第i大元素，然后以第i大元素作为pivot进行partition，将partiton结果排序 θ(n +ilgi)</li>
+<li>顺序读入元素，维护一个i个元素的大根堆，依次输出堆中元素。复杂度 θ（nlgi）</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -475,9 +1071,11 @@
 <li>合并n/k个小数组，复杂度最差为n*lg（n/k）</li>
 </ul>
 </li>
-<li>上下渐进界<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161223192206011-2090820165.png" alt=""></li>
-<li>代换法<ul>
-<li>猜测解的形式，用数学归纳写出解有效的常数，调整边界条件</li>
+<li><p>上下渐进界<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161223192206011-2090820165.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224113119620-215204629.png" alt=""></p>
+</li>
+<li><p>代换法</p>
+<ul>
+<li>猜测解的形式，用数学归纳写出解有效的常数，调整边界条件<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224115541807-869095340.png" alt=""></li>
 </ul>
 </li>
 <li>递归树方法：每层代价之和即为代价上界<ul>
@@ -1435,599 +2033,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/12/inside-the-c-model/" itemprop="url">
-                  inside the c++ model
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-12-12T19:31:22+08:00" content="2016-12-12">
-              2016-12-12
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/c/" itemprop="url" rel="index">
-                    <span itemprop="name">c++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="第一章关于对象"><a href="#第一章关于对象" class="headerlink" title="第一章关于对象"></a>第一章关于对象</h3><blockquote>
-<ul>
-<li>c++在布局和存取时间的额外负担主要有virtual引起<ul>
-<li>virtual function：运行期动态绑定</li>
-<li>virtual base class ：base class多次出现在派生类中，但只有一个单一而被共享的实体（虚基类）<ul>
-<li>对象模型</li>
-<li>简单模型：每一个地址slot指向一个成员，</li>
-<li>表格模型：数据表和成员函数表</li>
-</ul>
-<ol>
-<li>数据表包含数据本身</li>
-<li>成员函数表包含指向每个成员函数的指针slot</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-</blockquote>
-<ul>
-<li><p>虚函数表</p>
-<ul>
-<li>每个class产生一堆指向virtual function的指针，，指针形成一个virtual function table；</li>
-<li>每一个class object 添加一个指向virtual function table 的指针vptr</li>
-<li>每一个class 关联一个type_info object由虚函数表指出<blockquote>
-<p> <code>被指定的object在执行点之前是无法确定类型的，必须通过指针或者引用操作实现</code></p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>c++支持多态的方式</p>
-<ul>
-<li>隐含转化操作，子类指针赋值给父类指针</li>
-<li>virtual function</li>
-<li>dynamic_cast 和 typeid</li>
-<li>基类定义接口，通过virtual function方式，在运行时确定object类型并执行相应操作</li>
-</ul>
-</li>
-</ul>
-<h3 id="第二章-构造函数"><a href="#第二章-构造函数" class="headerlink" title="第二章 构造函数"></a>第二章 构造函数</h3><h4 id="2-1-default-constructor-的构建"><a href="#2-1-default-constructor-的构建" class="headerlink" title="2.1 default constructor 的构建"></a>2.1 default constructor 的构建</h4><blockquote>
-<ul>
-<li>生成default constructor 的要素：<ul>
-<li>含有member object 且member object 均有default constructor</li>
-<li>class本身无任何constructor，则调用constructor 时编辑器将为class合成一个default constructor</li>
-<li>以member objects 在class 声明次序调用各个member object 的 default constructor<br><code>如果derived class 拥有多个constructor 但是没有default constructor，编译器将扩张每一个consturctor，加入每一个必要的基类default constructor,但不会再合成default constructor</code></li>
-</ul>
-</li>
-</ul>
-</blockquote>
-<h6 id="2-1-1“带有default-constructor-”的base-class-："><a href="#2-1-1“带有default-constructor-”的base-class-：" class="headerlink" title="2.1.1“带有default constructor ”的base class  ："></a>2.1.1“带有default constructor ”的base class  ：</h6><blockquote>
-<ul>
-<li>自动合成default constructor<pre><code>- class 声明（继承）一个virtual function
-- class 派生自一个继承串联，其中至少一个virtual base class
-</code></pre></li>
-<li>自动合成过程<ul>
-<li>产生一个virtual function table，内放class的virtual functions 地址</li>
-<li>每一个class object合成一个pointer（vptr）只想class 的virtual function table<br><code>已定义constructor则扩展，未定义则合成default constructor， 保证正确初始化每一个class object 的vptr</code></li>
-</ul>
-</li>
-</ul>
-</blockquote>
-<h6 id="2-1-2“带有一个virtual-base-class”的class"><a href="#2-1-2“带有一个virtual-base-class”的class" class="headerlink" title="2.1.2“带有一个virtual base class”的class"></a>2.1.2“带有一个virtual base class”的class</h6><blockquote>
-<ul>
-<li>在derived class object 的每一个virtual base class 中插入一个指向，经由pointer 和reference 存取virtual base class 的操作由这个指针完整（指向同一份内容）<ul>
-<li>已定义constructor则扩展，未定义则合成default constructor， 保证允许每一个virtual base class 执行器存取操作</li>
-</ul>
-</li>
-</ul>
-</blockquote>
-<ul>
-<li>summary:合成 implicit nontrivial default constructor<ul>
-<li>借用member object 或者 base class 的default constructor</li>
-<li>为每一个object 初始化virtual function机制 或者 virtual base机制 </li>
-<li>除以上以外，如无任何声明constructor 则不会合成default constructor</li>
-</ul>
-</li>
-<li>合成的default constructor 中只有base class objects 和member class objects 被初始化</li>
-</ul>
-<p>####2.2 copy constructor 的构建</p>
-<blockquote>
-<ul>
-<li>执行copy constructor的三种情况：<pre><code>- 赋值
-- 作为参数传递
-- 作为返回值
-</code></pre></li>
-<li>default memberwise initialization<ul>
-<li>对于member data 逐一赋值</li>
-<li>对于member function 递归调用 memberwise initialization</li>
-</ul>
-</li>
-<li>当class 不展现一个“bitewise copy semantics”(如下四种情况)，需要合成copy constructor<ol>
-<li>class 内包含一个member object 且后者（声明或者合成）copy constrctor 时</li>
-<li>class 继承一个base class 且后者（声明或者合成）copy constrctor 时</li>
-<li>class 声明至少一个virtual function时</li>
-<li>class 派生自一个继承串联，其中至少一个virtual base class</li>
-</ol>
-</li>
-</ul>
-</blockquote>
-<h4 id="2-3-program-transformation-semantics"><a href="#2-3-program-transformation-semantics" class="headerlink" title="2.3 program transformation semantics"></a>2.3 program transformation semantics</h4><blockquote>
-<ul>
-<li>explicit initialization:直接逐位赋值member data<ul>
-<li>argument initialization:参数构造临时对象并copy constrcuct</li>
-<li>copy construct and 返回引用</li>
-</ul>
-</li>
-</ul>
-</blockquote>
-<h4 id="2-4-member-initialization-list"><a href="#2-4-member-initialization-list" class="headerlink" title="2.4 member initialization list"></a>2.4 member initialization list</h4><blockquote>
-<ul>
-<li>initial 时：= 操作符以arguement初始化对象时分为三步：1、以arguement 构造一个 临时对象，2、将临时对象copy给目标对象，3、销毁临时对象<ul>
-<li>初始化顺序是由members声明次序决定的，不是由member list 顺序决定的；</li>
-<li>member list 中初始化先于explicit assignment：即：之后的初始化先于{}内部member data的初始化或者赋值<br><code>X::x(int v):j(v){i = j;}j 的初始化先于i的初始化</code></li>
-</ul>
-</li>
-</ul>
-</blockquote>
-<h3 id="第三章-the-semantaic-of-data"><a href="#第三章-the-semantaic-of-data" class="headerlink" title="第三章 the semantaic of data"></a>第三章 the semantaic of data</h3><h4 id="3-1-data-member-绑定"><a href="#3-1-data-member-绑定" class="headerlink" title="3.1 data member 绑定"></a>3.1 data member 绑定</h4><pre><code>- 局域绑定
-</code></pre><h4 id="3-2-data-member-layout"><a href="#3-2-data-member-layout" class="headerlink" title="3.2 data member layout"></a>3.2 data member layout</h4><pre><code>- 同一access session 按照声明顺序合并，静态成员不存在class 内部
-</code></pre><h4 id="3-3-data-member-存取"><a href="#3-3-data-member-存取" class="headerlink" title="3.3 data member 存取"></a>3.3 data member 存取</h4><pre><code>- static data member 
- &gt; 独立于class 之外，不论是继承virtual base class而来或者函数调用得到的static 都是直接存取，通过指针和通过对象存取是一样的
-- nonstatic data member
- &gt; 通过指向对象的指针和对象访问一致的，当访问的member data是一个从virtual base class 继承而来的member时，指针访问在运行时才能确定
-- 多重继承
-![pointer实现：共享虚基类](http://odfcr7qs4.bkt.clouddn.com/IMG_0073.PNG)
-![offset实现：共享虚基类](http://odfcr7qs4.bkt.clouddn.com/IMG_0074.PNG)
-</code></pre><h4 id="3-6-pointer-to-data-member"><a href="#3-6-pointer-to-data-member" class="headerlink" title="3.6 pointer to data member"></a>3.6 pointer to data member</h4><pre><code>* &amp;Pointer：：z   “取一个nonstaic data member，得到它在class 中的偏移量”
-* &amp;origin.z   “取一个class object 的datamenber地址， 得到member在内存中的真正地址”
-* 继承层次越深，指针代码执行速度越慢
-</code></pre><h3 id="第四章-the-semantics-of-function"><a href="#第四章-the-semantics-of-function" class="headerlink" title="第四章 the semantics of function"></a>第四章 the semantics of function</h3><h4 id="4-1-member-调用方式"><a href="#4-1-member-调用方式" class="headerlink" title="4.1 member 调用方式"></a>4.1 member 调用方式</h4><pre><code>* nonstatic member function
-  〉 0. 安插this指针   
-    1. 对nonstatic member function 经由this 指针存取
-    2. 将member function 改写成独一无二（name mangling）的外部函数
-  - nonstatic member function 与外部函数的访问性能是一样的
-* virtual member function
- &gt;  经由对象调用virtual function 被处理为编译绑定，与nonstatic member function的调用方式一致
-* static member function
- &gt;  0. 通过指针或者对象调用静态成员函数都被当做一般函数处理
- 〉 1. static member function 没有this 指针，被当做一般函数处理
-</code></pre><h3 id="第五章-the-semantics-of-construction-destruction-and-copy"><a href="#第五章-the-semantics-of-construction-destruction-and-copy" class="headerlink" title="第五章  the semantics of construction destruction and  copy"></a>第五章  the semantics of construction destruction and  copy</h3><h4 id="5-1-无继承的对象构造"><a href="#5-1-无继承的对象构造" class="headerlink" title="5.1 无继承的对象构造"></a>5.1 无继承的对象构造</h4><blockquote>
-<ol>
-<li>bitwise member copy<ol>
-<li>ADT class 执行default copy constructor，copy constructor， destructor，但是并不产生相应函数</li>
-</ol>
-</li>
-</ol>
-</blockquote>
-<h4 id="5-2-继承体系下的对象构造"><a href="#5-2-继承体系下的对象构造" class="headerlink" title="5.2 继承体系下的对象构造"></a>5.2 继承体系下的对象构造</h4><ul>
-<li>vptr 初始化语义学<ul>
-<li>在class的constructor 或者 destructor 中调用一个virtual function ，调用的必须是本class 中的那个function实体</li>
-</ul>
-</li>
-</ul>
-<ol>
-<li>dervied class constructor 中所有virtual base class 和base class constructor 被调用</li>
-<li>对象vprt被设置，指向相关virtual function table</li>
-<li>member initialization list 在constructor 内部展开</li>
-<li>执行程序直接赋值代码和生成对象的代码</li>
-</ol>
-<ul>
-<li>不要在虚基类中声明数据</li>
-</ul>
-<h4 id="5-5-semantics-of-destructor"><a href="#5-5-semantics-of-destructor" class="headerlink" title="5.5 semantics of destructor"></a>5.5 semantics of destructor</h4><ul>
-<li>如果class 未声明destructor 且member object 拥有destructor ，编译器自动合成destructor，否则不合成<blockquote>
-<ol>
-<li>destructor 函数本身最先执行</li>
-<li>member class object 执行自己的destructor</li>
-<li>object 每部vptr 重置</li>
-<li>直接上层的nonvirtual base class 以其声明的顺序的逆序执行destructor</li>
-<li>virtual base class 按照与构造顺序相反的顺序执行destructor</li>
-</ol>
-</blockquote>
-</li>
-</ul>
-<hr>
-<p>后边两章感觉理解不到位啊，缺少实踩代码坑</p>
-<h3 id="第六章-runtime-semantics"><a href="#第六章-runtime-semantics" class="headerlink" title="第六章 runtime semantics"></a>第六章 runtime semantics</h3><h4 id="6-2-new-delete-运算符"><a href="#6-2-new-delete-运算符" class="headerlink" title="6.2 new delete 运算符"></a>6.2 new delete 运算符</h4><pre><code>- new 和delete 底层以malloc 和free 实现
-- new 失败，必须在new 内部完成已分配空间的释放
-</code></pre><h4 id="6-3-临时对象的处理"><a href="#6-3-临时对象的处理" class="headerlink" title="6.3 临时对象的处理"></a>6.3 临时对象的处理</h4><pre><code>- 临时对象的销毁，必须在完整表达式求值过程的最后，该完整表达式造成临时对象的生成
-- 如果临时对象被reference 对象将残留到reference 生命周期结束
-</code></pre><h3 id="第七章-on-the-cusp-of-the-object-model"><a href="#第七章-on-the-cusp-of-the-object-model" class="headerlink" title="第七章 on the cusp of the object model"></a>第七章 on the cusp of the object model</h3><pre><code>- template
-&gt; member function 只在使用时具现出来
-- exception handing 快速检阅
-&gt; 0. throw 子句，发出exception
-  1. 多个catch 子句捕获相应类型的exception
-  2. try区段处理
-- RTTI
-&gt;  dynamic_cast 通过vptr指向type_info运行时判定类型实现转型，比static_cast代价高但是更安全
-&gt;  dynamic_cast 应用于pointer 时，安全转型则直接向下转型，不安全则pointer置0
-&gt;  dynamic_cast 应用于reference 时，安全转型则直接向下转型，不安全则返回一个bad_cast exception
-&gt;  typeid 返回一个 const reference，类型为type_info,
-</code></pre>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/26/leetcode279-Perfect-Squares-basic-dp/" itemprop="url">
-                  leetcode279. Perfect Squares(basic dp)
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-11-26T22:03:54+08:00" content="2016-11-26">
-              2016-11-26
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/OJ/" itemprop="url" rel="index">
-                    <span itemprop="name">OJ</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="learn-from-this"><a href="#learn-from-this" class="headerlink" title="learn from this"></a>learn from <a href="https://discuss.leetcode.com/topic/24255/summary-of-4-different-solutions-bfs-dp-static-dp-and-mathematics" target="_blank" rel="external">this</a></h3><ul>
-<li><p>DP</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int numSquares(int n) &#123;</div><div class="line">        if(n&lt;=0)return 0;</div><div class="line">        int * dp = new int[n+1]();</div><div class="line">        for(int i=1;i&lt;=n;i++)&#123;</div><div class="line">            dp[i]= INT_MAX;</div><div class="line">            for(int j =1;j*j &lt;=i;j++)&#123;</div><div class="line">                int tmp = dp[i-j*j]+1;</div><div class="line">                dp[i]=dp[i]&lt;tmp?dp[i]:tmp;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        //for(int i=0;i&lt;=n;i++)cout&lt;&lt; dp[i]&lt;&lt;&apos; &apos;;</div><div class="line">        return dp[n];</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-</li>
-<li><p>BFS</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">class Solution &#123;</div><div class="line">public:</div><div class="line">    int numSquares(int n) &#123;</div><div class="line">        if (n &lt;= 0)return 0;</div><div class="line">        else if(pow((int)sqrt(n),2) == n)return 1;</div><div class="line">        vector&lt;int&gt; perfectSquares;//candinates</div><div class="line">        vector&lt;int&gt; cntPerfectSquares(n);//count_index</div><div class="line">        for (int i = 1; i*i &lt;= n; i++)</div><div class="line">        &#123;</div><div class="line">            perfectSquares.push_back(i*i);</div><div class="line">            cntPerfectSquares[i*i - 1] = 1;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">        queue&lt;int&gt; searchQ;</div><div class="line">        for (auto&amp; i : perfectSquares) searchQ.push(i);</div><div class="line">        int currCntPerfectSquares = 1;</div><div class="line">        while (!searchQ.empty())//BFS</div><div class="line">        &#123;</div><div class="line">            currCntPerfectSquares++;</div><div class="line">            </div><div class="line">            int searchQSize = searchQ.size();</div><div class="line">            for (int i = 0; i &lt; searchQSize; i++)</div><div class="line">            &#123;</div><div class="line">                int tmp = searchQ.front();</div><div class="line">                for (auto&amp; j : perfectSquares)</div><div class="line">                &#123;</div><div class="line">                    if (tmp + j == n)return currCntPerfectSquares;</div><div class="line">                    else if ((tmp + j &lt; n) &amp;&amp; (cntPerfectSquares[tmp + j - 1] == 0))</div><div class="line">                    &#123;</div><div class="line">                        cntPerfectSquares[tmp + j - 1] = currCntPerfectSquares;</div><div class="line">                        searchQ.push(tmp + j);</div><div class="line">                    &#125;</div><div class="line">                    else if (tmp + j &gt; n)break;</div><div class="line">                &#125;</div><div class="line">                searchQ.pop();</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        return 0;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/26/Object Oriented in C++/" itemprop="url">
-                  Object Oriented in C++
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-11-26T22:00:54+08:00" content="2016-11-26">
-              2016-11-26
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>定义<code>const</code> 成员函数时,<code>const</code> 位于<code>参数</code>与<code>函数体</code>之间</li>
-<li><code>const</code>成员函数只能调用 <code>const</code>成员函数,保证不做修改</li>
-<li><code>禁用默认函数</code>(构造,赋值构造等),将<code>默认函数私有化</code>private</li>
-<li><code>const</code>成员变量只能<code>参数列表初始化</code></li>
-<li>成员函数内部<code>static</code>变量为<code>所有调用该成员函数的对象共有</code></li>
-<li><code>this</code>指针<code>不用于static 成员函数</code>中,<code>不能指向const 对象</code></li>
-<li>隐藏的父类成员,子类不可直接调用,通过父类共有函数调用</li>
-<li><code>派生类同名成员或者函数 屏蔽父类同名成员或者函数</code></li>
-<li>为<code>基类设置默认构造函数</code>,方便子类继承</li>
-<li>基类声明虚函数后,<code>子类同名</code>自动定义为<code>虚函数</code></li>
-<li>构造函数<code>不可以是虚成员函数</code>, <code>析构函数</code>可以</li>
-<li><code>重载</code>在<code>编译时期绑定</code>,<code>虚函数(多态)</code> <code>运行期间绑定</code></li>
-<li><code>覆盖</code>:多态虚函数函数签名相同,  <code>遮蔽</code>: 共享函数名但签名不同</li>
-<li><code>抽象基类确保派生类必须定义某些特定函数（纯虚函数）</code>，否则派生类不可以实例化</li>
-<li>抽象基类：<code>包含一个纯虚函数　　virtual    =0;</code></li>
-<li><p><code>抽象基类不可实例化</code>，可派生，其<code>派生类必须覆盖全部纯虚函数</code>才可被实例化</p>
-</li>
-<li><p>重载不改变符号优先级</p>
-</li>
-<li>除<code>new new[] delete delete[]</code>外以顶层函数重载操作符必须包含一个类对象</li>
-<li>操作符<code>[] ()　-&gt;</code>必须以<code>类成员形式重载</code></li>
-<li>以成员函数重载二元操作符，只需一个参数，而以顶层函数重载二元操作符时必须两个参数</li>
-<li>使用<code>顶层函数重载非对象操作数可出现在操作符左边</code>，<code>类成员函数重载</code>时<code>第一个操作数必须是类对象</code><br>-　<code>praivete member</code> only access by <code>menberfunction and friend funtion.</code></li>
-<li><code>protect member</code> can be accessed by <code>menber funtion</code>, <code>friend function</code> and <code>member function of derived class</code></li>
-<li>using <code>friend function</code> <code>only</code> in <code>overloading operator</code> as possible as we can</li>
-<li>前置自增：　operator++()     后置自增：　operator++(int );</li>
-<li><code>new new[]</code>  <code>return type</code> must be <code>void*</code>, the first parameter must be <code>size_t</code></li>
-<li><code>delete delete[]</code> return type must be <code>void*</code>, the first parameter must be <code>void *</code> wihch point to the object need to destroied</li>
-<li><p>对象不能属于模板类，只能属于模板类实例</p>
-</li>
-<li><p>duque :双端插入删除效率一致，vector 尾部插入删除效率高</p>
-</li>
-<li><code>protect</code>成员只能被<code>该类和子类的方法访问</code></li>
-<li>父类成员必须定义默认构造函数，否则子类构造前出现编译错误</li>
-<li>同一域名空间，函数名相同，签名不同</li>
-<li>编译期绑定确定绑定函数，也称为静态多态<h4 id="重写-覆盖-override"><a href="#重写-覆盖-override" class="headerlink" title="重写:覆盖(override)"></a>重写:覆盖(override)</h4></li>
-<li>虚函数</li>
-<li>子类空间，函数名相同，签名相同<h4 id="重定义：遮蔽（redefine）"><a href="#重定义：遮蔽（redefine）" class="headerlink" title="重定义：遮蔽（redefine）"></a>重定义：遮蔽（redefine）</h4></li>
-<li>非虚函数，子类成员函数与父类成员函数同名</li>
-<li>虚函数，子类成员函数与父类成员函数同名但不同签名<h4 id="多态：（动态多态）"><a href="#多态：（动态多态）" class="headerlink" title="多态：（动态多态）"></a>多态：（动态多态）</h4></li>
-<li>运行期确定绑定对象，也称为动态多态</li>
-<li>同签名虚函数构成覆盖</li>
-<li>父类指针指向子类对象，调用属于子类的函数</li>
-</ul>
-<hr>
-<ul>
-<li>顶层函数重载操作符<ul>
-<li>非对象操作数可以出现在操作符左边</li>
-<li>使用类成员函数重载是，第一操作数必须是累的对象</li>
-<li>顶层函数不能直接访问类私有成员，最好将顶层重载函数设为友元函数，方便直接访问私有数据成员</li>
-</ul>
-</li>
-<li>重载[]:  重载为成员函数，检查下标 ， 返回一个引用适应左值情况</li>
-<li>重载（）： 函数调用重载操作符</li>
-<li>析构函数出现，必须定义拷贝构造，赋值构造函数</li>
-</ul>
-<hr>
-<ul>
-<li>继承下的构造函数：<ul>
-<li>先父类按继承顺序构造，再成员按顺序构造，最后派生类构造</li>
-<li>每一层只负责调用父类构造函数</li>
-<li>基类没有默认构造时，子类构造函数必须显式调用基类的某个构造函数</li>
-<li>创建派生类对象时，自动调用基类默认构造函数<ul>
-<li>子类有构造函数，基类没有默认构造，创建子类对象时，自动创建基类默认构造函数</li>
-<li>子类没有构造函数，基类有默认构造，创建子类对象时，自动调用基类默认构造</li>
-<li>子类有构造函数，基类也有默认构造，创建子类对象时，直接调用基类默认构造，或者调用子类显式调用的构造函数</li>
-<li>子类基类均有构造，但是基类没有默认构造，创建子类对象时，必须显式调用基类构造函数</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>继承下的析构函数: 定义实现对派生类新增成员的析构释放</li>
-<li>虚基类构造优先于非虚基类的构造</li>
-<li>虚基类构造由最派生类调用，其他派生类跳过对虚基类构造的调用</li>
-<li>派生类对象和指针可适用于任何基类对象或指针使用的位置（子类可以向上转型）</li>
-<li>赋值兼容：子类对象可以赋值或者初始化父类对象，基类指针可以指向子类对象地址</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2073,7 +2078,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">41</span>
+              <span class="site-state-item-count">44</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>

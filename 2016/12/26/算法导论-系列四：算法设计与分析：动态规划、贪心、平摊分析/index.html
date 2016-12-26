@@ -1,0 +1,773 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="7989000bfd4e43ea" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="comments," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="动态规划
+步骤
+秒速最优解的结构
+地规定以最优解的值
+自底向上的计算最优解
+由计算结果构造最优解
+
+
+装配线调度
+最快路线的结构
+一个问题额最优解包含了子问题的一个最优解：即最优子结构
+递归解
+
+
+矩阵链乘
+动态规划
+最优子结构：问题的最优解包含了子问题的最优解，即具有最优子结构
+剪切发证明子问题的最优解课推导出问题最优解，如果不是子问题最优解，则剪贴子问题最优解
+重叠子问题：求解原问题过程中多次">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法导论 系列四：算法设计与分析：动态规划、贪心、平摊分析">
+<meta property="og:url" content="http://yoursite.com/2016/12/26/算法导论-系列四：算法设计与分析：动态规划、贪心、平摊分析/index.html">
+<meta property="og:site_name" content="TheOneAC">
+<meta property="og:description" content="动态规划
+步骤
+秒速最优解的结构
+地规定以最优解的值
+自底向上的计算最优解
+由计算结果构造最优解
+
+
+装配线调度
+最快路线的结构
+一个问题额最优解包含了子问题的一个最优解：即最优子结构
+递归解
+
+
+矩阵链乘
+动态规划
+最优子结构：问题的最优解包含了子问题的最优解，即具有最优子结构
+剪切发证明子问题的最优解课推导出问题最优解，如果不是子问题最优解，则剪贴子问题最优解
+重叠子问题：求解原问题过程中多次">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225132710557-298791547.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225132910495-1136423986.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225144917104-1856136894.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225153334761-353719558.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225153514182-1816293547.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225201822495-1491516853.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225210348276-1871355090.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225212930495-149772643.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225213021026-769034729.png">
+<meta property="og:updated_time" content="2016-12-26T09:35:16.601Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法导论 系列四：算法设计与分析：动态规划、贪心、平摊分析">
+<meta name="twitter:description" content="动态规划
+步骤
+秒速最优解的结构
+地规定以最优解的值
+自底向上的计算最优解
+由计算结果构造最优解
+
+
+装配线调度
+最快路线的结构
+一个问题额最优解包含了子问题的一个最优解：即最优子结构
+递归解
+
+
+矩阵链乘
+动态规划
+最优子结构：问题的最优解包含了子问题的最优解，即具有最优子结构
+剪切发证明子问题的最优解课推导出问题最优解，如果不是子问题最优解，则剪贴子问题最优解
+重叠子问题：求解原问题过程中多次">
+<meta name="twitter:image" content="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225132710557-298791547.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/26/算法导论-系列四：算法设计与分析：动态规划、贪心、平摊分析/"/>
+
+  <title> 算法导论 系列四：算法设计与分析：动态规划、贪心、平摊分析 | TheOneAC </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">TheOneAC</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">init</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                算法导论 系列四：算法设计与分析：动态规划、贪心、平摊分析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-12-26T17:32:10+08:00" content="2016-12-26">
+              2016-12-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CLRS/" itemprop="url" rel="index">
+                    <span itemprop="name">CLRS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h3><ul>
+<li>步骤<ul>
+<li>秒速最优解的结构</li>
+<li>地规定以最优解的值</li>
+<li>自底向上的计算最优解</li>
+<li>由计算结果构造最优解</li>
+</ul>
+</li>
+<li>装配线调度<ul>
+<li>最快路线的结构<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225132710557-298791547.png" alt=""></li>
+<li>一个问题额最优解包含了子问题的一个最优解：即最优子结构</li>
+<li>递归解<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225132910495-1136423986.png" alt=""></li>
+</ul>
+</li>
+<li>矩阵链乘<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225144917104-1856136894.png" alt=""></li>
+<li>动态规划<ul>
+<li>最优子结构：问题的最优解包含了子问题的最优解，即具有最优子结构</li>
+<li>剪切发证明子问题的最优解课推导出问题最优解，如果不是子问题最优解，则剪贴子问题最优解</li>
+<li>重叠子问题：求解原问题过程中多次求解一个子问题，则存在重叠子问题</li>
+<li>备忘录：遇到的子问题未曾遇到则求解并存储，再次遇到时不必重复计算<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225153334761-353719558.png" alt=""></li>
+</ul>
+</li>
+<li>最长公共子序列<ul>
+<li>最长公共子序列结构<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225153514182-1816293547.png" alt=""></li>
+</ul>
+</li>
+<li>最优二叉查找树：期望查找代价最小<ul>
+<li>最优二叉查找树必然具有最优子结构</li>
+<li>求解最优二叉查找树，必然先求自述的最优二叉查找子结构</li>
+</ul>
+</li>
+</ul>
+<h3 id="贪心（最小生成树，单源最短路径）"><a href="#贪心（最小生成树，单源最短路径）" class="headerlink" title="贪心（最小生成树，单源最短路径）"></a>贪心（最小生成树，单源最短路径）</h3><blockquote>
+<p>确定最优子结构，设计递归解，确定最优选择之一是贪心解，证明贪心选择后，只余一个子问题，设计贪心递归，递归算法转为迭代算法</p>
+<ul>
+<li>贪心要素：贪心选择性质和最优子结构</li>
+<li>贪心选择性质：全局最优解和通过局部最优（贪心）达到</li>
+<li>最优子结构：问题的最优解包含了子问题的最优解，即具有最优子结构</li>
+</ul>
+</blockquote>
+<ul>
+<li>贪心理论<ul>
+<li>拟阵<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225201822495-1491516853.png" alt=""></li>
+<li>拟阵证明：非空子集，遗传性（传递性），交换性</li>
+<li>拟阵中所有最大独立子集是相同的</li>
+<li>贪心问题：在加权拟阵中寻找具有最大权值的独立子集<h3 id="任务调度"><a href="#任务调度" class="headerlink" title="任务调度"></a>任务调度</h3></li>
+<li>惩罚最小的调度安排，使得迟任务惩罚最小即早任务集惩罚最大，即求早任务集最大的安排方案</li>
+</ul>
+</li>
+</ul>
+<h3 id="平摊分析"><a href="#平摊分析" class="headerlink" title="平摊分析"></a>平摊分析</h3><ul>
+<li>聚集分析：n个操作的全部时间平均到n个操作中去<ul>
+<li>计算多个操作的总代价，然后平均到一次操作</li>
+</ul>
+</li>
+<li>记账方法<ul>
+<li>总的平摊代价不能为负，保证平摊代价是总的代价的上界</li>
+</ul>
+</li>
+<li>势能方法<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225210348276-1871355090.png" alt=""></li>
+<li>动态表<ul>
+<li>表扩张<ul>
+<li>聚集分析<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225212930495-149772643.png" alt=""></li>
+<li>记账方法<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161225213021026-769034729.png" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/comments/" rel="tag">#comments</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/26/算法导论-系列三：数据结构/" rel="next" title="算法导论 系列三：数据结构">
+                <i class="fa fa-chevron-left"></i> 算法导论 系列三：数据结构
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/26/算法导论-系列五：高级数据结构/" rel="prev" title="算法导论 系列五：高级数据结构">
+                算法导论 系列五：高级数据结构 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="TheOneAC" />
+          <p class="site-author-name" itemprop="name">TheOneAC</p>
+          <p class="site-description motion-element" itemprop="description">生如逆旅  一苇可航</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">44</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/TheOneAc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:scuhss@Gamil.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.quora.com/profile/SCUhss-%E9%BB%84%E5%B8%85" target="_blank" title="Quora">
+                  
+                    <i class="fa fa-fw fa-comments"></i>
+                  
+                  Quora
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/huang-shuai-4" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#动态规划"><span class="nav-number">1.</span> <span class="nav-text">动态规划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#贪心（最小生成树，单源最短路径）"><span class="nav-number">2.</span> <span class="nav-text">贪心（最小生成树，单源最短路径）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#任务调度"><span class="nav-number">3.</span> <span class="nav-text">任务调度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#平摊分析"><span class="nav-number">4.</span> <span class="nav-text">平摊分析</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016.7.14 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheOneAC</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
