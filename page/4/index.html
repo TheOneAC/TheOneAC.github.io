@@ -250,6 +250,133 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/27/程序员的自我修养/" itemprop="url">
+                  程序员的自我修养
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-08-27T03:23:38+08:00" content="2016-08-27">
+              2016-08-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/OS/" itemprop="url" rel="index">
+                    <span itemprop="name">OS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>ELF文件格式与windows PE/COFF章节未做细致分析</li>
+</ul>
+<h4 id="review"><a href="#review" class="headerlink" title="review"></a>review</h4><p>操作系统：硬件资源管理，抽象接口<br>同一个系统：页大小固定<br>fork并不复制原任务内存空间，而是和原任务共享一个<code>写时复制</code>的内存空间<br>写时复制：两个任务可同事自由读取内存，任意任务视图修改时，复制一份原内存内容给修改方，以免影响其他任务。<br>i++；汇编变为三个指令，非原子操作，会被多线程打断。<br>读写锁：自由态  共享/独占均可，共享态  共享成功/独占失败 ，独占态  共享失败/独占成功<br>volatile：直接存取原始内存地址<br>（两者均可能造成线程执行顺序错误）<br>1、阻止编译器为了提高速度将一个变量缓存到寄存器而不写回；<br>2、阻止编译器调整操作volatile变量的顺序<br>barrier指令：阻止编译器将barrier之前的指令换到barrier之后</p>
+<h4 id="compile-and-link"><a href="#compile-and-link" class="headerlink" title="compile and link"></a>compile and link</h4><p>预编译 gcc -E<br>以“#”开头语句被处理，宏展开，注释清楚，<br>保留#prama给编译器，插入行号和文件名表示用于编译错误提醒<br>编译 gcc -S<br>生成汇编代码<br>gcc   根据不同参数，调用预编译程序，汇编器，链接器<br>汇编<br>as/gcc -c<br>链接：地址空间分配，符号决议（绑定），重定位<br>编译时不能确定地址，链接时确定和修改地址：重定位</p>
+<h5 id="object-file"><a href="#object-file" class="headerlink" title="object file"></a>object file</h5><p>目标文件、动态链接库、静态链接库、可执行文件均按照可执行文件格式存储，linux中为ELF<br>ELF文件分类<br>1、可重定位文件relocatable file   linux.o<br>2、可执行文件 executable file     windows.exe<br>3、共享目标文件shared object file linux.so windows.dll<br>4、核心转储文件 coredump file     linux.core dump(意外终止进程文件内容与信息)<br>c语言编译后文件：<br>.text  执行语句<br>.data  以初始化的全局变量和局部静态变量<br>.bss   未初始化的全局变量和局部静态变量</p>
+<p>objdump -x -s -d name.o<br>文件name.o内容显示格式：<br>.字段名   十六进制存储标识      汇编语言</p>
+<p>自定义段存储位置<br><strong>attribute</strong>((section(“name”))) int var=value;<br>将var放置在name段中<br>readlf -h name.o显示ELF文件</p>
+<h4 id="static-link"><a href="#static-link" class="headerlink" title="static link"></a>static link</h4><p>链接器为目标文件分配地址和空间：<br>1、分配输出文件空间<br>2、完整装载厚厚的地址定位，即形成程序虚拟地址<br>two-passing link<br>1、空间域地址分配：文件、符号合并，建立映射关系<br>2、符号解析与重定位：调整代码中地址为虚拟地址<br>可重定位文件中，每一个可重定位ELF段赌赢一个重定位表<br>objdump  -r name.o   查看name.o的重定位表<br>重定位过程中：每个重定位入口都是对一个符号的引用<br>readelf -s name.o    查看name.o的符号表<br>重定位方式：<br>R_386_32    1           绝对寻址修正S+A<br>R_386_PC32  2           相对寻址修正S+A-P<br>A=保存在被修正位置的值<br>P=被修正的位置（相对于断开始的偏移量或者虚拟地址）<br>S=符号实际地址r_info（重定位表）确定的符号的实际地址</p>
+<p>弱符号的COMMON块机制<br>原因：编译器允许不同类型的弱符号存在，本质时链接器部支持符号类型，即无法判断符号类型是否一致<br>弱符号：未初始化的全局变量定义<br>两个弱符号以大的为准<br>一强一弱以强为准，若果若大小大于强，报错<br>gcc -fno-common/int global <strong>atttribute</strong>((nocommon))<br>定义未初始化全局变量nocommon不以COMMON块形式处理<br>一个为初始化的全局变量不以COMMON块形式存在，就相当于一个强符号，如果其他目标文件还存在同一个变量的强符号定义，连接时发生符号重定义<br>c++中编译问题<br>1、重复代码<br>模板在不同文件被相同类型实例化造成代码重复<br>解决方案：将每个模板的市里代码单独放置在一个段里，每个段只把含有一个模板实例<br>有虚函数的类有一个虚函数表，在不同编译单元生虚函数表造成代码重复，外部内联函数、默认构造函数、默认拷贝函数、赋值操作和虚函数表做法类似<br>函数级别链接：每个函数单独成段，单独链接一个函数段，链接时必须明确函数依赖关系<br>全局构造与析构<br>c++的全局构造函数在mian函数之前执行，析构函数在main之后执行<br>linux中程序入口为_start,这个函数就是程序初始化入口，初始化完成后调用main函数主体，main完整后返回到初始化部分，清理现场，结束进程<br>ABI：可执行二进制兼容性相关内容（符号修饰标准，变量内存布局，函数调用方式等）二进制层面接口<br>静态库：一组目标文件object的集合</p>
+<h4 id="execute-file-loading-and-process"><a href="#execute-file-loading-and-process" class="headerlink" title="execute file loading and process"></a>execute file loading and process</h4><p>装载：程序局部性，覆盖装入overlay、页映射paging<br>进程的建立<br>1、创建独立虚拟地址空间\<br>2、读取可执行文件头，建立虚拟空间与可执行文件的映射关系<br>    &amp; 虚拟空间发生页错误时定位可执行文件位置<br>3、CPU指令寄存器设置成可执行文件入口地址<br>    &amp;涉及用户态与内核态转换<br>进程虚拟地址空间VMA：<br>代码VMA：只读，可执行<br>数据VMA：可读可写可执行<br>堆VMA：  可读写可执行<br>栈VMA：  可读写不可执行</p>
+<h4 id="dynamic-link"><a href="#dynamic-link" class="headerlink" title="dynamic link"></a>dynamic link</h4><p>gcc -fPIC -shared -o lib.s0 lib.c   生成动态库<br>静态共享库 ：操作系统划分固定空间存储静态库模块<br>动态共享库：共享对象编译时不明却自己的进程虚拟地址空间中的位置<br>PIC地址无关代码：<br>模块内部调用与跳转：相对寻址<br>模块内数据访问：相对寻址<br>模块间数据访问：全局偏移表，标记偏移位置<br>模块见调用域跳转：全局偏移表保存目标函数位置<br>延迟绑定：函数第一次调用时绑定<br>/lib  关键基础共享库<br>/usr/lib 开发共享库<br>/usr/local/lib 三方应用库</p>
+<h4 id="memory"><a href="#memory" class="headerlink" title="memory"></a>memory</h4><p>内核空间，栈向下延伸，动态链接库在堆栈中间，堆向上延伸，读写部分（.data .bss）,只读部分(.init .text .rodata)装载起始位置0x08048000,之下为reserved<br>segment fault:指针非法,读写不可读写空间,指针未初始化或者初始化为NULL就使用指针<br>堆栈帧:储存函数返回地址与参数,临时变量,函数调用前后不便的寄存器(上下文)<br>esp指向栈顶,ebp指向活动栈帧,又称为帧指针<br>ebp函数返回位置<br>调用惯例calling conversion<br>函数参数传递顺序域方式:压栈传递参数.函数调用方压栈,函数本身弹栈取值<br>c语言调用惯例:从右至左压栈参数<br>返回值传递:使用临时栈上存储区作为中转,两次copy,一次存入栈上tmp,一次存回返回区</p>
+<p>堆空间由运行库管理<br>mmap申请匿名空间实现malloc<br>堆分配算法:空闲链表\位图\对象池</p>
+<p><strong>MINI CRT的实现</strong></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/12/Effective-c++/" itemprop="url">
                   Effective c++.md
                 </a>
@@ -568,7 +695,7 @@ $ when const and non-const member function have essentialy identical implementio
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://www.tutorialspoint.com/cplusplus/images/cpp-mini-logo.jpg" rel="gallery_cixj7cuid001envou38oc76kc"
+                 href="http://www.tutorialspoint.com/cplusplus/images/cpp-mini-logo.jpg" rel="gallery_cixj7nbql001a2louzazt2jgx"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://www.tutorialspoint.com/cplusplus/images/cpp-mini-logo.jpg" itemprop="contentUrl"/>
               </a>
@@ -1529,135 +1656,6 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/21/C Primier Plus Class/" itemprop="url">
-                  C Primier Plus Class
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-21T00:47:27+08:00" content="2016-07-21">
-              2016-07-21
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Functions defined in the class are implicitly inline.<br>every member function must be declared inside its class.<br>Member functions access the object on which they were called through an extra, implicit parameter named this.<br>this is intended to always refer to “this” object(current function), this is a const pointer<br>const after the parameter list of a member function. A const following the parameter list indicates that this is a pointer to const<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">std::string isbn() const &#123; return this-&gt;bookNo; &#125;</div></pre></td></tr></table></figure></p>
-<p>The name of a member defined outside the class must include the name of the class of which it is a member<br><strong>Dedining a function to Return “this” Object</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Sales_data&amp; Sales_data::combine(const Sales_data &amp;rhs)</div><div class="line">&#123;</div><div class="line">units_sold += rhs.units_sold; // add the members of rhs into</div><div class="line">revenue += rhs.revenue; // the members of &apos;&apos;this&apos;&apos; object</div><div class="line">return *this; // return the object on which the function was called</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>nonmember functions that are part of the interface of a class should be declared in the same header as the class itself.</p>
-<h3 id="Constructer"><a href="#Constructer" class="headerlink" title="Constructer"></a>Constructer</h3><p>constructors may not be declared as const .When we create a const object of a class type, the object does not assume its “constness” until after the constructor completes the object’s initialization.<br>The compiler generates a default constructor automatically only if a class<br>declares no constructors<br><strong>Class</strong>:use class to define the class are similar to struct ,the only difference is the <strong>default level</strong>.<br>A class may define members before the first access specifier.<br>To members before the first access specifier, for struct they are <strong>public</strong>,for class they are <strong>private</strong>.<br>private:accessible to the menber function not accessible to code that use the class.<br>A class allow another class or function to access its nonpublic menbers by making that class or function a friend.<br><strong>Each class controls which classes or functions are its friends.friendship is not transitive.</strong><br>a friend declaration affects access but is not a declaration in an ordinary sense,if we define the function inside the class, we must still provide a declaration outside of the class itself to make that function visible<br><strong>We must use the constructor initializer list to provide values for members that are const, reference, or of a class type that does not have a default constructor.</strong><br>Members are initialized in the order in which they appear in the class definition.</p>
-<ol>
-<li>It is a good idea to write constructor initializers in the same order as the<br>members are declared. Moreover, when possible, avoid using members to initialize other members.</li>
-<li>it is a good idea write member initializers to use the constructor’s<br>parameters rather than another data member from the same object.</li>
-</ol>
-<p>Only One Class-Type Conversion Is Allowed<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$ Now, neither constructor can be used to implicitly create a Sales_data object.</div><div class="line">$ The explicit keyword is meaningful only on constructors that can be called with a single argument.</div><div class="line">$ The explicit keyword is used only on the constructor declaration inside</div><div class="line">the class.</div><div class="line">class Sales_data &#123;</div><div class="line">public:</div><div class="line">Sales_data() = default;</div><div class="line">Sales_data(const std::string &amp;s, unsigned n, double p):</div><div class="line">bookNo(s), units_sold(n), revenue(p*n) &#123; &#125;</div><div class="line">explicit Sales_data(const std::string &amp;s): bookNo(s) &#123; &#125;</div><div class="line">explicit Sales_data(std::istream&amp;);</div><div class="line">// remaining members as before</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<p><em>*</em> An aggregate class (§ 7.5.5, p. 298) whose data members are all of literal type is a literal class??</p>
-<h3 id="static-Class-Members"><a href="#static-Class-Members" class="headerlink" title="static Class Members"></a>static Class Members</h3><p>a member is associated with the class by adding the keyword static to its<br>declaration.<br>Even though static members are not part of the objects of its class, we can use an object, reference, or pointer of the class type to access a static member:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">class Account &#123;</div><div class="line">public:</div><div class="line">void calculate() &#123; amount += amount * interestRate; &#125;</div><div class="line">static double rate() &#123; return interestRate; &#125;</div><div class="line">static void rate(double);</div><div class="line">private:</div><div class="line">std::string owner;</div><div class="line">double amount;</div><div class="line">static double interestRate;</div><div class="line">static double initRate();</div><div class="line">&#125;;</div><div class="line"></div><div class="line">Account ac1;</div><div class="line">Account *ac2 = &amp;ac1;</div><div class="line">// equivalent ways to call the static member rate function</div><div class="line">r = ac1.rate(); // through an Account object or reference</div><div class="line">r = ac2-&gt;rate(); // through a pointer to an Account object</div></pre></td></tr></table></figure></p>
-<p>As with any class member, when we refer to a class static member outside<br>the class body, we must specify the class in which the member is defined.<br>The static keyword, however, is used only on the declaration inside the<br>class body.<br>we must define and initialize each static<br>data member outside the class body. and a static data member may be defined only once.</p>
-<ol>
-<li>a static data member can have incomplete type</li>
-<li>a static data member can have the same type as the class type of which<br>it is a member.</li>
-<li>we can use a static member as a default argument</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1703,7 +1701,7 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">45</span>
+              <span class="site-state-item-count">46</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>

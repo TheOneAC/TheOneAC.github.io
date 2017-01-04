@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Thinking," />
+  <meta name="keywords" content="Notes,Effective C++," />
 
 
 
@@ -86,58 +86,46 @@
 
 
 
-<meta name="description" content="写在补课之后：**
-
-补课强度高，消化不良，但是有一点明确，让你知道要学什么
-有一堆志同道合的人一块自习撸码还是很享受的，科大的实验课真心不错
-碰撞，或者老司机带路跟自己干还是不一样的
-将来找团队，找妹子也一定要志同道合啊…… :joy: :joy:
-
-
-
-数据结构：树变种，复杂堆，红黑树，图剪枝回溯
-
-leetcode      随算法导论进行
-
-
-网络：socket 编程，网络协议，TCP/I">
+<meta name="description" content="static
+声明在堆上申请静态存储
+对于局部变量，将存储方式改为静态存储
+对于全局变量，将连接方式局限在文件内
+类中static变量：属于整个类，独立存储，没有this指针inline
+inline 放在函数定义前，定义为内联函数
+成员函数在类内定义默认为内联函数
+inline 编译器做类型检查
+避免函数调用开销
+内联函数的每次调用都将复制代码，使得代码膨胀explicit
+强制显示构造,只能用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="after">
-<meta property="og:url" content="http://yoursite.com/2016/08/31/补课之后/index.html">
+<meta property="og:title" content="Effective c++ twice">
+<meta property="og:url" content="http://yoursite.com/2017/01/03/Effective-c-twice/index.html">
 <meta property="og:site_name" content="TheOneAC">
-<meta property="og:description" content="写在补课之后：**
-
-补课强度高，消化不良，但是有一点明确，让你知道要学什么
-有一堆志同道合的人一块自习撸码还是很享受的，科大的实验课真心不错
-碰撞，或者老司机带路跟自己干还是不一样的
-将来找团队，找妹子也一定要志同道合啊…… :joy: :joy:
-
-
-
-数据结构：树变种，复杂堆，红黑树，图剪枝回溯
-
-leetcode      随算法导论进行
-
-
-网络：socket 编程，网络协议，TCP/I">
-<meta property="og:updated_time" content="2016-08-31T13:15:42.339Z">
+<meta property="og:description" content="static
+声明在堆上申请静态存储
+对于局部变量，将存储方式改为静态存储
+对于全局变量，将连接方式局限在文件内
+类中static变量：属于整个类，独立存储，没有this指针inline
+inline 放在函数定义前，定义为内联函数
+成员函数在类内定义默认为内联函数
+inline 编译器做类型检查
+避免函数调用开销
+内联函数的每次调用都将复制代码，使得代码膨胀explicit
+强制显示构造,只能用">
+<meta property="og:updated_time" content="2017-01-04T17:19:54.661Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="after">
-<meta name="twitter:description" content="写在补课之后：**
-
-补课强度高，消化不良，但是有一点明确，让你知道要学什么
-有一堆志同道合的人一块自习撸码还是很享受的，科大的实验课真心不错
-碰撞，或者老司机带路跟自己干还是不一样的
-将来找团队，找妹子也一定要志同道合啊…… :joy: :joy:
-
-
-
-数据结构：树变种，复杂堆，红黑树，图剪枝回溯
-
-leetcode      随算法导论进行
-
-
-网络：socket 编程，网络协议，TCP/I">
+<meta name="twitter:title" content="Effective c++ twice">
+<meta name="twitter:description" content="static
+声明在堆上申请静态存储
+对于局部变量，将存储方式改为静态存储
+对于全局变量，将连接方式局限在文件内
+类中static变量：属于整个类，独立存储，没有this指针inline
+inline 放在函数定义前，定义为内联函数
+成员函数在类内定义默认为内联函数
+inline 编译器做类型检查
+避免函数调用开销
+内联函数的每次调用都将复制代码，使得代码膨胀explicit
+强制显示构造,只能用">
 
 
 
@@ -158,9 +146,9 @@ leetcode      随算法导论进行
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/08/31/补课之后/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/01/03/Effective-c-twice/"/>
 
-  <title> after | TheOneAC </title>
+  <title> Effective c++ twice | TheOneAC </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -290,7 +278,7 @@ leetcode      随算法导论进行
             
             
               
-                after
+                Effective c++ twice
               
             
           </h1>
@@ -302,8 +290,8 @@ leetcode      随算法导论进行
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-08-31T20:49:49+08:00" content="2016-08-31">
-              2016-08-31
+            <time itemprop="dateCreated" datetime="2017-01-03T19:01:01+08:00" content="2017-01-03">
+              2017-01-03
             </time>
           </span>
 
@@ -316,8 +304,8 @@ leetcode      随算法导论进行
               <span class="post-meta-item-text">In</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Dairy/" itemprop="url" rel="index">
-                    <span itemprop="name">Dairy</span>
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
                   </a>
                 </span>
 
@@ -349,65 +337,72 @@ leetcode      随算法导论进行
       
 
       
-        <h3 id="写在补课之后："><a href="#写在补课之后：" class="headerlink" title="写在补课之后："></a>写在补课之后：</h3><p>**</p>
-<ul>
-<li>补课强度高，消化不良，但是有一点明确，让你知道要学什么</li>
-<li>有一堆志同道合的人一块自习撸码还是很享受的，科大的实验课真心不错</li>
-<li>碰撞，或者老司机带路跟自己干还是不一样的</li>
-<li>将来找团队，找妹子也一定要志同道合啊…… :joy: :joy:</li>
+        <h4 id="static"><a href="#static" class="headerlink" title="static"></a>static</h4><ul>
+<li>声明在堆上申请静态存储</li>
+<li>对于局部变量，将存储方式改为静态存储</li>
+<li>对于全局变量，将连接方式局限在文件内</li>
+<li>类中static变量：属于整个类，独立存储，没有this指针<h4 id="inline"><a href="#inline" class="headerlink" title="inline"></a>inline</h4></li>
+<li>inline 放在函数定义前，定义为内联函数</li>
+<li>成员函数在类内定义默认为内联函数</li>
+<li>inline 编译器做类型检查</li>
+<li>避免函数调用开销</li>
+<li>内联函数的每次调用都将复制代码，使得代码膨胀<h4 id="explicit"><a href="#explicit" class="headerlink" title="explicit"></a>explicit</h4></li>
+<li>强制显示构造,只能用于类内构造函数前，抑制隐式转换构造</li>
 </ul>
-<hr>
 <ul>
-<li><p>数据结构：树变种，复杂堆，红黑树，图剪枝回溯</p>
-<blockquote>
-<p>leetcode      随算法导论进行</p>
-</blockquote>
-</li>
-<li><p>网络：socket 编程，网络协议，TCP/IP三卷，</p>
-<blockquote>
-<p>UNP           随高网进行</p>
-</blockquote>
-</li>
-<li><p>操作系统：linux私房菜未看完，在正式开学前搞完</p>
-<blockquote>
-<p>APUE          随CSAPP进行</p>
-</blockquote>
-</li>
-<li><p>数据库：范式理解需要加深</p>
-<blockquote>
-<p>高性能mysql   随高级数据库进行</p>
-</blockquote>
-</li>
-<li><p>c++：</p>
-<blockquote>
-<p>c++ primier ：后四章理解不够，<br>effective c++ ：中关于泛型编程 理解不足，缺少使用经验<br>stl 标准库 ：明显理解不够需要重新理解思考                          随c++ 面向对象复习</p>
-</blockquote>
-</li>
-<li>当前未涉及领域<blockquote>
-<p>机器学习/推荐算法，python<br>python 参考手册<br>提前理解孟宁老师网络程序课程涉及的机器学习框架和内容<br>刷网易云课堂：保健老师编译原理计划待定</p>
-</blockquote>
-</li>
+<li><code>内置类型手工初始化，c++不保证内置类型初始化</code></li>
+<li><code>构造函数最好使用member initialnal list 初始化，尽量不使用赋值</code></li>
+<li><code>具有多态性质的基类应该声明一个虚析构函数，带有虚函数时，也应该设计一个虚析构函数</code></li>
+<li><code>在构造和析构函数中不要调用virtual函数，这类调用无法实现下降至derived class</code></li>
+<li><code>operator= 返回一个reference to *this 以实现连续赋值</code></li>
+<li><code>保证operator = 自我赋值或者交换时的正确性</code></li>
+<li><code>copy 函数确保全部元素复制，不仅是对象内部成员变量，也包括其base class 成员</code></li>
+<li><code>不要尝试用某个copy实现另一个copy函数，将共同即能放入第三个函数中，供copy函数调用即可</code></li>
+<li><code>将 资源封装成类对象，不使用时自动调用析构函数，释放资源。RAII（获得即初始化）</code></li>
 </ul>
-<hr>
-<blockquote>
-<p><strong>尝试图形化笔记，增加会议性笔记，以代码注释代替文字笔记<br>辅助技能：git不能满足于基本操作，markdown语法加入html，vim进阶，linux深入</strong></p>
-</blockquote>
-<h4 id="思考："><a href="#思考：" class="headerlink" title="思考："></a>思考：</h4><p><code>1、看书的正确方式：从c++书籍的经验看，直接上效果低，先用遇到问题查询，缺哪块补哪块</code><br><code>2、笔记的正确方式：禁止抄书，以思考写笔记，注意总和测试</code></p>
 <ul>
-<li>问题：<blockquote>
-<p>书籍pdf 还是纸质版？<br>中文书籍书籍速度快，效果差，解析未必透侧<br>文外书籍，阅读慢，讲解透侧，官网教程代码简洁</p>
-</blockquote>
+<li>对RAII对象执行复制操作的处理<ul>
+<li>禁止复制：复制操作private</li>
+<li>底层资源引用计数：tr1：:shared_ptr</li>
+<li>复制底层资源：深拷贝</li>
+<li>转移底层资源控制权：pointer 和tr1：：auto_pointer</li>
+</ul>
 </li>
 </ul>
 <ul>
-<li>是否涉入JAVA：<blockquote>
-<p>优点：JAVA应用广，框架多，封装良好，岗位多<br>困境：目前位涉猎java领域，c++（算法）/python（机器学习） 将在第一学期计划中占据很大代码量</p>
-</blockquote>
-</li>
+<li><code>以独立语句将new返回的指针置入智能指针中，避免在复合语句中执行置入</code></li>
+<li><code>接口设计应该与内置类型保持一致</code><ul>
+<li>阻止误用：建立新类型，限制类型操作，束缚对象值，消除客户资源管理责任</li>
 </ul>
-<p><code>技能树存在java 和 编译原理  缺口</code><br><code>分布式缺口在下学期的分布式与云计算课同步补齐</code></p>
-<hr>
-<p>###总结：<br><strong>增加代码量，代码为主，看书为辅<br>新知识关注官网tutorial<br>图形化笔记，回忆性笔记<br>重理解，英文化</strong></p>
+</li>
+<li><code>不要返回local stack 对象，或者refrence of heap 对象</code></li>
+<li><code>用non-menber non-firend 函数替换member函数，即通过外函数调用member 函数实现，保证类对象的封装性</code></li>
+<li><code>重载操作符可以在类内部，也可以在类外部，外部定义重载操作符可以对全部参数隐式转型</code></li>
+<li><code>降低文件之间的依赖关系</code><ul>
+<li>在定义文件中，用到的类只做前置声明而不引入头文件定义</li>
+<li>在实现文件中，include用到的类的头文件</li>
+<li>引用和指针不需要定义式，声明对象时需要定义式</li>
+</ul>
+</li>
+<li><code>derived class 将会掩盖同名的base class 函数，使用 using声明或者转交函数（函数内部调用base class 被覆盖的函数）使用base class 被覆盖的函数</code></li>
+<li><code>接口继承与实现继承</code><ul>
+<li>声明一个pure virtual函数是为了让derived class 只继承函数接口</li>
+<li>声明一个impure virtual 函数是为了让derived class 继承函数接口和缺省实现</li>
+<li>声明一个non-virtual 函数是为了让derived class 继承函数接口和一份强制实现</li>
+</ul>
+</li>
+<li><code>绝对不重新定义继承来的non-virtual函数</code></li>
+<li><code>绝对不重新定义继承来的缺省参考值</code>: 缺省值是静态绑定的</li>
+<li><code>应用域复合表示has a， 实现域复合表示is implemented in terms of</code></li>
+</ul>
+<ul>
+<li>private 继承意味着只有实现部分被继承，接口部分被忽略</li>
+<li>private继承意味着参考实现，当derived class 需要访问基类成员或者重定义继承而来的virtual 函数时，使用private继承</li>
+<li>private 继承可以实现empty class 最小化</li>
+</ul>
+<ul>
+<li><code>derived class templates 内部通过 “this-&gt;”使用base class templates 内成员，或者使用using 子句表明成员来源</code></li>
+</ul>
 
       
     </div>
@@ -430,7 +425,9 @@ leetcode      随算法导论进行
       
         <div class="post-tags">
           
-            <a href="/tags/Thinking/" rel="tag">#Thinking</a>
+            <a href="/tags/Notes/" rel="tag">#Notes</a>
+          
+            <a href="/tags/Effective-C/" rel="tag">#Effective C++</a>
           
         </div>
       
@@ -439,16 +436,16 @@ leetcode      随算法导论进行
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/08/27/Mysql/" rel="next" title="Mysql">
-                <i class="fa fa-chevron-left"></i> Mysql
+              <a href="/2016/12/26/算法导论-系列五：高级数据结构/" rel="next" title="算法导论 系列五：高级数据结构">
+                <i class="fa fa-chevron-left"></i> 算法导论 系列五：高级数据结构
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/09/17/leetcode-022-Generate-Parentheses/" rel="prev" title="leetcode 022. Generate Parentheses">
-                leetcode 022. Generate Parentheses <i class="fa fa-chevron-right"></i>
+              <a href="/2017/01/05/网络程序设计之神经网络/" rel="prev" title="网络程序设计之神经网络">
+                网络程序设计之神经网络 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -607,7 +604,7 @@ leetcode      随算法导论进行
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#写在补课之后："><span class="nav-number">1.</span> <span class="nav-text">写在补课之后：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#思考："><span class="nav-number">1.1.</span> <span class="nav-text">思考：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#static"><span class="nav-number">1.</span> <span class="nav-text">static</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#inline"><span class="nav-number">2.</span> <span class="nav-text">inline</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#explicit"><span class="nav-number">3.</span> <span class="nav-text">explicit</span></a></li></ol></div>
             
           </div>
         </section>

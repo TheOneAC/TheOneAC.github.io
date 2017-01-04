@@ -250,6 +250,312 @@
             
               
                 
+                <a class="post-title-link" href="/2016/12/12/http权威指南/" itemprop="url">
+                  http权威指南
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-12-12T19:48:36+08:00" content="2016-12-12">
+              2016-12-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/HTTP/" itemprop="url" rel="index">
+                    <span itemprop="name">HTTP</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="第一章-http概述"><a href="#第一章-http概述" class="headerlink" title="第一章 http概述"></a>第一章 http概述</h4><h5 id="1-3-1-媒体类型"><a href="#1-3-1-媒体类型" class="headerlink" title="1.3.1 媒体类型"></a>1.3.1 媒体类型</h5><pre><code>- http为每种web传输的数据格式加上MIME类型数据标签（multipurpose internet mail 
+</code></pre><p><img src="http://odfcr7qs4.bkt.clouddn.com/MIME%E7%B1%BB%E5%9E%8B.PNG" alt="MIME类型"></p>
+<h5 id="1-4-事务"><a href="#1-4-事务" class="headerlink" title="1.4 事务"></a>1.4 事务</h5><ul>
+<li>一个请求 + 一个响应 构成一个事务，通过 格式化的http报文实现<h6 id="1-4-1-方法"><a href="#1-4-1-方法" class="headerlink" title="1.4.1 方法"></a>1.4.1 方法</h6></li>
+<li>GET 从服务器向客户端发送命名资源</li>
+<li>PUT 将客户端数据存储到命名服务器中</li>
+<li>DELETE 从服务器删除命名资源</li>
+<li>POST 将客户端信息发送到一个服务器网关应用程序</li>
+<li>HEAD 仅发送命名资源响应中的HTTP首部</li>
+</ul>
+<h6 id="1-4-2-状态码"><a href="#1-4-2-状态码" class="headerlink" title="1.4.2 状态码"></a>1.4.2 状态码</h6><pre><code>- 200 ok 
+- 302 redirect
+- 404 notfound
+</code></pre><p>###第二章 URL与资源</p>
+<ul>
+<li>在获取用户URL的源端处处理组件不完全字符</li>
+</ul>
+<h3 id="第三章-HTTP报文"><a href="#第三章-HTTP报文" class="headerlink" title="第三章 HTTP报文"></a>第三章 HTTP报文</h3><h6 id="3-1-报文流"><a href="#3-1-报文流" class="headerlink" title="3.1 报文流"></a>3.1 报文流</h6><ul>
+<li>不管是请求还是响应，所有报文向下游流动<h6 id="3-2-报文组成部分"><a href="#3-2-报文组成部分" class="headerlink" title="3.2 报文组成部分"></a>3.2 报文组成部分</h6>  request：<br>  <method> <reuqest-url> <version><br>  <headers><br>  <entity-body><br>  respose:<br>  <version> <status> <reason-phase><br>  <headers><br>  <entity-body><br>####### 3.2.2 起始行</entity-body></headers></reason-phase></status></version></entity-body></headers></version></reuqest-url></method></li>
+<li>请求行：请求报文起始行：说明要做什么，响应报文说明：发生了什么</li>
+<li>响应行： http 版本，状态码， 状态文本描述</li>
+<li>状态码：<br>  <img src="http://odfcr7qs4.bkt.clouddn.com/http%E7%8A%B6%E6%80%81%E7%A0%81.PNG" alt="状态码"><br>####### 3.3.1 方法</li>
+<li>安全方法: GET HEAD 不产生动作即不会再拂去其上产生什么结果</li>
+<li>HEAD:不获取资源情况下查看资源情况，查看响应状态码，了解对象情况，查看首部，了解资源是否被修改</li>
+<li>TRACE：行程最后一站服务器弹回一条响应，携带收到的原始请求报文，方便发送方查看原始报文是否被修改</li>
+</ul>
+<hr>
+<p>状态码与首部：查字典http 口袋书</p>
+<h5 id="第四章-连接管理"><a href="#第四章-连接管理" class="headerlink" title="第四章 连接管理"></a>第四章 连接管理</h5><p><img src="http://odfcr7qs4.bkt.clouddn.com/http%E7%9A%84tcp%E4%B8%8Eip%E4%BC%A0%E8%BE%93.PNG" alt="http的tcp/ip连接"></p>
+<ul>
+<li>tcp 的socket 套接字通信<br><img src="http://odfcr7qs4.bkt.clouddn.com/tcp%E8%BF%9E%E6%8E%A5.PNG" alt="tcp  socket"></li>
+</ul>
+<p>####### 4.2 HTTP 事务时延</p>
+<ul>
+<li>url 地址端口映射， tcp连接的建立，端口的释放时延</li>
+<li>tcp链接建立的握手机制</li>
+<li>tcp慢启动拥塞控制</li>
+<li>捎带确认的tcp延迟算法</li>
+<li>time_wait 时延和端口耗尽</li>
+</ul>
+<p>####### 4.4 并行连接</p>
+<ul>
+<li>并行连接可以加快加载速度，但是不是一定可以加快加载速度</li>
+<li>多个对象同时出现在页面，让用户感觉好像加快了加载</li>
+</ul>
+<p>####### 4.5 持久连接</p>
+<ul>
+<li>在http设备事务处理结束之后将tcp连接保持在打开状态直到客户端决定关闭</li>
+<li>http/1.0 + keep—live 连接<br>  客户端通过包含connection：keep_live首部请求将连接保持在打开状态<br>  服务器允许下一条请求将连接保持在打开状态，将响应中包含相同首部<br>  响应中没有conncetion： keep-live首部，客户端认为服务器不支持keep—live，会在响应之后关闭连接</li>
+<li>keep-alive通用首部选项<br>  timeout： 响应首部发送，服务器保持连接活跃的时间<br>  max：     响应首部发送，服务器可以保持的活跃的连接数</li>
+</ul>
+<p>####### 4.6 管道化连接<br><img src="http://odfcr7qs4.bkt.clouddn.com/%E7%AE%A1%E9%81%93%E5%8C%96%E8%BF%9E%E6%8E%A5%E9%99%90%E5%88%B6.PNG" alt="管道化连接限制"></p>
+<p>####### 4.7 连接关闭</p>
+<ul>
+<li>客户端、服务器、代理都可以在任何时刻关闭一条TCP传输连接</li>
+<li>事务多次执行所得结果相同， 则该事物是幂等的（GET\ HEA\ PUT\DELETE\ TRACE\ OPTIONS）</li>
+</ul>
+<h4 id="第五章-http结构"><a href="#第五章-http结构" class="headerlink" title="第五章 http结构"></a>第五章 http结构</h4><ul>
+<li>web服务器动作内容： 建立连接，接受请求，处理请求，访问资源，构建响应，发送响应，记录事物处理过程</li>
+<li>新连接添加到web服务器列表中，并驾驶连接的数据传输准备</li>
+<li>ip地址解析成主机名用于访问控制和日志记录，但是会降低web事务处理速度</li>
+<li>服务器通过ident协议找到发起连接的用户名用于日志记录</li>
+<li>报文的内部解析<br><img src="http://odfcr7qs4.bkt.clouddn.com/%E6%8A%A5%E6%96%87%E5%86%85%E9%83%A8%E8%A7%A3%E6%9E%90.PNG" alt="报文内部解析"></li>
+</ul>
+<h4 id="第六章-代理"><a href="#第六章-代理" class="headerlink" title="第六章 代理"></a>第六章 代理</h4><ul>
+<li>代理连接的是使用相同协议的应用程序，网关连接的是使用不同协议的端点</li>
+<li>反向代理代替web服务器处理请求必要时向web服务器请求资源</li>
+<li>网络交换代理：通过缓存减轻节点拥塞</li>
+<li>动态父代理：<ul>
+<li>负载均衡：根据父代理工作负载决定选择哪一个父代理</li>
+<li>地理位置附近的路由</li>
+<li>协议类型路由</li>
+<li>基于订购的路由，高性能付费用户<br><img src="http://odfcr7qs4.bkt.clouddn.com/%E4%BB%A3%E7%90%86.PNG" alt="代理"></li>
+</ul>
+</li>
+<li>没有设置科幻段使用代理时，发送部分URL</li>
+<li>设置使用客户端代理时，发送完整URL</li>
+<li>通用代理服务器应该既支持完整URL，也支持部分URL<br>####### 追踪报文</li>
+<li>via首部列出把报文途径的每个节点的有关信息</li>
+<li>max-forward 最大转发次数</li>
+</ul>
+<p>####### 代理认证</p>
+<ul>
+<li>受限请求到达服务器，服务器返回一个要求范文证书的的407代码里认证请求状态码</li>
+<li>用户收到407 响应，尝试从本地数据库寻找证书</li>
+<li>获得证书，客户端重新发送请求，在proxy-authorization首部字段提供所要求的的证书</li>
+<li>证书有效，代理将院士请求沿着传输链路向下传送，否则发送另外一条407 应答</li>
+</ul>
+<h4 id="第七章-缓存"><a href="#第七章-缓存" class="headerlink" title="第七章 缓存"></a>第七章 缓存</h4><ul>
+<li>缓存：减少冗余数据传输，缓解网络瓶颈，降低对原始服务器的要求，降低时延</li>
+<li>http再验证（revalidation）：缓存与服务器一致性验证<ul>
+<li>再验证命中：响应http304not modified</li>
+<li>再验证未命中：响应普通带内容的http200ok（更新缓存）</li>
+<li>对象被删除： 响应404not found 缓存删除相应副本</li>
+</ul>
+</li>
+<li>字节命中率：缓存提供的字节在传输的所有字节中所占的比例</li>
+<li>提高文档命中率，阻止通往外部的web事务，有理由降低延迟， 提高字节命中率，阻止字节传向因特网，节省带宽</li>
+<li>缓存响应与服务器响应的区分： 缓存响应的date标签早于当前时间，服务器响应的data标签晚于当前时间<br><img src="http://odfcr7qs4.bkt.clouddn.com/%E7%BC%93%E5%AD%98%E5%A4%84%E7%90%86%E6%AD%A5%E9%AA%A4.PNG" alt="缓存处理步骤"></li>
+</ul>
+<h3 id="缓存副本新鲜度"><a href="#缓存副本新鲜度" class="headerlink" title="缓存副本新鲜度"></a>缓存副本新鲜度</h3><h5 id="文档过期"><a href="#文档过期" class="headerlink" title="文档过期"></a>文档过期</h5><ul>
+<li>cache-control 首部：max-age 相对第一次生成时间的最大合法生存时间（version 1.1）</li>
+<li>Expires 首部： 过期时间    （version 1.0）<blockquote>
+<p>服务器再验证： 缓存文档过期，向服务器请求验证文档是否改变，改变则更新文档，为改变则跟新缓存文档首部（date）</p>
+</blockquote>
+</li>
+<li>条件再验证（条件GET）<ul>
+<li>if-modified-since： 如果指定日期之后修改，执行GET请求，更新缓存</li>
+<li>if-none-match ：文档修改时更新版本标签，实体标签修改后条件首部可执行，实现缓存更新</li>
+</ul>
+</li>
+<li>no-store ：禁止缓存对响应复制</li>
+<li>no-cache ：缓存本地，新鲜度验证之前不能提供给客户端</li>
+</ul>
+<h4 id="第八章-网关隧道及中继"><a href="#第八章-网关隧道及中继" class="headerlink" title="第八章 网关隧道及中继"></a>第八章 网关隧道及中继</h4><ul>
+<li>协议网关<br><img src="http://odfcr7qs4.bkt.clouddn.com/%E5%8D%8F%E8%AE%AE%E7%BD%91%E5%85%B3.PNG" alt="协议网关"></li>
+<li>服务器协议网关、服务器端安全网关、客户端安全网关、应用程序服务器</li>
+<li>web 隧道<blockquote>
+<ul>
+<li>web隧道用http连接传送非http流量，可以穿过只允许web流量的防火墙<br><img src="http://odfcr7qs4.bkt.clouddn.com/http%E9%9A%A7%E9%81%93.PNG" alt="隧道"></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h4 id="第九章-爬虫"><a href="#第九章-爬虫" class="headerlink" title="第九章 爬虫"></a>第九章 爬虫</h4><ul>
+<li>避免环路冗余，url规则化处理</li>
+<li>支持host首部以区别虚拟主机上的不同服务器</li>
+<li>条件请求（GET）减少页面请求冗余重复</li>
+</ul>
+<h4 id="第十一章-cookie"><a href="#第十一章-cookie" class="headerlink" title="第十一章 cookie"></a>第十一章 cookie</h4><ul>
+<li>会话cookie：记录用户访问站点时的设置和偏好，用户推出浏览器时删除</li>
+<li>持久cookie： 硬盘存储，过期时间与临时cookie不同<blockquote>
+<p>cookie:服务器为了跟踪用户而产生的id识别码，服务器根据id累计访问者的数据库信息</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="第十二章-认证"><a href="#第十二章-认证" class="headerlink" title="第十二章 认证"></a>第十二章 认证</h4><ul>
+<li>http质询与响应<blockquote>
+<p>服务器收到http请求时，响应一个“认证质询”要求用户提供保密信息说明身份，<br>再次发起请求时，要求附上保密证书（用户名和密码），证书不匹配则再次质询客户端，并产生错误信息</p>
+</blockquote>
+</li>
+<li>摘要认证： 只发送密码摘要，不再明文发送密码本身</li>
+<li>摘要认证中使用随机数随机化摘要，随机数由www-authenticate 质询从服务器发送给客户端<br><img src="http://odfcr7qs4.bkt.clouddn.com/%E6%91%98%E8%A6%81%E6%8F%A1%E6%89%8B%E6%9C%BA%E5%88%B6.PNG" alt="摘要握手机制"></li>
+</ul>
+<h4 id="第十四章-http安全"><a href="#第十四章-http安全" class="headerlink" title="第十四章 http安全"></a>第十四章 http安全</h4><h5 id="https"><a href="#https" class="headerlink" title="https"></a>https</h5><ul>
+<li>增加传输安全层，请求和响应全部加密处理<br><img src="http://odfcr7qs4.bkt.clouddn.com/ssl%E6%8F%A1%E6%89%8B.PNG" alt="ssl握手"></li>
+</ul>
+<h4 id="第十七章-内容协商"><a href="#第十七章-内容协商" class="headerlink" title="第十七章 内容协商"></a>第十七章 内容协商</h4><p><img src="http://odfcr7qs4.bkt.clouddn.com/%E5%86%85%E5%AE%B9%E5%8D%8F%E5%95%86.PNG" alt="内容协商"></p>
+<ul>
+<li>服务器驱动协商：http服务器根据accept首部集自动评估发送的响应类型</li>
+<li>Apache web服务器内容协商根据type-map类型映射文件，查找变体和先关内容协商首部集<br>  MultiViews指令自动为目录创建type-map文件</li>
+<li><p>透明协商：代理了解客户需求，代替客户向服务器请求相应最佳匹配变体类型</p>
+<blockquote>
+<p>不同变体代表文件类型不一样，必须同时缓存变体和器请求首部、服务器响应首部，代理选择最合适变体方会给用户</p>
+</blockquote>
+</li>
+<li><p>转码：服务器不能满足客户端请求时，将已存在文档转化为用户可用文档</p>
+</li>
+</ul>
+<ol>
+<li>格式转换</li>
+<li>信息综合</li>
+<li>内容注入</li>
+</ol>
+<ul>
+<li>即时转换比静态预生成更加容易实现</li>
+</ul>
+<h4 id="第二十章-重定向与负载均衡"><a href="#第二十章-重定向与负载均衡" class="headerlink" title="第二十章 重定向与负载均衡"></a>第二十章 重定向与负载均衡</h4><p><img src="http://odfcr7qs4.bkt.clouddn.com/%E9%80%9A%E7%94%A8%E9%87%8D%E5%AE%9A%E5%90%91%E6%96%B9%E6%B3%95.PNG" alt="通用重定向方法"><br><img src="http://odfcr7qs4.bkt.clouddn.com/%E4%BB%A3%E7%90%86%E4%B8%8E%E7%BC%93%E5%AD%98%E9%87%8D%E5%AE%9A%E5%90%91.PNG" alt="代理与缓存重定向"></p>
+<ul>
+<li><p>http重定向：短的重定向白问发回给客户端，或者找到负载最想内容服务器做负载均衡，重定向服务器回到用户端IP地址</p>
+<blockquote>
+<p>增加用户时延，原始服务器处理重定向流量，重定向服务器瘫痪导致站点瘫痪</p>
+</blockquote>
+</li>
+<li><p>DNS 重定向：DNS解析返回的ip地址是多个服务器地址的轮转或者负载最小选择或者跳过故障服务器（故障屏蔽）</p>
+<blockquote>
+<p>DNS缓存失效，同一个主机的多个服务被分支到多个服务器，每次解析得到的DNS地址均不一样</p>
+</blockquote>
+</li>
+<li><p>任播寻址： 多个分离服务器拥有相同IP地址，通过主干路由器的最毒路径路由功能将客户请求发送给最近服务器</p>
+</li>
+<li><p>IP MAC转发<br><img src="http://odfcr7qs4.bkt.clouddn.com/mac%E8%BD%AC%E5%8F%91.PNG" alt="mac转发"></p>
+</li>
+<li><p>IP地址转发<br><img src="http://odfcr7qs4.bkt.clouddn.com/ip%E5%9C%B0%E5%9D%80nat%E8%BD%AC%E5%8F%91.PNG" alt="IP地址nat转发"></p>
+</li>
+<li><p>用户选择配置从代理服务器上获取内容</p>
+<blockquote>
+<p>代理崩溃时，系统无法联系原始服务器</p>
+</blockquote>
+</li>
+<li><p>记录内容:http方法，http版本，请求资源url，响应状态码，请求与响应报文尺寸，事务开始时间戳，referer首部，user-agent 首部值</p>
+</li>
+<li>日志格式<br><img src="http://odfcr7qs4.bkt.clouddn.com/%E6%97%A5%E5%BF%97%E6%A0%BC%E5%BC%8F.PNG" alt="日志格式"></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/12/12/APUE第五章：标准IO库/" itemprop="url">
                   APUE第五章：标准IO库
                 </a>
@@ -405,7 +711,7 @@
               
                 
                 <a class="post-title-link" href="/2016/12/12/inside-the-c-model/" itemprop="url">
-                  inside the c++ model
+                  inside the c++ object model
                 </a>
               
             
@@ -1789,334 +2095,6 @@ command-line arguments</code> to the new program to be specified as separate arg
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/01/Programming-With-POSIX-Threads/" itemprop="url">
-                  Programming With POSIX Threads
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-10-01T13:06:18+08:00" content="2016-10-01">
-              2016-10-01
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4> Chapter One </h4>
-
-<blockquote>
-<ul>
-<li><code>Asynchronous</code>: two operation proceed independently of each other.</li>
-<li><code>thread</code>: just a more way to <code>make application asynchronous</code></li>
-<li><code>concurency</code> does <code>not imply</code> that the  <code>operations proceed simultaneously</code></li>
-<li><code>concurrency</code> allows application to <code>take adcantage of asynchronous capabilities</code> and “do work” while independent operations are proceeding.</li>
-<li>并发的实质是一个物理CPU(也可以多个物理CPU) 在若干道程序之间多路复用，并发性是对有限物理资源强制行使多用户共享以提高效率。</li>
-<li>并行性指两个或两个以上事件或活动在同一时刻发生。在多道程序环境下，并行性使多个程序同一时刻可在不同CPU上同时执行。</li>
-<li><code>Reentrant code</code> should <code>avoid relying on static data</code> and, ideally, should <code>avoid reliance on any form of synchronization</code> between threads.</li>
-<li>A system’s scheduling facility may allow each thread to run until it voluntarily yields the processor to another thread <code>(&quot;run until block&quot;)</code>.</li>
-<li>It may provide time-slicing, where each thread is forced to periodically yield so that other threads may run `(“round-robin”)</li>
-</ul>
-</blockquote>
-<ul>
-<li>A thread may have o processor status and coprocessor control registers. </li>
-<li>A thread does not include most of the rest of the state associated with a process; </li>
-<li>threads do not have their own file descriptors or address space.</li>
-</ul>
-<blockquote>
-<p><strong>gcc thread.c -o thread -lpthread</strong></p>
-</blockquote>
-<ul>
-<li><p>For very <code>simple applications</code> ,<code>an event-based implementation</code> may be <code>simpler</code> than the <code>multiprocess or multithread variations</code></p>
-</li>
-<li><p>Some advantages of the multithreaded programming model follow:</p>
-<blockquote>
-<ol>
-<li>Exploitation of program parallelism on multiprocessor hardware. Parallelism is the only benefit that requires special hardware. The others can help most programs without specialhardware.</li>
-<li>More efficient exploitation of a program’s natural concurrency, by allowing the programto perform computations while waiting for slow I/O operations to complete.</li>
-<li>A modular programming model that clearly expresses relationships between independent “events” within the program. These advantages are detailed in the following sections.</li>
-</ol>
-</blockquote>
-</li>
-<li><p>It is easy to lose performance by using too much synchronization;</p>
-</li>
-<li>The performance suffers when the <code>multithreaded implementation</code> adds <code>threadsynchronization</code> and <code>scheduling overhead</code> to the work you are to accomplish.</li>
-<li><h5 id="Your-most-powerful-and-portable-thread-debugging-tool-is-your-mind"><a href="#Your-most-powerful-and-portable-thread-debugging-tool-is-your-mind" class="headerlink" title="Your most powerful and portable thread debugging tool is your mind"></a><code>Your most powerful and portable thread debugging tool is your mind</code></h5></li>
-</ul>
-<h4> Chapter Two </h4>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">pthread_t thread;</div><div class="line">int pthread_equal (pthread_t t1, pthread_t t2); </div><div class="line">//compare two thread identifiers</div><div class="line">int pthread_create (pthread_t *thread, const pthread_attr_t *attr, void *(*start)(void *),void *arg);</div><div class="line">pthread_t pthread_self (void);</div><div class="line">//get its own identifier using the pthread\_self function</div><div class="line">//returns a nonzero value if refer to the same thread,  0 if not the same </div><div class="line">int sched_yield (void);</div><div class="line">int pthread_exit (void *value_ptr);</div><div class="line">int pthread_detach (pthread_t thread);</div><div class="line">int pthread_join (pthread_t thread, void **value_ptr);</div></pre></td></tr></table></figure>
-<ul>
-<li>The initial thread is special because the process terminates without allowing other threads to complete</li>
-<li>Detaching a thread tells the system that you no longer need that thread, and allows the system to reclaim the resources allocated to the thread.</li>
-<li>Returning from main will cause the process to terminate, along with all threads.</li>
-<li><p>code the main thread to terminate by calling pthread_exit, which would allow the process to continue until all threads have terminated.</p>
-<blockquote>
-<p>The most important thing to remember about thread creation is that there is no synchronization between the creating thread’s return from pthread_create and the scheduling of the new thread. That is, the thread may start before the creating thread returns. The thread may even run to completion and terminate before pthread_create returns</p>
-</blockquote>
-</li>
-<li><p>pthread_join is a convenience, not a rule.</p>
-<blockquote>
-<p>it is often at least as simple to create the thread detached and devise your own customized return mechanism as it is to use pthread_join. For example, broadcast a condition variable when done.</p>
-</blockquote>
-</li>
-</ul>
-<h4> Chapter Three </h4>
-
-<ul>
-<li><code>Critical sections</code>  “serial regions” :  areas of code that <code>affect a shared state</code>.</li>
-<li><p>The most common and general way to <code>synchronize between threads</code> is to ensure that <code>all memory accesses to the same (or related) data</code> are “<code>mutually exclusive</code>.”</p>
-</li>
-<li><p>Creating and destroying a mutex</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pthread_mutex_t mutex = PTHREAD_MUNEX_INITIALIZER;</div><div class="line">int pthread_mutex_init (pthread_mitex_t *mutex, pthread_mutexattr_t *attr);</div><div class="line">int pthread_mutex_destroy (pthread_mutex_t *mutex);</div></pre></td></tr></table></figure>
-</li>
-<li><p>never make a copy of a mutex, the result of using a copied mutex is undefined.</p>
-</li>
-<li>It is a good idea to <code>associate a mutex clearly with the data</code> it protects, if possible, by keeping the definition of the mutex and data together</li>
-<li>it is safe (and a good idea) to <code>unlock and destroy the mutex</code> before <code>freeing the storage that the mutex occupies</code>.</li>
-<li>the <code>mutex dynamically initialized</code> by calling <code>pthread_mutex_init</code> should <code>destroyed</code>  by calling <code>pthread_mutex_destroy</code>. but a mutex that was <code>statically initialized</code> using the <code>PTHREAD_MUTEX_INITIALIZER</code> macro <code>not</code>, wihch will be destroyed automatically.</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int pthread_mutex_lock (pthread_mutex_t *mutex);</div><div class="line">int pthread_mutex_trylock (pthread_mutex_t *mutex);</div><div class="line">int pthread_mutex_unlock (pthread_mutex_t *mutex);</div></pre></td></tr></table></figure>
-<blockquote>
-<p>pthread_mutex_trylock function will return an error status (EBUSY) instead of blocking if the mutex is already locked.</p>
-</blockquote>
-<ul>
-<li>A condition variable wait always returns with the mutex locked</li>
-<li>The mutex must always be locked when you wait on a condition variable</li>
-</ul>
-<p><strong>Creating and destroying a condition variable</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pthread_cond_t cond = PTHREAD_COND_INITIALIZER;</div><div class="line">int pthread_cond_init (pthread_cond_t *cond, pthread_condattr_t *condattr);</div><div class="line">int pthread_cond_destroy (pthread_cond_t *cond);</div></pre></td></tr></table></figure></p>
-<ol>
-<li><code>cond_wait</code> 等待信号量，若未收到信号量，<code>解锁mutex，并挂起到相应信号量等待队列</code>原子操作(<code>cond\_wait 不返回处于等待信号量状态，不占用CPU</code>)</li>
-<li>收到信号量，<code>尝试上锁mutex</code>，若锁被占用则等待，直到获得锁,若上锁成功，进入临界区使用条件变量</li>
-<li>由外部<code>unlock</code>完成解锁</li>
-</ol>
-<p><strong>Waiting on a condition variable</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int pthread_cond_wait (pthread_cond_t *cond, pthread_mutex_t *mutex);</div><div class="line">int pthread_cond_timedwait (pthread_cond_t *cond, pthread_mutex_t *mutex, struct timespec *expiration);</div></pre></td></tr></table></figure></p>
-<ul>
-<li>Each condition variable must be associated with a specific mutex, and with a predicate condition.</li>
-<li>That is, each condition variable must be associated, at any given time, with only one mutex–but a mutex may have any number of condition variables associated with it.</li>
-</ul>
-<p><strong>Waking condition variable waiters</strong></p>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int pthread_cond_signal (pthread_cond_t *cond);</div><div class="line">int pthread_cond_broadcast (pthread_cond_t *cond);</div></pre></td></tr></table></figure>
-</blockquote>
-<h4> Chapter five </h4>
-
-<ul>
-<li><code>once initialize</code><blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pthread_once_t once_control = PTHREAD_ONCE_INIT;</div><div class="line">int pthread_once (pthread_once_t *once_control, void(*init_routine) (void));</div></pre></td></tr></table></figure>
-</blockquote>
-</li>
-</ul>
-<blockquote>
-<ul>
-<li>First, you declare a <code>control variable</code> of type <code>pthread_once_t</code>. The control variable must be <code>statically initialized</code> using the <code>PTHREAD_ONCE_INIT</code> macro, </li>
-<li>You must also create a <code>function</code> containing the <code>code to perform all initialization</code> that is to be associated with the control variable.</li>
-<li>Now, at any time, a thread may call pthread_once, specifying a pointer to the control variable and a pointer to the associated initialization function.</li>
-<li>only the <code>first call</code> <code>pthread_once</code> will <code>successfully initialized</code>．</li>
-</ul>
-</blockquote>
-<ul>
-<li><code>Mutex attributes</code><blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">pthread_mutexattr_t attr;</div><div class="line">int pthread_mutexattr_init &#123; pthread_mutexattr_t *attr);</div><div class="line">int pthread_mutexattr_destroy (pthread_mutexattr_t *attr);</div><div class="line">\#ifdef _POSIX_THREAD PROCESS SHARED</div><div class="line">int pthread_mutexattr_getpshared (pthread_mutexattr_t  *attr, int *pshared);</div><div class="line">int pthread_mutexattr_setpshared (pthread_mutexattr_t *attr, int pshared);</div><div class="line">endif</div></pre></td></tr></table></figure>
-</blockquote>
-</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">#include &lt;pthread.h&gt;</div><div class="line">#include &quot;errors.h&quot;</div><div class="line">pthread_mutex_t mutex;</div><div class="line">int main (int argc, char *argv[])</div><div class="line">&#123;</div><div class="line">    pthread_mutexattr_t mutex_attr;</div><div class="line">    int status;</div><div class="line">    status = pthread_mutexattr_init (&amp; mutex\_attr);</div><div class="line">    if (status != 0)</div><div class="line">        err_abort (status, &quot;Create attr&quot;);</div><div class="line">#ifdef _POSIX_THREAD_PROCESS_SHARED</div><div class="line">    status = pthread_mutexattr_setpshared (</div><div class="line">        &amp; mutex\_attr, PTHREAD_PROCESS_PRIVATE);</div><div class="line">    if (status != 0)err_abort (status, &quot;Set pshared&quot;);</div><div class="line">#endif</div><div class="line">    status = pthread_mutex_init (&amp;mutex, &amp;mutex_attr);</div><div class="line">    if (status != 0)</div><div class="line">        err_abort (status, &quot;Init mutex&quot;);</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<ul>
-<li><p><code>Condition variable attributes</code></p>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">pthread_condattr_t attr;</div><div class="line">int pthread_condattr_init (pthread_condattr_t *attr);</div><div class="line">int pthread_condattr_destroy (pthread_condattr_t *attr);</div><div class="line">#ifdef _POSIX_THREAD_PROCESS_SHARED</div><div class="line">int pthread_condattr_getpshared(pthread_condattr_t *attr, int *pshared);</div><div class="line">int pthread_condattr_setpshared (pthread_condattr_t *attr, int pshared);</div><div class="line">#endif</div></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><p><code>Thread attributes</code></p>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">pthread_attr_t attr;</div><div class="line">int pthread_attr_init (pthread_attr_t *attr);</div><div class="line">int pthread_attr_destroy (pthread_attr_t *attr);</div><div class="line">int pthread_attr_getdetachstate (pthread_attr_t *attr, int *detachstate);</div><div class="line">int pthread_attr_setdetachstate (pthread_attr_t *attr, int detachstate);</div><div class="line">#ifdef _POSIX_THREAD_ATTR_STACKSISE</div><div class="line">int pthread_attr_getstacksize (pthread_attr_t *attr, size_t *stacksize);</div><div class="line">int pthreae_attr_setstacksize (pthread_attr_t *attr, size_t stacksize);</div><div class="line">#endif</div><div class="line">#ifdef _POSIX_THREAD_ATTR_STACKADDR</div><div class="line">int pthread_attr_getstarkaddr (pthread_attr_t *attr, void *stackaddr);</div><div class="line">int pthread_attr_set-tackaddr (pthread_attr_t *attr, void **stackaddr);</div><div class="line">#endif</div></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><p><code>Cancellation</code></p>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">int pthread_cancel (pthread_t thread);</div><div class="line">int pthread_setcancelstate (int state, int * oldstate);</div><div class="line">int pthread_setcanceltype (int type, int *oldstate);</div><div class="line">void pthread_testcancel (void);</div><div class="line">void pthread_cleanup_push (void (*routine)(void *), void *arg);</div><div class="line">void pthread_cleanup_pop (int execute);</div></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><p><code>Creating thread-specific data</code></p>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">pthread_key_t key;</div><div class="line">int pthread_key_create (pthread_key_t *key, void (*destructor)(void *));</div><div class="line">int pthread_key_delete (pthread_key_t key);</div></pre></td></tr></table></figure>
-</blockquote>
-</li>
-</ul>
-<blockquote>
-<ul>
-<li>you should never delete a thread-specific data key until you are sure that no existing threads have a value for that key,</li>
-<li><code>Using thread-specific data</code></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int pthread_setspecific (pthread_key_t key, const void *value);</div><div class="line">void *pthread_getspecific (pthread_key_t key);</div></pre></td></tr></table></figure>
-<ul>
-<li>Pthreads will not call the destructor for a thread-specific data key if the terminating thread has a value of NULL for that key.</li>
-</ul>
-</blockquote>
-<ul>
-<li><code>Using destructor functions</code><blockquote>
-<ul>
-<li>If your <code>key&#39;s value</code> is <code>a pointer to heap memory</code>, you will need to <code>free the memory</code> to <code>avoid a memory leak</code> each time a thread terminates.Pthreads allows you to <code>define a destructor function</code> when you create a thread-specific data key. When a <code>thread terminates</code> with a <code>non-NULL value</code> for a <code>thread-specific data key</code>, the <code>key&#39;s destructor</code> (if any) is called with the current value of the key.</li>
-<li>the <code>order</code> in which <code>destructors are called</code> is undefined. Try to <code>make each destructor</code> as <code>independent</code> as possible.</li>
-</ul>
-</blockquote>
-</li>
-<li><code>Scheduling policies and priorities</code><blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">int sched_get_priority_max (int policy);</div><div class="line">int sched_get_priority_min (int policy);</div><div class="line">int pthread_attr_getinheritsched( const pthread_attr_t *attr, int *inheritsched);</div><div class="line">int pthread_attr_setinheritsched( pthread_attr_t *attr, int inheritsched);</div><div class="line">int pthread_attr_getschedparam (const pthread_attr_t *attr, struct sched_param *param);</div><div class="line">int pthread_attr_setschedparam ( pthread_attr_t *attr, const struct sched_param *param);</div><div class="line">int pthread_attr_getschedpolicy (const pthread_attr_t *attr, int *policy);</div><div class="line">int pthread_attr_setschedpolicy (pthread_attr_t *attr, int policy);</div><div class="line">int pthread_getschedparam (pthread_t thread, int *policy, struct sched_param *param);</div><div class="line">int pthread_setschedparam (pthread_t thread; int policy; const struct sched_param *param);</div></pre></td></tr></table></figure>
-</blockquote>
-</li>
-</ul>
-<blockquote>
-<ul>
-<li>When you set the scheduling policy or priority attributes in an attributes object, you must also set the inheritsched attribute!</li>
-<li>Pthreads does not specify a default value for inheritsched</li>
-</ul>
-</blockquote>
-<p><code>Priority inversion is when a low-priority thread can prevent a high-priority thread from running</code></p>
-<h4>POSIX adjusts to threads</h4>
-
-<ul>
-<li><p><code>fork</code></p>
-<blockquote>
-<ul>
-<li>When <code>a threaded process</code> calls <code>fork</code> to create <code>a child process</code>, Pthreads specifies that <code>only the thread calling fork exists in the child</code>.</li>
-<li>the thread has the same thread state as in the parent</li>
-<li>you use fork to clone a threaded program, beware that you may lose access to memory, especially heap memory stored only as thread-specific data values.</li>
-<li>a mutex was locked at the time of the call to fork, then it is still locked in the child. Because a locked mutex is owned by the thread that locked it, the mutex can be unlocked in the child only if the thread that locked the mutex was the one that called fork. This is important to remember–if another thread has a mutex locked when you call fork, you will lose access to that mutex and any data controlled by that mutex.</li>
-</ul>
-</blockquote>
-</li>
-<li><p><code>Avoid using fork inthreaded code except where the child process will immediately exec a new program.</code></p>
-</li>
-<li><p><code>Calling pthread_exit from main will terminate the initial thread without affecting the other threads in the process, allowing them to continue and complete normally.</code></p>
-</li>
-<li><p><code>flockfile and funlockfile</code></p>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">void flockfile (FILE *file);</div><div class="line">int ftrylockfile (FILE *file);</div><div class="line">void funlockfile (FILE *file);</div></pre></td></tr></table></figure>
-</blockquote>
-</li>
-<li><p>getchar_unlocked and putchar_unlocked</p>
-<blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">int getc_unlocked (FILE *stream);</div><div class="line">int getchar_unlocked (void);</div><div class="line">int putc_unlocked (int c, FILE *stream);</div><div class="line">int putchar_unlocked (int c)</div></pre></td></tr></table></figure>
-</blockquote>
-</li>
-</ul>
-<p></p><h4>Hints to avoid debugging</h4><p></p>
-<blockquote>
-<ul>
-<li>Never assume that a thread you create will wait for you.</li>
-<li>Thread inertia is a special case of thread races.</li>
-<li>thread races that the “loser” generally wins because the memory system will keep the last value written to an address.</li>
-<li><p><code>No ordering exists between threads</code></p>
-</li>
-<li><p>Scheduling exists to tell the system how important a specific job (thread) is to yourapplication so it can schedule the job you need the most. </p>
-</li>
-<li>Synchronization exists to tell the system that no other thread can be allowed into the critical section until the calling thread is done.</li>
-</ul>
-</blockquote>
-<ul>
-<li>Cooperate to avoid deadlocks<blockquote>
-<p>One common cause of a deadlock is that some thread has returned from a function without unlocking a mutex</p>
-</blockquote>
-</li>
-<li>Beware of priority inversion</li>
-<li>Never share condition variables between predicates<blockquote>
-<p>The best solution, when you really want to share a condition variable between predicates, is always to use pthread_cond_broadcast. But when you broadcast, all waiting threads wake up to reevaluate their predicates.</p>
-</blockquote>
-</li>
-<li>Sharing stacks and related memory corrupters<blockquote>
-<p>Having carefully ensured that there is no possible way for the owning thread to pop the stack data while other threads are using the shared data</p>
-</blockquote>
-</li>
-<li>Beware of concurrent serialization</li>
-<li>Use the right number of mutexes<blockquote>
-<p>A common strategy is to create a separate mutex for each data structure, and use those mutexes to serialize access to the shared data, rather than using the “big mutex” to serialize access to the library.</p>
-<ul>
-<li>you may decrease the efficiency of the memory system by excessive locking</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2162,7 +2140,7 @@ command-line arguments</code> to the new program to be specified as separate arg
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">45</span>
+              <span class="site-state-item-count">46</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
