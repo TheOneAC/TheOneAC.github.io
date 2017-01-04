@@ -250,6 +250,260 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/12/Effective-c++/" itemprop="url">
+                  Effective c++.md
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-08-12T12:27:36+08:00" content="2016-08-12">
+              2016-08-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Effective-C/" itemprop="url" rel="index">
+                    <span itemprop="name">Effective C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong>Specification </strong></p>
+<blockquote>
+<ul>
+<li><strong>Template and generic programing not marked(40-47)</strong></li>
+<li><strong>Design and implememt  need more code experience  to understand </strong></li>
+<li><strong>Effective c++ need read more than one times </strong></li>
+<li><strong>Learning by code</strong></li>
+</ul>
+</blockquote>
+<h4 id="Item1-default-constructor"><a href="#Item1-default-constructor" class="headerlink" title="Item1 default constructor:"></a>Item1 default constructor:</h4><blockquote>
+<p>called with no arguments<br> has no parameter or default value for every parameter.<br> default constructer should be ‘explicit’ to avoid ‘implicit type conversion’<br> ‘copy instructor’:initialize an object with a different objrect of the same type.<br> ‘copy assignment operator’: copy the value from one object to another of the same type.<br> ‘object passed by value’ in the way of ‘copy construtor’</p>
+</blockquote>
+<p><strong>Rules for effective c++ programming vary,depending on the part of c++ you are using :C OOP Template STL</strong></p>
+<h4 id="Item2-Prefer-const-enum-and-inline-to-define"><a href="#Item2-Prefer-const-enum-and-inline-to-define" class="headerlink" title="Item2 Prefer const ,enum,and inline to #define"></a>Item2 Prefer const ,enum,and inline to #define</h4><blockquote>
+<p>const not many copy like #define and can be private.<br> enum can be referenced but #define cann`t<br> For simple constants ,prefer const objects to #define<br> For function-like macros, prefer inline function to #define.</p>
+</blockquote>
+<h4 id="Item3-Use-const-whenever-possible"><a href="#Item3-Use-const-whenever-possible" class="headerlink" title="Item3 Use const  whenever possible"></a>Item3 Use const  whenever possible</h4><blockquote>
+<p>whenever it`s true ,to do so -const.<br> for pointer ,you can specify whether the pointer itself is const ,the data it point to is const,both or neither.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">char *p = greeting;// non-const pointer,</div><div class="line">                   // non-const data</div><div class="line">const char *p = greeting;// non-const pointer,</div><div class="line">                         // const data</div><div class="line">char * const p = greeting;// const pointer,</div><div class="line">                          // non-const data</div><div class="line">const char * const p = greeting;// const pointer,</div><div class="line">                                // const data</div></pre></td></tr></table></figure></p>
+<p>for iterator , <strong>const</strong> iterator is the iterator itself is const , but <strong>const_iterator</strong> , the object it point to ia const<br> const member function  make it possible to work with const object.<br>  return in c++ is return a copy of the parameter not itself,which invoked a copy constructor</p>
+</blockquote>
+<p><code>Declaring  something const helps complier
+detect usage errors and can be applied to objects at any scope.
+$ compiler enforce bitwise constness but you should program using logical constness.
+$ when const and non-const member function have essentialy identical implementions, code duplication can be avoided by having the non-const version call the const version.</code></p>
+<h4 id="Item4-Make-sure-object-initialized-before-used"><a href="#Item4-Make-sure-object-initialized-before-used" class="headerlink" title="Item4 Make sure object initialized before used"></a>Item4 Make sure object initialized before used</h4><blockquote>
+<p>make sure that all construtors initialize everything in ht eobject.<br>data members that are const or are reference must be initialzied and can not be assignment.</p>
+</blockquote>
+<h3 id="construtor-Destructor-and-assignmentOperation"><a href="#construtor-Destructor-and-assignmentOperation" class="headerlink" title="construtor  Destructor and assignmentOperation"></a>construtor  Destructor and assignmentOperation</h3><h4 id="Item5-know-what-function-c-silently-writes-and-calls"><a href="#Item5-know-what-function-c-silently-writes-and-calls" class="headerlink" title="Item5: know what function c++ silently writes and calls"></a>Item5: know what function c++ silently writes and calls</h4><h4 id="Item6-Explicitly-disallow-the-use-of-compiler-generated-functions-you-do-not-want"><a href="#Item6-Explicitly-disallow-the-use-of-compiler-generated-functions-you-do-not-want" class="headerlink" title="Item6: Explicitly disallow the use of compiler-generated functions you do not want."></a>Item6: Explicitly disallow the use of compiler-generated functions you do not want.</h4><blockquote>
+<p>make the function you don`t want be private in the base class.<br>To disallow functionality provided by cpmlilers, declare the corresponding member function ‘private’ and give no imlementations.</p>
+</blockquote>
+<h4 id="Item7-Declare-destructors-virtual-in-plomorphic-base-classes"><a href="#Item7-Declare-destructors-virtual-in-plomorphic-base-classes" class="headerlink" title="Item7: Declare destructors virtual in plomorphic base classes."></a>Item7: Declare destructors virtual in plomorphic base classes.</h4><blockquote>
+<p>Give the base class a virtual destructor then deleting a derived class object will do exactly what you want.<br>a class not intended to be a base class should not have a virtual funtion.</p>
+</blockquote>
+<h4 id="Item8-Prevent-exception-from-leaving-destructors"><a href="#Item8-Prevent-exception-from-leaving-destructors" class="headerlink" title="Item8: Prevent exception from leaving destructors"></a>Item8: Prevent exception from leaving destructors</h4><ol>
+<li>Destructors should never emit exceptions. if functions called in a destructor may throw,the destructor should catch ant exceptions, then swallow them ot terminate the program.</li>
+<li>if a class clients need to be able to react to exceptions thrown during an operation, the class should provide a regular function that performs the operation.</li>
+</ol>
+<h4 id="Item9-Never-call-virtual-function-during-constructor-or-destructor"><a href="#Item9-Never-call-virtual-function-during-constructor-or-destructor" class="headerlink" title="Item9 :Never call virtual function during constructor or destructor"></a>Item9 :Never call virtual function during constructor or destructor</h4><h4 id="Item10-Have-assignment-operators-return-a-reference-to-this"><a href="#Item10-Have-assignment-operators-return-a-reference-to-this" class="headerlink" title="Item10: Have assignment operators return a reference to *this"></a>Item10: Have assignment operators return a reference to *this</h4><blockquote>
+<p>‘x=y=z=15, thus x=15,y=15,z=15’<br> the way is implemented is that assignment returns a reference to its left-hand arguement.</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">class Widget &#123;</div><div class="line">public:</div><div class="line">...</div><div class="line">Widget&amp; operator+=(const Widget&amp; rhs)</div><div class="line">&#123;</div><div class="line">    ...</div><div class="line">    return *this;</div><div class="line">&#125;</div><div class="line">Widget&amp; operator=(int rhs)</div><div class="line">&#123;</div><div class="line">    ...</div><div class="line">    return *this;</div><div class="line">&#125;</div><div class="line">	...</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h4 id="Item11-Handle-assignment-to-self-in-operator"><a href="#Item11-Handle-assignment-to-self-in-operator" class="headerlink" title="Item11: Handle assignment to self in operator="></a>Item11: Handle assignment to self in operator=</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Widget&amp; Widget::operator=(const Widget&amp; rhs)</div><div class="line">&#123;</div><div class="line">    if (this == &amp;rhs) return *this;</div><div class="line">        // identity test: if a self-assignment,do nothing</div><div class="line">    delete pb;</div><div class="line">    pb = new Bitmap(*rhs.pb);</div><div class="line">    return *this;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>if the ‘new’ failed, pb will pointer to an undefined address.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div></pre></td><td class="code"><pre><div class="line">Widget&amp; Widget::operator=(const Widget&amp; rhs)</div><div class="line">&#123;</div><div class="line">    Bitmap *pOrig = pb;          // remember original pb</div><div class="line">    pb = new Bitmap(*rhs.pb); // point pb to a copy of  rhs’s bitmap</div><div class="line">    delete pOrig;               // delete the original pb</div><div class="line">    return *this;</div><div class="line">    //$$$ be careful not to delete pa untill after we`re copied what it point to.</div><div class="line">&#125;</div><div class="line">Widget&amp; Widget::operator=(const Widget&amp; rhs)</div><div class="line">&#123;</div><div class="line">    Widget temp(rhs);// make a copy of rhs’s data</div><div class="line">    swap(temp);      // swap *this’s data with the copy’s</div><div class="line">    return *this;</div><div class="line">&#125;</div><div class="line">Widget&amp; Widget::operator=(Widget rhs)   // rhs is a copy of the object passed in — note pass by val</div><div class="line">&#123;</div><div class="line">    swap(rhs);              // swap *this’s data with</div><div class="line">    return *this;</div><div class="line">&#125;</div><div class="line">``` </div><div class="line">**Make sure any funtion operating on more than one object behave corectly if two or more of the objects are the same.**</div><div class="line"></div><div class="line">#### Item12: COpy all parts of an object</div><div class="line">&gt; for derived class, the copy function should not only copy the data member it defined for itself, but also the data member it inherient from the base class,which will be initialized by the constructor that takes no arguements of the base class.</div><div class="line"> Copy all aparts:</div><div class="line"> $ copy all local data members</div><div class="line"> $ invoke the appropriate copying funtion in the base class.</div><div class="line"> **Don`t try to implement one of the copy constructor funtions in terms of the other &apos;put common funtionality in a third funtion that both call&apos;**</div><div class="line"> </div><div class="line">### Reource Management</div><div class="line">#### Item 13:Use objects to manage resources</div><div class="line">$ put resource inside an object whose destructor will automatically release the resource when control leaves.</div><div class="line">&gt; **Uing Object to Manage Resources**</div><div class="line"> $ resource are acquired and immediately turned over to resource-manageging abjects.</div><div class="line"> $ Resource-managing objects use their destructors to ensure that resource are released.</div><div class="line"> &apos;auto_ptr automaticallt dlete what it point to when the  auto_ptr is destroyed, it`s impotantly that there never be more than one auto_ptr pointing to an object&apos;</div><div class="line">auto_ptr have anusual characteristic: copy it (via copy constructor or copy assignment operator)and set it null.</div><div class="line"> &apos;auto_ptr&lt;type&gt;p2=p1  //p1 pointe to null and p2 pointto the object p1 point to&apos;</div><div class="line"> a reference -counting smart pointer: keep track of how many objects point to aaprticular resource and automaticallt delete the resource when nobady is pointing to it ang longer.</div><div class="line"> **Both auto_ptr and tr1::shared_ptr use delete in their destructors, not delete []. That means that using auto_ptr or tr1::shared_ptr with dynamically allocated arrays is a bad idea**</div><div class="line"> </div><div class="line">#### Item14: Think carefully about copying behavior in resource-managing classes</div><div class="line">&gt; $ Peohabit copying: </div><div class="line">  declare the copt operations private</div><div class="line"> $ Referene-count the underlying resource:</div><div class="line">  use the tr1::shared_ptr. define your deleter function </div><div class="line"> $ Copy the underlying resource:</div><div class="line">  make sure all the copy released when nessary</div><div class="line"> $ Transfer ownership of the underlying resource</div><div class="line">  using auto_ptr </div><div class="line">  </div><div class="line">#### Item15 Provide access to raw resource in resource-managing classes $$$$</div><div class="line">&gt; shared_ptr and auto_ptr both offer a get member function to perform an explicit    conversion :return (a copy of)the raw pointer inside the smart pointer object &apos;.get()&apos;</div><div class="line"> $ APIs often require access to raw resources ,so each RAII class should offer a way to get at  rhe resource it manages.</div><div class="line"></div><div class="line">#### Item16 Use the same form in corresponding *uses* of new and *delete* </div><div class="line">&gt; if you use [] in a new expression, you must use [] in the corresponding delete expression</div><div class="line"></div><div class="line">#### Item17 Store newed objects in smart pointers standalone statements.</div><div class="line">&gt; &apos;processWidget(std::tr1::shared_ptr&lt;Widget&gt;(new Widget), priority());&apos; **not good**</div><div class="line"> &apos;std::tr1::shared_ptr&lt;Widget&gt; pw(new Widget);</div><div class="line">  processWidget(pw, priority());&apos; // **well**</div><div class="line">**Store new ed objects in smart pointers in standalone statements. Failure to do this can lead to subtle resource leaks when exceptions are thrown.**</div><div class="line"></div><div class="line">### Designs ad Declarations</div><div class="line"></div><div class="line">#### Item18 Make interface easy to use correctly and hard to use incorrectly.</div><div class="line">&gt; for your class and struct operation, when in doubts, do as the ints do.</div><div class="line">  tr1::shared_ptr supports custom deleters. This prevents the cross-DLL problem, can be used to automatically unlock mutexes (see Item 14), etc.</div><div class="line"></div><div class="line">#### Treat class design as type design</div><div class="line">&gt;  ■ How should objects of your new type be created and destroyed? </div><div class="line">How this is done influences the design of your class’s</div><div class="line">constructors and destructor, as well as its memory allocation and deallocation functions ( operator new , operator new[] , operator delete ,and operator delete[] — see Chapter 8), if you write them.</div><div class="line">&gt; ■ How should object initialization differ from object assignment? </div><div class="line">The answer to this question determines the behavior of and the differences between your constructors and your assignment operators. It’s important not to confuse initialization with assignment, because they correspond to different function calls (see Item 4).</div><div class="line">&gt; ■ What does it mean for objects of your new type to be passedby value?</div><div class="line"> Remember, the copy constructor defines how pass-by-value is implemented for a type.</div><div class="line">&gt; ■ What are the restrictions on legal values for your new type?</div><div class="line">Usually, only some combinations of values for a class’s data members are valid. Those combinations determine the invariants your class will have to maintain. The invariants determine the errorchecking you’ll have to do inside your member functions, espe-</div><div class="line">cially your constructors, assignment operators, and “setter” functions. It may also affect the exceptions your functions throw and,on the off chance you use them, your functions’ exception specifications.</div><div class="line">&gt; ■ Does your new type fit into an inheritance graph? </div><div class="line">If you inherit from existing classes, you are constrained by the design of those classes, particularly by whether their functions are virtual or nonvirtual (see Items 34 and 36). If you wish to allow other classes to inherit from your class, that affects whether the functions you declare are virtual, especially your destructor (see Item 7).</div><div class="line">&gt;  ■ What kind of type conversions are allowed for your new type?</div><div class="line">Your type exists in a sea of other types, so should there be conversions between your type and other types? If you wish to allow objects of type T1 to be implicitly converted into objects of type T2 ,you will want to write either a type conversion function in class T1(e.g., operator T2 ) or a non- explicit constructor in class T2 that can be called with a single argument. If you wish to allow explicit conversions only, you’ll want to write functions to perform the conversions, but you’ll need to avoid making them type conversion operators or non- explicit constructors that can be called with one argument. (For an example of both implicit and explicit conversion functions, see Item 15.)</div><div class="line">&gt;  ■ What operators and functions make sense for the new type?</div><div class="line">The answer to this question determines which functions you’ll declare for your class. Some functions will be member functions, but</div><div class="line">some will not (see Items 23, 24, and 46).</div><div class="line">&gt;  ■ What standard functions should be disallowed? </div><div class="line">Those are the ones you’ll need to declare private (see Item 6).</div><div class="line">&gt;  ■ Who should have access to the members of your new type?</div><div class="line">This question helps you determine which members are public, which are protected, and which are private. It also helps you de-</div><div class="line">termine which classes and/or functions should be friends, as well as whether it makes sense to nest one class inside another.</div><div class="line">&gt;  ■ What is the “undeclared interface” of your new type? </div><div class="line">What kind of guarantees does it offer with respect to performance, exception safety (see Item 29), and resource usage (e.g., locks and</div><div class="line">dynamic memory)? The guarantees you offer in these areas will impose constraints on your class implementation.</div><div class="line">&gt;  ■ How general is your new type? </div><div class="line">Perhaps you’re not really defining a new type. Perhaps you’re defining a whole family of types. If so,</div><div class="line">you don’t want to define a new class, you want to define a new class template.</div><div class="line">&gt;  ■Is a new type really what you need? If you’re defining a new de-rived class only so you can add functionality to an existing class,perhaps you’d better achieve your goals by simply defining one or more non-member functions or templates.</div><div class="line"></div><div class="line">#### Item20 Prefer pass-by-reference-to-const to pass-by-value</div><div class="line">&gt; ✦ Prefer pass-by-reference-to- const over pass-by-value. It’s typically more efficient and it avoids the slicing problem.</div><div class="line"> ✦ The rule doesn’t apply to built-in types and STL iterator and function object types. For them, pass-by-value is usually appropriate.</div><div class="line"></div><div class="line">#### Item21 Don&apos;t try to return a refernece when you must return an object.$$</div><div class="line">&gt; </div><div class="line">any function returning a reference to a local object is broken as well as a pointer to local object.</div><div class="line">???</div><div class="line"></div><div class="line">#### Item22 Declare dta members private.</div><div class="line">&gt; Declare data members private . It gives clients syntactically uniform access to data, affords fine-grained access control, allows invariants to be enforced, and offers class authors implementation flexibility</div><div class="line"></div><div class="line">#### Item23 Prefer none-member non-friend functions to member functions.</div><div class="line"></div><div class="line">#### Item24 Declare non-member function when type conversion should apply to all parameters.</div><div class="line"></div><div class="line">&gt; make operator* a non-member function, thus allowing compilers to perform implicit type conversions on all arguments</div><div class="line">Whenever you canmavoid friend functions, you should, because, much as in real life,friends are often more trouble than they’re worth</div><div class="line">$ If you need type conversions on all parameters to a function (including the one that would otherwise be pointed to by the this pointer),the function must be a non-member</div><div class="line"></div><div class="line">#### Item25 Consider suport for a non-throwing swap $$$</div><div class="line">* Swap in STL</div></pre></td></tr></table></figure></p>
+<p>namespace std<br>{<br>  template<typename t=""><br>  void swap(T&amp; a, T&amp; b)<br>  {<br>    T temp(a);<br>    a = b;<br>    b = temp;<br>  }<br>}</typename></p>
+<ul>
+<li>swap in pointer the type must support copy constructor and copy assignment<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Not swap the object itself  which is so ineffcient,but swap the pointer.</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>template&lt;&gt;<br>void swap<widget>(Widget&amp; a,Widget&amp; b)<br>{<br>    swap(a.pImpl, b.pImpl);<br>}</widget></p>
+<ul>
+<li>When you want to “partially specialize” a function template, the usual approach is to simply add an overload</li>
+</ul>
+<h3 id="Implementions"><a href="#Implementions" class="headerlink" title="Implementions"></a>Implementions</h3><h4 id="Item26-Positive-varible-definitions-as-long-as-possible"><a href="#Item26-Positive-varible-definitions-as-long-as-possible" class="headerlink" title="Item26: Positive varible definitions as long as possible"></a>Item26: Positive varible definitions as long as possible</h4><blockquote>
+<p>for variable to use in a loop ,define it out of the loop may be more effecient</p>
+</blockquote>
+<h4 id="Item27-Minimize-casting"><a href="#Item27-Minimize-casting" class="headerlink" title="Item27 Minimize casting"></a>Item27 Minimize casting</h4><p><strong>c++ style casting</strong></p>
+<blockquote>
+<p>const_cast<t>( expression ): cast const object to non-object<br>dynamic_cast<t>( expression ): safe downcasting<br>reinterpret_cast<t>( expression )<br>static_cast<t>( expression ): implicit concersion<br>✦ Avoid casts whenever practical, especially dynamic_cast s in performance-sensitive code. If a design requires casting, try to develop a cast-free alternative.<br>✦ When casting is necessary, try to hide it inside a function. Clients can then call the function instead of putting casts in their own code.<br>✦ Prefer C++-style casts to old-style casts. They are easier to see, and they are more specific about what they do.</t></t></t></t></p>
+</blockquote>
+<h4 id="Item28-Avoid-returning-“handles”-to-object-internals"><a href="#Item28-Avoid-returning-“handles”-to-object-internals" class="headerlink" title="Item28 Avoid returning “handles” to object internals"></a>Item28 Avoid returning “handles” to object internals</h4><h4 id="Item29-Strive-for-exception-safe-code"><a href="#Item29-Strive-for-exception-safe-code" class="headerlink" title="Item29 Strive for exception-safe code $$"></a>Item29 Strive for exception-safe code $$</h4><blockquote>
+<p>Exception-safe functions leak no resources and allow no data structures to become corrupted, even when exceptions are thrown. Such functions offer the basic, strong, or nothrow guarantees.<br>✦ The strong guarantee can often be implemented via copy-and- swap ,but the strong guarantee is not practical for all functions.<br>✦ A function can usually offer a guarantee no stronger than the weakest guarantee of the functions it calls.</p>
+</blockquote>
+<h4 id="Item30-Understand-the-ins-and-outs-of-inlineing"><a href="#Item30-Understand-the-ins-and-outs-of-inlineing" class="headerlink" title="Item30 Understand the ins and outs of inlineing   $$"></a>Item30 Understand the ins and outs of inlineing   $$</h4><blockquote>
+<p>inline in most c++ programs ia a compile-time activity.<br>inline functions typically be in header files<br>limit most inlineing to small as possible<br>Dont`t declare function template  inlne just because they appear in header files</p>
+</blockquote>
+<h4 id="Item31-MInimize-complication-dependence-between-files"><a href="#Item31-MInimize-complication-dependence-between-files" class="headerlink" title="Item31 MInimize complication dependence between files"></a>Item31 MInimize complication dependence between files</h4><ol>
+<li>Avoid using objects when object reference and pointer will do</li>
+<li>Depend on class declaraton instead of class definitions whenever you can</li>
+<li>Provide aeperate header files for declarations and definition</li>
+</ol>
+<h3 id="Inheritence-and-object-oriented-design"><a href="#Inheritence-and-object-oriented-design" class="headerlink" title="Inheritence and object-oriented design"></a>Inheritence and object-oriented design</h3><h4 id="Item32-Make-sure-public-ingeritence-model-“is-a”"><a href="#Item32-Make-sure-public-ingeritence-model-“is-a”" class="headerlink" title="Item32 Make sure public ingeritence model “is a”"></a>Item32 Make sure public ingeritence model “is a”</h4><blockquote>
+<p>Everythings that applies to base class must also apply to the derived class ,because every derived class object  is a  base class object.</p>
+</blockquote>
+<h4 id="Item-33-Avoid-hiding-inheriented-names"><a href="#Item-33-Avoid-hiding-inheriented-names" class="headerlink" title="Item 33 Avoid  hiding inheriented names."></a>Item 33 Avoid  hiding inheriented names.</h4><blockquote>
+<p>the scope of a derived class is nested inside its base class`s scope.<br>the same name member funtion in derived class will hide the member funtion with the same name inthe base class ,even if the parameter is different, regaedless of whether the funtions are virtual or non-virtual.</p>
+</blockquote>
+<ul>
+<li>if you use pubic inheritence ,you can`t inherit the overloads.<br>pubic derived allow to override c+ + `s default hiding of inherited names<br><strong>*using base:: functionname;</strong><br>make all things in base named <em>functionname</em> visible in derived class, andd the c++ scope search will find the most appropriate member funtion between tha base class function and derived class member function with the same name</li>
+</ul>
+<p><strong>Things to Remember</strong></p>
+<ul>
+<li>Names in derived classes hide names in base classes. Under public inheritance, this is never desirable.</li>
+<li>To make hidden names visible again, employ using declarations or forwarding functions.**</li>
+</ul>
+<h4 id="item34-Differentiate-betwwen-inhertance-of-interface-and-inheritance-of-impletention"><a href="#item34-Differentiate-betwwen-inhertance-of-interface-and-inheritance-of-impletention" class="headerlink" title="item34 Differentiate betwwen inhertance of interface and inheritance of impletention"></a>item34 Differentiate betwwen inhertance of interface and inheritance of impletention</h4><ol>
+<li>derived class inherit only the interface(declaration):<code>interface only</code></li>
+<li>derived class inherit both the inteface and the implement, but may be overrided the implemention:<code>interface and a default implementation</code></li>
+<li>derived class inherit both the inteface and the implement, but without override anything:<code>inteface and a mandatory implementation</code></li>
+</ol>
+<ul>
+<li>pure virtual function<br>$ must be redeclared in any derived class<br>$ derived class inherit a function interface only.</li>
+<li>simple virtual function<br>$ derived class inherit the interface<br>$ the implementation derived can be overrided<br>$ if it`s not overrided , call the default implementation in the base class</li>
+<li>non-virtual function<br>$ inteface and a mandatory implementation<br><code>Member function interface are always inherited</code></li>
+</ul>
+<h3 id="Item35-Consider-alternatives-to-virtual-functions"><a href="#Item35-Consider-alternatives-to-virtual-functions" class="headerlink" title="Item35 Consider alternatives to virtual functions."></a>Item35 Consider alternatives to virtual functions.</h3><ol>
+<li>Design Pattern : Template Method   call private virtual function through public non-virtual member functions ‘??’</li>
+<li><p>The Strategy Pattern via Function Pointers</p>
+</li>
+<li><p>The Strategy Pattern via tr1::function</p>
+</li>
+<li><p>The “Classic” Strategy Pattern</p>
+</li>
+</ol>
+<ul>
+<li>Use the non-virtual interface idiom (NVI idiom), a form of the Template Method design pattern that wraps public non-virtual member functions around less accessible virtual functions.</li>
+<li>Replace virtual functions with function pointer data members, a stripped-down manifestation of the Strategy design pattern.</li>
+<li>Replace virtual functions with tr1::function data members, thus allowing use of any callable entity with a signature compatible with what you need. This, too, is a form of the Strategy design pattern.</li>
+<li>Replace virtual functions in one hierarchy with virtual functions in another hierarchy. This is the conventional implementation of the Strategy design pattern.</li>
+</ul>
+<h4 id="Item36-Never-redifine-an-inherited-non-virtual-function"><a href="#Item36-Never-redifine-an-inherited-non-virtual-function" class="headerlink" title="Item36 Never redifine an inherited non_virtual function"></a>Item36 Never redifine an inherited non_virtual function</h4><p><code>non-virtual function is statically bound, but virtual funtion are dynamically bound</code><br>refifine a non-virtual function will make the compiler exhaust.</p>
+<h4 id="Item37-Never-redefine-a-function’s-inherited-default-parameter-value"><a href="#Item37-Never-redefine-a-function’s-inherited-default-parameter-value" class="headerlink" title="Item37 Never redefine a function’s inherited default parameter value"></a>Item37 Never redefine a function’s inherited default parameter value</h4><p><code>virtual function are dynamically bound, but default parameter values are statically bound</code><br>all the derived function will inherit the defualt parameter.</p>
+<h4 id="Item38-Model-“has-a”-or-“is-implemented-in-terms-of”through-composition"><a href="#Item38-Model-“has-a”-or-“is-implemented-in-terms-of”through-composition" class="headerlink" title="Item38 Model “has a” or “is-implemented -in-terms-of”through composition $"></a>Item38 Model “has a” or “is-implemented -in-terms-of”through composition $</h4><ul>
+<li>Composition has meanings completely different from that of public inheritance.</li>
+<li>In the application domain, composition means has-a. In the implementation domain, it means is-implemented-in-terms-of.</li>
+</ul>
+<h4 id="Item-39-Uasage-private-inheritance-judiciously"><a href="#Item-39-Uasage-private-inheritance-judiciously" class="headerlink" title="Item 39 Uasage private inheritance judiciously $$"></a>Item 39 Uasage private inheritance judiciously $$</h4><ol>
+<li>can not convert a derived class object into abase class object if the inheritence relationship  id private</li>
+<li>members inheriente from the base class will be private member of the derived class.</li>
+<li><code>private inheritance means only software implementation</code></li>
+</ol>
+<ul>
+<li>Private inheritance means is-implemented-in-terms of. It’s usually inferior to composition, but it makes sense when a derived class needs access to protected base class members or needs to redefine inherited virtual functions.</li>
+<li>Unlike composition, private inheritance can enable the empty base optimization. This can be important for library developers who strive to minimize object sizes.</li>
+</ul>
+<p>####Item 40 Uasage multiple inheritance judiciously $$</p>
+<ul>
+<li>Multiple inheritance is more complex than single inheritance. It can lead to new ambiguity issues and to the need for virtual inheritance.</li>
+<li>Virtual inheritance imposes costs in size, speed, and complexity of initialization and assignment. It’s most practical when virtual base classes have no data.</li>
+<li>Multiple inheritance does have legitimate uses. One scenario involves combining public inheritance from an Interface class with private inheritance from a class that helps with implementation.</li>
+</ul>
+<h3 id="Templates-and-Generic-Programming"><a href="#Templates-and-Generic-Programming" class="headerlink" title="Templates and Generic Programming $$"></a>Templates and Generic Programming $$</h3><h4 id="Item41-Understand-implicit-interfaces-and-compile-time-polymorphism"><a href="#Item41-Understand-implicit-interfaces-and-compile-time-polymorphism" class="headerlink" title="Item41 Understand implicit interfaces and compile-time polymorphism."></a>Item41 Understand implicit interfaces and compile-time polymorphism.</h4><ul>
+<li>Both classes and templates support interfaces and polymorphism.</li>
+<li>For classes, interfaces are explicit and centered on function signatures. Polymorphism occurs at runtime through virtual functions.</li>
+<li>For template parameters, interfaces are implicit and based on valid expressions. Polymorphism occurs during compilation through template instantiation and function overloading resolution.</li>
+</ul>
+<h4 id="Item-42-Understand-the-two-meanings-of-typename"><a href="#Item-42-Understand-the-two-meanings-of-typename" class="headerlink" title="Item 42: Understand the two meanings of typename."></a>Item 42: Understand the two meanings of typename.</h4><blockquote>
+<p>The general rule is simple: anytime you refer to a nested dependent type name in a template, you must immediately precede it by the word typename .</p>
+</blockquote>
+<ul>
+<li>When declaring template parameters, class and typename are interchangeable.</li>
+<li>Use typename to identify nested dependent type names, except in base class lists or as a base class identifier in a member initialization list.</li>
+</ul>
+<h4 id="Item43-Know-how-to-access-names-in-templatized-base-classes"><a href="#Item43-Know-how-to-access-names-in-templatized-base-classes" class="headerlink" title="Item43: Know how to access names in templatized base classes."></a>Item43: Know how to access names in templatized base classes.</h4>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/05/C++ Note/" itemprop="url">
                   Note
                 </a>
@@ -314,7 +568,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://www.tutorialspoint.com/cplusplus/images/cpp-mini-logo.jpg" rel="gallery_cix5w2j7t0022abouzih9ii3p"
+                 href="http://www.tutorialspoint.com/cplusplus/images/cpp-mini-logo.jpg" rel="gallery_cixj7cuid001envou38oc76kc"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://www.tutorialspoint.com/cplusplus/images/cpp-mini-logo.jpg" itemprop="contentUrl"/>
               </a>
@@ -1404,149 +1658,6 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/19/C Primier Plus Function/" itemprop="url">
-                  C++ Primier chapter six:function
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-19T14:44:04+08:00" content="2016-07-19">
-              2016-07-19
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox"
-                 href="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" rel="gallery_cix5w2j4z000qaboua3pt4igz"
-                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" itemprop="contentUrl"/>
-              </a>
-            
-          
-
-          
-          </div>
-        </div>
-      
-
-      
-        
-          <hr>
-<p>in C++ function can be overload, the same name  may be from different function.<br>function call: initialize the function`s parameter, transfer control to the function.<br>local static object is initialized before the first execution ,not destroyed untill the function ends.<br><strong>Passing argument by value</strong>:the value of the initiaizer is copied,changes made to the variable have no effect on the initialzizer.<br><strong>Pointer Parameter </strong>:copy the value of another pointer,but can change the value of the object by assignning through the pointer.<br><strong>Passing Argument byreference</strong>:changes made to the reference are made to the object to which referencr refers.<br><strong>Using Reference Parameters to Return Additional Information</strong>:<br>return multiple results effectively.<br><strong>const Parameter and Arguments</strong>:top-level const that applt to the object itself.<br>Two Way to array:</p>
-<ol>
-<li>print(const int <em>beg, const int </em>end)</li>
-<li>print(const int ia[], size_t size)</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int *matrix[10]; // array of ten pointers</div><div class="line">int (*matrix)[10]; // pointer to an array of ten ints</div></pre></td></tr></table></figure>
-<p><strong>initializer_list</strong>: all const value ,no way to change the value of an element.<br>begin():a pointer to the first element.</p>
-<h2 id="end-an-off-the-end-pointer-one-past-the-last-element"><a href="#end-an-off-the-end-pointer-one-past-the-last-element" class="headerlink" title="end():an off-the-end pointer one past the last element."></a>end():an off-the-end pointer one past the last element.</h2><p><em>**Swap In Reference</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">void swap(int &amp;v1, int &amp;v2)</div><div class="line">&#123;</div><div class="line">// if the values are already the same, no need to swap, just return</div><div class="line">if (v1 == v2)</div><div class="line">return;</div><div class="line">// if we&apos;re here, there&apos;s work to do</div><div class="line">int tmp = v2;</div><div class="line">v2 = v1;</div><div class="line">v1 = tmp;</div><div class="line">// no explicit return necessary</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>return reference  must not refer to an local object,as well as pointer.<br>Calls to functions that return references are lvalues; other return types<br>yield rvalues</p>
-<h3 id="Overlaod-function"><a href="#Overlaod-function" class="headerlink" title="Overlaod function"></a>Overlaod function</h3><p>Functions that have the same name but different parameter lists and that appear in the same scope are overloaded<br>Overload function must differ in hte number or the types of their aprameters.<br>Top-level const has no effect on the objects that can be passed to the function.<br>function taking const and nonconst reference or pointers have different parameters.<br><strong>In C++, name lookup happens before type checking.<br>the compiler first looks for a declaration of that name.<br>Once a name is found, the compiler<br>ignores uses of that name in any outer scope’</strong><br>Default Argument Declarations<br>any subsequent declaration can add a<br>default only for a parameter that has not previously had a default specified<br><strong>Inline Function</strong>:remove the run-time of calling a function.<br>put the key word <em>inline</em> before the return type.<br>A constexpr function is not required to return a constant expression.</p>
-<hr>
-<h2 id=""><a href="#" class="headerlink" title=""></a>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/19/C Primier Plus Function/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1592,7 +1703,7 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">44</span>
+              <span class="site-state-item-count">45</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1600,7 +1711,7 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -1684,7 +1795,7 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
         <div class="copyright" >
   
   &copy;  2016.7.14 - 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

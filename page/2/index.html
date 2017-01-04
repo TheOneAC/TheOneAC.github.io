@@ -250,6 +250,160 @@
             
               
                 
+                <a class="post-title-link" href="/2016/12/12/APUE第五章：标准IO库/" itemprop="url">
+                  APUE第五章：标准IO库
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-12-12T19:36:47+08:00" content="2016-12-12">
+              2016-12-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/unix/" itemprop="url" rel="index">
+                    <span itemprop="name">unix</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="5-2流和file对象"><a href="#5-2流和file对象" class="headerlink" title="5.2流和file对象"></a>5.2流和file对象</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#include &lt;wchar.h&gt;</div><div class="line">int fwide(FILE *fp, int mode);</div><div class="line">Returns: positive if stream is wide oriented,negative if stream is byte oriented,or 0 if stream has no orientation</div></pre></td></tr></table></figure>
+<ul>
+<li>mode 负：字节定向，mode 正:宽字节定向， mode 0：不设置流定向但是返回流定向值</li>
+</ul>
+<h4 id="5-4缓冲"><a href="#5-4缓冲" class="headerlink" title="5.4缓冲"></a>5.4缓冲</h4><pre><code>IO缓冲方式：全缓冲（缓冲区满存入磁盘），行缓冲（收到换行符存入磁盘），不带缓冲
+</code></pre><blockquote>
+<ol>
+<li>标准错误不缓冲</li>
+<li>终端设备行缓冲</li>
+<li>其他全缓冲</li>
+</ol>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">void setbuf(FILE *restrict fp, char *restrict buf );</div><div class="line">int setvbuf(FILE *restrict fp, char *restrict buf, int mode,size_t size);</div><div class="line">        Returns: 0 if OK, nonzero on error</div><div class="line">fp: 已打开的文件指针</div><div class="line">buf:未未指定缓冲的流指定缓冲区</div><div class="line">size： 制定的缓冲区大小</div><div class="line">mode：</div><div class="line"> * _IOFBF   全缓冲</div><div class="line"> * _IOLBF   行缓冲</div><div class="line"> * _IONBF   不缓冲</div></pre></td></tr></table></figure>
+<h4 id="5-5-打开流"><a href="#5-5-打开流" class="headerlink" title="5.5 打开流"></a>5.5 打开流</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">FILE *fopen(const char *restrict pathname, const char *restrict type);</div><div class="line">FILE *freopen(const char *restrict pathname, const char *restrict type,FILE *restrict fp);</div><div class="line">FILE *fdopen(int fd, const char *type);</div><div class="line">All three return: file pointer if OK, NULL on error</div></pre></td></tr></table></figure>
+<ul>
+<li>fopen 指定方式读取pathname路径名指定的文件</li>
+<li>freopen 指定流上打开指定文件</li>
+<li>fdopen 关联一和IO流和一个指定文件指针</li>
+</ul>
+<h4 id="5-6-读写流"><a href="#5-6-读写流" class="headerlink" title="5.6 读写流"></a>5.6 读写流</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">int getc(FILE *fp);</div><div class="line">int fgetc(FILE *fp);</div><div class="line">int getchar(void);</div><div class="line">All three return: next character if OK, EOF on end of file or error</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">int ferror(FILE *fp);</div><div class="line">int feof(FILE *fp);</div><div class="line">Both return: nonzero (true) if condition is true, 0 (false) otherwise</div><div class="line">void clearerr(FILE *fp);</div></pre></td></tr></table></figure>
+<ul>
+<li><p>每个问价对象维护一个出错标志和一个结束标志，clearerr清除这两个标志</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">int ungetc(int c, FILE *fp);</div><div class="line">        Returns: c if OK, EOF on error</div></pre></td></tr></table></figure>
+</li>
+<li><p>字符压回流中，顺序与读出相反（暂时写回缓冲区，并未写回磁盘）</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">int putc(int c, FILE *fp);</div><div class="line">int fputc(int c, FILE *fp);</div><div class="line">int putchar(int c);</div><div class="line">            All three return: c if OK, EOF on error</div></pre></td></tr></table></figure>
+<ul>
+<li>行读入<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">char *fgets(char *restrict buf, int n, FILE *restrict fp);</div><div class="line">char *gets(char *buf );</div><div class="line">Both return: buf if OK, NULL on end of file or error</div><div class="line">int fputs(const char *restrict str, FILE *restrict fp);</div><div class="line">int puts(const char *str);</div><div class="line">Both return: non-negative value if OK, EOF on error</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="5-9-二进制IO"><a href="#5-9-二进制IO" class="headerlink" title="5.9 二进制IO"></a>5.9 二进制IO</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">size_t fread(void *restrict ptr, size_t size, size_t nobj,FILE *restrict fp);</div><div class="line">size_t fwrite(const void *restrict ptr, size_t size, size_t nobj,FILE *restrict fp);</div><div class="line">                            Both return: number of objects read or written</div><div class="line">size : object size</div><div class="line">nobj : number of object</div></pre></td></tr></table></figure>
+<h4 id="5-10-定位流"><a href="#5-10-定位流" class="headerlink" title="5.10 定位流"></a>5.10 定位流</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">long ftell(FILE *fp);</div><div class="line">                    Returns: current file position indicator if OK, .1L on error</div><div class="line">int fseek(FILE *fp, long offset, int whence);</div><div class="line">                    Returns: 0 if OK, .1 on error</div><div class="line">void rewind(FILE *fp); 流指针返回初始位置</div><div class="line">#include &lt;stdio.h&gt;</div><div class="line">int fgetpos(FILE *restrict fp, fpos_t *restrict pos);</div><div class="line">将文件位置指示器存入pos</div><div class="line">int fsetpos(FILE *fp, const fpos_t *pos);</div><div class="line">将文件位置指示器设置为pos</div><div class="line">            Both return: 0 if OK, nonzero on error</div></pre></td></tr></table></figure>
+<h4 id="5-11格式化IO"><a href="#5-11格式化IO" class="headerlink" title="5.11格式化IO"></a>5.11格式化IO</h4><ul>
+<li><p>output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">int printf(const char *restrict format, ...);</div><div class="line">int fprintf(FILE *restrict fp, const char *restrict format, ...);</div><div class="line">int dprintf(int fd, const char *restrict format, ...);</div><div class="line">                All three return: number of characters output if OK, negative value if output error</div><div class="line">int sprintf(char *restrict buf, const char *restrict format, ...);</div><div class="line">                Returns: number of characters stored in array if OK, negative value if encoding error</div><div class="line">int snprintf(char *restrict buf, size_t n,const char *restrict format, ...);</div><div class="line">                Returns: number of characters that would have been stored in array</div><div class="line">                    if buffer was large enough, negative value if encoding error</div></pre></td></tr></table></figure>
+</li>
+<li><p>input</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">int scanf(const char *restrict format, ...);</div><div class="line">int fscanf(FILE *restrict fp, const char *restrict format, ...);</div><div class="line">int sscanf(const char *restrict buf, const char *restrict format, ...);</div><div class="line">            All three return: number of input items assigned,EOF if input error or end of file before any conversion</div></pre></td></tr></table></figure></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/12/12/inside-the-c-model/" itemprop="url">
                   inside the c++ model
                 </a>
@@ -1963,224 +2117,6 @@ command-line arguments</code> to the new program to be specified as separate arg
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/01/TCPIP-illustraed-V1/" itemprop="url">
-                  TCP/IP illustraed V1
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-10-01T11:36:20+08:00" content="2016-10-01">
-              2016-10-01
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p><code>IP : unreliable, connectionless datagram delivery service</code></p>
-</blockquote>
-<ul>
-<li>unreliable : when something wrong ,throw away the datagram and try to send ICMP to the source</li>
-<li>connectionless : each datagram transfered indepently which may get delivered out of order, not maintain any state information about sucessive datagrams</li>
-<li><code>network traverse order</code>is<code>big endian</code> </li>
-<li><p>IP rout search : <code>IP address</code> <code>network ID</code> <code>default</code>routing table<br><code>A complete matching host address is searched for before a matching network ID.</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">32-bit IP  ----&gt;  48-bit MAC</div><div class="line">   |       ARP       |</div><div class="line">   |       RARP  	|</div><div class="line">   |&lt;----------------|</div></pre></td></tr></table></figure>
-</li>
-<li><p>ARP Cache :maintains the recent mapping from IP to hardware address(MAC)</p>
-</li>
-<li>Proxy ARP :a router answer ARP requests on one of its networks for a host on another of its networks </li>
-<li>Gratuitous ARP:a host sends an ARP request looking for its own IP address</li>
-</ul>
-<p><strong>RARP : use the physical address to get the the IP address</strong></p>
-<blockquote>
-<ol>
-<li>RARP request(broadcast), RARP reply (unicast)</li>
-<li>RARP request are sen as hardware-level broadcast, not forward by routers.</li>
-<li>multiply RARP server are normally provided on a single nework<br>all the server replys, but the rquest systerm use the first RARP reply that ir receives.</li>
-</ol>
-</blockquote>
-<p><strong>ICMP</strong></p>
-<blockquote>
-<ul>
-<li>ICMP message are transmitted within IP datagrams.</li>
-<li>chesum cover the entire message</li>
-<li>ICMP donot response to:</li>
-</ul>
-<ol>
-<li>An ICMP error message</li>
-<li>A datagram destined to an IP broadcast address.</li>
-<li>Datagram sent as a  link-layer broadcast.</li>
-<li>A fragment other than the first</li>
-<li>A datagram whose source address dose not define a single host.</li>
-</ol>
-</blockquote>
-<p><strong>IP route</strong></p>
-<blockquote>
-<ul>
-<li>netstat -rn<br>U: the route is up;<br>G: the route is to differentiate between an indirect route(G) and a direct route<br>H : specifies the destination address is a complete host address.<ul>
-<li>indirect route: IP address specify the destination and the link layer address specifies the gateway.</li>
-<li>direct route : both the IP address and the  link-layer address specifies the destinations.</li>
-</ul>
-</li>
-</ul>
-</blockquote>
-<p><strong> match host -&gt; match subnet -&gt; default gateway</strong></p>
-<ul>
-<li>The ICMP “host unreachable” error message is sent by a router when it receives an IP datagram that it cannot deliver or forward</li>
-<li>The ICMP redirect error is sent by a router to the sender of an IP datagram when the datagram should have been sent to a different router</li>
-</ul>
-<p><strong>Dynamic route</strong></p>
-<ul>
-<li>RIP messages are carried in UDP datagrams,<code>port number for RIP is UDP port 520</code><br><img src="http://odfcr7qs4.bkt.clouddn.com/RIP%20in%20UDP.png" alt="RIP in UDP"></li>
-</ul>
-<blockquote>
-<ol>
-<li>A stub AS has only a single connection to one other AS. A stub AS carries only local traffic.</li>
-<li>A multihomed AS has connections to more than one other AS, but refuses to carry transit traffic.</li>
-<li>A transit AS has connections to more than one other AS and is designed, under certain policy restrictions, to carry both local and transit traffic.</li>
-</ol>
-<p><strong>BGP uses TCP as its transport protocol, distance vector protocol, but ennumberate the route to each destination</strong></p>
-</blockquote>
-<p><strong>UDP</strong></p>
-<ul>
-<li>The UDP/TCP c<code>hecksum</code>covers <code>the header and the data,</code>but not IP</li>
-<li>both UDP and TCP include a <code>12-byte pseudo-header</code> with the <code>UDP datagram</code> (or TCP segment) just <code>for the checksum computation</code></li>
-<li>fragmentation : if <code>one fragment</code> is <code>lost</code> the <code>entire datagram</code> must be <code>retransmitted.</code></li>
-<li>An <code>IP datagram</code>is the <code>unit of end to end transmission</code> at IP layer ,but a <code>packet</code> is the unit of data passed between  <code>the IP layer and the link layer</code>.</li>
-</ul>
-<blockquote>
-<p><code>Broadcasting and multicasting only apply to UDP</code></p>
-</blockquote>
-<p><img src="http://odfcr7qs4.bkt.clouddn.com/D%20IP%20map%20into%20Ethernet%20address.png" alt="Mapping of a class D IP address into Ethernet multicast address"></p>
-<p><strong>IGMP</strong></p>
-<blockquote>
-<ol>
-<li>A host sends an IGMP report when the first process joins a group. If multiple processes on a given host join the same group, only one report is sent, the first time a process joins that group. This report is sent out the same interface on which the process joined the group.</li>
-<li>A host does not send a report when processes leave a group, even when the last process leaves a group. The host knows that there are no members in a given group, so when it receives the next query (next step), it won’t report the group.</li>
-<li>A multicast router sends an IGMP query at regular intervals to see if any hosts still have processes belonging to any groups. The router must send one query out each interface. The group address in the query is 0 since the router expects one response from a host for every group that contains one or more members on that host.</li>
-<li>A host responds to an IGMP query by sending one IGMP report for each group that still contains at least one process.</li>
-</ol>
-<ul>
-<li>an application must convert a hostname to an IP address before it can ask TCP to open a connection or send a datagram using UDP. The TCP/IP protocols within the kernel know nothing about the DNS.</li>
-</ul>
-</blockquote>
-<ul>
-<li>TFTP use in UDP<blockquote>
-<ul>
-<li>each exchange start with the clinet asking the server read a file for the clinet or write a file for the client</li>
-<li>be used only during the bootstrap process of diskless systems. It uses only a few message formats and a stop-and-wait protocol.</li>
-<li>he TFTP server provides concurrency by creating a new UDP port for each client.</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<blockquote>
-<p>connection-oriented, reliable, byte stream service</p>
-</blockquote>
-<p><strong>TCP Interactive Data Flow</strong></p>
-<blockquote>
-<p>each interactive keystroke normally generates a datapacket in Rlogin</p>
-</blockquote>
-<p><code>four segments:</code></p>
-<blockquote>
-<p>(1) the interactive keystroke from the client,<br>(2) anacknowledgment of the keystroke from the server,<br>(3) the echo of the keystroke from the server,<br>(4)an acknowledgment of the echo from the client.</p>
-</blockquote>
-<p><code>Nagle algorithm</code></p>
-<blockquote>
-<ul>
-<li>a TCP connection can have only one outstanding small segment that has not yet been acknowledged. No additional small segments can be sent until the acknowledgment is received. Instead, small amounts of data are collected by TCP and sent in a single segment when the acknowledgment arrives.</li>
-<li>Delayed acknowledgments are used by the receiver of these small segments to see if the acknowledgment can be piggybacked along with data going back to the sender. This often reduces the number of segments, especially for an Rlogin session, where the server is echoing the characters typed at the client.</li>
-<li>On slower WANs the Nagle algorithm is often used to reduce the number of these small segments. This algorithm limits the sender to a single small packet of unacknowledged data at any time. But there are times when the Nagle algorithm needs to be disabled, and we showed an example of this.</li>
-</ul>
-</blockquote>
-<ul>
-<li>flow control is done by the Rlogin client.</li>
-</ul>
-<p><strong>SNMP</strong></p>
-<blockquote>
-<p><code>SNMP uses UDP</code>,a request from the manager may not arrive at the agent, The manager probably wants to implement <code>a timeout and retransmission.</code><br>The manager sends its three <code>requests</code> to <code>UDP port 161</code>. The agent sends <code>traps</code> to <code>UDP port 162</code>.</p>
-</blockquote>
-<p><img src="http://odfcr7qs4.bkt.clouddn.com/SNMP.png" alt="SNMP"></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2226,7 +2162,7 @@ command-line arguments</code> to the new program to be specified as separate arg
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">44</span>
+              <span class="site-state-item-count">45</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -2234,7 +2170,7 @@ command-line arguments</code> to the new program to be specified as separate arg
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">categories</span>
               </a>
             </div>
@@ -2318,7 +2254,7 @@ command-line arguments</code> to the new program to be specified as separate arg
         <div class="copyright" >
   
   &copy;  2016.7.14 - 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

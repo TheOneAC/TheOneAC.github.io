@@ -1,0 +1,866 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="7989000bfd4e43ea" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="comments," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="学习总结感知机学习算法
+
+误分类驱动：通过错误点修正权值和偏置
+梯度：损失函数对参数的导数
+梯度下降：误差函数求最小值的修正过程，在梯度方向上函数变化最大，通过梯度方向探索求取损失函数最小值
+学习率: 误分类点每次修正权值和偏差的程度，即误分类点的权值更新的改变程度
+随机梯度下降之随机：误分类点中随机选择一个错误点修正权值和偏差参数，求出该点的梯度向量，然后以负梯度方向为搜索方向，以一定的步长学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="网络程序设计之神经网络">
+<meta property="og:url" content="http://yoursite.com/2017/01/03/网络程序设计之神经网络/index.html">
+<meta property="og:site_name" content="TheOneAC">
+<meta property="og:description" content="学习总结感知机学习算法
+
+误分类驱动：通过错误点修正权值和偏置
+梯度：损失函数对参数的导数
+梯度下降：误差函数求最小值的修正过程，在梯度方向上函数变化最大，通过梯度方向探索求取损失函数最小值
+学习率: 误分类点每次修正权值和偏差的程度，即误分类点的权值更新的改变程度
+随机梯度下降之随机：误分类点中随机选择一个错误点修正权值和偏差参数，求出该点的梯度向量，然后以负梯度方向为搜索方向，以一定的步长学习">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103201649737-286637465.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103211442956-1861913303.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103211547675-324885445.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103192615066-530347016.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103194418519-1655325422.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103214855941-146713989.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103213925894-289487226.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103213450081-1718018606.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103215438191-904549309.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103221052550-1241043733.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103221434222-722900173.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103221754909-1223906765.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103222550581-1213013322.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103222829987-1616609787.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104183232909-1380901167.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104183954300-1828463672.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104184220503-1721066646.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104191531300-520807198.gif">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104191622206-1403376167.gif">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104210614175-1294101441.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104204504206-1313203748.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104204943269-1162783962.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104214749472-1896095512.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104214802706-509998936.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104215002566-799793332.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104215138956-1738539373.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104215035847-1505823816.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104215623987-482505122.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104215732659-2130415714.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104204448675-101240498.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104210946909-341397550.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104211626831-1925835251.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104211750706-1832013697.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104211907894-1010291212.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104211948628-1362878889.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104212832816-735939961.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104220632550-1115519491.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104220723659-251041987.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104232418784-175084222.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104232455316-848072644.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104232643331-792224800.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170105002317362-1177141870.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104235914316-1560583087.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170105001946550-399623879.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170105002005581-1129820735.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170105002022456-1305560400.png">
+<meta property="og:updated_time" content="2017-01-04T17:12:04.151Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="网络程序设计之神经网络">
+<meta name="twitter:description" content="学习总结感知机学习算法
+
+误分类驱动：通过错误点修正权值和偏置
+梯度：损失函数对参数的导数
+梯度下降：误差函数求最小值的修正过程，在梯度方向上函数变化最大，通过梯度方向探索求取损失函数最小值
+学习率: 误分类点每次修正权值和偏差的程度，即误分类点的权值更新的改变程度
+随机梯度下降之随机：误分类点中随机选择一个错误点修正权值和偏差参数，求出该点的梯度向量，然后以负梯度方向为搜索方向，以一定的步长学习">
+<meta name="twitter:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103201649737-286637465.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/01/03/网络程序设计之神经网络/"/>
+
+  <title> 网络程序设计之神经网络 | TheOneAC </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">TheOneAC</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">init</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                网络程序设计之神经网络
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2017-01-03T19:01:01+08:00" content="2017-01-03">
+              2017-01-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="学习总结"><a href="#学习总结" class="headerlink" title="学习总结"></a>学习总结</h2><h3 id="感知机学习算法"><a href="#感知机学习算法" class="headerlink" title="感知机学习算法"></a>感知机学习算法</h3><p><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103201649737-286637465.png" alt=""></p>
+<ul>
+<li>误分类驱动：通过错误点修正权值和偏置</li>
+<li><code>梯度</code>：损失函数对参数的导数<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103211442956-1861913303.png" alt=""></li>
+<li><code>梯度下降</code>：误差函数求最小值的修正过程，在梯度方向上函数变化最大，通过梯度方向探索求取损失函数最小值<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103211547675-324885445.png" alt=""></li>
+<li><code>学习率</code>: 误分类点每次修正权值和偏差的程度，即误分类点的权值更新的改变程度</li>
+<li>随机梯度下降之<code>随机</code>：误分类点中随机选择一个错误点修正权值和偏差参数，求出该点的梯度向量，然后以负梯度方向为搜索方向，以一定的步长<code>学习率</code>进行搜索，从而确定下一个迭代点。持续迭代到收敛</li>
+<li><code>收敛</code> ： 误分类次数小于允许错误门限值（上界）</li>
+</ul>
+<h4 id="感知机模型（激活函数）"><a href="#感知机模型（激活函数）" class="headerlink" title="感知机模型（激活函数）"></a>感知机模型（激活函数）</h4><p><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103192615066-530347016.png" alt=""><br>其中x1, x2为输入，ｗ为权值（即输入对输出的影响程度），ｂ为偏差，整个神经元（感知机）输出为ｙ，　<br>函数ｆ可以认为是神经元输出表达式，在神经网络中被命名为<code>激活函数</code></p>
+<ul>
+<li>常见的激活函数及其特征<ul>
+<li>Sigmoid（S 型激活函数）<ul>
+<li>特征：输入一个实值，输出一个 0 至 1 间的值 </li>
+<li>表达式：σ(x) = 1 / (1 + exp(−x))</li>
+</ul>
+</li>
+<li>tanh（双曲正切函数）<ul>
+<li>特征：输入一个实值，输出一个 [-1,1] 间的值 </li>
+<li>表达式：　tanh(x) = 2σ(2x) − 1</li>
+</ul>
+</li>
+<li>ReLU<ul>
+<li>特征：输出一个实值，并设定 0 的阈值（函数会将负值变为零）</li>
+<li>表达式：f(x) = max(0, x)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>基本激活函数函数图像<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103194418519-1655325422.png" alt=""><ul>
+<li><a href="http://blog.csdn.net/csuhoward/article/details/52538296" target="_blank" rel="external">基本激活函数的性能比较</a></li>
+<li><a href="http://www.cnblogs.com/dudumiaomiao/p/6014205.html" target="_blank" rel="external">常见激活函数的比较</a></li>
+<li><a href="https://www.zhihu.com/question/22334626" target="_blank" rel="external">激活函数</a></li>
+<li><a href="https://www.52ml.net/17963.html" target="_blank" rel="external">激活函数比较</a></li>
+</ul>
+</li>
+<li><code>激活函数的直观作用</code>：对神经元多输入的结果进行函数化处理，按照一定映射规则获得输出（本质：函数映射）<ul>
+<li><a href="http://sanwen.net/a/tavxtoo.html" target="_blank" rel="external">激活函数的作用参考</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="神经网络与反向传播"><a href="#神经网络与反向传播" class="headerlink" title="神经网络与反向传播"></a>神经网络与反向传播</h3><p><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103214855941-146713989.png" alt=""></p>
+<ul>
+<li>前向传播过程<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103213925894-289487226.png" alt=""><ul>
+<li><code>根据激活函数迭代计算下一层神经元状态</code></li>
+</ul>
+</li>
+<li>反向传播过程<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103213450081-1718018606.png" alt=""><ul>
+<li><code>根据偏差反向修正上一层节点的权值，修正方法为链式求导</code><br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103215438191-904549309.png" alt=""></li>
+<li><code>反向传播和权重更新： 计算输出节点的总误差，并将误差用反向传播算法传播回网络计算梯度。</code></li>
+<li>使用类似<code>梯度下降</code>之类的算法来<code>「调整」网络节点的权重</code>，以<code>减少输出层的误差</code>。<br><a href="https://theclevermachine.wordpress.com/tag/backpropagation/" target="_blank" rel="external">反向传播参考</a><br><a href="http://galaxy.agh.edu.pl/~vlsi/AI/backp_t_en/backprop.html" target="_blank" rel="external">反向传播参考</a><h3 id="神经网络学习算法基本概念"><a href="#神经网络学习算法基本概念" class="headerlink" title="神经网络学习算法基本概念"></a>神经网络学习算法基本概念</h3><h4 id="损失函数"><a href="#损失函数" class="headerlink" title="损失函数"></a>损失函数</h4><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103221052550-1241043733.png" alt=""></li>
+</ul>
+</li>
+<li>损失函数在数据集上的得到的损失值越小，模型的学习效果就越好，误差越小<h4 id="经验损失"><a href="#经验损失" class="headerlink" title="经验损失"></a>经验损失</h4><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103221434222-722900173.png" alt=""></li>
+<li>在训练数据足够大时经验损失接近期望损失，学习算法的目标是选择期望损失最小的参数模型<h4 id="结构损失"><a href="#结构损失" class="headerlink" title="结构损失"></a>结构损失</h4><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103221754909-1223906765.png" alt=""></li>
+<li><code>结构风险</code>（结构损失）在<code>经验损失最小化</code>基础上加入调整参数，实现<code>正则化</code></li>
+<li><code>训练误差</code>：训练数据集的平均损失</li>
+<li><code>测试误差</code>：测试数据集的平均损失</li>
+<li><code>过拟合</code>： 模型过度过度学习，太贴近训练数据集的特征，但不能准确反映整体数据的一般特征<ul>
+<li>即：训练误差小，但是测试误差明显大于训练误差</li>
+</ul>
+</li>
+<li>结构风险最小化： 加入正则影响因子，避免过度靠近训练数据<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103222550581-1213013322.png" alt=""></li>
+<li><code>交叉验证</code><br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170103222829987-1616609787.png" alt=""><ul>
+<li>简单交叉验证： 数据集一部分用于训练，一部分用于测试，选择测试误差最小模型</li>
+<li>S折交叉验证： 数据集分为s个独立子集，利用S-1个数据集训练，剩余一个做测试，对选择S中选择数据集训练，选择平均测试误差最小模型</li>
+<li>留一交叉验证：选择一个数据作为测试，适用于数据不足情况<h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104183232909-1380901167.png" alt=""></li>
+</ul>
+</li>
+<li>ws: weight 矩阵随机初始化　<code>tf.Variable(tf.random_normal([in_size,out_size]))</code></li>
+<li>bs: bias 偏差矩阵随机化,全部置为０.5   <code>tf.Variable(tf.zeros([1,out_size])+0.5)</code></li>
+<li>wxpb : 节点状态计算　<code>tf.matmul(inputs,Ws) + bs</code><br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104183954300-1828463672.png" alt=""></li>
+<li><code>每层激活函数sigmoid传入</code><br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104184220503-1721066646.png" alt=""></li>
+<li>均方误差学习速率<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104191531300-520807198.gif" alt=""></li>
+<li>交叉熵学习速率<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104191622206-1403376167.gif" alt=""></li>
+<li>交叉熵与均方差的比较<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104210614175-1294101441.png" alt=""></li>
+</ul>
+<p><a href="http://chuansong.me/n/2744928" target="_blank" rel="external">交叉熵参考说明</a></p>
+<ul>
+<li><code>根据误差方向学习修正参数，交叉熵最小化保证学习速率稳定，避免一般激活函数导致的学习趋近于０的情况</code></li>
+</ul>
+<h4 id="朴素贝叶斯"><a href="#朴素贝叶斯" class="headerlink" title="朴素贝叶斯"></a>朴素贝叶斯</h4><p><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104204504206-1313203748.png" alt=""></p>
+<h4 id="支持向量机"><a href="#支持向量机" class="headerlink" title="支持向量机"></a>支持向量机</h4><p><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104204943269-1162783962.png" alt=""></p>
+<ul>
+<li><code>线性可分</code><br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104214749472-1896095512.png" alt=""></li>
+<li><code>支持向量</code><br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104214802706-509998936.png" alt=""></li>
+<li><code>函数间隔</code><br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104215002566-799793332.png" alt=""></li>
+<li><code>几何间隔</code>：w为L2 范数（多维空间距离）<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104215138956-1738539373.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104215035847-1505823816.png" alt=""></li>
+<li><code>线性可分</code>：使用几何间隔最大化：分离点到分离平面距离之和最大</li>
+<li><code>线性不可分</code>：软间隔最大化，误分距离最小化<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104215623987-482505122.png" alt=""></li>
+<li><code>核方法</code>：多维空间转化<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104215732659-2130415714.png" alt=""></li>
+</ul>
+<h4 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h4><p><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104204448675-101240498.png" alt=""></p>
+<ul>
+<li>决策方法： 在任一节点选择条件概率作为特征空间的一个划分，任一节点做二分类将条件概率大的归为一类<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104210946909-341397550.png" alt=""></li>
+<li>每个层级节点选择最有特征，基于该特征分割数据集，直到数据集全部被分到一个确定叶节点（即一个类）</li>
+<li>当叶节点划分过细时（过拟合）需要剪枝，将叶子分类归结到父节点，合并唯一类</li>
+<li><code>特征选择</code><ul>
+<li>熵<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104211626831-1925835251.png" alt=""></li>
+<li>条件熵<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104211750706-1832013697.png" alt=""></li>
+<li>信息增益<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104211907894-1010291212.png" alt=""></li>
+<li>信息增益比<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104211948628-1362878889.png" alt=""></li>
+</ul>
+</li>
+<li><code>ID3算法</code>：从根节点开始选择信息增益醉的特征作为节点分割的特征</li>
+<li><code>C45算法</code>：用信息增益比选择节点分裂特征</li>
+<li><code>CART算法</code>：每个节点二分类，利用平方误差最小化尽可能生产复杂的决策树，然后通过最小化损失值向上回缩，两颗子树的损失之和大于归并到父节点之后的损失值</li>
+<li>基尼指数<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104212832816-735939961.png" alt=""></li>
+<li>基尼系数表明集合在特征A上分类不确定性，系数越大表明数据集的分类弹性变化越大，稳定性越差</li>
+</ul>
+<h3 id="A1手写字符识别"><a href="#A1手写字符识别" class="headerlink" title="A1手写字符识别"></a>A1手写字符识别</h3><p><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104220632550-1115519491.png" alt=""></p>
+<ul>
+<li>学习验证原理<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104220723659-251041987.png" alt=""></li>
+</ul>
+<h1 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># 安装numpy,</div><div class="line">sudo apt-get install python-numpy # http://www.numpy.org/</div><div class="line"># 安装opencv</div><div class="line">sudo apt-get install python-opencv # http://opencv.org/</div><div class="line">##安装OCR和预处理相关依赖</div><div class="line">sudo apt-get install tesseract-ocr</div><div class="line">sudo pip install pytesseract</div><div class="line">sudo apt-get install python-tk</div><div class="line">sudo pip install pillow</div><div class="line"># 安装Flask框架、mongo</div><div class="line">sudo pip install Flask</div><div class="line">sudo apt-get install mongodb # 如果找不到可以先sudo apt-get update</div><div class="line">sudo service mongodb started</div><div class="line">sudo pip install pymongo</div></pre></td></tr></table></figure>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd  BloodTestReportOCR</div><div class="line">python view.py # upload图像,在浏览器打开http://yourip:8080</div></pre></td></tr></table></figure>
+<ul>
+<li><p>核心训练代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">def train(self, training_data_array):</div><div class="line">        for data in training_data_array:</div><div class="line">            # 前向传播得到结果向量</div><div class="line">            y1 = np.dot(np.mat(self.theta1), np.mat(data.y0).T)</div><div class="line">            sum1 =  y1 + np.mat(self.input_layer_bias)</div><div class="line">            y1 = self.sigmoid(sum1)</div><div class="line"></div><div class="line">            y2 = np.dot(np.array(self.theta2), y1)</div><div class="line">            y2 = np.add(y2, self.hidden_layer_bias)</div><div class="line">            y2 = self.sigmoid(y2)</div><div class="line"></div><div class="line">            # 后向传播得到误差向量</div><div class="line">            actual_vals = [0] * 10 </div><div class="line">            actual_vals[data.label] = 1</div><div class="line">            output_errors = np.mat(actual_vals).T - np.mat(y2)</div><div class="line">            hidden_errors = np.multiply(np.dot(np.mat(self.theta2).T, output_errors), self.sigmoid_prime(sum1))</div><div class="line"></div><div class="line">            # 更新权重矩阵与偏置向量</div><div class="line">            self.theta1 += self.LEARNING_RATE * np.dot(np.mat(hidden_errors), np.mat(data.y0))</div><div class="line">            self.theta2 += self.LEARNING_RATE * np.dot(np.mat(output_errors), np.mat(y1).T)</div><div class="line">            self.hidden_layer_bias += self.LEARNING_RATE * output_errors</div><div class="line">            self.input_layer_bias += self.LEARNING_RATE * hidden_errors</div></pre></td></tr></table></figure>
+</li>
+<li><p>运行截图<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104232418784-175084222.png" alt=""></p>
+</li>
+<li>加载服务器<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104232455316-848072644.png" alt=""></li>
+<li>预测和训练<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104232643331-792224800.png" alt=""></li>
+<li>可视化图示<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170105002317362-1177141870.png" alt=""></li>
+</ul>
+<h3 id="A23-OCR识别预测"><a href="#A23-OCR识别预测" class="headerlink" title="A23 OCR识别预测"></a>A23 OCR识别预测</h3><h3 id="运行环境-1"><a href="#运行环境-1" class="headerlink" title="运行环境"></a>运行环境</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># 安装numpy,</div><div class="line">sudo apt-get install python-numpy # http://www.numpy.org/</div><div class="line"># 安装opencv</div><div class="line">sudo apt-get install python-opencv # http://opencv.org/</div><div class="line">##安装OCR和预处理相关依赖</div><div class="line">sudo apt-get install tesseract-ocr</div><div class="line">sudo pip install pytesseract</div><div class="line">sudo apt-get install python-tk</div><div class="line">sudo pip install pillo</div><div class="line"># 安装Flask框架、mongo</div><div class="line">sudo pip install Flask</div><div class="line">sudo apt-get install mongodb # 如果找不到可以先sudo apt-get update</div><div class="line">sudo service mongodb started</div><div class="line">sudo pip install pymongo</div></pre></td></tr></table></figure>
+<h2 id="运行-1"><a href="#运行-1" class="headerlink" title="运行"></a>运行</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd  BloodTestReportOCR</div><div class="line">python view.py # upload图像,在浏览器打开http://yourip:8080</div></pre></td></tr></table></figure>
+<ul>
+<li><p>训练预测核心代码（以tensorflow为例）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">def add_layer(inputs,in_size,out_size,n_layer,activation_function=None):</div><div class="line">    layer_name=&apos;layer%s&apos;%n_layer</div><div class="line">    with tf.name_scope(&apos;layer&apos;):</div><div class="line">        with tf.name_scope(&apos;weights&apos;):</div><div class="line">            Ws = tf.Variable(tf.random_normal([in_size,out_size]))</div><div class="line">            tf.histogram_summary(layer_name+&apos;/weights&apos;,Ws)</div><div class="line">        with tf.name_scope(&apos;baises&apos;):</div><div class="line">            bs = tf.Variable(tf.zeros([1,out_size])+0.5)</div><div class="line">            tf.histogram_summary(layer_name+&apos;/baises&apos;,bs)</div><div class="line">        with tf.name_scope(&apos;Wx_plus_b&apos;):</div><div class="line">            Wxpb = tf.matmul(inputs,Ws) + bs</div><div class="line">        if activation_function is None:</div><div class="line">            outputs = Wxpb</div><div class="line">        else:</div><div class="line">            outputs = activation_function(Wxpb)</div><div class="line">        tf.histogram_summary(layer_name+&apos;/outputs&apos;,outputs)</div><div class="line">        return outputs</div><div class="line"># 定义占位符</div><div class="line">with tf.name_scope(&apos;inputs&apos;):</div><div class="line">    x = tf.placeholder(tf.float32, shape=[None, 26])</div><div class="line">    y_ = tf.placeholder(tf.float32, shape=[None, 2])</div><div class="line">#2个隐藏层</div><div class="line">l1 = add_layer(tf.reshape(x, [-1, 26]),26,64,n_layer=1,activation_function=tf.nn.relu)</div><div class="line">l2 = add_layer(l1,64,512,n_layer=2,activation_function=tf.nn.relu)</div><div class="line"># add output layer</div><div class="line">y_result = add_layer(l2,512,2,n_layer=3)</div><div class="line"># 定义损失函数 交叉熵</div><div class="line">with tf.name_scope(&apos;loss&apos;):</div><div class="line">    cross_entropy = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(y_result, y_))</div><div class="line">    tf.scalar_summary(&apos;loss&apos;,cross_entropy)</div><div class="line"># 定义训练op</div><div class="line">with tf.name_scope(&apos;train&apos;):</div><div class="line">    train_step = tf.train.AdamOptimizer(0.0001).minimize(cross_entropy)</div><div class="line"># 定义正确预测</div><div class="line"># correct_prediction = tf.less_equal(tf.abs(tf.sub(tf.argmax(y_result, 1), tf.argmax(y_, 1))), 5)</div><div class="line">correct_prediction = tf.equal(tf.argmax(y_result, 1), tf.argmax(y_, 1))</div><div class="line"># 定义正确率</div><div class="line">accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))</div></pre></td></tr></table></figure>
+</li>
+<li><p>中间两层隐藏层，使用<code>relu</code>作为激活函数</p>
+</li>
+<li>学习目标是<code>交叉熵</code>最小化</li>
+<li><p>优化函数时tensorflow自带的<code>AdamOptimizer</code>,一种逻辑回归优化算法在多维空间的变种</p>
+<h4 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h4><p><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170104235914316-1560583087.png" alt=""></p>
+</li>
+<li><p>提交报告单<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170105001946550-399623879.png" alt=""></p>
+</li>
+<li>OCR识别<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170105002005581-1129820735.png" alt=""></li>
+<li>预测<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170105002022456-1305560400.png" alt=""></li>
+</ul>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><h4 id="学习内容："><a href="#学习内容：" class="headerlink" title="学习内容：　"></a>学习内容：　</h4><ul>
+<li>统计学习方法:这书凝练到想做笔记基本等于抄书</li>
+<li>Python　基础教程：推荐</li>
+<li>numpy and Scipy：Python 玩出花来。。。</li>
+<li>tensorflow：　tensorlearn、tensorlaywer可能会更好（傻）<h4 id="学习心得体会"><a href="#学习心得体会" class="headerlink" title="学习心得体会"></a>学习心得体会</h4></li>
+<li>项目Ａ1学习过程接触到tensorflow,当时认为是一个很成熟的机器学习框架，参考了官网教程和部分博客，意识到机器学习的基础和困境在于数学，所以把学习的重点放在了数学和算法上，算法部分直接看的＜统计学习方法＞，有种大呼过瘾的感觉，通俗易懂深入浅出，基本覆盖机器学习的基本领域，明白了算法的数学本质，为什么能够学习道数据内在规律，之后自己琢磨工具学习了Python 和tensorflow，　可能因为代码基础差吧，一直跟在大神后边跑，看着大神们的代码溜到飞起，明白自己的差距还是代码量的问题，同时页说明我最初的方向或者方法出了点问题，或许直接上代码比绕了大圈去看算法更容易出成果吧，站在前人基础上才能看的更远吧，毕竟<code>源码面前了无秘密</code>嚯嚯。<br>最大遗憾: talk is cheap, show me the code</li>
+<li>感受总结为以下几点：<ol>
+<li>机器学习所需数学基础主要时：求导、概率、分布，没有想象中对数学要求那么高，少数涉及拉格朗日，马尔科夫的内容边看边学时完全可以的理解的</li>
+<li>机器学习本质的时大数据量的统计分析，编程的需求或者要求没有想象中高，更多需要的是对数据本身意义的理解即其所代表的现实意义（可以理解为特征工程）</li>
+<li>机器学习适合的人群：　科研－＞码农－＞业务数据分析（发现抽象规律）　</li>
+<li>学习算法的本质：<pre><code>- 大规模数据的特征的拟合：即找出从定义域到值域的映射关系，学习目标即：（偏差最小）
+</code></pre>　　         - 表象：　映射关系不同，多特征的导致的多维计算量的拟合，偏差标识方式和最小化的方式<ul>
+<li>数学本质：某种程度上是传统统计规律的现代封装</li>
+</ul>
+</li>
+<li>Python、tensorflow 、Keras、tensorlearn、Caffe、tensorlaywer等工具封装底层数学算法，供工程目标研究者使用学习</li>
+<li>机器学习、数据挖掘工程师的核心竞争力：　数据代表的现实意义和将要探究的目标之间的联系</li>
+<li>正确的学习过程：　数据　和　目标　－＞　找出又用数据（特征）－＞　数据的现实意义（统计目标的意义基础）－＞　数据处理　 －&gt;  筛选学习泛化　－＞　隐藏的规律（已知数据域未知数据的联系）</li>
+</ol>
+</li>
+</ul>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><p>统计学习方法pdf by 李航<br>台大机器学习入门ppt by 李宏毅<br><a href="https://zhuanlan.zhihu.com/p/23937778" target="_blank" rel="external">知乎问答：关于感知机与神经网络</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/comments/" rel="tag">#comments</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/26/算法导论-系列五：高级数据结构/" rel="next" title="算法导论 系列五：高级数据结构">
+                <i class="fa fa-chevron-left"></i> 算法导论 系列五：高级数据结构
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="TheOneAC" />
+          <p class="site-author-name" itemprop="name">TheOneAC</p>
+          <p class="site-description motion-element" itemprop="description">生如逆旅  一苇可航</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">45</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/TheOneAc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:scuhss@Gamil.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.quora.com/profile/SCUhss-%E9%BB%84%E5%B8%85" target="_blank" title="Quora">
+                  
+                    <i class="fa fa-fw fa-comments"></i>
+                  
+                  Quora
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/huang-shuai-4" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#学习总结"><span class="nav-number">1.</span> <span class="nav-text">学习总结</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#感知机学习算法"><span class="nav-number">1.1.</span> <span class="nav-text">感知机学习算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#感知机模型（激活函数）"><span class="nav-number">1.1.1.</span> <span class="nav-text">感知机模型（激活函数）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#神经网络与反向传播"><span class="nav-number">1.2.</span> <span class="nav-text">神经网络与反向传播</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#神经网络学习算法基本概念"><span class="nav-number">1.3.</span> <span class="nav-text">神经网络学习算法基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#损失函数"><span class="nav-number">1.3.1.</span> <span class="nav-text">损失函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#经验损失"><span class="nav-number">1.3.2.</span> <span class="nav-text">经验损失</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结构损失"><span class="nav-number">1.3.3.</span> <span class="nav-text">结构损失</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算法分析"><span class="nav-number">1.4.</span> <span class="nav-text">算法分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#朴素贝叶斯"><span class="nav-number">1.4.1.</span> <span class="nav-text">朴素贝叶斯</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#支持向量机"><span class="nav-number">1.4.2.</span> <span class="nav-text">支持向量机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#决策树"><span class="nav-number">1.4.3.</span> <span class="nav-text">决策树</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A1手写字符识别"><span class="nav-number">1.5.</span> <span class="nav-text">A1手写字符识别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行环境"><span class="nav-number"></span> <span class="nav-text">运行环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#运行"><span class="nav-number">1.</span> <span class="nav-text">运行</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A23-OCR识别预测"><span class="nav-number">1.1.</span> <span class="nav-text">A23 OCR识别预测</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#运行环境-1"><span class="nav-number">1.2.</span> <span class="nav-text">运行环境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行-1"><span class="nav-number">2.</span> <span class="nav-text">运行</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#运行效果"><span class="nav-number">2.0.1.</span> <span class="nav-text">运行效果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Summary"><span class="nav-number">2.1.</span> <span class="nav-text">Summary</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#学习内容："><span class="nav-number">2.1.1.</span> <span class="nav-text">学习内容：　</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#学习心得体会"><span class="nav-number">2.1.2.</span> <span class="nav-text">学习心得体会</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference"><span class="nav-number">2.2.</span> <span class="nav-text">Reference</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016.7.14 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheOneAC</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
