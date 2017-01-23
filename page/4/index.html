@@ -250,6 +250,189 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/27/sqlite/" itemprop="url">
+                  sqlite
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-08-27T03:23:53+08:00" content="2016-08-27">
+              2016-08-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/SQL/" itemprop="url" rel="index">
+                    <span itemprop="name">SQL</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="sqlite"><a href="#sqlite" class="headerlink" title="sqlite"></a>sqlite</h2><p>格式化输出</p>
+<blockquote>
+<p>.heade on<br>.mode column</p>
+</blockquote>
+<p>LIKE</p>
+<blockquote>
+<p>% 任意多个字符 LIKE ‘XX*’;<br>_ 唯一一个字符 LIKE ‘_X’;</p>
+</blockquote>
+<p>GLOB</p>
+<blockquote>
+<p>* 任意字符<br>? 单一数字或者字符</p>
+</blockquote>
+<p>LIMIT</p>
+<blockquote>
+<p>LIMIT n<br>从开始到n项<br>LIMIT n OFFSET m;<br>以 n项为中心,m正向下m项,m负向上m项</p>
+</blockquote>
+<p><code>SELECT   [] FROM [table.name] ORDER BY [column] ASC|DESC;</code><br><strong>SELECT 语句中，GROUP BY 子句放在 WHERE 子句之后，放在 ORDER BY 子句之前</strong><br>聚集函数</p>
+<blockquote>
+<p>COUNT(DISTINCT|ALL&lt;列名&gt;);<br>SUM(DISTINCT|ALL&lt;列名&gt;);<br>AVG(DISTINCT|ALL&lt;列名&gt;);<br>MAX/MIN(DISTINCT|ALL&lt;列名&gt;);</p>
+</blockquote>
+<p>HAVING   [condition]<br><strong>HAVING 子句必须放在 GROUP BY 子句之后，必须放在 ORDER BY 子句之前</strong><br>DISTINCT </p>
+<blockquote>
+<p>SELECT DISTINCT [] FROM<br>与 SELECT 语句一起使用，来消除所有重复的记录</p>
+</blockquote>
+<p>链接实现:<br>1、nested-loop<br>2、排序合并：子表排序后顺序查找</p>
+<p>sqlite约束:</p>
+<blockquote>
+<p>NOT NULL<br>DEDFAULT:创建表格时设置默认值<br>UNIQUE<br>PRIMMARY KET<br>CHECK:输入值时check,false则输入无效<br>    example:SALARY     REAL   CHECK(SALARY&gt; 0);</p>
+</blockquote>
+<p><strong>重命名列,删除列,删除约束在sqlite不可实现</strong></p>
+<h4 id="sqlite-joins"><a href="#sqlite-joins" class="headerlink" title="sqlite joins"></a>sqlite joins</h4><p>CROSS JOIN</p>
+<blockquote>
+<ul>
+<li>SELECT COLUMN1,…COLUMN2 FROM TABLE1 CROSS JOIN TABLE2<br>INNER JOIN</li>
+<li>SELECT COLUMN,…COLUMNn FROM TABLE1 JOIN TABLE2 USING COLUMN1…COLUMNn;</li>
+<li>SELECT COLUMN,…COLUMNn FROM TABLE1 INNER JOIN TABLE2 ON condition;</li>
+<li>SELECT COLUMN,…COLUMNn FROM TABLE1 NATURE JOIN TABLE2 COLUMN1 … COLUMNn;</li>
+<li>OUTER JOIN:LEFT OUTER JOIN\ RIGTH OUTER JOIN\ FULL OUTER JOIN</li>
+<li>SELECT…..FROM table1 [ ] OUTER JOIN table2 ON condition/ USING column….</li>
+</ul>
+</blockquote>
+<hr>
+<p>UNION  </p>
+<blockquote>
+<p>每个 SELECT 被选择的列数必须是相同的，相同数目的列表达式，相同的数据类型，并确保它们有相同的顺序，但它们不必具有相同的长度。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">SELECT .... FROM TABLE1....WHERE .....</div><div class="line">UNION</div><div class="line">SELECT .... FROM TABLE2....WHERE .....</div><div class="line">//UNION 去重，UNION ALL 不去重</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>Alias<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">table：</div><div class="line">SELECT  aliase_name.column... </div><div class="line">FROM  table.name AS aliase_name</div><div class="line">WHERE [condition];</div><div class="line">column:</div><div class="line">SELECT column_name AS alias_name</div><div class="line">FROM table_name;</div><div class="line">WHERE [condition]；</div></pre></td></tr></table></figure></p>
+<p>TRIIGGER<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">CREATE TRIGGER tiggername [AFTER/BEFORE] [action] ON tablename</div><div class="line">BEGIN</div><div class="line">.....</div><div class="line">END;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>显示触发器：<br>SELECT name FROM SQLITE——master<br>WHERE type=’trigger’;</li>
+<li>删除触发器：<br>DROP TRIGGER triggername；</li>
+<li>INDEX:<br>CREAT [UNIQUE] INDEX indwx_name  ON table_name(column1,column);</li>
+<li>显示单表中index：<br>.indices table</li>
+<li>显示全部：<br>SELECT * FROM sqlite_master WHERE type = ‘index’;</li>
+<li>DROP INDEX index_name;<br>索引不应该使用在较小的表上。<br>索引不应该使用在有频繁的大批量的更新或插入操作的表上。<br>索引不应该使用在含有大量的 NULL 值的列上。<br>索引不应该使用在频繁操作的列上。</li>
+<li><p>ALERT<br>ALTER TABLE tablename RENAME TO new_tablename<br>ALERT TABLE databasename.tablename ADD COLUMN columnname def….. </p>
+</li>
+<li><p>VIEW<br>CREATE [TEMPORY|TEMP]VIEW viewname AS<br>SELECT column1 column2….<br>FROM tablename<br>WHERE [condition];<br>SELECT * FROM viewname;<br>DROP VIEW viewname;</p>
+</li>
+<li><p>TRANSICTION</p>
+<blockquote>
+<p>原子性（Atomicity）：确保工作单位内的所有操作都成功完成，否则，事务会在出现故障时终止，之前的操作也会回滚到以前的状态。<br>一致性（Consistency)：确保数据库在成功提交的事务上正确地改变状态。<br>隔离性（Isolation）：使事务操作相互独立和透明。<br>持久性（Durability）：确保已提交事务的结果或效果在系统发生故障的情况下仍然存在。</p>
+</blockquote>
+</li>
+</ul>
+<p><code>BEGIN;/BEGIN TRANSACTION;
+ROLLBACK/COMMIT;</code></p>
+<ul>
+<li>VACUUM<br>VACUUM 命令通过复制主数据库中的内容到一个临时数据库文件，然后清空主数据库，并从副本中重新载入原始的数据库文件。这消除了空闲页，把表中的数据排列为连续的，另外会清理数据库文件结构<br>VACUUM 命令只适用于主数据库，附加的数据库文件是不可能使用 VACUUM 命令。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sqlite&gt; PRAGMA auto_vacuum = NONE;  -- 0 means disable auto vacuum</div><div class="line">sqlite&gt; PRAGMA auto_vacuum = INCREMENTAL;  -- 1 means enable incremental vacuum</div><div class="line">sqlite&gt; PRAGMA auto_vacuum = FULL;  -- 2 means enable full auto vacuum</div></pre></td></tr></table></figure>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/27/程序员的自我修养/" itemprop="url">
                   程序员的自我修养
                 </a>
@@ -695,7 +878,7 @@ $ when const and non-const member function have essentialy identical implementio
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://www.tutorialspoint.com/cplusplus/images/cpp-mini-logo.jpg" rel="gallery_cixj8kw0e001w7uouh6srr6lh"
+                 href="http://www.tutorialspoint.com/cplusplus/images/cpp-mini-logo.jpg" rel="gallery_ciy9usdsi001b0aouf805yrlr"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://www.tutorialspoint.com/cplusplus/images/cpp-mini-logo.jpg" itemprop="contentUrl"/>
               </a>
@@ -1541,121 +1724,6 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/25/C Primier Plus IO Library/" itemprop="url">
-                  C Primier Plus IO Library
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-25T01:22:33+08:00" content="2016-07-25">
-              2016-07-25
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="No-Copy-or-Assign-for-IO-Objects"><a href="#No-Copy-or-Assign-for-IO-Objects" class="headerlink" title="No Copy or Assign for IO Objects"></a>No Copy or Assign for IO Objects</h3><p>Functions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.<br>The library lets us ignore the differences among these different kinds of streams by using <strong>inheritance</strong><br>There are two other similar manipulators: flush and ends.<br>flush flushes the stream but adds no characters to the output; ends inserts a null character into the buffer and then flushes it<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; endl; // writes hi and a newline, then flushes the buffer</div><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; flush; // writes hi, then flushes the buffer; adds no data</div><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; ends; // writes hi and a null, then flushes the buffer</div><div class="line"></div><div class="line">cout &lt;&lt; unitbuf; // all writes will be flushed immediately</div><div class="line">// any output is flushed immediately, no buffering</div><div class="line">cout &lt;&lt; nounitbuf; // returns to normal buffering</div></pre></td></tr></table></figure></p>
-<p><strong>Output buffers are not flushed if the program terminates abnormally.</strong><br>Tying Input and Output Streams Together:<br>When an input stream is tied to an output stream, any attempt to read the input stream will first flush the buffer associated with the output stream.<br>To tie a given stream to a new output stream, we pass tie a pointer to the new stream. To untie the stream completely, we pass a null pointer. Each stream can be tied to at most one stream at a time. However, multiple streams can tie themselves to the same ostream<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cin.tie(&amp;cout); // illustration only: the library ties cin and cout for us</div><div class="line">// old_tie points to the stream (if any) currently tied to cin</div><div class="line">ostream *old_tie = cin.tie(nullptr); // cin is no longer tied</div><div class="line">// ties cin and cerr; not a good idea because cin should be tied to cout</div><div class="line">cin.tie(&amp;cerr); // reading cin flushes cerr, not cout</div><div class="line">cin.tie(old_tie); // reestablish normal tie between cin and cout</div></pre></td></tr></table></figure></p>
-<p>The only way to preserve the existing data in a file opened by an ofstream<br>is to specify app or in mode explicitly.<br>File Mode Is Determined Each Time open Is Called.</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1701,7 +1769,7 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">46</span>
+              <span class="site-state-item-count">47</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1718,7 +1786,7 @@ sp.reset(); // uses the lambda we supplied that uses delete[] to free the array<
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

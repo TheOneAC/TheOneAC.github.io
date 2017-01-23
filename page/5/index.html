@@ -250,6 +250,121 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/25/C Primier Plus IO Library/" itemprop="url">
+                  C Primier Plus IO Library
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-25T01:22:33+08:00" content="2016-07-25">
+              2016-07-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="No-Copy-or-Assign-for-IO-Objects"><a href="#No-Copy-or-Assign-for-IO-Objects" class="headerlink" title="No Copy or Assign for IO Objects"></a>No Copy or Assign for IO Objects</h3><p>Functions that do IO typically pass and return the stream through references. Reading or writing an IO object changes its state, so the reference must not be const.<br>The library lets us ignore the differences among these different kinds of streams by using <strong>inheritance</strong><br>There are two other similar manipulators: flush and ends.<br>flush flushes the stream but adds no characters to the output; ends inserts a null character into the buffer and then flushes it<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; endl; // writes hi and a newline, then flushes the buffer</div><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; flush; // writes hi, then flushes the buffer; adds no data</div><div class="line">cout &lt;&lt; &quot;hi!&quot; &lt;&lt; ends; // writes hi and a null, then flushes the buffer</div><div class="line"></div><div class="line">cout &lt;&lt; unitbuf; // all writes will be flushed immediately</div><div class="line">// any output is flushed immediately, no buffering</div><div class="line">cout &lt;&lt; nounitbuf; // returns to normal buffering</div></pre></td></tr></table></figure></p>
+<p><strong>Output buffers are not flushed if the program terminates abnormally.</strong><br>Tying Input and Output Streams Together:<br>When an input stream is tied to an output stream, any attempt to read the input stream will first flush the buffer associated with the output stream.<br>To tie a given stream to a new output stream, we pass tie a pointer to the new stream. To untie the stream completely, we pass a null pointer. Each stream can be tied to at most one stream at a time. However, multiple streams can tie themselves to the same ostream<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">cin.tie(&amp;cout); // illustration only: the library ties cin and cout for us</div><div class="line">// old_tie points to the stream (if any) currently tied to cin</div><div class="line">ostream *old_tie = cin.tie(nullptr); // cin is no longer tied</div><div class="line">// ties cin and cerr; not a good idea because cin should be tied to cout</div><div class="line">cin.tie(&amp;cerr); // reading cin flushes cerr, not cout</div><div class="line">cin.tie(old_tie); // reestablish normal tie between cin and cout</div></pre></td></tr></table></figure></p>
+<p>The only way to preserve the existing data in a file opened by an ofstream<br>is to specify app or in mode explicitly.<br>File Mode Is Determined Each Time open Is Called.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/21/C Primier Plus Class/" itemprop="url">
                   C Primier Plus Class
                 </a>
@@ -443,7 +558,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" rel="gallery_cixj8kvyk001b7uousj402t1g"
+                 href="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" rel="gallery_ciy9usdny000p0aouim7gpkb4"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" itemprop="contentUrl"/>
               </a>
@@ -945,7 +1060,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" rel="gallery_cixj8kwg0005m7uouf5bvm980"
+                 href="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" rel="gallery_ciy9usdu6001o0aou7577f5t4"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" itemprop="contentUrl"/>
               </a>
@@ -1038,7 +1153,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">46</span>
+              <span class="site-state-item-count">47</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1055,7 +1170,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

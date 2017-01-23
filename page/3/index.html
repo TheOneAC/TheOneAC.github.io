@@ -250,6 +250,203 @@
             
               
                 
+                <a class="post-title-link" href="/2016/10/09/APUE-Threads/" itemprop="url">
+                  APUE Threads
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-10-09T10:23:33+08:00" content="2016-10-09">
+              2016-10-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Threads/" itemprop="url" rel="index">
+                    <span itemprop="name">Threads</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>A thread ID is represented by the pthread_t data type. Implementations are allowed to use a structure to represent the pthread_t data type</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#include &lt;pthread.h&gt;</div><div class="line">int pthread_equal(pthread_t tid1, pthread_t tid2);</div><div class="line">Returns: nonzero if equal, 0 otherwise</div></pre></td></tr></table></figure>
+</li>
+<li><p>A thread can obtain its own thread ID by calling the pthread_self function.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">pthread_t</span> pthread_self(<span class="keyword">void</span>);</div><div class="line">Returns: the thread ID of the calling thread</div></pre></td></tr></table></figure>
+</li>
+<li><p>Thread Creation</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">int pthread_create(pthread_t *restrict tidp,</div><div class="line">const pthread_attr_t *restrict attr,</div><div class="line">void *(*start_rtn)(void *), void *restrict arg);</div><div class="line">Returns: 0 if OK, error number on failure</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<p>Note that the pthread functions usually return an error code when they fail. They don’t set errno like the other POSIX functions.</p>
+<ul>
+<li>Thread Termination<br>A single thread can exit in three ways, thereby stopping its flow of control, without terminating the entire process.</li>
+</ul>
+<ol>
+<li>return from the start routine. The return value is the thread’s exit code.</li>
+<li>be canceled by another thread in the same process.</li>
+<li>pthread_exit.<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">void pthread_exit(void *rval_ptr);</div><div class="line">int pthread_join(pthread_t thread, void **rval_ptr);</div><div class="line">Returns: 0 if OK, error number on failure</div></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<ul>
+<li>pthread_cancel: One thread cancel another in the same process <blockquote>
+<p>pthread_cancel doesn’t wait for the thread to terminate; it merely makes the request.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int pthread_mutex_timedlock(pthread_mutex_t *restrict mutex,</div><div class="line">const struct timespec *restrict tsptr);</div><div class="line">Returns: 0 if OK, error number on failure</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>the timeout value is reached, <code>pthread_mutex_timedlock</code> will return the error code <code>ETIMEDOUT</code> <code>without locking the mutex</code>.</p>
+<ul>
+<li>Reader–Writer Locks<br><code>hare in read, exclusive in write</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">int pthread_rwlock_init(pthread_rwlock_t *restrict rwlock,</div><div class="line">const pthread_rwlockattr_t *restrict attr);</div><div class="line">int pthread_rwlock_destroy(pthread_rwlock_t *rwlock);</div><div class="line">int pthread_rwlock_rdlock(pthread_rwlock_t *rwlock);</div><div class="line">int pthread_rwlock_wrlock(pthread_rwlock_t *rwlock);</div><div class="line">int pthread_rwlock_unlock(pthread_rwlock_t *rwlock);</div><div class="line">All return: 0 if OK, error number on failure</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>Cond_wait</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#include &lt;pthread.h&gt;</div><div class="line">int pthread_cond_signal(pthread_cond_t *cond);</div><div class="line">int pthread_cond_broadcast(pthread_cond_t *cond);</div><div class="line">Both return: 0 if OK, error number on failure</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>Cancel</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#include &lt;pthread.h&gt;</div><div class="line">int pthread_setcancelstate(int state, int *oldstate);</div><div class="line">$ state : PTHREAD_CANCEL_ENABLE/ PTHREAD_CANCEL_DISABLE</div><div class="line">int pthread_setcanceltype(int type, int *oldtype);</div><div class="line"># type : PTHREADCANCEL_DEFERRED / PTHREADCANCEL_ASYNCHRONOUS</div><div class="line">Returns: 0 if OK, error number on failure</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>Signal</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#include &lt;semaphore.h&gt;</div><div class="line">int sem_init(sem_t *sem, 0, unsigned int value);</div><div class="line">int sem_wait(sem_t *s)//P</div><div class="line">int sem_post(sem_t *s)//V</div><div class="line">success return 0, else -1</div></pre></td></tr></table></figure>
+</blockquote>
+</li>
+<li><p>线程安全</p>
+<blockquote>
+<p>不安全函数类</p>
+<ol>
+<li>不保护共享变量</li>
+<li>保持跨越多个调用状态的函数　：非原子操作</li>
+<li>返回指向静态变量指针的函数　：某个线程的返回覆盖其他线程的调用</li>
+<li>调用线程部不安全函数<ul>
+<li>调用２类线程一定不安全,只能重写保证线程安全</li>
+<li>调用１，３类时，用互斥所保护共享变量则线程安全</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>reentrant funtion : never change any shared-variables.</li>
+<li>reentrant funtion is a subset of thread-safe funtion</li>
+<li>some thread-safe funtion may be not reentrant.</li>
+</ul>
+<p><code>none-thread-safe library funtions</code></p>
+<ul>
+<li>rand</li>
+<li>strtok</li>
+<li>asctime</li>
+<li>ctime</li>
+<li>gethostbyaddr/gethostbyname</li>
+<li>int_ntoa</li>
+<li>locatime</li>
+</ul>
+<p><strong>互斥锁加锁，同时占用s,t两个锁的线程必须以相同顺序给s,t加锁</strong></p>
+</blockquote>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/01/Programming-With-POSIX-Threads/" itemprop="url">
                   Programming With POSIX Threads
                 </a>
@@ -1778,189 +1975,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/27/sqlite/" itemprop="url">
-                  sqlite
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-08-27T03:23:53+08:00" content="2016-08-27">
-              2016-08-27
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/SQL/" itemprop="url" rel="index">
-                    <span itemprop="name">SQL</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="sqlite"><a href="#sqlite" class="headerlink" title="sqlite"></a>sqlite</h2><p>格式化输出</p>
-<blockquote>
-<p>.heade on<br>.mode column</p>
-</blockquote>
-<p>LIKE</p>
-<blockquote>
-<p>% 任意多个字符 LIKE ‘XX*’;<br>_ 唯一一个字符 LIKE ‘_X’;</p>
-</blockquote>
-<p>GLOB</p>
-<blockquote>
-<p>* 任意字符<br>? 单一数字或者字符</p>
-</blockquote>
-<p>LIMIT</p>
-<blockquote>
-<p>LIMIT n<br>从开始到n项<br>LIMIT n OFFSET m;<br>以 n项为中心,m正向下m项,m负向上m项</p>
-</blockquote>
-<p><code>SELECT   [] FROM [table.name] ORDER BY [column] ASC|DESC;</code><br><strong>SELECT 语句中，GROUP BY 子句放在 WHERE 子句之后，放在 ORDER BY 子句之前</strong><br>聚集函数</p>
-<blockquote>
-<p>COUNT(DISTINCT|ALL&lt;列名&gt;);<br>SUM(DISTINCT|ALL&lt;列名&gt;);<br>AVG(DISTINCT|ALL&lt;列名&gt;);<br>MAX/MIN(DISTINCT|ALL&lt;列名&gt;);</p>
-</blockquote>
-<p>HAVING   [condition]<br><strong>HAVING 子句必须放在 GROUP BY 子句之后，必须放在 ORDER BY 子句之前</strong><br>DISTINCT </p>
-<blockquote>
-<p>SELECT DISTINCT [] FROM<br>与 SELECT 语句一起使用，来消除所有重复的记录</p>
-</blockquote>
-<p>链接实现:<br>1、nested-loop<br>2、排序合并：子表排序后顺序查找</p>
-<p>sqlite约束:</p>
-<blockquote>
-<p>NOT NULL<br>DEDFAULT:创建表格时设置默认值<br>UNIQUE<br>PRIMMARY KET<br>CHECK:输入值时check,false则输入无效<br>    example:SALARY     REAL   CHECK(SALARY&gt; 0);</p>
-</blockquote>
-<p><strong>重命名列,删除列,删除约束在sqlite不可实现</strong></p>
-<h4 id="sqlite-joins"><a href="#sqlite-joins" class="headerlink" title="sqlite joins"></a>sqlite joins</h4><p>CROSS JOIN</p>
-<blockquote>
-<ul>
-<li>SELECT COLUMN1,…COLUMN2 FROM TABLE1 CROSS JOIN TABLE2<br>INNER JOIN</li>
-<li>SELECT COLUMN,…COLUMNn FROM TABLE1 JOIN TABLE2 USING COLUMN1…COLUMNn;</li>
-<li>SELECT COLUMN,…COLUMNn FROM TABLE1 INNER JOIN TABLE2 ON condition;</li>
-<li>SELECT COLUMN,…COLUMNn FROM TABLE1 NATURE JOIN TABLE2 COLUMN1 … COLUMNn;</li>
-<li>OUTER JOIN:LEFT OUTER JOIN\ RIGTH OUTER JOIN\ FULL OUTER JOIN</li>
-<li>SELECT…..FROM table1 [ ] OUTER JOIN table2 ON condition/ USING column….</li>
-</ul>
-</blockquote>
-<hr>
-<p>UNION  </p>
-<blockquote>
-<p>每个 SELECT 被选择的列数必须是相同的，相同数目的列表达式，相同的数据类型，并确保它们有相同的顺序，但它们不必具有相同的长度。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">SELECT .... FROM TABLE1....WHERE .....</div><div class="line">UNION</div><div class="line">SELECT .... FROM TABLE2....WHERE .....</div><div class="line">//UNION 去重，UNION ALL 不去重</div></pre></td></tr></table></figure></p>
-</blockquote>
-<p>Alias<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">table：</div><div class="line">SELECT  aliase_name.column... </div><div class="line">FROM  table.name AS aliase_name</div><div class="line">WHERE [condition];</div><div class="line">column:</div><div class="line">SELECT column_name AS alias_name</div><div class="line">FROM table_name;</div><div class="line">WHERE [condition]；</div></pre></td></tr></table></figure></p>
-<p>TRIIGGER<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">CREATE TRIGGER tiggername [AFTER/BEFORE] [action] ON tablename</div><div class="line">BEGIN</div><div class="line">.....</div><div class="line">END;</div></pre></td></tr></table></figure></p>
-<ul>
-<li>显示触发器：<br>SELECT name FROM SQLITE——master<br>WHERE type=’trigger’;</li>
-<li>删除触发器：<br>DROP TRIGGER triggername；</li>
-<li>INDEX:<br>CREAT [UNIQUE] INDEX indwx_name  ON table_name(column1,column);</li>
-<li>显示单表中index：<br>.indices table</li>
-<li>显示全部：<br>SELECT * FROM sqlite_master WHERE type = ‘index’;</li>
-<li>DROP INDEX index_name;<br>索引不应该使用在较小的表上。<br>索引不应该使用在有频繁的大批量的更新或插入操作的表上。<br>索引不应该使用在含有大量的 NULL 值的列上。<br>索引不应该使用在频繁操作的列上。</li>
-<li><p>ALERT<br>ALTER TABLE tablename RENAME TO new_tablename<br>ALERT TABLE databasename.tablename ADD COLUMN columnname def….. </p>
-</li>
-<li><p>VIEW<br>CREATE [TEMPORY|TEMP]VIEW viewname AS<br>SELECT column1 column2….<br>FROM tablename<br>WHERE [condition];<br>SELECT * FROM viewname;<br>DROP VIEW viewname;</p>
-</li>
-<li><p>TRANSICTION</p>
-<blockquote>
-<p>原子性（Atomicity）：确保工作单位内的所有操作都成功完成，否则，事务会在出现故障时终止，之前的操作也会回滚到以前的状态。<br>一致性（Consistency)：确保数据库在成功提交的事务上正确地改变状态。<br>隔离性（Isolation）：使事务操作相互独立和透明。<br>持久性（Durability）：确保已提交事务的结果或效果在系统发生故障的情况下仍然存在。</p>
-</blockquote>
-</li>
-</ul>
-<p><code>BEGIN;/BEGIN TRANSACTION;
-ROLLBACK/COMMIT;</code></p>
-<ul>
-<li>VACUUM<br>VACUUM 命令通过复制主数据库中的内容到一个临时数据库文件，然后清空主数据库，并从副本中重新载入原始的数据库文件。这消除了空闲页，把表中的数据排列为连续的，另外会清理数据库文件结构<br>VACUUM 命令只适用于主数据库，附加的数据库文件是不可能使用 VACUUM 命令。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sqlite&gt; PRAGMA auto_vacuum = NONE;  -- 0 means disable auto vacuum</div><div class="line">sqlite&gt; PRAGMA auto_vacuum = INCREMENTAL;  -- 1 means enable incremental vacuum</div><div class="line">sqlite&gt; PRAGMA auto_vacuum = FULL;  -- 2 means enable full auto vacuum</div></pre></td></tr></table></figure>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2006,7 +2020,7 @@ ROLLBACK/COMMIT;</code></p>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">46</span>
+              <span class="site-state-item-count">47</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -2023,7 +2037,7 @@ ROLLBACK/COMMIT;</code></p>
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

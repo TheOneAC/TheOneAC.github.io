@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Notes,C++," />
+  <meta name="keywords" content="network,select/poll,socket," />
 
 
 
@@ -86,16 +86,41 @@
 
 
 
-<meta name="description" content="Top-Level constA pointer who is const is top-level const,and the object it point to is const ,it is low-levelpointer must point to an object，not a value.pointer pointe to an const object may not be in">
+<meta name="description" content="在多进程的并发服务器中，接受连接后fork子进程，让子进程处理连接请求，主进程继续等待连接，子进程关闭链接等待接口，主进程关闭已经连接的接口（socket）
+阻塞的发生
+等待处理：等待接受，等待处理结果，等待（某种信号或者信息）
+
+
+阻塞的函数或者操作被中断后必须考虑，系统是自动重启还是手动重启，手动重启的话可以将函数放入循环实现自动重启
+fork之后必须捕获SIGCHLD信号，保证fork出的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="C Primier Plus --chapter two">
-<meta property="og:url" content="http://yoursite.com/2016/07/15/C Primier Plus Chapter_Two/index.html">
+<meta property="og:title" content="unp socket/select/poll">
+<meta property="og:url" content="http://yoursite.com/2017/01/23/unp-socket-select-poll/index.html">
 <meta property="og:site_name" content="TheOneAC">
-<meta property="og:description" content="Top-Level constA pointer who is const is top-level const,and the object it point to is const ,it is low-levelpointer must point to an object，not a value.pointer pointe to an const object may not be in">
-<meta property="og:updated_time" content="2016-07-16T15:30:47.476Z">
+<meta property="og:description" content="在多进程的并发服务器中，接受连接后fork子进程，让子进程处理连接请求，主进程继续等待连接，子进程关闭链接等待接口，主进程关闭已经连接的接口（socket）
+阻塞的发生
+等待处理：等待接受，等待处理结果，等待（某种信号或者信息）
+
+
+阻塞的函数或者操作被中断后必须考虑，系统是自动重启还是手动重启，手动重启的话可以将函数放入循环实现自动重启
+fork之后必须捕获SIGCHLD信号，保证fork出的">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170121222402218-17708425.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170121222802953-1487084162.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170121223209187-695381695.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170121223702875-1354692823.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170121224059671-2096708931.png">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170121224321484-729972909.png">
+<meta property="og:updated_time" content="2017-01-23T08:50:25.784Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C Primier Plus --chapter two">
-<meta name="twitter:description" content="Top-Level constA pointer who is const is top-level const,and the object it point to is const ,it is low-levelpointer must point to an object，not a value.pointer pointe to an const object may not be in">
+<meta name="twitter:title" content="unp socket/select/poll">
+<meta name="twitter:description" content="在多进程的并发服务器中，接受连接后fork子进程，让子进程处理连接请求，主进程继续等待连接，子进程关闭链接等待接口，主进程关闭已经连接的接口（socket）
+阻塞的发生
+等待处理：等待接受，等待处理结果，等待（某种信号或者信息）
+
+
+阻塞的函数或者操作被中断后必须考虑，系统是自动重启还是手动重启，手动重启的话可以将函数放入循环实现自动重启
+fork之后必须捕获SIGCHLD信号，保证fork出的">
+<meta name="twitter:image" content="http://images2015.cnblogs.com/blog/900750/201701/900750-20170121222402218-17708425.png">
 
 
 
@@ -116,9 +141,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/15/C Primier Plus Chapter_Two/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/01/23/unp-socket-select-poll/"/>
 
-  <title> C Primier Plus --chapter two | TheOneAC </title>
+  <title> unp socket/select/poll | TheOneAC </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
@@ -248,7 +273,7 @@
             
             
               
-                C Primier Plus --chapter two
+                unp socket/select/poll
               
             
           </h1>
@@ -260,30 +285,11 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-15T18:29:17+08:00" content="2016-07-15">
-              2016-07-15
+            <time itemprop="dateCreated" datetime="2017-01-23T16:48:50+08:00" content="2017-01-23">
+              2017-01-23
             </time>
           </span>
 
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C++</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
           
 
           
@@ -307,42 +313,40 @@
       
 
       
-        <h3 id="Top-Level-const"><a href="#Top-Level-const" class="headerlink" title="Top-Level const"></a>Top-Level const</h3><p>A pointer who is const is top-level const,<br>and the object it point to is const ,it is low-level<br>pointer must point to an object，not a value.<br>pointer pointe to an const object may not be initialize,but const pointer must be intialized when defined.</p>
-<ul>
-<li><strong>Top-level indicates that an object itself is const, and appear in any object type.</strong></li>
-<li><strong>Low-level const only appear in the base type of compiund type such as pointer and reference</strong></li>
-<li><strong>when copy an object top-level const will be ipnored</strong></li>
-<li><strong>when copy an object low-level const must be the same ,because it cann’t be ignored</strong><a id="more"></a>
+        <ul>
+<li>在多进程的并发服务器中，接受连接后fork子进程，让子进程处理连接请求，主进程继续等待连接，子进程关闭链接等待接口，主进程关闭已经连接的接口（socket）</li>
+<li>阻塞的发生<ul>
+<li>等待处理：等待接受，等待处理结果，等待（某种信号或者信息）</li>
+</ul>
+</li>
+<li>阻塞的函数或者操作被中断后必须考虑，系统是自动重启还是手动重启，手动重启的话可以将函数放入循环实现自动重启</li>
+<li>fork之后必须捕获SIGCHLD信号，保证fork出的子进程完成后，被父进程回收资源</li>
+<li>父进程捕获SIGCHLD信号时，可能中断当前阻塞的系统调用，应该或者最好考虑系统调用被中断的情况。</li>
+<li>SIGCHLD处理函数最好使用waitpid 针对固定pid回收等待，防止僵尸子进程存在</li>
+<li>wait函数收到一个子进程结束信号即执行并结束，其他子进程就会变成僵尸进程</li>
+<li>connect 函数对应TCP三次握手：即在connect函数之后完成TCP的三次握手</li>
+<li>阻塞的问题：一旦一端下线，另一端会一直阻塞在响应操作处，即使一端不掉线也可能使得另一端一直处于等待状态，浪费资源，更不要高并发场景了</li>
+</ul>
+<h2 id="select-poll"><a href="#select-poll" class="headerlink" title="select/poll"></a>select/poll</h2><ul>
+<li>IO复用： 一个服务器程序处理超过一个接口（连接，服务，协议等），需要IO复用<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170121222402218-17708425.png" alt=""></li>
+<li>非阻塞IO，不等待内核处理结果，在不能满足 请求时当前操作不睡眠等待结果，而是直接返回错误<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170121222802953-1487084162.png" alt=""></li>
+<li>IO复用<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170121223209187-695381695.png" alt=""><ul>
+<li>select 监视不止一个描述符，当某个描述符可用时，即唤醒当前描述符的响应操作，即让一个select函数监视多个端口的等待情况</li>
+<li>多线程IO模型，每个线程调用一个阻塞IO函数监视一个描述符</li>
+</ul>
+</li>
+<li>信号驱动IO<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170121223702875-1354692823.png" alt=""><ul>
+<li>不再依赖等待，而是靠信号通知原本需要等待的函数启动</li>
+</ul>
+</li>
+<li>异步IO：相比于信号驱动，异步IO直接通知的操作结果，而信号驱动通知的是可操作<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170121224059671-2096708931.png" alt=""></li>
+<li>一图胜千言<br><img src="http://images2015.cnblogs.com/blog/900750/201701/900750-20170121224321484-729972909.png" alt=""></li>
+<li>close 与shutdown 的qubie<ul>
+<li>close 减少描述符计数，当减为0时，直接关闭描述符</li>
+<li>shutdown 不减少描述符，但正常激发结束系列即发出FIN信号，单向终止</li>
+</ul>
 </li>
 </ul>
-<hr>
-<h3 id="Constexpr"><a href="#Constexpr" class="headerlink" title="Constexpr"></a>Constexpr</h3><ol>
-<li>constexpr : a expression whose value can nor chage and can be evaluated at compile time</li>
-<li>a constant expression is one that can be evaluated at compile time</li>
-<li>define a pointer in a constexprdeclaration, the constexpr specifier applies to the pointer, not the type to which the pointer points</li>
-</ol>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ const int *p = nullptr;       p is a pointer to a const int</div><div class="line">$ constexpr int *q = nullptr;   q is a const pointer to int</div></pre></td></tr></table></figure>
-<p><strong>constexpr impose a top-level const on the object it defines</strong></p>
-<hr>
-<h3 id="2-5Type"><a href="#2-5Type" class="headerlink" title="2.5Type"></a>2.5Type</h3><p><strong>Typedef</strong> type alias : a synonymm for another type.<br><em>simplyfy complicated type definitions,emphasize the purpose for which a type ia used.</em><br>An alias by <code>c++11</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">using SI = Sales_item; // SI is a synonym for Sales_item</div></pre></td></tr></table></figure></p>
-<p><strong><em>auto</em></strong> </p>
-<ol>
-<li>auto let the compiler to deduce the type from the initializer</li>
-<li>auto adjusts the type to conform to normal initialization rules.<br><code>auto sz = 0, pi = 3.14; 
-the compiler cann`t deduce the type of the two variable.</code></li>
-<li>when we use a reference or pointer as a initializer,<br>we are using the object to which it refers or pointe.<br>  <code>int i = 0, &amp;r = i;</code><br>3.auto orfinarily ignores top-level consts.<br>auto a = r; // a is an int<br><code>if want to deduce type have a top-level *const*,you must say explicitlly.</code>   <code>const auto</code></li>
-</ol>
-<hr>
-<p><strong><em>decltype</em></strong> :return the type of its operand.<br><em>The compiler analyzes the expression to determine its type but does not evaluate the expression</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">decltype(f()) sum = x; // sum has whatever type f returns</div></pre></td></tr></table></figure></p>
-<ul>
-<li><em>If we wrap the variable’s name in one<br>or more sets of parentheses, the compiler will evaluate the operand as an expression</em><br><strong>Assignment is an example of an expression that yields a reference type.</strong></li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">int a = 3, b = 4;</div><div class="line">decltype(a = b) d = a;</div><div class="line">d is a reference of int. the value:  d=3</div></pre></td></tr></table></figure>
-<hr>
-<ol>
-<li><strong>decltype returns the type of that variable, including top-level const and references,which <em>auto</em> ignors.</strong></li>
-<li><strong>decltype and auto is that the deduction done by decltype depends on the form of its given expression.</strong></li>
-</ol>
 
       
     </div>
@@ -365,9 +369,11 @@ the compiler cann`t deduce the type of the two variable.</code></li>
       
         <div class="post-tags">
           
-            <a href="/tags/Notes/" rel="tag">#Notes</a>
+            <a href="/tags/network/" rel="tag">#network</a>
           
-            <a href="/tags/C/" rel="tag">#C++</a>
+            <a href="/tags/select-poll/" rel="tag">#select/poll</a>
+          
+            <a href="/tags/socket/" rel="tag">#socket</a>
           
         </div>
       
@@ -376,17 +382,13 @@ the compiler cann`t deduce the type of the two variable.</code></li>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/05/Git-command/" rel="next" title="Git command">
-                <i class="fa fa-chevron-left"></i> Git command
+              <a href="/2017/01/05/NeuralNetworksProgramming-comments/" rel="next" title="Neural-Networks-Programming-comments">
+                <i class="fa fa-chevron-left"></i> Neural-Networks-Programming-comments
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/07/16/C Primier Plus chapter-three/" rel="prev" title="C Primier Plus --chapter three">
-                C Primier Plus --chapter three <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -544,7 +546,7 @@ the compiler cann`t deduce the type of the two variable.</code></li>
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Top-Level-const"><span class="nav-number">1.</span> <span class="nav-text">Top-Level const</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Constexpr"><span class="nav-number">2.</span> <span class="nav-text">Constexpr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5Type"><span class="nav-number">3.</span> <span class="nav-text">2.5Type</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#select-poll"><span class="nav-number">1.</span> <span class="nav-text">select/poll</span></a></li></ol></div>
             
           </div>
         </section>
