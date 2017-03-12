@@ -1,0 +1,711 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="7989000bfd4e43ea" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="decision-tree,Py," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Project Address:
+https://github.com/TheOneAC/ML.git
+dataset in ML/ML_ation/tree
+###　决策树
+
+计算复杂度低，中间值缺失不敏感，可理解不相关数据
+可能过度匹配（过度分类）
+适用：数值型和标称型
+
+
+决策树伪代码createbranch1234567检测数据集中子项是否全部属于一类    if so return c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="decision tree">
+<meta property="og:url" content="http://yoursite.com/2017/03/12/decision-tree/index.html">
+<meta property="og:site_name" content="TheOneAC">
+<meta property="og:description" content="Project Address:
+https://github.com/TheOneAC/ML.git
+dataset in ML/ML_ation/tree
+###　决策树
+
+计算复杂度低，中间值缺失不敏感，可理解不相关数据
+可能过度匹配（过度分类）
+适用：数值型和标称型
+
+
+决策树伪代码createbranch1234567检测数据集中子项是否全部属于一类    if so return c">
+<meta property="og:image" content="https://leanote.com/api/file/getImage?fileId=58c5263aab6441497c006f78">
+<meta property="og:image" content="https://leanote.com/api/file/getImage?fileId=58c5265bab6441497c006f7d">
+<meta property="og:image" content="https://leanote.com/api/file/getImage?fileId=58c52c8dab6441473600722a">
+<meta property="og:updated_time" content="2017-03-12T11:18:25.036Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="decision tree">
+<meta name="twitter:description" content="Project Address:
+https://github.com/TheOneAC/ML.git
+dataset in ML/ML_ation/tree
+###　决策树
+
+计算复杂度低，中间值缺失不敏感，可理解不相关数据
+可能过度匹配（过度分类）
+适用：数值型和标称型
+
+
+决策树伪代码createbranch1234567检测数据集中子项是否全部属于一类    if so return c">
+<meta name="twitter:image" content="https://leanote.com/api/file/getImage?fileId=58c5263aab6441497c006f78">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/03/12/decision-tree/"/>
+
+  <title> decision tree | TheOneAC </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">TheOneAC</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">init</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                decision tree
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2017-03-12T19:17:23+08:00" content="2017-03-12">
+              2017-03-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<h3 id="Project-Address"><a href="#Project-Address" class="headerlink" title="Project Address:"></a>Project Address:</h3><blockquote>
+<p><a href="https://github.com/TheOneAC/ML.git" target="_blank" rel="external">https://github.com/TheOneAC/ML.git</a></p>
+<p>dataset in ML/ML_ation/tree</p>
+<p>###　决策树</p>
+<ul>
+<li>计算复杂度低，中间值缺失不敏感，可理解不相关数据</li>
+<li>可能过度匹配（过度分类）</li>
+<li>适用：数值型和标称型</li>
+</ul>
+</blockquote>
+<h3 id="决策树伪代码createbranch"><a href="#决策树伪代码createbranch" class="headerlink" title="决策树伪代码createbranch"></a>决策树伪代码createbranch</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">检测数据集中子项是否全部属于一类</div><div class="line">    if so return class_tag</div><div class="line">    else 寻找数据集最佳划分特征</div><div class="line">            划分数据集</div><div class="line">            创建分支节点</div><div class="line">            对每一个子集，递归调用createbranch</div><div class="line">        返回分支节点</div></pre></td></tr></table></figure>
+<blockquote>
+<p>递归结束条件：所有属性遍历完，或者数据集属于同一分类</p>
+</blockquote>
+<h3 id="香农熵"><a href="#香农熵" class="headerlink" title="香农熵"></a>香农熵</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">def calcShannonEnt(dataSet):</div><div class="line">	numEntries = len(dataSet)</div><div class="line">	labelCounts = &#123;&#125;</div><div class="line">	for featVec in dataSet:</div><div class="line">		currentLabel = featVec[-1]</div><div class="line">		if currentLabel not in labelCounts.keys():</div><div class="line">			labelCounts[currentLabel] = 0</div><div class="line">		labelCounts[currentLabel] += 1</div><div class="line">	shannonEnt = 0.0</div><div class="line">	for key in labelCounts:</div><div class="line">		prob = float(labelCounts[key])/numEntries</div><div class="line">		shannonEnt -= prob * log(prob,2)</div><div class="line">	return shannonEnt</div></pre></td></tr></table></figure>
+<h3 id="数据及划分与最优选择（熵最小）"><a href="#数据及划分与最优选择（熵最小）" class="headerlink" title="数据及划分与最优选择（熵最小）"></a>数据及划分与最优选择（熵最小）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">def splitDataSet(dataSet, axis, value):</div><div class="line">	retDataSet = []</div><div class="line">	for featVec in dataSet:</div><div class="line">		if featVec[axis] == value:</div><div class="line">			reduceFeatVec = featVec[:axis]</div><div class="line">			reduceFeatVec.extend(featVec[axis + 1:])</div><div class="line">			retDataSet.append(reduceFeatVec)</div><div class="line">	return retDataSet</div><div class="line"></div><div class="line"></div><div class="line">def chooseBestFeatureToSplit(dataSet):</div><div class="line">	numFeatures = len(dataSet[0])- 1</div><div class="line">	baseEntropy = calcShannonEnt(dataSet)</div><div class="line">	bestInfoGain = 0.0</div><div class="line">	bestFeature = -1</div><div class="line">	for i in range(numFeatures):</div><div class="line">		featList = [example[i] for example in dataSet]</div><div class="line">		uniqueVals = set(featList)</div><div class="line">		newEntropy = 0.0</div><div class="line">		for value in uniqueVals:</div><div class="line">			subDataSet = splitDataSet(dataSet, i, value)</div><div class="line">			prob = len(subDataSet)/float(len(dataSet))</div><div class="line">			newEntropy += prob * calcShannonEnt(subDataSet)</div><div class="line">		infoGain = baseEntropy - newEntropy</div><div class="line">		if infoGain &gt; bestInfoGain:</div><div class="line">			baseInfoGain = infoGain</div><div class="line">			bestFeature = i</div><div class="line">	return bestFeature</div></pre></td></tr></table></figure>
+<blockquote>
+<p> 所有标签用尽无法确定类标签时：　多数表决决定子叶分类</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">def majorityCnt(classList):</div><div class="line">	classCount = &#123;&#125;</div><div class="line">	for vote in classList:</div><div class="line">		if vote not in classCount.keys(): classCount[vote] = 0</div><div class="line">		classCount[vote] += 1</div><div class="line">	sortedClassCount = sorted(classCount.iteritems(), key = operator.itemgetter(1), reverse = True)</div><div class="line">	return sortedClassCount[0][0]</div></pre></td></tr></table></figure>
+<h3 id="创建树"><a href="#创建树" class="headerlink" title="创建树"></a>创建树</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">def createTree(dataSet, labels):</div><div class="line">	classList = [example[-1] for example in dataSet]</div><div class="line">	if classList.count(classList[0]) == len(classList):</div><div class="line">		return classList[0]</div><div class="line">	if len(dataSet[0]) == 1:</div><div class="line">		return majorityCnt(classList)</div><div class="line">	</div><div class="line">	bestFeat = chooseBestFeatureToSplit(dataSet)</div><div class="line">	bestFeatureLabel = labels[bestFeat]</div><div class="line">	myTree = &#123;bestFeatureLabel:&#123;&#125;&#125;</div><div class="line">	del(labels[bestFeat])</div><div class="line">	featValues = [example[bestFeat] for example in dataSet]</div><div class="line">	uniqueVals = set(featValues)</div><div class="line">	for value in uniqueVals:</div><div class="line">		subLabels = labels[:]</div><div class="line">		myTree[bestFeatureLabel][value] = createTree(splitDataSet(dataSet, bestFeat,value), subLabels)</div><div class="line">	return myTree</div></pre></td></tr></table></figure>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">def classify(inputTree,featLabels,testVec):</div><div class="line">	firstStr = inputTree.keys()[0]</div><div class="line">	secondDict = inputTree[firstStr]</div><div class="line"></div><div class="line">	featIndex = featLabels.index(firstStr)</div><div class="line">	for key in secondDict.keys():</div><div class="line">		if testVec[featIndex] == key:</div><div class="line">			if type(secondDict[key]).__name__==&apos;dict&apos;:</div><div class="line">				classLabel = classify(secondDict[key],featLabels,testVec)</div><div class="line">			else:</div><div class="line">				classLabel = secondDict[key]</div><div class="line">	return classLabel</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; import trees</div><div class="line">&gt;&gt;&gt; myDat,labels=trees.createDataSet()</div><div class="line">&gt;&gt;&gt; labels</div><div class="line">[&apos;no surfacing&apos;, &apos;flippers&apos;]</div><div class="line">&gt;&gt;&gt; myTree=treePlotter.retrieveTree (0)</div><div class="line">&gt;&gt;&gt; myTree</div><div class="line">&#123;&apos;no surfacing&apos;: &#123;0: &apos;no&apos;, 1: &#123;&apos;flippers&apos;: &#123;0: &apos;no&apos;, 1: &apos;yes&apos;&#125;&#125;&#125;&#125;</div><div class="line">&gt;&gt;&gt; trees.classify(myTree,labels,[1,0])</div><div class="line">&apos;no&apos;</div><div class="line">&gt;&gt;&gt; trees.classify(myTree,labels,[1,1])</div><div class="line">&apos;yes&apos;</div></pre></td></tr></table></figure>
+<p>###　存储与重载<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">def storeTree(inputTree, filename):</div><div class="line">	import pickle</div><div class="line">	fw = open(filename, &apos;w&apos;)</div><div class="line">	pickle.dump(inputTree,fw)</div><div class="line">	fw.close()</div><div class="line"></div><div class="line">def grabTree(filename):</div><div class="line">	import pickle</div><div class="line">	fr = open(filename)</div><div class="line">	return pickle.load(fr)</div></pre></td></tr></table></figure></p>
+<p>###　test<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line">import trees</div><div class="line"></div><div class="line">myDat,labels = trees.createDataSet()</div><div class="line"></div><div class="line">myTree = trees.createTree(myDat, labels)</div><div class="line"></div><div class="line">trees.storeTree(myTree,&apos;classifierStorage.txt&apos;)</div><div class="line"></div><div class="line">print(trees.grabTree(&apos;classifierStorage.txt&apos;))</div></pre></td></tr></table></figure></p>
+<h3 id="图形化显示树结构"><a href="#图形化显示树结构" class="headerlink" title="图形化显示树结构"></a>图形化显示树结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line"></div><div class="line">import matplotlib.pyplot as plt </div><div class="line"></div><div class="line">decisionNode = dict(boxstyle = &quot;sawtooth&quot;, fc = &quot;0.8&quot;)</div><div class="line">leafNode = dict(boxstyle = &quot;round4&quot;, fc = &quot;0.8&quot;)</div><div class="line">arrow_args = dict(arrowstyle = &quot;&lt;-&quot;)</div><div class="line"></div><div class="line">def plotNode(nodeTxt, centerPt, parentPt, nodeType):</div><div class="line">	createPlot.ax1.annotate(nodeTxt, xy = parentPt, xycoords = &quot;axes fraction&quot;,</div><div class="line">	xytext = centerPt, textcoords = &quot;axes fraction&quot;,</div><div class="line">	va = &quot;center&quot;, ha = &quot;center&quot;, bbox = nodeType, arrowprops = arrow_args)</div></pre></td></tr></table></figure>
+<h3 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">def createPlot():</div><div class="line">	fig = plt.figure(1, facecolor = &quot;white&quot;)</div><div class="line">	fig.clf()</div><div class="line">	createPlot.ax1 = plt.subplot(111, frameon = False)</div><div class="line">	plotNode(&quot;a decision node&quot;,(0.5, 0.1), (0.1, 0.5), decisionNode)</div><div class="line">	plotNode(&quot;a leaf node&quot;,(0.8, 0.1), (0.3, 0.8), leafNode)</div><div class="line">	plt.show()</div></pre></td></tr></table></figure>
+<blockquote>
+<p>python command line run command as this<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">import treeplotter</div><div class="line">treePlotter.createPlot()</div></pre></td></tr></table></figure></p>
+</blockquote>
+<ul>
+<li>result like this<br><img src="https://leanote.com/api/file/getImage?fileId=58c5263aab6441497c006f78" alt="图片标题"><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div></pre></td><td class="code"><pre><div class="line">def getNumLeafs(myTree):</div><div class="line">	numLeafs = 0</div><div class="line">	firstStr = myTree.keys()[0]</div><div class="line">	secondDict = myTree[firstStr]</div><div class="line">	for key in secondDict.keys():</div><div class="line">		if type(secondDict[key]).__name__ == &apos;dict&apos;:</div><div class="line">			numLeafs += getNumleafs(secondDict[key])</div><div class="line">		else: numLeafs +=1</div><div class="line">	return numLeafs</div><div class="line"></div><div class="line">def getTreeDepth(myTree):</div><div class="line">	maxDepth = 0</div><div class="line">	firstStr = myTree.keys()[0]</div><div class="line">	secondDict = myTree[firstStr]</div><div class="line">	for key in secondDict.keys():</div><div class="line">		if type(secondDict[key]).__name__ == &apos;dict&apos;:</div><div class="line">			thisDepth = 1+ getTreeDepth(secondDict[key])</div><div class="line">		else:</div><div class="line">			thisDepth = 1</div><div class="line">		if thisDepth &gt; maxDepth: maxDepth = thisDepth</div><div class="line">	return maxDepth</div><div class="line"></div><div class="line"></div><div class="line">def retrieveTree(i):</div><div class="line">	listOfTrees =[&#123;&apos;no surfacing&apos;: &#123;0: &apos;no&apos;, 1: &#123;&apos;flippers&apos;: \</div><div class="line">		&#123;0: &apos;no&apos;, 1: &apos;yes&apos;&#125;&#125;&#125;&#125;,</div><div class="line">		&#123;&apos;no surfacing&apos;: &#123;0: &apos;no&apos;, 1: &#123;&apos;flippers&apos;: \</div><div class="line">		&#123;0: &#123;&apos;head&apos;: &#123;0: &apos;no&apos;, 1: &apos;yes&apos;&#125;&#125;, 1: &apos;no&apos;&#125;&#125;&#125;&#125;</div><div class="line">		]</div><div class="line">	return listOfTrees[i]</div><div class="line"></div><div class="line"></div><div class="line">def plotMidText(cntrPt, parentPt, txtString):</div><div class="line">	xMid = (parentPt[0]-cntrPt[0])/2.0 + cntrPt[0]</div><div class="line">	yMid = (parentPt[1]-cntrPt[1])/2.0 + cntrPt[1]</div><div class="line">	createPlot.ax1.text(xMid, yMid, txtString)</div><div class="line">	</div><div class="line"></div><div class="line"></div><div class="line">def plotTree(myTree, parentPt, nodeTxt):</div><div class="line">	numLeafs = getNumLeafs(myTree)</div><div class="line">	</div><div class="line">	depth = getTreeDepth(myTree)</div><div class="line">	</div><div class="line">	firstStr = myTree.keys()[0]</div><div class="line">	cntrPt = (plotTree.xOff + (1.0 + float(numLeafs))/2.0/plotTree.totalW,\</div><div class="line">			plotTree.yOff)</div><div class="line">	plotMidText(cntrPt, parentPt, nodeTxt)</div><div class="line">	</div><div class="line">	plotNode(firstStr, cntrPt, parentPt, decisionNode)</div><div class="line">	</div><div class="line">	secondDict = myTree[firstStr]</div><div class="line">	plotTree.yOff = plotTree.yOff - 1.0/plotTree.totalD</div><div class="line">	</div><div class="line">	for key in secondDict.keys():</div><div class="line">		if type(secondDict[key]).__name__==&apos;dict&apos;:</div><div class="line">			plotTree(secondDict[key],cntrPt,str(key))</div><div class="line">		else:</div><div class="line">			plotTree.xOff = plotTree.xOff + 1.0/plotTree.totalW</div><div class="line">			plotNode(secondDict[key], (plotTree.xOff, plotTree.yOff),</div><div class="line">			cntrPt, leafNode)</div><div class="line">			plotMidText((plotTree.xOff, plotTree.yOff), cntrPt, str(key))</div><div class="line">	plotTree.yOff = plotTree.yOff + 1.0/plotTree.totalD</div><div class="line">	</div><div class="line">def createPlot(inTree):</div><div class="line">	fig = plt.figure(1, facecolor=&apos;white&apos;)</div><div class="line">	fig.clf()</div><div class="line">	axprops = dict(xticks=[], yticks=[])</div><div class="line">	createPlot.ax1 = plt.subplot(111, frameon=False, **axprops)</div><div class="line">	plotTree.totalW = float(getNumLeafs(inTree))</div><div class="line">	plotTree.totalD = float(getTreeDepth(inTree))</div><div class="line">	plotTree.xOff = -0.5/plotTree.totalW; plotTree.yOff = 1.0;</div><div class="line">	plotTree(inTree, (0.5,1.0), &apos;&apos;)</div><div class="line">	plt.show()</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="https://leanote.com/api/file/getImage?fileId=58c5265bab6441497c006f7d" alt="图片标题"></p>
+<h3 id="扩展测试-lens-py"><a href="#扩展测试-lens-py" class="headerlink" title="扩展测试 lens.py"></a>扩展测试 lens.py</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Project Address: ` https://github.com/TheOneAC/ML.git`</div><div class="line">    dataset:  `lens.txt in ML/ML_ation/tree`</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line"></div><div class="line">import trees</div><div class="line">import treePlotter</div><div class="line"></div><div class="line">fr = open(&quot;lenses.txt&quot;)</div><div class="line">lenses = [inst.strip().split(&apos;\t&apos;) for inst in fr.readlines()]</div><div class="line">lensesLabels=[&apos;age&apos;, &apos;prescript&apos;, &apos;astigmatic&apos;, &apos;tearRate&apos;]</div><div class="line"></div><div class="line">lensesTree = trees.createTree(lenses,lensesLabels)</div><div class="line">print(lensesTree)</div><div class="line"></div><div class="line">treePlotter.createPlot(lensesTree)</div></pre></td></tr></table></figure>
+<p><img src="https://leanote.com/api/file/getImage?fileId=58c52c8dab6441473600722a" alt="图片标题"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/decision-tree/" rel="tag">#decision-tree</a>
+          
+            <a href="/tags/Py/" rel="tag">#Py</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/12/k-means/" rel="next" title="k-means">
+                <i class="fa fa-chevron-left"></i> k-means
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="TheOneAC" />
+          <p class="site-author-name" itemprop="name">TheOneAC</p>
+          <p class="site-description motion-element" itemprop="description">生如逆旅  一苇可航</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/TheOneAc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:scuhss@Gamil.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.quora.com/profile/SCUhss-%E9%BB%84%E5%B8%85" target="_blank" title="Quora">
+                  
+                    <i class="fa fa-fw fa-comments"></i>
+                  
+                  Quora
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/huang-shuai-4" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Project-Address"><span class="nav-number">1.</span> <span class="nav-text">Project Address:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#决策树伪代码createbranch"><span class="nav-number">2.</span> <span class="nav-text">决策树伪代码createbranch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#香农熵"><span class="nav-number">3.</span> <span class="nav-text">香农熵</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据及划分与最优选择（熵最小）"><span class="nav-number">4.</span> <span class="nav-text">数据及划分与最优选择（熵最小）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建树"><span class="nav-number">5.</span> <span class="nav-text">创建树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试"><span class="nav-number">6.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图形化显示树结构"><span class="nav-number">7.</span> <span class="nav-text">图形化显示树结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建节点"><span class="nav-number">8.</span> <span class="nav-text">创建节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展测试-lens-py"><span class="nav-number">9.</span> <span class="nav-text">扩展测试 lens.py</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016.7.14 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheOneAC</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

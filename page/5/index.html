@@ -250,6 +250,129 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/28/C Primier Plus Associative containers/" itemprop="url">
+                  Associative Containers
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-28T11:35:15+08:00" content="2016-07-28">
+              2016-07-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Associative containers support efficient lookup and retrieval by a key.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">        word.erase(std::remove_if(word.begin(), word.end(), ispunct),word.end());</div><div class="line">$   remove_if move container to the end and return a partition iterater, erase the container from partition to the end.</div></pre></td></tr></table></figure></p>
+<p>the ordered containers—map, multimap, set, and multiset—the key type must define a way to compare the elements.<br>Callable objects passed to a sort algorithm (§ 10.3.1, p. 386) must meet the same requirements as do the keys in an associative container.<br>To use our own operation, we must define the multiset with two types: the key type,  and the comparison type, which is a function pointer type  that can point to compare function.<br>the data members of pair are public ,These members are named first and second,respectively. We access these members using the normal member access notation.<br>It is essential to remember that the value_type of a map is a pair and that we can change the value but not the key member of that pair.<br>Iterators for sets Are const,the keys in a set are also const.<br><strong>The output of this program is in alphabetical order. When we use an iterator to traverse a map, multimap, set, or multiset, the iterators yield  elements in ascending key order.</strong><br>The insert members (Table 11.4 (overleaf)) add one element or a range of elements.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// four ways to add word to map word_count</div><div class="line">word_count.insert(&#123;word, 1&#125;);</div><div class="line">word_count.insert(make_pair(word, 1));</div><div class="line">word_count.insert(pair&lt;string, size_t&gt;(word, 1));</div><div class="line">word_count.insert(map&lt;string, size_t&gt;::value_type(word, 1));</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p>Erasing Elements<br>c.erase(k)     remove every element with the key k from c.<br>c.erase(p)     remove the element denoted by the iterater p from c.<br>c.erase(b,e)   remove the element in  the range demoted by b and e and return e.</p>
+</blockquote>
+<p>The map and unordered_map containers provide the subscript operator and a<br>corresponding at function,We cannot subscript a multimap or an unordered_multimap because there may be more than one value associated with a given key.<br><strong>Subscripting a map behaves quite differently from subscripting an array or vector: Using a key that is not already present adds an element with that key to the map.</strong></p>
+<blockquote>
+<p>Operations to Find Elements in an Associative Container<br>c.find(k)   return iterator to the first element with the key k or the off-the-end iterator.<br>c.count(k) return the number of elements with key k.<br>c.lower_bound(k) return an iterator to the first element with key not less than k.<br>c.upper_bound(k) return an iterator to the first element with key greater than k.<br>c.equal_range(k) return a pair of iterator denoting the elements with key k,if k is not present, both menbers are c.end().<br>If the key is present, then the first iterator refers to the first instance of the key and the second iterator refers one past the last instance of the key. If no matching element is found, then both the first and second iterators refer to the position where this key can be inserted.</p>
+</blockquote>
+<p>For the map and unordered_map types,using a subscript has an important side effect: If that key is not already in the map, then subscript inserts an element with that key.<br>When a multimap or multiset has multiple elements of a given key, those elements will be adjacent within the container.</p>
+<p><strong>Hash and Unordermap???</strong></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/26/C Primier Plus Generic-Algorithms/" itemprop="url">
                   C++ Primier Plus Generic Algorithms
                 </a>
@@ -811,7 +934,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" rel="gallery_cj0664p5b000nekouii4vib76"
+                 href="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" rel="gallery_cj06l7o2z000l6ooue6fq1wbz"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" itemprop="contentUrl"/>
               </a>
@@ -1313,7 +1436,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" rel="gallery_cj0664p6v001dekoupek9h848"
+                 href="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" rel="gallery_cj06l7oaq002r6oou0q8gvecm"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" itemprop="contentUrl"/>
               </a>
@@ -1406,7 +1529,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">49</span>
+              <span class="site-state-item-count">50</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1423,7 +1546,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
