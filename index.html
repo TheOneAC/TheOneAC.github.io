@@ -250,6 +250,159 @@
             
               
                 
+                <a class="post-title-link" href="/2017/03/12/k-means/" itemprop="url">
+                  k-means
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2017-03-12T11:41:13+08:00" content="2017-03-12">
+              2017-03-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="K近邻算法"><a href="#K近邻算法" class="headerlink" title="K近邻算法"></a>K近邻算法</h3><blockquote>
+<ul>
+<li>优点：精度高、异常不敏感、无数据输入假定</li>
+<li>缺点：计算复杂度高、空间复杂度高</li>
+<li>适用数据：数值型、标称型</li>
+<li>选择ｋ个最相似数据中次数出现最多的分类，作为新数据的分类</li>
+</ul>
+</blockquote>
+<h3 id="k-means-伪码"><a href="#k-means-伪码" class="headerlink" title="k-means 伪码"></a>k-means 伪码</h3><blockquote>
+<ul>
+<li>计算当前点与已知分类点距离</li>
+<li>按距离递增排序，选取最近的前Ｋ个</li>
+<li>确定前ｋ个点所在类别的出现频率</li>
+<li>返回出现最高的频率最为当前点的分类返回</li>
+</ul>
+</blockquote>
+<h3 id="python-code"><a href="#python-code" class="headerlink" title="python code"></a>python code</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">def classify0(inX, dataSet,labels, k):</div><div class="line">	dataSetSize = dataSet.shape[0]</div><div class="line">	#print(dataSetSize)</div><div class="line">	diffMat = tile(inX, (dataSetSize,1)) - dataSet</div><div class="line">	#print(diffMat)</div><div class="line">	sqDiffMat = diffMat ** 2</div><div class="line">	sqDistance = sqDiffMat.sum(axis = 1)</div><div class="line">	#print(sqDistance)</div><div class="line">	distance = sqDistance ** 0.5</div><div class="line">	sortedDistanceIndices = distance.argsort()</div><div class="line">	#print (sortedDistanceIndices)</div><div class="line"></div><div class="line"></div><div class="line">	classCount = &#123;&#125;</div><div class="line">	for i  in range(k):</div><div class="line">		voteIlabel = labels[sortedDistanceIndices[i]]</div><div class="line">		classCount[voteIlabel] = classCount.get(voteIlabel,0) + 1</div><div class="line">	sortedClassCount = sorted(classCount.iteritems(), key = operator.itemgetter(1),</div><div class="line">	reverse = True)</div><div class="line">	#print(sortedClassCount)</div><div class="line">	return sortedClassCount[0][0]</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">def file2matrix(filename):</div><div class="line">    fr = open(filename)</div><div class="line">    numberOfLines = len(fr.readlines())         #get the number of lines in the file</div><div class="line">    returnMat = zeros((numberOfLines,3))        #prepare matrix to return</div><div class="line">    classLabelVector = []                       #prepare labels return   </div><div class="line">    fr = open(filename)</div><div class="line">    index = 0</div><div class="line">    for line in fr.readlines():</div><div class="line">        line = line.strip()</div><div class="line">        listFromLine = line.split(&apos;\t&apos;)</div><div class="line">        returnMat[index,:] = listFromLine[0:3]</div><div class="line">        classLabelVector.append(int(listFromLine[-1]))</div><div class="line">        index += 1</div><div class="line">    return returnMat,classLabelVector</div></pre></td></tr></table></figure>
+<h2 id="dataset-in-https-github-com-TheOneAC-ML-tree-master-ML-knn"><a href="#dataset-in-https-github-com-TheOneAC-ML-tree-master-ML-knn" class="headerlink" title="dataset in []{https://github.com/TheOneAC/ML/tree/master/ML/knn}"></a>dataset in []{<a href="https://github.com/TheOneAC/ML/tree/master/ML/knn}" target="_blank" rel="external">https://github.com/TheOneAC/ML/tree/master/ML/knn}</a></h2><h3 id="使用第二列和第三列数据形成散点图"><a href="#使用第二列和第三列数据形成散点图" class="headerlink" title="使用第二列和第三列数据形成散点图"></a>使用第二列和第三列数据形成散点图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">import knn</div><div class="line"></div><div class="line">group, labels = knn.creatdataset()</div><div class="line"></div><div class="line">#print( knn.classify0([0,0],group,labels, 3) )</div><div class="line"></div><div class="line">datingDatMat, datinglabels = knn.file2matrix(&apos;datingTestSet2.txt&apos;)</div><div class="line"></div><div class="line">import matplotlib</div><div class="line">import matplotlib.pyplot as plt </div><div class="line">fig = plt.figure()</div><div class="line">ax = fig.add_subplot(111)</div><div class="line">ax.scatter(datingDatMat[:,1], datingDatMat[:,2])</div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<blockquote>
+<p>./test.py</p>
+</blockquote>
+<p><img src="https://leanote.com/api/file/getImage?fileId=58c38a24ab6441497c00540e" alt="图片标题"></p>
+<blockquote>
+<p>修改，加入颜色<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#ax.scatter(datingDatMat[:,1], datingDatMat[:,2])</div><div class="line">-&gt;&gt;&gt;&gt;&gt; </div><div class="line">ax.scatter(datingDatMat[:,1], datingDatMat[:,2],15.0 *array(datinglabels), 15.0 *array(datinglabels))</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p><img src="https://leanote.com/api/file/getImage?fileId=58c38c14ab6441497c005425" alt="图片标题"></p>
+<blockquote>
+<p>修改坐标参考，改为使用第一列和第二列数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#ax.scatter(datingDatMat[:,1], datingDatMat[:,2],15.0 *array(datinglabels), 15.0 *array(datinglabels))</div><div class="line">-&gt;&gt;&gt;&gt;&gt;&gt;&gt;</div><div class="line">ax.scatter(datingDatMat[:,0], datingDatMat[:,1],15.0 *array(datinglabels), 15.0 *array(datinglabels))</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p><img src="https://leanote.com/api/file/getImage?fileId=58c38d28ab6441473600563c" alt="图片标题"></p>
+<h3 id="数值归一化"><a href="#数值归一化" class="headerlink" title="数值归一化"></a>数值归一化</h3><blockquote>
+<p>newValue = (oldValue - min)/(max - min)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">def autoNorm(dataSet):</div><div class="line">	minVals = dataSet.min(0)</div><div class="line">	maxVals = dataSet.max(0)</div><div class="line">	ranges = maxVals - minVals</div><div class="line">	normDataSet = zeros(shape(dataSet))</div><div class="line">	m = dataSet.shape[0]</div><div class="line">	normDataSet = dataSet - tile(minVals,(m,1))</div><div class="line">	normDataSet = normDataSet/tile(ranges,(m,1))</div><div class="line">	return normDataSet,ranges, minVals</div><div class="line"></div><div class="line"></div><div class="line">def datingClassTest():</div><div class="line">	hoRatio = 0.05</div><div class="line">	datingDatMat, datinglabels = file2matrix(&apos;datingTestSet2.txt&apos;)</div><div class="line">	normSet,ranges, minVals = autoNorm(datingDatMat)</div><div class="line">	m = normSet.shape[0]</div><div class="line">	numTestVecs = int(m* hoRatio)</div><div class="line">	errorCount = 0</div><div class="line">	for i in range(numTestVecs):</div><div class="line">		classifierResult = classify0(normSet[i,:],normSet[numTestVecs:m,:],datinglabels[numTestVecs:m],3)</div><div class="line">		print &quot;the classifier came back with: %d , the real answer is: %d&quot; % (classifierResult, datinglabels[i])</div><div class="line">		if(classifierResult != datinglabels[i]): errorCount += 1.0</div><div class="line">	print &quot;the total error rate is %f &quot; % (errorCount/float(numTestVecs))</div></pre></td></tr></table></figure></p>
+<p>knn.datingClassTest()</p>
+</blockquote>
+<p><img src="https://leanote.com/api/file/getImage?fileId=58c3937cab6441497c0054a3" alt="图片标题"></p>
+<h3 id="手写字符识别"><a href="#手写字符识别" class="headerlink" title="手写字符识别"></a>手写字符识别</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">def img2vector(filename):</div><div class="line">    returnVect = zeros((1,1024))</div><div class="line">    fr = open(filename)</div><div class="line">    for i in range(32):</div><div class="line">        lineStr = fr.readline()</div><div class="line">        for j in range(32):</div><div class="line">            returnVect[0,32*i+j] = int(lineStr[j])</div><div class="line">    return returnVect</div><div class="line"></div><div class="line"></div><div class="line">from os import listdir </div><div class="line"></div><div class="line">def handwritingClassTest():</div><div class="line">    hwLabels = []</div><div class="line">    trainingFileList = listdir(&apos;trainingDigits&apos;)           #load the training set</div><div class="line">    m = len(trainingFileList)</div><div class="line">    trainingMat = zeros((m,1024))</div><div class="line">    for i in range(m):</div><div class="line">        fileNameStr = trainingFileList[i]</div><div class="line">        fileStr = fileNameStr.split(&apos;.&apos;)[0]     #take off .txt</div><div class="line">        classNumStr = int(fileStr.split(&apos;_&apos;)[0])</div><div class="line">        hwLabels.append(classNumStr)</div><div class="line">        trainingMat[i,:] = img2vector(&apos;trainingDigits/%s&apos; % fileNameStr)</div><div class="line">    testFileList = listdir(&apos;testDigits&apos;)        #iterate through the test set</div><div class="line">    errorCount = 0.0</div><div class="line">    mTest = len(testFileList)</div><div class="line">    for i in range(mTest):</div><div class="line">        fileNameStr = testFileList[i]</div><div class="line">        fileStr = fileNameStr.split(&apos;.&apos;)[0]     #take off .txt</div><div class="line">        classNumStr = int(fileStr.split(&apos;_&apos;)[0])</div><div class="line">        vectorUnderTest = img2vector(&apos;testDigits/%s&apos; % fileNameStr)</div><div class="line">        classifierResult = classify0(vectorUnderTest, trainingMat, hwLabels, 3)</div><div class="line">        print &quot;the classifier came back with: %d, the real answer is: %d&quot; % (classifierResult, classNumStr)</div><div class="line">        if (classifierResult != classNumStr): errorCount += 1.0</div><div class="line">    print &quot;\nthe total number of errors is: %d&quot; % errorCount</div><div class="line">    print &quot;\nthe total error rate is: %f&quot; % (errorCount/float(mTest))</div></pre></td></tr></table></figure>
+<blockquote>
+<p>./test.py<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/python</div><div class="line">from numpy import *</div><div class="line">import operator</div><div class="line">knn.handwritingClassTest()</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p><img src="https://leanote.com/api/file/getImage?fileId=58c3970dab6441497c0054d6" alt="图片标题"></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/01/23/unp-socket-select-poll/" itemprop="url">
                   unp socket/select/poll
                 </a>
@@ -1867,150 +2020,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/21/DataBase-Concept/" itemprop="url">
-                  DataBase Concept
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-12-21T22:21:47+08:00" content="2016-12-21">
-              2016-12-21
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/SQL/" itemprop="url" rel="index">
-                    <span itemprop="name">SQL</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="ER模型转为关系模型转换规则"><a href="#ER模型转为关系模型转换规则" class="headerlink" title="ER模型转为关系模型转换规则"></a>ER模型转为关系模型转换规则</h3><ul>
-<li>每一个实体转化为一个关系模式，实体标识符即关系模式的主键</li>
-<li>二元关系转换<ul>
-<li>实体间联系（1:1）：两个实体类型中转换乘关系模式中任意一个关系模式的属性加入另一个关系模式的键和联系类型属性</li>
-<li>实体间联系（1:N）：N端实体烈性转换扯个关系模式中加入1端实体类型的键和联系属性  </li>
-<li>实体间联系（M:N）：联系类型转为关系模式，属性为两端实体键加上联系属性，键为两端实体键的组合</li>
-</ul>
-</li>
-<li>最小依赖集<ul>
-<li>右边都是单属性</li>
-<li>不存在冗余关系（不存在不影响函数依赖集的函数依赖：即存在的函数依赖都对函数依赖集有影响）</li>
-<li>左边无冗余属性（不存在左边的真子集可以替代父集，即左边集均是最小集）<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161221201213276-273500741.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161221201057011-61333579.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161221201235323-177684931.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161221201402573-116108252.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161221201652198-843968888.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161221201931698-358799907.png" alt=""></li>
-</ul>
-</li>
-<li>函数依赖集求解<ul>
-<li>右边分裂为单属性</li>
-<li>左边消除冗余属性 （消除不影响函数依赖集的函数依赖）</li>
-<li>消除冗余依赖（消除可由其它依赖推到得出的函数依赖）<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161221205115776-622863516.png" alt=""></li>
-</ul>
-</li>
-</ul>
-<p><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161221205230729-1361142249.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161221205238573-566283657.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161221205247667-1527943028.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161221205456542-481286271.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161221205852401-8697630.png" alt=""></p>
-<ul>
-<li>分解成2NF：消除非主属性对候选键的局部依赖，拆分候选键</li>
-<li>分解成3NF：消除非主属性对候选键的传递依赖，直接关联候选键与非主属性</li>
-<li>分解成3NF的算法：<ul>
-<li>求出最小依赖集，左部相同依赖合并</li>
-<li>每一个依赖关系构成一个模式</li>
-<li>在构成模式集中，每个模式都不包含候选键，则吧候选键作为一个模式加入模式集</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -2056,7 +2065,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">48</span>
+              <span class="site-state-item-count">49</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -2073,7 +2082,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
