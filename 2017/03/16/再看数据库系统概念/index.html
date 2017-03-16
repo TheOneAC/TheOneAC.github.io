@@ -1,0 +1,991 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="7989000bfd4e43ea" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="SQl," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="E-R
+实体集：同类同性质实体
+联系集：同类联系集合
+属性／实体：强关联属性，弱关联单独出实体
+超码：一个或多个属性集，唯一标识一个实体
+候选码：任何真子集不为超码，即最小超码
+
+###　实体联系图
+
+矩形：实体
+椭圆：属性
+菱形：联系
+双椭圆：多值属性
+虚椭圆：派生属性
+
+弱实体集：属性不足以形成主码，依赖于强实体集
+
+特殊化：实体集内部分组
+概括：高层实体集包含底层实体集
+概括／特殊化
+高层">
+<meta property="og:type" content="article">
+<meta property="og:title" content="再看数据库系统概念">
+<meta property="og:url" content="http://yoursite.com/2017/03/16/再看数据库系统概念/index.html">
+<meta property="og:site_name" content="TheOneAC">
+<meta property="og:description" content="E-R
+实体集：同类同性质实体
+联系集：同类联系集合
+属性／实体：强关联属性，弱关联单独出实体
+超码：一个或多个属性集，唯一标识一个实体
+候选码：任何真子集不为超码，即最小超码
+
+###　实体联系图
+
+矩形：实体
+椭圆：属性
+菱形：联系
+双椭圆：多值属性
+虚椭圆：派生属性
+
+弱实体集：属性不足以形成主码，依赖于强实体集
+
+特殊化：实体集内部分组
+概括：高层实体集包含底层实体集
+概括／特殊化
+高层">
+<meta property="og:updated_time" content="2017-03-16T12:57:28.119Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="再看数据库系统概念">
+<meta name="twitter:description" content="E-R
+实体集：同类同性质实体
+联系集：同类联系集合
+属性／实体：强关联属性，弱关联单独出实体
+超码：一个或多个属性集，唯一标识一个实体
+候选码：任何真子集不为超码，即最小超码
+
+###　实体联系图
+
+矩形：实体
+椭圆：属性
+菱形：联系
+双椭圆：多值属性
+虚椭圆：派生属性
+
+弱实体集：属性不足以形成主码，依赖于强实体集
+
+特殊化：实体集内部分组
+概括：高层实体集包含底层实体集
+概括／特殊化
+高层">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: 'Author'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/03/16/再看数据库系统概念/"/>
+
+  <title> 再看数据库系统概念 | TheOneAC </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">TheOneAC</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">init</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                再看数据库系统概念
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2017-03-16T20:54:15+08:00" content="2017-03-16">
+              2017-03-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/SQL/" itemprop="url" rel="index">
+                    <span itemprop="name">SQL</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <hr>
+<h2 id="E-R"><a href="#E-R" class="headerlink" title="E-R"></a>E-R</h2><ul>
+<li>实体集：同类同性质实体</li>
+<li>联系集：同类联系集合</li>
+<li>属性／实体：强关联属性，弱关联单独出实体</li>
+<li>超码：一个或多个属性集，唯一标识一个实体</li>
+<li>候选码：任何真子集不为超码，即最小超码</li>
+</ul>
+<p>###　实体联系图</p>
+<ul>
+<li>矩形：实体</li>
+<li>椭圆：属性</li>
+<li>菱形：联系</li>
+<li>双椭圆：多值属性</li>
+<li><p>虚椭圆：派生属性</p>
+</li>
+<li><p>弱实体集：属性不足以形成主码，依赖于强实体集</p>
+</li>
+<li>特殊化：实体集内部分组</li>
+<li>概括：高层实体集包含底层实体集</li>
+<li>概括／特殊化<ul>
+<li>高层属性和联系适用于底层</li>
+<li>底层特有属性只限自身<h3 id="E-R转表"><a href="#E-R转表" class="headerlink" title="E-R转表"></a>E-R转表</h3></li>
+</ul>
+</li>
+<li>实体集直接转表</li>
+<li>弱实体集表加入依赖强实体集主码</li>
+<li>联系集：联系实体主键　＋　联系属性</li>
+<li>多值属相创建新表</li>
+</ul>
+<h2 id="关系模型"><a href="#关系模型" class="headerlink" title="关系模型"></a>关系模型</h2><ul>
+<li>选择：元组</li>
+<li>投影：属性</li>
+<li>并／差<ul>
+<li>关系同元：属性数目相同</li>
+<li>对应属性域相同</li>
+</ul>
+</li>
+<li>交</li>
+<li>自然链接：笛卡尔积，童淑星相等性选择，去重</li>
+<li>广义投影：投影之后算数扩展</li>
+<li>外链接：链接之后扩展缺失信息</li>
+</ul>
+<blockquote>
+<p>视图定义时之存储定义本身，每次查询都会重新计算</p>
+<h3 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h3><ul>
+<li>SELECT　投影</li>
+<li>FROM  笛卡尔积</li>
+<li>WHERE 谓词运算<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">SELECT [distinct] A1,A2,A3....</div><div class="line">FROM r1,r2 ,r3.....</div><div class="line">WHERE P</div><div class="line">ORDER by  [asc/desc]</div><div class="line">GROUP by </div><div class="line">HAVING</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>LIKE<ul>
+<li>%:任意字串</li>
+<li>_ :任意字符</li>
+</ul>
+</li>
+<li>集合操作: UNION [ALL]/ INTERSECT/ EXCEPT</li>
+<li>聚集函数：　avg/sum/max/min/count<blockquote>
+</blockquote>
+</li>
+<li>测试子元组集是否为空：exist/not exist</li>
+<li><p>测试子查询是否含重：unique/not unique</p>
+</li>
+<li><p>视图：create v as <query expression=""></query></p>
+</li>
+<li><p>删除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">DELETE FROM account</div><div class="line">WHERE balance &lt; (SELECT AVG(balance)</div><div class="line">                    FROM account)</div></pre></td></tr></table></figure>
+</li>
+<li><p>插入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">INSERT INTO account(name1, name2, name3)</div><div class="line">            VALUES(&quot;v1&quot;, &quot;v2&quot;, &quot;v3&quot;)</div></pre></td></tr></table></figure>
+</li>
+<li><p>更新</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">UPDATE acount</div><div class="line">SET balance  = balance * 1.5</div><div class="line">WHERE balance &gt; SELECT ARG(balance)</div><div class="line">                        FROM account</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="完整性约束"><a href="#完整性约束" class="headerlink" title="完整性约束"></a>完整性约束</h3><ul>
+<li>参照完整性<ul>
+<li>联系集参照完整性：依赖于各实体集主码</li>
+<li>弱实体集参照完整性：依赖于强实体集主码</li>
+</ul>
+</li>
+<li>外键参照级联<blockquote>
+<p>正则覆盖：关系模式上函数依赖集Ｆ，在该关系上做任何更新时，必须保证Ｆ中所有函数依赖在新数据库下满足，否则回滚该更新操作<br>Ｆ的正则依赖集Fc:</p>
+</blockquote>
+</li>
+<li>包含Ｆ中全部依赖关系</li>
+<li>函数依赖的左半部唯一</li>
+</ul>
+<h3 id="模式分解"><a href="#模式分解" class="headerlink" title="模式分解"></a>模式分解</h3><ul>
+<li>子关系连接合并后投影可得原关系则为无损分解（分解不引起记录增加）</li>
+<li>保持依赖：分解后依赖集蕴含全部原依赖集依赖关系</li>
+<li><p>BDNF：具有函数依赖集Ｆ＋的关系模式</p>
+<blockquote>
+<p>Ｆ+中任意a-&gt;b 的函数依赖，其中a属于Ｒ且b属于Ｒ，以下至少一个成立</p>
+<ul>
+<li>a-&gt;b 为平凡函数依赖（b 为a 的子集）</li>
+<li>a是模式超码</li>
+</ul>
+<p>BCNF不一定保持依赖</p>
+</blockquote>
+</li>
+<li>3NF：具有函数依赖集Ｆ＋的关系模式<blockquote>
+<p>Ｆ+中任意a-&gt;b 的函数依赖，其中a属于Ｒ且b属于Ｒ，以下至少一个成立</p>
+<ul>
+<li>a-&gt;b 为平凡函数依赖（b 为a 的子集）</li>
+<li>a是模式超码</li>
+<li>b-a 中每个属性Ａ都包含在Ｒ的候选码中<br>3NF无损且保持依赖<br>不存在非主属性对主码的传递依赖</li>
+</ul>
+</blockquote>
+</li>
+<li>多值依赖？</li>
+<li>连接依赖？</li>
+</ul>
+<h3 id="储存结构文件结构（数据库系统实现）"><a href="#储存结构文件结构（数据库系统实现）" class="headerlink" title="储存结构文件结构（数据库系统实现）"></a>储存结构文件结构（数据库系统实现）</h3><h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><ul>
+<li>按搜索码顺序存储，搜索码对应索引为主索引</li>
+<li>稠密索引：每个搜索码值有一个索引记录</li>
+<li>稀疏索引：搜索码值　＋　搜索码值指向具有该搜索码值的第一个数据项<blockquote>
+<p>稀疏索引空间小，易维护，开销小，稀疏索引放入主存，查找迅速</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="B-树索引"><a href="#B-树索引" class="headerlink" title="B+树索引"></a>B+树索引</h3><ul>
+<li>每个节点最多包含　n-1个搜索码值和ｎ个子节点指针</li>
+<li>B+树非叶节点形成叶节点的多级稀疏索引，叶节点顺序链接</li>
+<li>B+树为平衡树，根到任一叶子节点路径长度相同，非叶节点只起索引作用</li>
+<li>B树搜索码只出现一次，增加一个指向文件的指针，即非叶节点不仅是索引作用，也指向具体记录或者文件</li>
+<li>B树中查询一次访问节点数取决于节点位置，找到即停止，B+树必须找到叶节点才能确定记录位置</li>
+<li>散列索引<ul>
+<li>闭散列：增加溢出桶</li>
+<li>开散列：线性搜索（删除比较麻烦）</li>
+</ul>
+</li>
+<li>动态索引？</li>
+<li>网格索引和分段散列适用于多属性查询<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">CREATE [UNIQUE]INDEX &lt;index-name&gt; ON &lt;realtion-name&gt; (&lt;attribute-list&gt;)</div><div class="line">DROP INDEX &lt;index-name&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="查询处理"><a href="#查询处理" class="headerlink" title="查询处理"></a>查询处理</h2><h3 id="选择运算"><a href="#选择运算" class="headerlink" title="选择运算"></a>选择运算</h3><ul>
+<li>A1：线性搜索，平均代价Br/2，最坏情况Br</li>
+<li>A2: 二分搜索，属性有序，代价[logBr]<h4 id="索引选择"><a href="#索引选择" class="headerlink" title="索引选择"></a>索引选择</h4></li>
+<li>A3: (主索引，码属性等值比较)可以检索到唯一一条满足条件的记录，代价：B+树树高加上读取一条记录I/O代价</li>
+<li>A4: (主索引，非码属性等值比较)主索引可以检索到多条满足条件的记录，且多条记录顺序存储，代价：B+树树高加上具有搜索码值的盘块数</li>
+<li>A5: (辅助索引，等值比较)索引字段为码属性直接得到一条记录．索引字段为非码属性，得到多条记录<h4 id="比较选择"><a href="#比较选择" class="headerlink" title="比较选择"></a>比较选择</h4></li>
+<li>A6: (主索引，比较)B+树有序主索引</li>
+<li>A7: (辅助索引，比较)有序辅助索引，小值从小段开始，大值从　大端开始<h4 id="比较选择-1"><a href="#比较选择-1" class="headerlink" title="比较选择"></a>比较选择</h4></li>
+<li>A8: 索引合取（取交）先现则满足一个条件的记录，加入缓冲区，在缓冲区中验证其他条件</li>
+<li>A9: (组合所用合取)直接利用合适的符合索引查询</li>
+<li>A10: (记录标识符的交)每个条件遍历标记一边，取所有被标记的交际</li>
+<li>A11: (记录标识符的并）逐一扫描索引获取满足单个条件的元祖指针，将所有指针集做并集</li>
+</ul>
+<h3 id="连接运算"><a href="#连接运算" class="headerlink" title="连接运算"></a>连接运算</h3><ul>
+<li>嵌套循环（重名属性会出现）</li>
+<li>块嵌套循环，每次在块内循环嵌套检查元组匹配，有效减少比较次数</li>
+<li>索引嵌套循环连接：嵌套循环连接的内层如果有索引，使用索引代替循环</li>
+<li>归并链接：用于自然链接和等值连接<ul>
+<li>双有序直接有序归并</li>
+<li>单有序，归并后，对索引项进行按地址排序，可实现有序</li>
+</ul>
+</li>
+<li>消除重复: 代价高，明确声明是否去重<ul>
+<li>归并/散列可直接在过程中消除重复</li>
+</ul>
+</li>
+<li>集合<ul>
+<li>并集：　Hr建立散列索引，将Hs中元组加入到上诉散列索引中，条件是该元组不在散列索引中，散列索引最终即结果</li>
+<li>交集：　Hr建立散列索引，对Hs中元组探查散列索引，出现在散列索引的记录放入结果</li>
+<li>差集：　Hr建立散列索引，对Hs中元组探查散列索引，出现在散列索引的记录从索引中删除</li>
+</ul>
+</li>
+</ul>
+<h3 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h3><ul>
+<li>计算连接法：</li>
+<li>左外连接：计算链接，将左集未参与链接集合扩展放入结果</li>
+<li>右外连接：计算链接，将右集未参与链接集合扩展放入结果</li>
+<li>全外连接：计算链接，将左右集未参与链接集合扩展放入结果<ul>
+<li>嵌套修改法<ul>
+<li>左外连接：左边外循环，右表内循环，内外匹配加入结果，内部均不匹配的外记录也加入结果</li>
+<li>右外连接：右边外循环，左表内循环，内外匹配加入结果，内部均不匹配的外记录也加入结果</li>
+</ul>
+</li>
+<li>扩展归并连接获得自然链接和等值全外联<ul>
+<li>归并完成，将不与另一关系任一记录匹配的记录加入结果<h3 id="启发优化"><a href="#启发优化" class="headerlink" title="启发优化"></a>启发优化</h3></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>合取选择分解为单个选择</li>
+<li>选择运算下推到最早执行位置</li>
+<li>选择与链接合并求取最小元组数关系</li>
+<li>选择加笛卡尔积替换成链接</li>
+<li>投影分解下移</li>
+</ul>
+<h3 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h3><ul>
+<li>事务性质：原子性，一致性，隔离性，持久性<blockquote>
+</blockquote>
+</li>
+<li>原子性：事务未完成则回复原值<ul>
+<li>db-pointer 指向影子副本，更新完成时指向影子副本</li>
+</ul>
+</li>
+<li>持久性：<ul>
+<li>事务更细在事务完成前已写入磁盘</li>
+<li>事务执行的更新和已写更新信息充分，故障时可重新构造数据库</li>
+</ul>
+</li>
+<li>交换非冲突指令得出冲突等价，等价与串行执行时，即为冲突可串行化</li>
+<li>两个视图中读取的值来源形同，写进的值来源相同，即试图等价</li>
+<li>每个冲突可串行化都是视图可串行化的，但存在非冲突可串行化视图可以串行化调度</li>
+<li>冲突可串行化判定：构造无环优先图（拓扑排序）<h3 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h3></li>
+<li>锁授予<blockquote>
+<p>不存在冲突锁</p>
+</blockquote>
+</li>
+<li>两阶段锁<ul>
+<li>增长阶段：只加锁，不释放</li>
+<li>缩减阶段：可释放，不申请新锁<blockquote>
+<p>两阶段封锁不能保证避免死锁</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>严格两阶段事务锁：事务持有的排它锁必须在事务提交后才能释放</li>
+<li>强两阶段事务锁：事务提交前不释放任何锁</li>
+<li><p>树协议</p>
+<ul>
+<li>首次加锁直接执行</li>
+<li>之后加锁前提是必须先获得父项的锁</li>
+<li>解锁随时可以进行</li>
+<li>一个数据项加锁解锁后不能再加锁（只可加锁解锁一次）<blockquote>
+<p>树协议保证冲突可串行化，保证避免死锁</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>时间戳</p>
+<blockquote>
+<p>每个数据项Ｑ维持两个时间戳关联数据</p>
+<ul>
+<li>成功执行写操作最大时间Wtimestap</li>
+<li>成功执行读操作最大时间Rtimestap</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>事务Ti发出read(Q)操作<ul>
+<li>TS(Ti) &lt; Wtimestap，　Ti 需要读入的Q值已经被覆盖，read 操作被拒绝，Ti回滚</li>
+<li>TS(Ti) &gt;= Wtimestap， 执行read操作，Rtimestap更新为　max(Rtimestap,TS(Ti))</li>
+</ul>
+</li>
+<li>事务Ti发出write(Q)操作<ul>
+<li>TS(Ti) &lt; Rtimestap，　Ti 产生的Q值先前被覆盖，write操作被拒绝</li>
+<li>TS(Ti) &lt;  Wtimestap， Ti 想写入Q值过时，Ti 拒绝，回滚</li>
+<li>其他执行write,　Wtimestap设为TS(Ti)<h3 id="死锁预防"><a href="#死锁预防" class="headerlink" title="死锁预防"></a>死锁预防</h3></li>
+</ul>
+</li>
+<li>事务开始前封锁它的全部数据项</li>
+<li>抢占与事务回滚<ul>
+<li>wait-die机制非抢占：老事务等待新事务释放数据项</li>
+<li>wound-die机制抢占：老事务不等待新事物</li>
+</ul>
+</li>
+<li>锁超时：事务等待锁超时自动回滚</li>
+<li><p>幻象冲突：两事务就数据项是否存在产生不一致</p>
+<ul>
+<li>解决：在关系上加锁，插入数据项的事务需要排它锁，将和其他事务在以存在数据项上冲突</li>
+<li>问题：两个插入事务将冲突，并发程度降低</li>
+</ul>
+</li>
+<li><p>有效性检查</p>
+<blockquote>
+<p>事务读入局部变量并修改，然后进行有效性检查，有效时写入数据库</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="恢复"><a href="#恢复" class="headerlink" title="恢复"></a>恢复</h2><ul>
+<li>undo日志：事务更新的数据行回复为旧值</li>
+<li>redo日志：事务更新的数据项更新为新值</li>
+<li>事务Ti需要undo, 如果日志记录包含<ti start="">,但不包含<ti commit=""></ti></ti></li>
+<li>事务Ti需要redo, 如果日志记录包含<ti start="">, 又包含<ti commit=""></ti></ti></li>
+<li>从后向前扫描遇到第一个<ti, start=""><blockquote>
+</blockquote>
+</ti,></li>
+<li>主存日志记录输出到稳定存储器上</li>
+<li>所有修改了的缓冲块输出到磁盘</li>
+<li>将日志记录<checkpoint>输出到稳定存储器<h3 id="重启动回复"><a href="#重启动回复" class="headerlink" title="重启动回复"></a>重启动回复</h3><blockquote>
+<p>崩溃回复时：构造undo-list和redo-list事务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- 从后向前扫描日志，直到发现第一个&lt;checkpoint&gt;</div><div class="line">- 对每一个形如&lt;Ti commit&gt;, 将Ti加入redo-list</div><div class="line">- 对每一个形如&lt;Ti start&gt;, 如果Ti不属于redo-list ,Ti 加入undo-list</div><div class="line">- 构造完成后，从后向前重新扫描日志，执行undo-list记录undo操作</div><div class="line">- 找出最后一个cjeckpoint,从前向后扫描执行redo-list中的redo事务</div></pre></td></tr></table></figure>
+</blockquote>
+</checkpoint></li>
+</ul>
+<h4 id="FLAG"><a href="#FLAG" class="headerlink" title="FLAG"></a>FLAG</h4><blockquote>
+<p>立下FLAG,已经看到15章，后几章一定要看的涉及数据库体系结构、分布式数据库、高级查询、授权</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SQl/" rel="tag">#SQl</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/12/decision-tree/" rel="next" title="decision tree">
+                <i class="fa fa-chevron-left"></i> decision tree
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="TheOneAC" />
+          <p class="site-author-name" itemprop="name">TheOneAC</p>
+          <p class="site-description motion-element" itemprop="description">生如逆旅  一苇可航</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">categories</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">tags</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/TheOneAc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:scuhss@Gamil.com" target="_blank" title="Email">
+                  
+                    <i class="fa fa-fw fa-envelope"></i>
+                  
+                  Email
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.quora.com/profile/SCUhss-%E9%BB%84%E5%B8%85" target="_blank" title="Quora">
+                  
+                    <i class="fa fa-fw fa-comments"></i>
+                  
+                  Quora
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/huang-shuai-4" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#E-R"><span class="nav-number">1.</span> <span class="nav-text">E-R</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#E-R转表"><span class="nav-number">1.1.</span> <span class="nav-text">E-R转表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关系模型"><span class="nav-number">2.</span> <span class="nav-text">关系模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL"><span class="nav-number">2.1.</span> <span class="nav-text">SQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完整性约束"><span class="nav-number">2.2.</span> <span class="nav-text">完整性约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模式分解"><span class="nav-number">2.3.</span> <span class="nav-text">模式分解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#储存结构文件结构（数据库系统实现）"><span class="nav-number">2.4.</span> <span class="nav-text">储存结构文件结构（数据库系统实现）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引"><span class="nav-number">2.5.</span> <span class="nav-text">索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树索引"><span class="nav-number">2.6.</span> <span class="nav-text">B+树索引</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询处理"><span class="nav-number">3.</span> <span class="nav-text">查询处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#选择运算"><span class="nav-number">3.1.</span> <span class="nav-text">选择运算</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#索引选择"><span class="nav-number">3.1.1.</span> <span class="nav-text">索引选择</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#比较选择"><span class="nav-number">3.1.2.</span> <span class="nav-text">比较选择</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#比较选择-1"><span class="nav-number">3.1.3.</span> <span class="nav-text">比较选择</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接运算"><span class="nav-number">3.2.</span> <span class="nav-text">连接运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#外连接"><span class="nav-number">3.3.</span> <span class="nav-text">外连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启发优化"><span class="nav-number">3.4.</span> <span class="nav-text">启发优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事务"><span class="nav-number">3.5.</span> <span class="nav-text">事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#并发"><span class="nav-number">3.6.</span> <span class="nav-text">并发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#死锁预防"><span class="nav-number">3.7.</span> <span class="nav-text">死锁预防</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#恢复"><span class="nav-number">4.</span> <span class="nav-text">恢复</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重启动回复"><span class="nav-number">4.1.</span> <span class="nav-text">重启动回复</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#FLAG"><span class="nav-number">4.1.1.</span> <span class="nav-text">FLAG</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016.7.14 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">TheOneAC</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

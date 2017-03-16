@@ -250,6 +250,413 @@
             
               
                 
+                <a class="post-title-link" href="/2017/03/16/再看数据库系统概念/" itemprop="url">
+                  再看数据库系统概念
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2017-03-16T20:54:15+08:00" content="2017-03-16">
+              2017-03-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/SQL/" itemprop="url" rel="index">
+                    <span itemprop="name">SQL</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <hr>
+<h2 id="E-R"><a href="#E-R" class="headerlink" title="E-R"></a>E-R</h2><ul>
+<li>实体集：同类同性质实体</li>
+<li>联系集：同类联系集合</li>
+<li>属性／实体：强关联属性，弱关联单独出实体</li>
+<li>超码：一个或多个属性集，唯一标识一个实体</li>
+<li>候选码：任何真子集不为超码，即最小超码</li>
+</ul>
+<p>###　实体联系图</p>
+<ul>
+<li>矩形：实体</li>
+<li>椭圆：属性</li>
+<li>菱形：联系</li>
+<li>双椭圆：多值属性</li>
+<li><p>虚椭圆：派生属性</p>
+</li>
+<li><p>弱实体集：属性不足以形成主码，依赖于强实体集</p>
+</li>
+<li>特殊化：实体集内部分组</li>
+<li>概括：高层实体集包含底层实体集</li>
+<li>概括／特殊化<ul>
+<li>高层属性和联系适用于底层</li>
+<li>底层特有属性只限自身<h3 id="E-R转表"><a href="#E-R转表" class="headerlink" title="E-R转表"></a>E-R转表</h3></li>
+</ul>
+</li>
+<li>实体集直接转表</li>
+<li>弱实体集表加入依赖强实体集主码</li>
+<li>联系集：联系实体主键　＋　联系属性</li>
+<li>多值属相创建新表</li>
+</ul>
+<h2 id="关系模型"><a href="#关系模型" class="headerlink" title="关系模型"></a>关系模型</h2><ul>
+<li>选择：元组</li>
+<li>投影：属性</li>
+<li>并／差<ul>
+<li>关系同元：属性数目相同</li>
+<li>对应属性域相同</li>
+</ul>
+</li>
+<li>交</li>
+<li>自然链接：笛卡尔积，童淑星相等性选择，去重</li>
+<li>广义投影：投影之后算数扩展</li>
+<li>外链接：链接之后扩展缺失信息</li>
+</ul>
+<blockquote>
+<p>视图定义时之存储定义本身，每次查询都会重新计算</p>
+<h3 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h3><ul>
+<li>SELECT　投影</li>
+<li>FROM  笛卡尔积</li>
+<li>WHERE 谓词运算<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">SELECT [distinct] A1,A2,A3....</div><div class="line">FROM r1,r2 ,r3.....</div><div class="line">WHERE P</div><div class="line">ORDER by  [asc/desc]</div><div class="line">GROUP by </div><div class="line">HAVING</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>LIKE<ul>
+<li>%:任意字串</li>
+<li>_ :任意字符</li>
+</ul>
+</li>
+<li>集合操作: UNION [ALL]/ INTERSECT/ EXCEPT</li>
+<li>聚集函数：　avg/sum/max/min/count<blockquote>
+</blockquote>
+</li>
+<li>测试子元组集是否为空：exist/not exist</li>
+<li><p>测试子查询是否含重：unique/not unique</p>
+</li>
+<li><p>视图：create v as <query expression=""></query></p>
+</li>
+<li><p>删除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">DELETE FROM account</div><div class="line">WHERE balance &lt; (SELECT AVG(balance)</div><div class="line">                    FROM account)</div></pre></td></tr></table></figure>
+</li>
+<li><p>插入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">INSERT INTO account(name1, name2, name3)</div><div class="line">            VALUES(&quot;v1&quot;, &quot;v2&quot;, &quot;v3&quot;)</div></pre></td></tr></table></figure>
+</li>
+<li><p>更新</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">UPDATE acount</div><div class="line">SET balance  = balance * 1.5</div><div class="line">WHERE balance &gt; SELECT ARG(balance)</div><div class="line">                        FROM account</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="完整性约束"><a href="#完整性约束" class="headerlink" title="完整性约束"></a>完整性约束</h3><ul>
+<li>参照完整性<ul>
+<li>联系集参照完整性：依赖于各实体集主码</li>
+<li>弱实体集参照完整性：依赖于强实体集主码</li>
+</ul>
+</li>
+<li>外键参照级联<blockquote>
+<p>正则覆盖：关系模式上函数依赖集Ｆ，在该关系上做任何更新时，必须保证Ｆ中所有函数依赖在新数据库下满足，否则回滚该更新操作<br>Ｆ的正则依赖集Fc:</p>
+</blockquote>
+</li>
+<li>包含Ｆ中全部依赖关系</li>
+<li>函数依赖的左半部唯一</li>
+</ul>
+<h3 id="模式分解"><a href="#模式分解" class="headerlink" title="模式分解"></a>模式分解</h3><ul>
+<li>子关系连接合并后投影可得原关系则为无损分解（分解不引起记录增加）</li>
+<li>保持依赖：分解后依赖集蕴含全部原依赖集依赖关系</li>
+<li><p>BDNF：具有函数依赖集Ｆ＋的关系模式</p>
+<blockquote>
+<p>Ｆ+中任意a-&gt;b 的函数依赖，其中a属于Ｒ且b属于Ｒ，以下至少一个成立</p>
+<ul>
+<li>a-&gt;b 为平凡函数依赖（b 为a 的子集）</li>
+<li>a是模式超码</li>
+</ul>
+<p>BCNF不一定保持依赖</p>
+</blockquote>
+</li>
+<li>3NF：具有函数依赖集Ｆ＋的关系模式<blockquote>
+<p>Ｆ+中任意a-&gt;b 的函数依赖，其中a属于Ｒ且b属于Ｒ，以下至少一个成立</p>
+<ul>
+<li>a-&gt;b 为平凡函数依赖（b 为a 的子集）</li>
+<li>a是模式超码</li>
+<li>b-a 中每个属性Ａ都包含在Ｒ的候选码中<br>3NF无损且保持依赖<br>不存在非主属性对主码的传递依赖</li>
+</ul>
+</blockquote>
+</li>
+<li>多值依赖？</li>
+<li>连接依赖？</li>
+</ul>
+<h3 id="储存结构文件结构（数据库系统实现）"><a href="#储存结构文件结构（数据库系统实现）" class="headerlink" title="储存结构文件结构（数据库系统实现）"></a>储存结构文件结构（数据库系统实现）</h3><h3 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h3><ul>
+<li>按搜索码顺序存储，搜索码对应索引为主索引</li>
+<li>稠密索引：每个搜索码值有一个索引记录</li>
+<li>稀疏索引：搜索码值　＋　搜索码值指向具有该搜索码值的第一个数据项<blockquote>
+<p>稀疏索引空间小，易维护，开销小，稀疏索引放入主存，查找迅速</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="B-树索引"><a href="#B-树索引" class="headerlink" title="B+树索引"></a>B+树索引</h3><ul>
+<li>每个节点最多包含　n-1个搜索码值和ｎ个子节点指针</li>
+<li>B+树非叶节点形成叶节点的多级稀疏索引，叶节点顺序链接</li>
+<li>B+树为平衡树，根到任一叶子节点路径长度相同，非叶节点只起索引作用</li>
+<li>B树搜索码只出现一次，增加一个指向文件的指针，即非叶节点不仅是索引作用，也指向具体记录或者文件</li>
+<li>B树中查询一次访问节点数取决于节点位置，找到即停止，B+树必须找到叶节点才能确定记录位置</li>
+<li>散列索引<ul>
+<li>闭散列：增加溢出桶</li>
+<li>开散列：线性搜索（删除比较麻烦）</li>
+</ul>
+</li>
+<li>动态索引？</li>
+<li>网格索引和分段散列适用于多属性查询<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">CREATE [UNIQUE]INDEX &lt;index-name&gt; ON &lt;realtion-name&gt; (&lt;attribute-list&gt;)</div><div class="line">DROP INDEX &lt;index-name&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="查询处理"><a href="#查询处理" class="headerlink" title="查询处理"></a>查询处理</h2><h3 id="选择运算"><a href="#选择运算" class="headerlink" title="选择运算"></a>选择运算</h3><ul>
+<li>A1：线性搜索，平均代价Br/2，最坏情况Br</li>
+<li>A2: 二分搜索，属性有序，代价[logBr]<h4 id="索引选择"><a href="#索引选择" class="headerlink" title="索引选择"></a>索引选择</h4></li>
+<li>A3: (主索引，码属性等值比较)可以检索到唯一一条满足条件的记录，代价：B+树树高加上读取一条记录I/O代价</li>
+<li>A4: (主索引，非码属性等值比较)主索引可以检索到多条满足条件的记录，且多条记录顺序存储，代价：B+树树高加上具有搜索码值的盘块数</li>
+<li>A5: (辅助索引，等值比较)索引字段为码属性直接得到一条记录．索引字段为非码属性，得到多条记录<h4 id="比较选择"><a href="#比较选择" class="headerlink" title="比较选择"></a>比较选择</h4></li>
+<li>A6: (主索引，比较)B+树有序主索引</li>
+<li>A7: (辅助索引，比较)有序辅助索引，小值从小段开始，大值从　大端开始<h4 id="比较选择-1"><a href="#比较选择-1" class="headerlink" title="比较选择"></a>比较选择</h4></li>
+<li>A8: 索引合取（取交）先现则满足一个条件的记录，加入缓冲区，在缓冲区中验证其他条件</li>
+<li>A9: (组合所用合取)直接利用合适的符合索引查询</li>
+<li>A10: (记录标识符的交)每个条件遍历标记一边，取所有被标记的交际</li>
+<li>A11: (记录标识符的并）逐一扫描索引获取满足单个条件的元祖指针，将所有指针集做并集</li>
+</ul>
+<h3 id="连接运算"><a href="#连接运算" class="headerlink" title="连接运算"></a>连接运算</h3><ul>
+<li>嵌套循环（重名属性会出现）</li>
+<li>块嵌套循环，每次在块内循环嵌套检查元组匹配，有效减少比较次数</li>
+<li>索引嵌套循环连接：嵌套循环连接的内层如果有索引，使用索引代替循环</li>
+<li>归并链接：用于自然链接和等值连接<ul>
+<li>双有序直接有序归并</li>
+<li>单有序，归并后，对索引项进行按地址排序，可实现有序</li>
+</ul>
+</li>
+<li>消除重复: 代价高，明确声明是否去重<ul>
+<li>归并/散列可直接在过程中消除重复</li>
+</ul>
+</li>
+<li>集合<ul>
+<li>并集：　Hr建立散列索引，将Hs中元组加入到上诉散列索引中，条件是该元组不在散列索引中，散列索引最终即结果</li>
+<li>交集：　Hr建立散列索引，对Hs中元组探查散列索引，出现在散列索引的记录放入结果</li>
+<li>差集：　Hr建立散列索引，对Hs中元组探查散列索引，出现在散列索引的记录从索引中删除</li>
+</ul>
+</li>
+</ul>
+<h3 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h3><ul>
+<li>计算连接法：</li>
+<li>左外连接：计算链接，将左集未参与链接集合扩展放入结果</li>
+<li>右外连接：计算链接，将右集未参与链接集合扩展放入结果</li>
+<li>全外连接：计算链接，将左右集未参与链接集合扩展放入结果<ul>
+<li>嵌套修改法<ul>
+<li>左外连接：左边外循环，右表内循环，内外匹配加入结果，内部均不匹配的外记录也加入结果</li>
+<li>右外连接：右边外循环，左表内循环，内外匹配加入结果，内部均不匹配的外记录也加入结果</li>
+</ul>
+</li>
+<li>扩展归并连接获得自然链接和等值全外联<ul>
+<li>归并完成，将不与另一关系任一记录匹配的记录加入结果<h3 id="启发优化"><a href="#启发优化" class="headerlink" title="启发优化"></a>启发优化</h3></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>合取选择分解为单个选择</li>
+<li>选择运算下推到最早执行位置</li>
+<li>选择与链接合并求取最小元组数关系</li>
+<li>选择加笛卡尔积替换成链接</li>
+<li>投影分解下移</li>
+</ul>
+<h3 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h3><ul>
+<li>事务性质：原子性，一致性，隔离性，持久性<blockquote>
+</blockquote>
+</li>
+<li>原子性：事务未完成则回复原值<ul>
+<li>db-pointer 指向影子副本，更新完成时指向影子副本</li>
+</ul>
+</li>
+<li>持久性：<ul>
+<li>事务更细在事务完成前已写入磁盘</li>
+<li>事务执行的更新和已写更新信息充分，故障时可重新构造数据库</li>
+</ul>
+</li>
+<li>交换非冲突指令得出冲突等价，等价与串行执行时，即为冲突可串行化</li>
+<li>两个视图中读取的值来源形同，写进的值来源相同，即试图等价</li>
+<li>每个冲突可串行化都是视图可串行化的，但存在非冲突可串行化视图可以串行化调度</li>
+<li>冲突可串行化判定：构造无环优先图（拓扑排序）<h3 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h3></li>
+<li>锁授予<blockquote>
+<p>不存在冲突锁</p>
+</blockquote>
+</li>
+<li>两阶段锁<ul>
+<li>增长阶段：只加锁，不释放</li>
+<li>缩减阶段：可释放，不申请新锁<blockquote>
+<p>两阶段封锁不能保证避免死锁</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>严格两阶段事务锁：事务持有的排它锁必须在事务提交后才能释放</li>
+<li>强两阶段事务锁：事务提交前不释放任何锁</li>
+<li><p>树协议</p>
+<ul>
+<li>首次加锁直接执行</li>
+<li>之后加锁前提是必须先获得父项的锁</li>
+<li>解锁随时可以进行</li>
+<li>一个数据项加锁解锁后不能再加锁（只可加锁解锁一次）<blockquote>
+<p>树协议保证冲突可串行化，保证避免死锁</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>时间戳</p>
+<blockquote>
+<p>每个数据项Ｑ维持两个时间戳关联数据</p>
+<ul>
+<li>成功执行写操作最大时间Wtimestap</li>
+<li>成功执行读操作最大时间Rtimestap</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li>事务Ti发出read(Q)操作<ul>
+<li>TS(Ti) &lt; Wtimestap，　Ti 需要读入的Q值已经被覆盖，read 操作被拒绝，Ti回滚</li>
+<li>TS(Ti) &gt;= Wtimestap， 执行read操作，Rtimestap更新为　max(Rtimestap,TS(Ti))</li>
+</ul>
+</li>
+<li>事务Ti发出write(Q)操作<ul>
+<li>TS(Ti) &lt; Rtimestap，　Ti 产生的Q值先前被覆盖，write操作被拒绝</li>
+<li>TS(Ti) &lt;  Wtimestap， Ti 想写入Q值过时，Ti 拒绝，回滚</li>
+<li>其他执行write,　Wtimestap设为TS(Ti)<h3 id="死锁预防"><a href="#死锁预防" class="headerlink" title="死锁预防"></a>死锁预防</h3></li>
+</ul>
+</li>
+<li>事务开始前封锁它的全部数据项</li>
+<li>抢占与事务回滚<ul>
+<li>wait-die机制非抢占：老事务等待新事务释放数据项</li>
+<li>wound-die机制抢占：老事务不等待新事物</li>
+</ul>
+</li>
+<li>锁超时：事务等待锁超时自动回滚</li>
+<li><p>幻象冲突：两事务就数据项是否存在产生不一致</p>
+<ul>
+<li>解决：在关系上加锁，插入数据项的事务需要排它锁，将和其他事务在以存在数据项上冲突</li>
+<li>问题：两个插入事务将冲突，并发程度降低</li>
+</ul>
+</li>
+<li><p>有效性检查</p>
+<blockquote>
+<p>事务读入局部变量并修改，然后进行有效性检查，有效时写入数据库</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="恢复"><a href="#恢复" class="headerlink" title="恢复"></a>恢复</h2><ul>
+<li>undo日志：事务更新的数据行回复为旧值</li>
+<li>redo日志：事务更新的数据项更新为新值</li>
+<li>事务Ti需要undo, 如果日志记录包含<ti start="">,但不包含<ti commit=""></ti></ti></li>
+<li>事务Ti需要redo, 如果日志记录包含<ti start="">, 又包含<ti commit=""></ti></ti></li>
+<li>从后向前扫描遇到第一个<ti, start=""><blockquote>
+</blockquote>
+</ti,></li>
+<li>主存日志记录输出到稳定存储器上</li>
+<li>所有修改了的缓冲块输出到磁盘</li>
+<li>将日志记录<checkpoint>输出到稳定存储器<h3 id="重启动回复"><a href="#重启动回复" class="headerlink" title="重启动回复"></a>重启动回复</h3><blockquote>
+<p>崩溃回复时：构造undo-list和redo-list事务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- 从后向前扫描日志，直到发现第一个&lt;checkpoint&gt;</div><div class="line">- 对每一个形如&lt;Ti commit&gt;, 将Ti加入redo-list</div><div class="line">- 对每一个形如&lt;Ti start&gt;, 如果Ti不属于redo-list ,Ti 加入undo-list</div><div class="line">- 构造完成后，从后向前重新扫描日志，执行undo-list记录undo操作</div><div class="line">- 找出最后一个cjeckpoint,从前向后扫描执行redo-list中的redo事务</div></pre></td></tr></table></figure>
+</blockquote>
+</checkpoint></li>
+</ul>
+<h4 id="FLAG"><a href="#FLAG" class="headerlink" title="FLAG"></a>FLAG</h4><blockquote>
+<p>立下FLAG,已经看到15章，后几章一定要看的涉及数据库体系结构、分布式数据库、高级查询、授权</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/03/12/decision-tree/" itemprop="url">
                   decision tree
                 </a>
@@ -1862,185 +2269,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/23/算法导论-系列二：排序/" itemprop="url">
-                  算法导论 系列二：排序
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-12-23T22:26:02+08:00" content="2016-12-23">
-              2016-12-23
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/CLRS/" itemprop="url" rel="index">
-                    <span itemprop="name">CLRS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h4><ul>
-<li>完全二叉树实现：节点i的左子2i，右子2i+1，父节点i/2<ul>
-<li>build_max_heap 复杂度O(n)</li>
-<li>heap_sort 复杂度O(nlgn)n取最小</li>
-<li>inset extract_max max_heap 复杂度均为O(n)</li>
-</ul>
-</li>
-<li>保持堆性质（递归下调）<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161223211606370-606442304.png" alt=""></li>
-<li>建堆：O(n)次 调用 max_heap复杂为O（lgn）准确上界为O（n）<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161223211825886-1508300400.png" alt=""></li>
-<li>直接构造堆时间复杂度为O(n)， 插入构造堆复杂度为O(nlgn)<h3 id="优先级队列"><a href="#优先级队列" class="headerlink" title="优先级队列"></a>优先级队列</h3></li>
-<li>内部由堆实现<ul>
-<li>抽取最大值<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161223213945979-895297262.png" alt=""></li>
-</ul>
-</li>
-</ul>
-<h3 id="堆操作分析"><a href="#堆操作分析" class="headerlink" title="堆操作分析"></a>堆操作分析</h3><ul>
-<li>建堆：从n/2至0调用求最大，调整位置使得根最大</li>
-<li>插入：直接插入数组尾部，递归向上调整，保持堆性质</li>
-<li>删除最值：直接交换根和尾值。缩小空间（-1），递归向下调整保持堆性质</li>
-<li>优先队列操作间接调用堆操作</li>
-<li>k路归并，构建k路小根堆，每次取最小值，复杂度O(nlgk）<h4 id="快排"><a href="#快排" class="headerlink" title="快排"></a>快排</h4></li>
-<li>找出pivit，以pivot为轴心做一次partition，分割成两个子集，对子集递归调用快排</li>
-<li>partiiton过程<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161223215246948-413701979.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161223220130198-2017095297.png" alt=""></li>
-<li>快排性能分析：划分极端不对称时，复杂度退化为O(n^2)序列有序时性能退化最严重</li>
-<li>随机化版本：随机选取pivot<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161223215837276-1160478488.png" alt=""></li>
-<li>利用随机化版本，快排期望时间复杂度为O(nlgn)</li>
-</ul>
-<h3 id="线性时间排序"><a href="#线性时间排序" class="headerlink" title="线性时间排序"></a>线性时间排序</h3><ul>
-<li>计数排序<ul>
-<li>n个输入元素每一个都介于0~k之间，且k=O(n)</li>
-<li>对每一个输入的元素x都直接确定出比x小的元素的个数，则可以直接将其放入排序后的位置<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161223221244214-1375705305.png" alt=""></li>
-<li>倒序插入是为了保证稳定性，即值相同元素的插入顺序与排序前顺序保持一致 </li>
-</ul>
-</li>
-<li>基数排序<ul>
-<li>先按低位排序，然后递归的的向高位排序</li>
-<li>复杂度O(d(n+k))</li>
-</ul>
-</li>
-<li>桶排序<ul>
-<li>输入均匀分布时，可以达到线性时间复杂度</li>
-<li>桶内以插入排序实现<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224111332292-332685886.png" alt=""></li>
-<li>θ（n） + n*O(2-1/n) = θ（n）</li>
-</ul>
-</li>
-<li>中位数<ul>
-<li>随机选择算法:平均情况下，顺序统计量可在O(n)复杂度内得到，最坏时间复杂度为O(n^2)<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224130636307-2014096638.png" alt=""></li>
-<li>最坏时间复杂度为O(n)的顺序统计量 </li>
-<li>pivot 的选择以中位数的中位数来衡量，保证避免最坏划分（组划分size&gt;=5的奇数个，都可以保证线性时间复杂度）<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224134317886-2015706043.png" alt=""></li>
-<li>select 方法嵌入快排的partition，可以使得快排的最坏时间复杂度为O(nlgn)</li>
-<li>任意序列的O(n)算法<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224141252589-263737126.png" alt=""></li>
-<li>寻找两个已排序数组 （长度均为n）的中位数<br><img src="http://images2015.cnblogs.com/blog/900750/201612/900750-20161224142328182-668268882.png" alt=""></li>
-<li>找出已排序的前i个最大数<ul>
-<li>排序，输出前i个数，复杂度θ(nlgn)</li>
-<li>建立优先队列，输出i次最大值θ(n+ilgn)</li>
-<li>顺序统计量量找出第i大元素，然后以第i大元素作为pivot进行partition，将partiton结果排序 θ(n +ilgi)</li>
-<li>顺序读入元素，维护一个i个元素的大根堆，依次输出堆中元素。复杂度 θ（nlgi）</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2081,7 +2314,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">51</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -2098,7 +2331,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

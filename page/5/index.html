@@ -250,6 +250,141 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/28/C Primier Plus Dynamic-Memory /" itemprop="url">
+                  Dynamic Memory
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">Posted on</span>
+            <time itemprop="dateCreated" datetime="2016-07-28T18:30:47+08:00" content="2016-07-28">
+              2016-07-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Dynamic-Memory-and-Smart-Pointers"><a href="#Dynamic-Memory-and-Smart-Pointers" class="headerlink" title="Dynamic Memory and Smart Pointers"></a>Dynamic Memory and Smart Pointers</h3><p>shared_ptr:<br>init: make_shared&lt; Type &gt;(args);   shared_ptr&lt; Type &gt;(q); p=q;<br>function :<br>p.unique() if count return 1 truw,else false.<br>p.use_count() return the number of object sharing with p.<br>make_shared. allocates and initializes an object in dynamic memory and returns a shared_ptr that points to that object.<code>shared_ptr&lt;string&gt; p4 = make_shared&lt;string&gt;(10, &#39;9&#39;);</code><br><strong>new</strong> returns a pointer to the object it allocates:<code>int *pi = new int;</code><br>By default, dynamically allocated objects are default initialized, which means that objects of built-in or compound type have undefined value<br>Like any other const, a dynamically allocated const object must be initialized.<br><code>const string *pcs = new const string;</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">int *p1 = new int; // if allocation fails, new throws std::bad_alloc</div><div class="line">int *p2 = new (nothrow) int; // if allocation fails, new returns a null pointer</div></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>Functions that return pointers (rather than smart pointers) to dynamic memory put a<br>burden on their callers—the caller must remember to delete the memory</strong></p>
+</blockquote>
+<h2 id="Dynamic-memory-managed-through-built-in-pointers-rather-than-smart-pointers-exists-until-it-is-explicitly-freed"><a href="#Dynamic-memory-managed-through-built-in-pointers-rather-than-smart-pointers-exists-until-it-is-explicitly-freed" class="headerlink" title="Dynamic memory managed through built-in pointers (rather than smart pointers) exists until it is explicitly freed."></a><strong>Dynamic memory managed through built-in pointers (rather than smart pointers) exists until it is explicitly freed.</strong></h2><p><strong>three common problems with using new and delete</strong></p>
+<ol>
+<li>Forgetting to delete memory. Neglecting to delete dynamic memory is known as a “memory leak,”</li>
+<li>Using an object after it has been deleted.</li>
+<li>Deleting the same memory twice.</li>
+</ol>
+<p><strong>dangling pointer</strong>:When we delete a pointer, that pointer becomes invalid.but the pointer continues to hold the address of the (freed) dynamic memory.<br>we cannot implicitly convert a built-in pointer to a smart pointer; we must use<br>the direct form of initialization to initialize a smart pointer<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">shared_ptr&lt;int&gt; p1 = new int(1024); // error: must use direct initialization</div><div class="line">shared_ptr&lt;int&gt; p2(new int(1024)); // ok: uses direct initialization</div></pre></td></tr></table></figure></p>
+<p>use <strong>reset</strong> to assign a new pointer to a shared_ptr.</p>
+<h2 id="In-particular-classes-that-are-designed-to-be-used-by-both-C-and-C-generally-require-the-user-to-specifically-free-any-resources-that-are-used"><a href="#In-particular-classes-that-are-designed-to-be-used-by-both-C-and-C-generally-require-the-user-to-specifically-free-any-resources-that-are-used" class="headerlink" title="In particular, classes that are designed to be used by both C and C++ generally require the user to specifically free any resources that are used."></a>In particular, classes that are designed to be used by both C and C++ generally require the user to specifically free any resources that are used.</h2><p>unique_ptr:”owns” the object which it points.<br>so it doesn`t support ordinary copy and assignment.<br>but can transfer ownership fron one (nonconst)unique_ptr to another by calling release or set.<br><code>// transfers ownership from p3 to p2
+p2.reset(p3.release()); 
+// reset deletes the memory to which p2 had pointed</code><br>only one unique_ptr at a time can point to  a given object.<br>unique_ptr destroyed so the object it point to.<br>u.release() :return the pointer u had held and makes u null;<br>u.reset() :deletes the object to which i pointes;<br>u.reset(q) :if the built-in pointer q is supplied ,makes u pointe to that object.<br>u=nullptr; deletes the object to which u points,makes u null;<br>unique_ptr : bind to a pointer<br><strong><a href="http://stackoverflow.com/questions/6876751/differences-between-unique-ptr-and-shared-ptr" target="_blank" rel="external">http://stackoverflow.com/questions/6876751/differences-between-unique-ptr-and-shared-ptr</a></strong></p>
+<h3 id="weak-ptr"><a href="#weak-ptr" class="headerlink" title="weak_ptr"></a>weak_ptr</h3><p>not control the lifetime of the object it point to.<br>bind a weak_ptr to a shared_ptr not change the reference count of that shared_ptr.<br><strong>weak</strong>:Once the last shared_ptr pointing to the object goes away, the object itself will be deleted. That object will be deleted even if there are weak_ptrs pointing to it.<br>The <strong>lock</strong> function checks whether the object to which the weak_ptr points still exists. If so, lock returns a shared_ptr to the shared object.</p>
+<h3 id="Dynamic-Arrays"><a href="#Dynamic-Arrays" class="headerlink" title="Dynamic Arrays"></a>Dynamic Arrays</h3><p>Classes that allocate dynamic arrays must define their own versions of these operations to manage the associated memory when objects are copied, assigned, and destroyed.<br><code>int *pia = new int[get_size()]; 
+// pia points to the first of these ints</code><br>The size inside the brackets must have integral type but need not be a constant.</p>
+<blockquote>
+<p><strong>Allocating an Array Yields a Pointer to the Element Type</strong></p>
+</blockquote>
+<p>shared_ptrs provide no direct support for managing a dynamic array. If we want to use a shared_ptr to manage a dynamic array, we must provide our own deleter:<br><code>shared_ptr&lt;int&gt; sp(new int[10], [](int *p) { delete[] p; });
+sp.reset(); // uses the lambda we supplied that uses delete[] to free the array</code><br>classes that do not have default constructors cannot be dynamically allocated as an array.<br><strong>allocator</strong>: provides type-aware allocation of raw, unconstructed, memory.<br>We must construct objects in order to use memory returned by<br>allocate. Using unconstructed memory in other ways is undefined.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/28/C Primier Plus Associative containers/" itemprop="url">
                   Associative Containers
                 </a>
@@ -934,7 +1069,7 @@
           
             <div class="post-gallery-row">
               <a class="post-gallery-img fancybox"
-                 href="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" rel="gallery_cj06l7o2z000l6ooue6fq1wbz"
+                 href="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" rel="gallery_cj0ceicjx000usaou52lgex8z"
                  itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
                 <img src="http://abstrusegoose.com/strips/ars_longa_vita_brevis.png" itemprop="contentUrl"/>
               </a>
@@ -1351,144 +1486,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/05/Git-command/" itemprop="url">
-                  Git command
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">Posted on</span>
-            <time itemprop="dateCreated" datetime="2016-07-05T21:33:22+08:00" content="2016-07-05">
-              2016-07-05
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Notes/" itemprop="url" rel="index">
-                    <span itemprop="name">Notes</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-        <div class="post-gallery" itemscope itemtype="http://schema.org/ImageGallery">
-          
-          
-            <div class="post-gallery-row">
-              <a class="post-gallery-img fancybox"
-                 href="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" rel="gallery_cj06l7oaq002r6oou0q8gvecm"
-                 itemscope itemtype="http://schema.org/ImageObject" itemprop="url">
-                <img src="http://static.open-open.com/lib/uploadImg/20141231/20141231103110_607.jpg" itemprop="contentUrl"/>
-              </a>
-            
-          
-
-          
-          </div>
-        </div>
-      
-
-      
-        
-          <p><img src="http://www.runoob.com/manual/github-git-cheat-sheet.pdf" alt="Git Command Sheet"><br>$ git add forgotten_file<br>$ git checkout branch1<br>$ git commit –amend :overwrite the previous commit<br>$ git commit -m ‘initial commit’</p>
-<h2 id="git-rebase-master-git-merge-master-branch1"><a href="#git-rebase-master-git-merge-master-branch1" class="headerlink" title="$ git rebase master    #git  merge master branch1"></a>$ git rebase master    #git  merge master branch1</h2><hr>
-<p>1.one branch is the ancester of another -&gt; fast-forward<br>2.two  branch has commom ancester -&gt; recursive strategy<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/05/Git-command/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1529,7 +1531,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">50</span>
+              <span class="site-state-item-count">51</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -1546,7 +1548,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
